@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>一問一答ポータル - 戦国合戦Ver.</title>
+  <style>
+    :root {
+      --primary: #8b0000; /* 漆黒・深紅 */
+      --success: #28a745;
+      --danger: #dc3545;
+      --bg: #120c0a;
+      --card-bg: rgba(25, 20, 20, 0.88);
+    }
+
+    body {
+      font-family: "Hiragino Mincho ProN", "Yu Mincho", -apple-system, BlinkMacSystemFont, serif;
+      background-color: var(--bg);
+      /* ⚔️ 戦国荒野風の背景（赤黒い雲・荒涼とした大地イメージ） */
+      background:
+        radial-gradient(circle at 50% 30%, rgba(139, 0, 0, 0.3) 0%, transparent 70%),
+        linear-gradient(to bottom, #1a0f0d 0%, #0d0806 60%, #050302 100%);
+      color: #eaeaea;
+      margin: 0;
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end; /* 🎯 全体を下寄りに配置 */
+      align-items: center;
+      min-height: 100vh;
+      box-sizing: border-box;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* 教科選択画面は敵の立ち絵がないため、カードを画面中央に置く */
+    body.home-layout {
+      justify-content: center;
+    }
+
+    body.home-layout .app-container {
+      margin-bottom: 0;
+    }
+
+    /* 戦国の荒野：火の粉や霞の演出用オーバーレイ */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: radial-gradient(circle at 50% 100%, rgba(255, 68, 0, 0.08) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    /* 🎯 アプリメイン容器（画面中央～下部に配置） */
+    .app-container {
+      width: 100%;
+      max-width: 500px;
+      background: var(--card-bg);
+      border: 1px solid #5a3825;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.8), 0 0 15px rgba(139, 0, 0, 0.3);
+      position: relative;
+      z-index: 10;
+      backdrop-filter: blur(10px);
+      margin-bottom: 20px;
+      box-sizing: border-box;
+    }
+
+    h1, h2 {
+      text-align: center;
+      margin-top: 0;
+      color: #f3a852;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+    }
+
+    h1 { font-size: 1.4rem; }
+    h2 { font-size: 1.2rem; }
+
+    button, input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 12px;
+      border: 1px solid #664433;
+      border-radius: 8px;
+      font-size: 1rem;
+      box-sizing: border-box;
+      background: #2a1f1b;
+      color: #fff;
+    }
+
+    button {
+      background: linear-gradient(180deg, #8b1a1a 0%, #5c0e0e 100%);
+      color: #ffe6d0;
+      border: 1px solid #a33232;
+      font-weight: bold;
+      cursor: pointer;
+      text-shadow: 0 1px 2px #000;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    }
+
+    button:active { opacity: 0.9; transform: translateY(1px); }
+    button:disabled {
+      background: #443833 !important;
+      border-color: #554842 !important;
+      color: #887770 !important;
+      cursor: not-allowed;
+    }
+
+    /* 教科選択グリッド */
+    .subject-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 15px;
+    }
+
+    .subject-btn {
+      padding: 20px 10px;
+      font-size: 1.1rem;
+      background: linear-gradient(180deg, #3a2a24 0%, #241915 100%);
+      color: #f0e0d0;
+      border: 1px solid #775544;
+      margin-bottom: 0;
+    }
+
+    /* 分野・カテゴリチェックボックス */
+    .category-group {
+      background: rgba(0, 0, 0, 0.4);
+      padding: 15px;
+      border: 1px solid #443028;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+
+    .category-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+      font-size: 1rem;
+      cursor: pointer;
+      color: #ddd;
+    }
+
+    .category-item input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      margin-right: 10px;
+      cursor: pointer;
+    }
+
+    .select-tools {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .select-tools button {
+      padding: 6px 12px;
+      font-size: 0.85rem;
+      background: #4a3b35;
+      border-color: #665248;
+      margin-bottom: 0;
+    }
+
+    .stats {
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid #44332a;
+      padding: 8px 10px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-around;
+      text-align: center;
+      color: #cca;
+    }
+
+    /* -----------------------------------
+       👹 画面上部中央：敵キャラ立ち絵エリア
+    ----------------------------------- */
+    .enemy-stage {
+      position: fixed;
+      top: 50px; /* HPゲージの直下に配置 */
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      max-width: 500px;
+      height: 220px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 5;
+      pointer-events: none;
+    }
+
+    /* 小さめに配置された敵立ち絵 */
+    .enemy-sprite {
+      max-width: 180px;  /* 🎯 小さめのサイズ感 */
+      max-height: 180px;
+      object-fit: contain;
+      filter: drop-shadow(0 10px 15px rgba(0,0,0,0.9)) drop-shadow(0 0 10px rgba(255, 0, 0, 0.3));
+      transition: transform 0.2s, filter 0.3s;
+      /* 待機中は上下させ、生きているように見せる（数値を小さくするほど速くなる） */
+      animation: enemy-idle 2.2s ease-in-out infinite;
+      transform-origin: center bottom;
+    }
+
+    /* 呼吸するような上下動。浮くほど影が離れて柔らかくなる */
+    @keyframes enemy-idle {
+      0%, 100% {
+        transform: translateY(0) scale(1);
+        filter: drop-shadow(0 10px 15px rgba(0,0,0,0.9)) drop-shadow(0 0 10px rgba(255, 0, 0, 0.3));
+      }
+      50% {
+        transform: translateY(-7px) scale(1.015);
+        filter: drop-shadow(0 18px 20px rgba(0,0,0,0.7)) drop-shadow(0 0 20px rgba(255, 0, 0, 0.5));
+      }
+    }
+
+    /* 動きが苦手な人のために、設定でオフにできるようにする */
+    @media (prefers-reduced-motion: reduce) {
+      .enemy-sprite { animation: none; }
+    }
+
+    /* ダメージ時の立ち絵演出 */
+    .enemy-sprite.shake {
+      animation: enemy-hit 0.4s ease-in-out;
+    }
+
+    @keyframes enemy-hit {
+      0% { transform: scale(1); filter: brightness(1); }
+      20% { transform: scale(1.15) rotate(-5deg); filter: brightness(3) drop-shadow(0 0 30px #ff0055); }
+      40% { transform: scale(0.9) rotate(5deg); filter: brightness(2) drop-shadow(0 0 20px #00ffff); }
+      60% { transform: scale(1.05); }
+      100% { transform: scale(1); filter: brightness(1); }
+    }
+
+    .enemy-sprite.defeated {
+      animation: enemy-defeated 1.2s forwards;
+    }
+
+    @keyframes enemy-defeated {
+      0% { transform: scale(1); opacity: 1; filter: brightness(5) drop-shadow(0 0 50px white); }
+      50% { transform: scale(1.2) translateY(-20px); opacity: 0.8; filter: brightness(10) drop-shadow(0 0 80px red); }
+      100% { transform: scale(0) translateY(50px); opacity: 0; }
+    }
+
+    /* -----------------------------------
+       🩸 画面上部固定 UI（HPバー）
+    ----------------------------------- */
+    .fixed-battle-ui {
+      position: fixed;
+      top: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90%;
+      max-width: 500px;
+      z-index: 20;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      pointer-events: none;
+    }
+
+    .hp-container {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      border: 2px solid #8b0000;
+      border-radius: 10px;
+      height: 22px;
+      overflow: hidden;
+      box-shadow: 0 0 15px rgba(139, 0, 0, 0.8);
+    }
+
+    .hp-bar {
+      height: 100%;
+      width: 100%;
+      background: linear-gradient(to right, #e63946, #ff758c);
+      transition: width 0.4s ease-out;
+    }
+
+    .combo-badge {
+      margin-top: 4px;
+      background: linear-gradient(45deg, #ff0055, #ffaa00);
+      color: #fff;
+      font-weight: 900;
+      font-size: 0.95rem;
+      padding: 2px 12px;
+      border-radius: 12px;
+      box-shadow: 0 0 12px #ff0055;
+      opacity: 0;
+      transform: scale(0.5);
+      transition: all 0.3s;
+    }
+
+    .combo-badge.show {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* 💥 全画面エフェクト層 */
+    .full-fx-layer {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      pointer-events: none;
+      z-index: 15;
+      overflow: hidden;
+    }
+
+    /* 衝撃波・斬撃（敵の立ち絵の位置：top: 140px 周辺に発生） */
+    .impact-effect {
+      position: absolute;
+      top: 140px;
+      left: 50%;
+      width: 10px; height: 10px;
+      background: radial-gradient(circle, #ffffff 10%, #ff4500 40%, rgba(255,0,0,0) 70%);
+      border-radius: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      opacity: 0;
+    }
+
+    .impact-effect.active { animation: impact-ring 0.45s ease-out; }
+
+    @keyframes impact-ring {
+      0% { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+      100% { transform: translate(-50%, -50%) scale(60); opacity: 0; }
+    }
+
+    .slash-effect {
+      position: absolute;
+      top: 140px;
+      left: 50%;
+      width: 0; height: 12px;
+      background: #ffffff;
+      box-shadow: 0 0 30px #ff3300, 0 0 60px #ffaa00;
+      transform: translate(-50%, -50%) rotate(-35deg);
+      opacity: 0;
+      border-radius: 6px;
+    }
+
+    .slash-effect.active { animation: slash-anim 0.35s cubic-bezier(0.1, 0.8, 0.3, 1); }
+
+    @keyframes slash-anim {
+      0% { width: 0; opacity: 1; transform: translate(-50%, -50%) rotate(-35deg) scaleY(1); }
+      50% { width: 120vw; opacity: 1; transform: translate(-50%, -50%) rotate(-35deg) scaleY(3); }
+      100% { width: 140vw; opacity: 0; transform: translate(-50%, -50%) rotate(-35deg) scaleY(0.1); }
+    }
+
+    /* ダメージ数値 */
+    .damage-num {
+      position: absolute;
+      top: 90px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 3rem;
+      font-weight: 900;
+      color: #ffea00;
+      text-shadow: 0 0 15px #ffea00, 3px 3px 0 #000;
+      opacity: 0;
+      font-style: italic;
+      white-space: nowrap;
+    }
+
+    .damage-num.active { animation: pop-damage 0.85s ease-out; }
+
+    @keyframes pop-damage {
+      0% { transform: translate(-50%, 20px) scale(0.3); opacity: 1; }
+      40% { transform: translate(-50%, -15px) scale(1.2); opacity: 1; }
+      100% { transform: translate(-50%, -40px) scale(1); opacity: 0; }
+    }
+
+    /* ----------------------------------- */
+
+    .question-card {
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid #553a2e;
+      padding: 15px;
+      border-radius: 8px;
+      min-height: 65px;
+      font-size: 1.05rem;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      line-height: 1.5;
+    }
+
+    .feedback {
+      margin-top: 10px;
+      padding: 10px;
+      border-radius: 8px;
+      font-weight: bold;
+      text-align: center;
+      display: none;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .feedback.correct {
+      background-color: rgba(40, 167, 69, 0.2);
+      border: 1px solid var(--success);
+      color: #72e08a;
+      display: block;
+    }
+
+    .feedback.incorrect {
+      background-color: rgba(220, 53, 69, 0.2);
+      border: 1px solid var(--danger);
+      color: #ff8e98;
+      display: block;
+    }
+
+    /* 📜 解説（正解・不正解にかかわらず必ず表示する） */
+    .explanation {
+      margin-top: 12px;
+      padding: 14px 16px;
+      background: linear-gradient(180deg, rgba(62, 46, 31, 0.55) 0%, rgba(28, 21, 16, 0.6) 100%);
+      border: 1px solid #6b5236;
+      border-left: 4px solid #f3a852;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      line-height: 1.85;
+      color: #f2e8da;
+      text-align: left;
+      max-height: 45vh;
+      overflow-y: auto;
+    }
+
+    .explanation-title {
+      display: block;
+      color: #f3a852;
+      font-weight: bold;
+      font-size: 0.85rem;
+      letter-spacing: 0.15em;
+      margin-bottom: 6px;
+    }
+
+    /* 🏆 ご褒美：正解を重ねるほど解像度が上がる絵巻 */
+    .reward-panel {
+      margin-top: 18px;
+      padding: 14px;
+      background: rgba(0, 0, 0, 0.45);
+      border: 1px solid #6b5236;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .reward-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-size: 0.85rem;
+      color: #f3a852;
+      margin-bottom: 10px;
+    }
+
+    .reward-level {
+      font-weight: bold;
+      letter-spacing: 0.05em;
+    }
+
+    .reward-frame {
+      display: inline-block;
+      padding: 6px;
+      background: linear-gradient(145deg, #6b5236, #2a1f18);
+      border-radius: 6px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.7);
+      cursor: pointer;
+      line-height: 0;
+    }
+
+    .reward-canvas {
+      width: 190px;
+      height: 285px;
+      display: block;
+      background: #100b09;
+      border-radius: 3px;
+    }
+
+    .reward-bar {
+      margin: 12px 0 6px;
+      height: 8px;
+      background: rgba(0, 0, 0, 0.6);
+      border: 1px solid #55402c;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+
+    .reward-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(to right, #b9832f, #ffd479);
+      transition: width 0.6s ease-out;
+    }
+
+    .reward-caption {
+      font-size: 0.82rem;
+      color: #ccb89a;
+      line-height: 1.6;
+    }
+
+    /* 拡大表示のオーバーレイ */
+    .reward-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(5, 3, 2, 0.94);
+      z-index: 50;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      padding: 20px;
+      box-sizing: border-box;
+      cursor: pointer;
+    }
+
+    .reward-overlay canvas {
+      max-width: 100%;
+      max-height: 78vh;
+      border-radius: 6px;
+      box-shadow: 0 0 40px rgba(0, 0, 0, 0.9);
+    }
+
+    .reward-overlay p {
+      margin: 0;
+      color: #ccb89a;
+      font-size: 0.85rem;
+      text-align: center;
+    }
+
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body class="home-layout">
+
+<!-- 👹 画面上部中央：小さめの敵立ち絵 -->
+<div id="enemy-stage" class="enemy-stage hidden">
+  <img id="enemy-sprite" class="enemy-sprite" src="boss.png" alt="敵武将">
+</div>
+
+<!-- 💥 全画面攻撃エフェクト層 -->
+<div id="full-fx-layer" class="full-fx-layer hidden">
+  <div id="impact" class="impact-effect"></div>
+  <div id="slash" class="slash-effect"></div>
+  <div id="damage" class="damage-num">9999!</div>
+</div>
+
+<!-- 🩸 画面最上部固定：HPバー -->
+<div id="fixed-battle-ui" class="fixed-battle-ui hidden">
+  <div class="hp-container">
+    <div id="hp-bar" class="hp-bar"></div>
+  </div>
+  <div id="combo-badge" class="combo-badge">0 COMBO!</div>
+</div>
+
+<!-- 🏆 絵巻の拡大表示 -->
+<div id="reward-overlay" class="reward-overlay hidden">
+  <canvas id="reward-overlay-canvas" width="720" height="1080"></canvas>
+  <p id="reward-overlay-caption"></p>
+</div>
+
+<!-- 🎯 メインカード（画面中央から下部に配置） -->
+<div class="app-container">
+  <!-- 1. ホーム画面（教科選択） -->
+  <div id="home-screen">
+    <h1>一問一答 学習合戦</h1>
+    <p style="text-align: center; color: #bba;">出陣する教科を選択してください</p>
+
+    <div class="subject-grid">
+      <button class="subject-btn" onclick="selectSubject('history', '歴史', '時代')">📜 歴史</button>
+      <button class="subject-btn" onclick="selectSubject('math', '数学', '分野')">📐 数学</button>
+      <button class="subject-btn" onclick="selectSubject('science', '理科', '分野')">🧪 理科</button>
+      <button class="subject-btn" onclick="selectSubject('geography', '地理', '地方・分野')">🌍 地理</button>
+      <button class="subject-btn" onclick="selectSubject('english', '英語', 'ジャンル')" style="grid-column: span 2;">🔤 英単語・文法</button>
+    </div>
+  </div>
+
+  <!-- 2. 分野設定画面 -->
+  <div id="setup-screen" class="hidden">
+    <h2 id="subject-title">教科名</h2>
+    <label><b id="category-label">出題分野を選択:</b></label>
+
+    <div class="select-tools">
+      <button type="button" id="select-all-btn">全選択</button>
+      <button type="button" id="deselect-all-btn">全解除</button>
+    </div>
+
+    <div class="category-group" id="category-checkboxes">
+      <!-- JavaScriptで動的生成 -->
+    </div>
+
+    <button id="start-btn">いざ出陣（学習開始）</button>
+    <button id="review-btn" style="background: #4a3b35;">復習戦 (0件)</button>
+    <button onclick="goHome()" style="background: #332822; margin-top: 5px;">本陣へ戻る</button>
+
+    <!-- 🏆 正解数に応じて解像度が上がる絵巻 -->
+    <div class="reward-panel">
+      <div class="reward-header">
+        <span id="reward-title">絵巻</span>
+        <span id="reward-level" class="reward-level">Lv.0 / 6</span>
+      </div>
+      <div class="reward-frame" id="reward-frame">
+        <canvas id="reward-canvas" class="reward-canvas" width="380" height="570"></canvas>
+      </div>
+      <div class="reward-bar"><div id="reward-bar-fill" class="reward-bar-fill"></div></div>
+      <div id="reward-caption" class="reward-caption"></div>
+    </div>
+  </div>
+
+  <!-- 3. クイズ画面 -->
+  <div id="quiz-screen" class="hidden">
+    <div class="stats">
+      <div>合戦: <span id="current-mode"></span></div>
+      <div>正答率: <span id="accuracy">0%</span></div>
+      <div>進捗: <span id="progress">0/0</span></div>
+    </div>
+
+    <div class="question-card" id="question-text">
+      問題を読み込み中...
+    </div>
+
+    <form id="answer-form">
+      <input type="text" id="answer-input" placeholder="回答を入力" autocomplete="off" required>
+      <button type="submit" id="submit-btn">一撃を叩き込む！</button>
+    </form>
+
+    <div id="feedback" class="feedback"></div>
+    <div id="explanation" class="explanation hidden"></div>
+    <button id="next-btn" class="hidden" style="margin-top: 10px; background: #28a745;">次の問題へ</button>
+    <button id="back-setup-btn" style="background: #4a3b35; margin-top: 10px;">陣形選択に戻る</button>
+  </div>
+</div>
+
+<script>
+  // この正答率で敵のHPがちょうど0になるようにダメージ量を配分する
+  const DEFEAT_ACCURACY = 0.9;
+  // 解答時間の判定（秒）
+  const CRITICAL_SEC = 3.0;  // これ以内なら会心の一撃
+  const COMBO_SEC = 5.0;     // これを超えると連撃が途切れ、ダメージが減る
+
+  // 🏆 ご褒美の絵巻：教科ごとの累計正解数に応じて解像度が上がる
+  const REWARD_TITLES = {
+    history: '絵巻 ─ 戦国の智将',
+    math: '絵巻 ─ 兵法の軍師',
+    science: '絵巻 ─ 万象の錬成師',
+    geography: '絵巻 ─ 旅路の踏破者',
+    english: '絵巻 ─ 大海の冒険者',
+  };
+
+  // need: 到達に必要な累計正解数 / blocks: 横方向の分割数（大きいほど鮮明、null で原寸表示）
+  const REWARD_STEPS = [
+    { need: 0,   blocks: 6 },
+    { need: 10,  blocks: 12 },
+    { need: 25,  blocks: 20 },
+    { need: 50,  blocks: 36 },
+    { need: 85,  blocks: 64 },
+    { need: 125, blocks: 120 },
+    { need: 170, blocks: null },
+  ];
+  const REWARD_MAX_LEVEL = REWARD_STEPS.length - 1;
+
+  let rewardImage = null;
+  let correctTotal = 0;
+  let sessionStartLevel = 0;
+
+  let currentSubjectKey = '';
+  let currentSubjectName = '';
+  let allQuestions = [];
+  let currentSessionQuestions = [];
+  let currentQuestionIndex = 0;
+  let correctCount = 0;
+  let answeredCount = 0;
+  let wrongQuestions = [];
+
+  let questionStartTime = 0;
+  let sessionStartTime = 0;
+  let enemyHp = 100;
+  let baseDamagePerQuestion = 0;
+  let comboCount = 0;
+  let maxComboCount = 0;
+
+  function selectSubject(key, name, labelText) {
+    currentSubjectKey = key;
+    currentSubjectName = name;
+
+    document.getElementById('subject-title').textContent = `${name} 一問一答`;
+    document.getElementById('category-label').textContent = `出題する${labelText}を選択:`;
+
+    wrongQuestions = JSON.parse(localStorage.getItem(`wrongQuestions_${key}`) || '[]');
+    correctTotal = parseInt(localStorage.getItem(`correctTotal_${key}`), 10) || 0;
+    loadRewardImage(key);
+
+    fetch(`${key}.json`)
+      .then(response => {
+        if (!response.ok) throw new Error();
+        return response.json();
+      })
+      .then(data => {
+        allQuestions = data;
+        initSetupScreen();
+        document.body.classList.remove('home-layout');
+        document.getElementById('home-screen').classList.add('hidden');
+        document.getElementById('setup-screen').classList.remove('hidden');
+      })
+      .catch(err => alert(`${name}のデータ (${key}.json) の読み込みに失敗しました。`));
+  }
+
+  function initSetupScreen() {
+    const categories = [...new Set(allQuestions.map(q => q.category))];
+    const container = document.getElementById('category-checkboxes');
+    container.innerHTML = '';
+
+    categories.forEach(cat => {
+      const label = document.createElement('label');
+      label.className = 'category-item';
+
+      const checkbox = document.createElement('input');
+      checkbox.type = 'checkbox';
+      checkbox.value = cat;
+      checkbox.checked = true;
+      checkbox.addEventListener('change', updateReviewBtn);
+
+      label.appendChild(checkbox);
+      label.appendChild(document.createTextNode(cat));
+      container.appendChild(label);
+    });
+
+    updateReviewBtn();
+    updateRewardPanel();
+  }
+
+  // ----- 🏆 ご褒美の絵巻 -----
+
+  function loadRewardImage(key) {
+    rewardImage = null;
+    const img = new Image();
+    img.onload = () => { rewardImage = img; updateRewardPanel(); };
+    img.onerror = () => { rewardImage = null; updateRewardPanel(); };
+    img.src = `rewards/${key}.jpg`;
+  }
+
+  function rewardLevel(total) {
+    let level = 0;
+    REWARD_STEPS.forEach((step, i) => {
+      if (total >= step.need) level = i;
+    });
+    return level;
+  }
+
+  function drawReward(canvas, level) {
+    const ctx = canvas.getContext('2d');
+    const w = canvas.width;
+    const h = canvas.height;
+
+    ctx.clearRect(0, 0, w, h);
+    if (!rewardImage) {
+      ctx.fillStyle = '#2a1f18';
+      ctx.fillRect(0, 0, w, h);
+      return;
+    }
+
+    const blocks = REWARD_STEPS[level].blocks;
+    if (blocks === null) {
+      ctx.imageSmoothingEnabled = true;
+      ctx.drawImage(rewardImage, 0, 0, w, h);
+      return;
+    }
+
+    // いったん極小サイズに描いてから引き伸ばすことでモザイクをつくる
+    const small = document.createElement('canvas');
+    small.width = blocks;
+    small.height = Math.max(1, Math.round(blocks * h / w));
+
+    const sctx = small.getContext('2d');
+    sctx.imageSmoothingEnabled = true;
+    sctx.drawImage(rewardImage, 0, 0, small.width, small.height);
+
+    ctx.imageSmoothingEnabled = false;
+    ctx.drawImage(small, 0, 0, w, h);
+  }
+
+  function updateRewardPanel() {
+    const level = rewardLevel(correctTotal);
+
+    document.getElementById('reward-title').textContent = REWARD_TITLES[currentSubjectKey] || '絵巻';
+    document.getElementById('reward-level').textContent = `Lv.${level} / ${REWARD_MAX_LEVEL}`;
+    drawReward(document.getElementById('reward-canvas'), level);
+
+    const fill = document.getElementById('reward-bar-fill');
+    const caption = document.getElementById('reward-caption');
+
+    if (level >= REWARD_MAX_LEVEL) {
+      fill.style.width = '100%';
+      caption.textContent = `累計${correctTotal}問正解。絵巻は完全に開かれた！（タップで拡大）`;
+    } else {
+      const from = REWARD_STEPS[level].need;
+      const to = REWARD_STEPS[level + 1].need;
+      fill.style.width = `${Math.round((correctTotal - from) / (to - from) * 100)}%`;
+      caption.textContent =
+        `累計${correctTotal}問正解 ／ あと${to - correctTotal}問の正解でLv.${level + 1}、絵巻がより鮮明になる`;
+    }
+  }
+
+  document.getElementById('reward-frame').addEventListener('click', () => {
+    if (!rewardImage) return;
+    const level = rewardLevel(correctTotal);
+    drawReward(document.getElementById('reward-overlay-canvas'), level);
+    document.getElementById('reward-overlay-caption').textContent =
+      `${REWARD_TITLES[currentSubjectKey]}　Lv.${level} / ${REWARD_MAX_LEVEL}（画面をタップで閉じる）`;
+    document.getElementById('reward-overlay').classList.remove('hidden');
+  });
+
+  document.getElementById('reward-overlay').addEventListener('click', () => {
+    document.getElementById('reward-overlay').classList.add('hidden');
+  });
+
+  function getSelectedCategories() {
+    const checkboxes = document.querySelectorAll('#category-checkboxes input[type="checkbox"]:checked');
+    return Array.from(checkboxes).map(cb => cb.value);
+  }
+
+  document.getElementById('select-all-btn').addEventListener('click', () => {
+    document.querySelectorAll('#category-checkboxes input[type="checkbox"]').forEach(cb => cb.checked = true);
+    updateReviewBtn();
+  });
+
+  document.getElementById('deselect-all-btn').addEventListener('click', () => {
+    document.querySelectorAll('#category-checkboxes input[type="checkbox"]').forEach(cb => cb.checked = false);
+    updateReviewBtn();
+  });
+
+  function updateReviewBtn() {
+    const selectedCats = getSelectedCategories();
+    const filteredWrong = wrongQuestions.filter(q => selectedCats.includes(q.category));
+
+    const btn = document.getElementById('review-btn');
+    btn.textContent = `選択分野から復習 (${filteredWrong.length}件)`;
+    btn.disabled = filteredWrong.length === 0;
+
+    document.getElementById('start-btn').disabled = selectedCats.length === 0;
+  }
+
+  document.getElementById('start-btn').addEventListener('click', () => startQuiz(false));
+  document.getElementById('review-btn').addEventListener('click', () => startQuiz(true));
+
+  function startQuiz(isReviewMode) {
+    const selectedCats = getSelectedCategories();
+
+    if (isReviewMode) {
+      currentSessionQuestions = wrongQuestions.filter(q => selectedCats.includes(q.category));
+      document.getElementById('current-mode').textContent = "復習戦";
+    } else {
+      currentSessionQuestions = allQuestions.filter(q => selectedCats.includes(q.category));
+      document.getElementById('current-mode').textContent = "通常戦";
+    }
+
+    currentSessionQuestions.sort(() => Math.random() - 0.5);
+
+    currentQuestionIndex = 0;
+    correctCount = 0;
+    answeredCount = 0;
+    comboCount = 0;
+    maxComboCount = 0;
+    enemyHp = 100;
+    sessionStartLevel = rewardLevel(correctTotal);
+
+    sessionStartTime = Date.now();
+
+    const totalQ = currentSessionQuestions.length;
+    baseDamagePerQuestion = totalQ > 0 ? (100 / (totalQ * DEFEAT_ACCURACY)) : 100;
+
+    updateHpBar();
+    updateComboBadge();
+
+    // 敵立ち絵・UIを表示
+    document.getElementById('enemy-stage').classList.remove('hidden');
+    document.getElementById('full-fx-layer').classList.remove('hidden');
+    document.getElementById('fixed-battle-ui').classList.remove('hidden');
+
+    document.getElementById('setup-screen').classList.add('hidden');
+    document.getElementById('quiz-screen').classList.remove('hidden');
+    showQuestion();
+  }
+
+  function showQuestion() {
+    const enemySprite = document.getElementById('enemy-sprite');
+    enemySprite.className = 'enemy-sprite';
+
+    const q = currentSessionQuestions[currentQuestionIndex];
+    document.getElementById('question-text').textContent = `【${q.category}】 ${q.question}`;
+    const input = document.getElementById('answer-input');
+    input.value = '';
+    input.disabled = false;
+    input.focus();  // 続けてキーボードだけで解答できるようにする
+    document.getElementById('submit-btn').classList.remove('hidden');
+    document.getElementById('next-btn').classList.add('hidden');
+
+    const feedback = document.getElementById('feedback');
+    feedback.className = 'feedback';
+    feedback.textContent = '';
+    document.getElementById('explanation').classList.add('hidden');
+
+    updateStats();
+    questionStartTime = Date.now();
+  }
+
+  function updateStats() {
+    const accuracy = answeredCount === 0 ? 0 : Math.round((correctCount / answeredCount) * 100);
+    document.getElementById('accuracy').textContent = `${accuracy}%`;
+    document.getElementById('progress').textContent = `${currentQuestionIndex + 1}/${currentSessionQuestions.length}`;
+  }
+
+  function updateHpBar() {
+    const hpBar = document.getElementById('hp-bar');
+    hpBar.style.width = `${Math.max(0, enemyHp)}%`;
+  }
+
+  function updateComboBadge() {
+    const badge = document.getElementById('combo-badge');
+    if (comboCount >= 2) {
+      badge.textContent = `${comboCount} 連撃!🔥`;
+      badge.classList.add('show');
+    } else {
+      badge.classList.remove('show');
+    }
+  }
+
+  function triggerAttackEffect(timeSec) {
+    const enemySprite = document.getElementById('enemy-sprite');
+    const impact = document.getElementById('impact');
+    const slash = document.getElementById('slash');
+    const damage = document.getElementById('damage');
+
+    let multiplier = 1.0;
+    let label = '';
+
+    if (timeSec <= COMBO_SEC) {
+      comboCount++;
+      if (comboCount > maxComboCount) maxComboCount = comboCount;
+
+      if (comboCount >= 3) {
+        multiplier = 1.5;
+        label = `🔥 ${comboCount}連撃! `;
+      } else if (timeSec <= CRITICAL_SEC) {
+        multiplier = 1.2;
+        label = '⚡ 会心の一撃! ';
+      } else {
+        multiplier = 1.0;
+        label = '見事! ';
+      }
+    } else {
+      comboCount = 0;
+      multiplier = 0.7;
+      label = '浅い! ';
+    }
+
+    updateComboBadge();
+
+    const damagePercent = baseDamagePerQuestion * multiplier;
+    enemyHp -= damagePercent;
+    if (enemyHp < 0) enemyHp = 0;
+
+    updateHpBar();
+
+    const displayDamage = Math.round(damagePercent * 100);
+    damage.textContent = `${label}${displayDamage}`;
+
+    enemySprite.classList.remove('shake', 'defeated');
+    impact.classList.remove('active');
+    slash.classList.remove('active');
+    damage.classList.remove('active');
+
+    setTimeout(() => {
+      impact.classList.add('active');
+      slash.classList.add('active');
+      damage.classList.add('active');
+
+      if (enemyHp <= 0) {
+        enemySprite.classList.add('defeated');
+      } else {
+        enemySprite.classList.add('shake');
+      }
+    }, 10);
+  }
+
+  // 被弾アニメが終わったらクラスを外し、待機の上下動を再開させる
+  document.getElementById('enemy-sprite').addEventListener('animationend', (e) => {
+    if (e.animationName === 'enemy-hit') {
+      e.target.classList.remove('shake');
+    }
+  });
+
+  // 解答判定
+  document.getElementById('answer-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const input = document.getElementById('answer-input').value.trim();
+    const q = currentSessionQuestions[currentQuestionIndex];
+    const feedback = document.getElementById('feedback');
+
+    const answerTimeSec = (Date.now() - questionStartTime) / 1000;
+    answeredCount++;
+
+    document.getElementById('answer-input').disabled = true;
+    document.getElementById('submit-btn').classList.add('hidden');
+
+    const cleanInput = input.toLowerCase().replaceAll(' ', '');
+    const cleanAnswer = q.answer.toLowerCase().replaceAll(' ', '');
+
+    if (cleanInput === cleanAnswer) {
+      triggerAttackEffect(answerTimeSec);
+
+      correctCount++;
+      correctTotal++;
+      localStorage.setItem(`correctTotal_${currentSubjectKey}`, String(correctTotal));
+
+      feedback.className = "feedback correct";
+      feedback.textContent = `正解！⭕ (${answerTimeSec.toFixed(1)}秒)`;
+      wrongQuestions = wrongQuestions.filter(item => item.id !== q.id);
+
+    } else {
+      comboCount = 0;
+      updateComboBadge();
+
+      feedback.className = "feedback incorrect";
+      feedback.textContent = `無念…❌ (正答: ${q.answer})`;
+      if (!wrongQuestions.some(item => item.id === q.id)) {
+        wrongQuestions.push(q);
+      }
+    }
+
+    // 正解・不正解にかかわらず解説を読ませてから次へ進ませる
+    showExplanation(q);
+
+    const nextBtn = document.getElementById('next-btn');
+    nextBtn.textContent = enemyHp <= 0 ? '戦果を確認する' : '次の問題へ';
+    nextBtn.classList.remove('hidden');
+
+    updateStats();
+    localStorage.setItem(`wrongQuestions_${currentSubjectKey}`, JSON.stringify(wrongQuestions));
+    updateReviewBtn();
+  });
+
+  function showExplanation(q) {
+    const box = document.getElementById('explanation');
+    box.textContent = '';
+
+    const title = document.createElement('span');
+    title.className = 'explanation-title';
+    title.textContent = '📜 解 説';
+    box.appendChild(title);
+    box.appendChild(document.createTextNode(q.explanation || 'この問題の解説はまだ用意されていません。'));
+
+    box.classList.remove('hidden');
+    box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  // 敵を討ち取っていれば戦果報告へ、そうでなければ次の問題へ
+  function proceed() {
+    if (enemyHp <= 0) {
+      finishQuiz();
+    } else {
+      nextQuestion();
+    }
+  }
+
+  function nextQuestion() {
+    if (currentQuestionIndex + 1 < currentSessionQuestions.length) {
+      currentQuestionIndex++;
+      showQuestion();
+    } else {
+      finishQuiz();
+    }
+  }
+
+  function formatElapsedTime(seconds) {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return mins > 0 ? `${mins}分${secs}秒` : `${secs}秒`;
+  }
+
+  function finishQuiz() {
+    const totalQ = answeredCount;
+    const accuracyRate = totalQ === 0 ? 0 : Math.round((correctCount / totalQ) * 100);
+    const isDefeated = enemyHp <= 0;
+
+    const elapsedSeconds = Math.round((Date.now() - sessionStartTime) / 1000);
+    const timeFormatted = formatElapsedTime(elapsedSeconds);
+
+    const titleMsg = isDefeated ? "🎉 敵将討ち取ったりーッ！完全勝利！" : "💪 合戦終了！次回こそ討ち取らん！";
+
+    // 絵巻のレベルが上がっていれば、戦果報告で知らせる
+    const newLevel = rewardLevel(correctTotal);
+    let rewardMsg = '';
+    if (newLevel > sessionStartLevel) {
+      rewardMsg = newLevel >= REWARD_MAX_LEVEL
+        ? `\n\n🏆 絵巻が完全に開かれた！（Lv.${REWARD_MAX_LEVEL}）`
+        : `\n\n🏆 絵巻の解像度が上がった！ Lv.${sessionStartLevel} → Lv.${newLevel}`;
+    }
+
+    const summaryText =
+      `${titleMsg}\n\n` +
+      `-------------------------\n` +
+      `【戦果報告】\n` +
+      `・所要時間: ${timeFormatted}\n` +
+      `・討伐数: ${correctCount} / ${totalQ} 問\n` +
+      `・正答率: ${accuracyRate}%\n` +
+      `・最大連撃: ${maxComboCount} 連撃🔥\n` +
+      `-------------------------` +
+      rewardMsg;
+
+    alert(summaryText);
+    goSetup();
+  }
+
+  document.getElementById('next-btn').addEventListener('click', proceed);
+  document.getElementById('back-setup-btn').addEventListener('click', goSetup);
+
+  // 解答後は、次へボタンを押さなくてもエンターキーで次の問題へ進める
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Enter' || e.repeat || e.isComposing) return;
+    if (document.getElementById('quiz-screen').classList.contains('hidden')) return;
+    if (document.getElementById('next-btn').classList.contains('hidden')) return;
+
+    e.preventDefault();
+    proceed();
+  });
+
+  function hideBattleLayers() {
+    document.getElementById('enemy-stage').classList.add('hidden');
+    document.getElementById('full-fx-layer').classList.add('hidden');
+    document.getElementById('fixed-battle-ui').classList.add('hidden');
+  }
+
+  function goSetup() {
+    hideBattleLayers();
+    document.getElementById('quiz-screen').classList.add('hidden');
+    document.getElementById('setup-screen').classList.remove('hidden');
+    updateReviewBtn();
+    updateRewardPanel();
+  }
+
+  function goHome() {
+    hideBattleLayers();
+    document.body.classList.add('home-layout');
+    document.getElementById('setup-screen').classList.add('hidden');
+    document.getElementById('home-screen').classList.remove('hidden');
+  }
+</script>
+</body>
+</html>

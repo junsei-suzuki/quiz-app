@@ -1,0 +1,1682 @@
+[
+  {
+    "id": "e001",
+    "category": "英単語（名詞）",
+    "question": "「図書館」を英語1語で書きなさい。",
+    "answer": "library",
+    "explanation": "ラテン語で本を意味する liber が語源です。気をつけたいのは、library は本を借りる図書館で、本を買う本屋は bookstore だということ。英語で「本屋に行く」と言いたいのに library を使ってしまうミスは、とても多いので注意しましょう。"
+  },
+  {
+    "id": "e002",
+    "category": "英単語（名詞）",
+    "question": "「病院」を英語1語で書きなさい。",
+    "answer": "hospital",
+    "explanation": "実は hotel や hospitality（おもてなし）と同じ語源で、もとは「客をもてなす場所」という意味でした。昔の病院は、旅人や病人を泊めて世話をする施設だったのです。単語のつながりが見えると、一気に覚えやすくなりますね。"
+  },
+  {
+    "id": "e003",
+    "category": "英単語（名詞）",
+    "question": "「野菜」を英語1語で書きなさい。",
+    "answer": "vegetable",
+    "explanation": "語源は「活気づける」という意味のラテン語。野菜が元気のもとだと、昔の人も知っていたわけです。ちなみに vegetarian（ベジタリアン）はここから生まれた言葉。つづりが長いので、ve-ge-ta-ble と4つに区切って覚えましょう。"
+  },
+  {
+    "id": "e004",
+    "category": "英単語（名詞）",
+    "question": "「経験」を英語1語で書きなさい。",
+    "answer": "experience",
+    "explanation": "ex（外へ）+ peri（試す）が組み合わさった単語で、外に出ていろいろ試すことが経験、というわけです。同じ peri をもつ experiment は実験。どちらも「試す」が根っこにあると知ると、2つまとめて覚えられます。"
+  },
+  {
+    "id": "e005",
+    "category": "英単語（名詞）",
+    "question": "「環境」を英語1語で書きなさい。",
+    "answer": "environment",
+    "explanation": "動詞の environ（取り囲む）から生まれた言葉で、自分を取り囲むものすべてが環境という発想です。environmental problems（環境問題）は入試の長文で頻出。読み書きどちらでも使えるようにしておきたい単語です。"
+  },
+  {
+    "id": "e006",
+    "category": "英単語（名詞）",
+    "question": "「言語」を英語1語で書きなさい。",
+    "answer": "language",
+    "explanation": "語源はラテン語の lingua で、意味はなんと「舌」。話すために使う舌が、そのまま言葉を表す単語になりました。ちなみに bilingual（2か国語を話す）にも同じ lingua が隠れています。"
+  },
+  {
+    "id": "e007",
+    "category": "英単語（名詞）",
+    "question": "「水曜日」を英語1語で書きなさい。",
+    "answer": "Wednesday",
+    "explanation": "北欧神話の神ウォーデン（オーディン）の日、というのが由来です。つづりは Wed-nes-day ですが、真ん中の d は発音せず「ウェンズデイ」と読みます。書けそうで書けない曜日ナンバーワンなので、しっかり練習しておきましょう。"
+  },
+  {
+    "id": "e008",
+    "category": "英単語（名詞）",
+    "question": "「8月」を英語1語で書きなさい。",
+    "answer": "August",
+    "explanation": "ローマ帝国の初代皇帝アウグストゥスにちなんだ名前です。ちなみに7月の July はユリウス・カエサル（シーザー）から。えらい人が自分の名前を月につけてしまったせいで、9月 September（本来は7番目の意味）以降がすべて2つずつずれてしまいました。"
+  },
+  {
+    "id": "e009",
+    "category": "英単語（名詞）",
+    "question": "「文化」を英語1語で書きなさい。",
+    "answer": "culture",
+    "explanation": "cult は「耕す」という意味で、agriculture（農業）と同じ語根をもっています。土地を耕すのが農業、心を耕すのが文化。そう考えると、文化という言葉の奥深さが感じられますね。"
+  },
+  {
+    "id": "e010",
+    "category": "英単語（名詞）",
+    "question": "「情報」を英語1語で書きなさい。",
+    "answer": "information",
+    "explanation": "動詞 inform（知らせる）から生まれた名詞です。重要なのは、数えられない名詞なので an information や informations とは言えないこと。数えたいときは a piece of information と表現します。"
+  },
+  {
+    "id": "e071",
+    "category": "英単語（名詞）",
+    "question": "「健康」を英語1語で書きなさい。",
+    "answer": "health",
+    "explanation": "形容詞形は healthy（健康な）。heal（いやす）と同じ family の語で、もとは「まるごと無事な状態」という意味です。be good for your health（健康によい）という形で長文によく出ます。"
+  },
+  {
+    "id": "e072",
+    "category": "英単語（名詞）",
+    "question": "「平和」を英語1語で書きなさい。",
+    "answer": "peace",
+    "explanation": "同じ発音の piece（かけら、1切れ）と混同しやすい最重要ペアです。a piece of cake なら「ケーキ1切れ」、転じて「とても簡単なこと」。world peace（世界平和）は入試の英作文の定番テーマです。"
+  },
+  {
+    "id": "e073",
+    "category": "英単語（名詞）",
+    "question": "「自然」を英語1語で書きなさい。",
+    "answer": "nature",
+    "explanation": "形容詞形は natural（自然の、当然の）。「自然を守る」は protect nature です。なお nature には「性質」という意味もあり、the nature of the problem（問題の性質）のようにも使われます。"
+  },
+  {
+    "id": "e074",
+    "category": "英単語（名詞）",
+    "question": "「空気」を英語1語で書きなさい。",
+    "answer": "air",
+    "explanation": "数えられない名詞なので an air や airs とはなりません。fresh air（新鮮な空気）、air pollution（大気汚染）が頻出。airport は air + port（港）、つまり「空の港」という成り立ちです。"
+  },
+  {
+    "id": "e075",
+    "category": "英単語（名詞）",
+    "question": "「地球」を英語1語で書きなさい。",
+    "answer": "earth",
+    "explanation": "惑星としての地球を指すときは the earth と the をつけます。小文字で earth と書くと「土、地面」の意味にもなります。global warming（地球温暖化）とセットで環境問題の長文に頻出です。"
+  },
+  {
+    "id": "e076",
+    "category": "英単語（名詞）",
+    "question": "「政府」を英語1語で書きなさい。",
+    "answer": "government",
+    "explanation": "動詞 govern（治める）に -ment がついた名詞です。真ん中の n を落として goverment と書くミスが非常に多いので注意。govern-ment と区切って覚えましょう。"
+  },
+  {
+    "id": "e077",
+    "category": "英単語（名詞）",
+    "question": "「社会」を英語1語で書きなさい。",
+    "answer": "society",
+    "explanation": "形容詞形は social（社会の）で、social media（ソーシャルメディア）でおなじみですね。an aging society（高齢化社会）は日本を扱う長文でよく登場します。"
+  },
+  {
+    "id": "e078",
+    "category": "英単語（名詞）",
+    "question": "「問題、困ったこと」を英語1語で書きなさい。pで始まる語です。",
+    "answer": "problem",
+    "explanation": "解決すべき困りごとを指します。テストの問題は question、練習問題は exercise と使い分けます。No problem. は「問題ないよ、どういたしまして」という会話の定番表現です。"
+  },
+  {
+    "id": "e079",
+    "category": "英単語（名詞）",
+    "question": "「意見」を英語1語で書きなさい。",
+    "answer": "opinion",
+    "explanation": "In my opinion,（私の意見では）は英作文の書き出しに使える万能表現です。What's your opinion? と聞かれたら自分の考えを述べます。似た語の idea は「思いつき、考え」で、少しくだけた語感です。"
+  },
+  {
+    "id": "e080",
+    "category": "英単語（名詞）",
+    "question": "「例」を英語1語で書きなさい。",
+    "answer": "example",
+    "explanation": "for example（たとえば）の形で使うのが基本で、英作文で説得力を出すための必須表現です。similar な語に sample（見本）がありますが、こちらは実物のサンプルを指します。"
+  },
+  {
+    "id": "e081",
+    "category": "英単語（名詞）",
+    "question": "「結果」を英語1語で書きなさい。",
+    "answer": "result",
+    "explanation": "as a result（その結果）という形で文をつなぐのに便利です。動詞としても使え、result in ～（～という結果になる）、result from ～（～が原因で起こる）は前置詞で意味が逆になるので要注意。"
+  },
+  {
+    "id": "e082",
+    "category": "英単語（名詞）",
+    "question": "「理由」を英語1語で書きなさい。",
+    "answer": "reason",
+    "explanation": "The reason is that ～（理由は～だからだ）の形で使います。for some reason（なぜだか）も会話でよく登場。ちなみに reason には「理性」という意味もあります。"
+  },
+  {
+    "id": "e083",
+    "category": "英単語（名詞）",
+    "question": "「事故」を英語1語で書きなさい。",
+    "answer": "accident",
+    "explanation": "a traffic accident（交通事故）で頻出。by accident は「偶然に」という熟語で、事故という訳では通じません。同じ意味の by chance とセットで覚えておきましょう。"
+  },
+  {
+    "id": "e084",
+    "category": "英単語（名詞）",
+    "question": "「安全」を英語1語で書きなさい。",
+    "answer": "safety",
+    "explanation": "形容詞は safe（安全な）。safe → safety のように、形容詞の語尾を -ty に変えて名詞にするパターンです。同じ作りの語に difficult → difficulty（困難）があります。"
+  },
+  {
+    "id": "e085",
+    "category": "英単語（名詞）",
+    "question": "「発明（品）」を英語1語で書きなさい。",
+    "answer": "invention",
+    "explanation": "動詞 invent（発明する）の名詞形で、-tion をつけて名詞にする典型例です。発明する人は inventor。すでにあるものを見つける discovery（発見）との違いを問う問題がよく出ます。"
+  },
+  {
+    "id": "e086",
+    "category": "英単語（名詞）",
+    "question": "「知識」を英語1語で書きなさい。",
+    "answer": "knowledge",
+    "explanation": "know（知る）から生まれた名詞ですが、つづりが know + ledge と変化するので要注意。先頭の k は発音しません。数えられない名詞なので a knowledge とは言えません。"
+  },
+  {
+    "id": "e087",
+    "category": "英単語（名詞）",
+    "question": "「科学技術」を英語1語で書きなさい。",
+    "answer": "technology",
+    "explanation": "AI やロボットを扱う長文で必ず登場する重要語です。形容詞は technological。日本語の「テクノロジー」と発音が違い、テクノロジーではなく「テクノロジィ」と後ろにアクセントが来ます。"
+  },
+  {
+    "id": "e088",
+    "category": "英単語（名詞）",
+    "question": "「機械」を英語1語で書きなさい。",
+    "answer": "machine",
+    "explanation": "washing machine（洗濯機）、vending machine（自動販売機）のように組み合わせて使います。語尾の -chine は「シーン」と読み、マシーネではありません。機械全体を指す machinery という語もあります。"
+  },
+  {
+    "id": "e089",
+    "category": "英単語（名詞）",
+    "question": "「電気」を英語1語で書きなさい。",
+    "answer": "electricity",
+    "explanation": "形容詞は electric（電気の）で、electric car（電気自動車）のように使います。長いつづりですが electr-i-city と区切ると覚えやすいですよ。数えられない名詞です。"
+  },
+  {
+    "id": "e090",
+    "category": "英単語（名詞）",
+    "question": "「エネルギー」を英語1語で書きなさい。",
+    "answer": "energy",
+    "explanation": "日本語の発音「エネルギー」はドイツ語由来なので、英語では「エナジー」となりまったく違います。solar energy（太陽エネルギー）、save energy（省エネする）が環境問題の長文に頻出です。"
+  },
+  {
+    "id": "e091",
+    "category": "英単語（名詞）",
+    "question": "「森林」を英語1語で書きなさい。",
+    "answer": "forest",
+    "explanation": "wood（森）より広く深い森を指します。rain forest（熱帯雨林）は環境問題の長文の常連。Can't see the forest for the trees.（木を見て森を見ず）ということわざもあります。"
+  },
+  {
+    "id": "e092",
+    "category": "英単語（名詞）",
+    "question": "「砂漠」を英語1語で書きなさい。",
+    "answer": "desert",
+    "explanation": "食後の dessert（デザート）と1文字違いなので、テストで狙われます。s が2つあるほうが甘いデザート、と覚えましょう。アクセントの位置も違い、desert は前、dessert は後ろにあります。"
+  },
+  {
+    "id": "e093",
+    "category": "英単語（名詞）",
+    "question": "「海洋、大洋」を英語1語で書きなさい。",
+    "answer": "ocean",
+    "explanation": "sea よりも大きな海を指し、太平洋は the Pacific Ocean です。先頭の o は「オー」と読み、オーシャンとなります。ocean pollution（海洋汚染）は環境をテーマにした長文で登場します。"
+  },
+  {
+    "id": "e094",
+    "category": "英単語（名詞）",
+    "question": "「島」を英語1語で書きなさい。",
+    "answer": "island",
+    "explanation": "つづりの s を発音しないという、英語でも指折りの引っかけ単語です。読み方は「アイランド」。Japan is an island country.（日本は島国だ）は自己紹介や日本紹介の英作文で使えます。"
+  },
+  {
+    "id": "e095",
+    "category": "英単語（名詞）",
+    "question": "「気候」を英語1語で書きなさい。",
+    "answer": "climate",
+    "explanation": "weather が「その日の天気」を指すのに対し、climate はある地域の長期的な気候を指します。climate change（気候変動）は環境問題の最重要語のひとつです。"
+  },
+  {
+    "id": "e096",
+    "category": "英単語（名詞）",
+    "question": "「温度、気温」を英語1語で書きなさい。",
+    "answer": "temperature",
+    "explanation": "長い単語ですが tem-per-a-ture と4つに区切ると覚えやすくなります。体温という意味もあり、take one's temperature で「熱をはかる」。The temperature is rising.（気温が上がっている）は温暖化の長文で頻出です。"
+  },
+  {
+    "id": "e097",
+    "category": "英単語（名詞）",
+    "question": "「昆虫」を英語1語で書きなさい。",
+    "answer": "insect",
+    "explanation": "in（中へ）+ sect（切る）が語源で、体に切れ込みが入っている生き物という意味です。理科で習う「体が頭・胸・腹に分かれる」という特徴が、そのまま名前になっているわけですね。"
+  },
+  {
+    "id": "e098",
+    "category": "英単語（名詞）",
+    "question": "「植物」を英語1語で書きなさい。",
+    "answer": "plant",
+    "explanation": "動詞では「植える」、名詞では「植物」のほか「工場」の意味もあります。a power plant なら発電所。同じつづりで意味が大きく変わるので、文脈から判断する力が問われます。"
+  },
+  {
+    "id": "e099",
+    "category": "英単語（名詞）",
+    "question": "「建物」を英語1語で書きなさい。",
+    "answer": "building",
+    "explanation": "動詞 build（建てる）に -ing がついて名詞になったものです。build - built - built と不規則に変化するので、あわせて覚えておきましょう。"
+  },
+  {
+    "id": "e100",
+    "category": "英単語（名詞）",
+    "question": "「空港」を英語1語で書きなさい。",
+    "answer": "airport",
+    "explanation": "air（空）+ port（港）で「空の港」。英語には、このように2語をつなげた複合語がたくさんあります。newspaper（news + paper）、classroom（class + room）など、分解すると意味が見えてきます。"
+  },
+  {
+    "id": "e101",
+    "category": "英単語（名詞）",
+    "question": "「橋」を英語1語で書きなさい。",
+    "answer": "bridge",
+    "explanation": "d を落として brige と書くミスが多い語です。build a bridge between ～（～の間に橋をかける）は、人と人をつなぐという比喩でも使われます。"
+  },
+  {
+    "id": "e102",
+    "category": "英単語（名詞）",
+    "question": "「工場」を英語1語で書きなさい。fで始まる語です。",
+    "answer": "factory",
+    "explanation": "ラテン語の「つくる」に由来し、fact（事実）とも遠い親戚です。複数形は y を i に変えて factories。工場の煙突は環境問題の長文で欠かせない情景描写になります。"
+  },
+  {
+    "id": "e103",
+    "category": "英単語（名詞）",
+    "question": "「会社」を英語1語で書きなさい。cで始まる語です。",
+    "answer": "company",
+    "explanation": "com（一緒に）+ pany（パン）が語源で、もとは「一緒にパンを食べる仲間」という意味でした。そのため「仲間、同席」という意味もあり、keep someone company で「人につきあう」となります。"
+  },
+  {
+    "id": "e104",
+    "category": "英単語（名詞）",
+    "question": "「看護師」を英語1語で書きなさい。",
+    "answer": "nurse",
+    "explanation": "動詞では「看護する」という意味にもなります。かつては女性の職業とされましたが、今は男女問わず使う語です。同じく職業を表す doctor、dentist（歯科医）、pilot もあわせて覚えましょう。"
+  },
+  {
+    "id": "e105",
+    "category": "英単語（名詞）",
+    "question": "「近所の人、隣人」を英語1語で書きなさい。",
+    "answer": "neighbor",
+    "explanation": "つづりの gh を発音しない要注意語で、読みは「ネイバー」。イギリス式では neighbour と書きます。neighborhood なら「近所、地域」という意味になります。"
+  },
+  {
+    "id": "e106",
+    "category": "英単語（名詞）",
+    "question": "「大人」を英語1語で書きなさい。",
+    "answer": "adult",
+    "explanation": "child（子ども）の対になる語です。grow up（成長する）と組み合わせ、When I grow up, I want to be ～（大人になったら～になりたい）は将来の夢を書く英作文の定番の型です。"
+  },
+  {
+    "id": "e107",
+    "category": "英単語（名詞）",
+    "question": "「趣味」を英語1語で書きなさい。",
+    "answer": "hobby",
+    "explanation": "実は英語の hobby は、模型づくりや切手集めのように継続的に取り組むものを指します。単に「音楽を聞くのが好き」程度なら I like listening to music. と言うほうが自然です。複数形は hobbies。"
+  },
+  {
+    "id": "e108",
+    "category": "英単語（名詞）",
+    "question": "「休日」を英語1語で書きなさい。",
+    "answer": "holiday",
+    "explanation": "holy（神聖な）+ day で、もとは宗教的な祝日を指しました。イギリスでは「休暇」の意味でも使いますが、アメリカでは休暇は vacation を使うのが一般的です。"
+  },
+  {
+    "id": "e109",
+    "category": "英単語（名詞）",
+    "question": "「祭り」を英語1語で書きなさい。",
+    "answer": "festival",
+    "explanation": "日本文化を英語で紹介する問題で必ず使う語です。a summer festival（夏祭り）、a snow festival（雪まつり）のように使います。形容詞 festive は「お祭り気分の」という意味です。"
+  },
+  {
+    "id": "e110",
+    "category": "英単語（名詞）",
+    "question": "「伝統」を英語1語で書きなさい。",
+    "answer": "tradition",
+    "explanation": "形容詞は traditional（伝統的な）で、traditional Japanese culture（日本の伝統文化）は英作文の頻出フレーズ。-tion で終わる名詞は、その前の音節にアクセントが来るという法則があります。"
+  },
+  {
+    "id": "e111",
+    "category": "英単語（名詞）",
+    "question": "「習慣、風習」を英語1語で書きなさい。cで始まる語です。",
+    "answer": "custom",
+    "explanation": "社会や国全体の風習を指します。個人の習慣は habit を使い、a bad habit（悪い癖）のように言います。なお複数形の customs は「税関」という別の意味になります。"
+  },
+  {
+    "id": "e112",
+    "category": "英単語（名詞）",
+    "question": "「世紀」を英語1語で書きなさい。",
+    "answer": "century",
+    "explanation": "cent（100）が入っており、100年をひとまとめにした単位です。同じ cent を含む語に percent（パーセント）、centimeter（センチメートル）があります。in the 21st century（21世紀に）の形で使います。"
+  },
+  {
+    "id": "e113",
+    "category": "英単語（名詞）",
+    "question": "「会話」を英語1語で書きなさい。",
+    "answer": "conversation",
+    "explanation": "con（ともに）+ verse（向き合う）が語源で、向かい合って話すことを表します。have a conversation with ～（～と会話する）の形で使い、talk との違いは、こちらのほうがやや改まった語であることです。"
+  },
+  {
+    "id": "e114",
+    "category": "英単語（名詞）",
+    "question": "「新聞」を英語1語で書きなさい。",
+    "answer": "newspaper",
+    "explanation": "news（知らせ）+ paper（紙）という素直な組み立てです。news は s がついていても単数扱いで、The news is interesting. となります。news 自体が new（新しい）の複数形から生まれた語です。"
+  },
+  {
+    "id": "e115",
+    "category": "英単語（名詞）",
+    "question": "「小説」を英語1語で書きなさい。",
+    "answer": "novel",
+    "explanation": "形容詞では「新しい、斬新な」という意味もあり、a novel idea なら「斬新な考え」。長編小説を指し、短編は short story と呼び分けます。"
+  },
+  {
+    "id": "e116",
+    "category": "英単語（名詞）",
+    "question": "「楽器」を英語1語で書きなさい。",
+    "answer": "instrument",
+    "explanation": "正確には musical instrument ですが、文脈があれば instrument だけでも通じます。楽器を演奏するときは play the piano のように the をつけるのがルール。スポーツの play soccer には the をつけません。"
+  },
+  {
+    "id": "e117",
+    "category": "英単語（名詞）",
+    "question": "「写真」を英語1語で書きなさい。photで始まる語です。",
+    "answer": "photograph",
+    "explanation": "photo（光）+ graph（描く）で「光で描いたもの」。省略形の photo でも通じます。写真を撮るは take a picture / take a photo で、shoot は使いません。"
+  },
+  {
+    "id": "e118",
+    "category": "英単語（名詞）",
+    "question": "スポーツなどの「選手」を英語1語で書きなさい。",
+    "answer": "player",
+    "explanation": "play（プレーする）+ er（人）という作りです。このように動詞に -er をつけて「～する人」を表す語はたくさんあります。teach → teacher、sing → singer、write → writer など。"
+  },
+  {
+    "id": "e119",
+    "category": "英単語（名詞）",
+    "question": "「練習」を英語1語で書きなさい。",
+    "answer": "practice",
+    "explanation": "動詞としても使え、practice の後ろの動詞は必ず ing形になります（practice playing tennis）。Practice makes perfect.（練習が完璧をつくる＝習うより慣れよ）は有名なことわざです。"
+  },
+  {
+    "id": "e120",
+    "category": "英単語（名詞）",
+    "question": "「卒業」を英語1語で書きなさい。",
+    "answer": "graduation",
+    "explanation": "動詞は graduate（卒業する）で、graduate from ～ と from が必要な点が要注意です。graduate our school とは言えません。a graduation ceremony なら卒業式です。"
+  },
+  {
+    "id": "e016",
+    "category": "英単語（動詞）",
+    "question": "「決める」を英語1語で書きなさい。",
+    "answer": "decide",
+    "explanation": "de（切り離す）+ cide（切る）から成り立っています。つまり、他の選択肢をバッサリ切り捨てることが「決める」ということ。決断とはそういうものだと、単語自体が教えてくれています。名詞形は decision です。"
+  },
+  {
+    "id": "e017",
+    "category": "英単語（動詞）",
+    "question": "「到着する」を英語1語で書きなさい。",
+    "answer": "arrive",
+    "explanation": "使い方に注意が必要で、駅など狭い場所には arrive at、国や都市など広い場所には arrive in を使います。同じ意味の reach は前置詞がいらず reach the station。get to も便利なので、3つセットで整理しておきましょう。"
+  },
+  {
+    "id": "e018",
+    "category": "英単語（動詞）",
+    "question": "「introduce」の意味を漢字3字で答えなさい。（人を〜する）",
+    "answer": "紹介する",
+    "explanation": "intro（中へ）+ duce（導く）で、人を輪の中へ導き入れることから「紹介する」となりました。自己紹介は introduce myself。会話の第一歩として、必ず使える形にしておきたい単語です。"
+  },
+  {
+    "id": "e019",
+    "category": "英単語（動詞）",
+    "question": "「思い出す・覚えている」を英語1語で書きなさい。",
+    "answer": "remember",
+    "explanation": "re（再び）+ member（心に留める）から成り立ちます。反対語は forget（忘れる）。remember to ～ は「これから～するのを忘れない」、remember ～ing は「～したことを覚えている」と、意味が変わるので要注意です。"
+  },
+  {
+    "id": "e020",
+    "category": "英単語（動詞）",
+    "question": "「訪れる」を英語1語で書きなさい。",
+    "answer": "visit",
+    "explanation": "visit は他動詞なので、後ろに前置詞は不要です。I visited Kyoto. が正しく、visited to Kyoto は誤り。go to Kyoto につられて to を入れてしまうミスが本当に多いので、意識しておきましょう。"
+  },
+  {
+    "id": "e121",
+    "category": "英単語（動詞）",
+    "question": "「（場所を）去る、出発する」を英語1語で書きなさい。lで始まる語です。",
+    "answer": "leave",
+    "explanation": "leave - left - left と変化します。leave Tokyo なら東京を出発する、leave for Tokyo なら東京へ向けて出発する、と for の有無で行き先が逆になる点が最頻出のポイントです。"
+  },
+  {
+    "id": "e122",
+    "category": "英単語（動詞）",
+    "question": "「説明する」を英語1語で書きなさい。",
+    "answer": "explain",
+    "explanation": "ex（外へ）+ plain（平らにする）で、こんがらがったものを平らにして見せる、というイメージです。explain me は誤りで、explain to me が正しい形。この前置詞 to を落とすミスが定番です。"
+  },
+  {
+    "id": "e123",
+    "category": "英単語（動詞）",
+    "question": "「想像する」を英語1語で書きなさい。",
+    "answer": "imagine",
+    "explanation": "image（イメージ）と同じ family の語です。後ろに動詞を続けるときは ing形になり、imagine living abroad（外国で暮らすことを想像する）となります。名詞形は imagination（想像力）。"
+  },
+  {
+    "id": "e124",
+    "category": "英単語（動詞）",
+    "question": "「期待する、予期する」を英語1語で書きなさい。",
+    "answer": "expect",
+    "explanation": "ex（外を）+ spect（見る）で、先を見て待つイメージ。expect to ～（～するつもりだ）の形で使います。hope が「そうなったらいいな」という願望なのに対し、expect は「そうなるだろう」という予測を含みます。"
+  },
+  {
+    "id": "e125",
+    "category": "英単語（動詞）",
+    "question": "「心配する」を英語1語で書きなさい。",
+    "answer": "worry",
+    "explanation": "worry about ～（～について心配する）が基本の形です。Don't worry.（心配しないで）は会話の定番。be worried about ～ と受け身の形にすると「心配している状態」を強調できます。"
+  },
+  {
+    "id": "e126",
+    "category": "英単語（動詞）",
+    "question": "「準備する」を英語1語で書きなさい。",
+    "answer": "prepare",
+    "explanation": "pre（前もって）+ pare（用意する）という成り立ち。prepare for the exam（試験に備える）のように for を伴うことが多い語です。形容詞は prepared、名詞は preparation。"
+  },
+  {
+    "id": "e127",
+    "category": "英単語（動詞）",
+    "question": "「招待する」を英語1語で書きなさい。",
+    "answer": "invite",
+    "explanation": "invite 人 to ～（人を～に招待する）の形で使います。名詞形は invitation（招待状）。会話では Thank you for inviting me.（招待してくれてありがとう）がよく使われます。"
+  },
+  {
+    "id": "e128",
+    "category": "英単語（動詞）",
+    "question": "「謝る」を英語1語で書きなさい。apoで始まる語です。",
+    "answer": "apologize",
+    "explanation": "名詞形は apology（謝罪）。apologize to 人 for ～（～のことで人に謝る）と、2つの前置詞をセットで覚えるのがコツです。I'm sorry. よりも改まった言い方になります。"
+  },
+  {
+    "id": "e129",
+    "category": "英単語（動詞）",
+    "question": "「約束する」を英語1語で書きなさい。",
+    "answer": "promise",
+    "explanation": "名詞としても使え、keep a promise（約束を守る）、break a promise（約束を破る）という組み合わせで覚えます。日本語では約束を「破る」と言いますが、英語でも break を使うのは面白い一致ですね。"
+  },
+  {
+    "id": "e130",
+    "category": "英単語（動詞）",
+    "question": "「意思を伝え合う、意思疎通する」を英語1語で書きなさい。comで始まる語です。",
+    "answer": "communicate",
+    "explanation": "名詞形は communication。communicate with ～（～と意思を通わせる）の形で使います。言語や国際交流をテーマにした長文で、必ずといっていいほど登場する重要語です。"
+  },
+  {
+    "id": "e131",
+    "category": "英単語（動詞）",
+    "question": "「議論する、話し合う」を英語1語で書きなさい。disで始まる語です。",
+    "answer": "discuss",
+    "explanation": "他動詞なので discuss about ～ とはならず、discuss the problem と直接目的語を続けます。日本語の「～について議論する」につられて about を入れるミスが非常に多い、頻出の落とし穴です。"
+  },
+  {
+    "id": "e132",
+    "category": "英単語（動詞）",
+    "question": "「提案する」を英語1語で書きなさい。sugで始まる語です。",
+    "answer": "suggest",
+    "explanation": "gg と続くつづりに注意しましょう。後ろに動詞を置くときは ing形になり、suggest going to the movies（映画に行こうと提案する）となります。名詞形は suggestion（提案）。"
+  },
+  {
+    "id": "e133",
+    "category": "英単語（動詞）",
+    "question": "「（線で絵を）描く」を英語1語で書きなさい。",
+    "answer": "draw",
+    "explanation": "draw - drew - drawn と変化します。鉛筆やペンで線を描くのが draw、絵の具で塗るように描くのは paint と使い分けます。「（カーテンを）引く」「（結論を）引き出す」という意味もあります。"
+  },
+  {
+    "id": "e134",
+    "category": "英単語（動詞）",
+    "question": "「（建物を）建てる」を英語1語で書きなさい。",
+    "answer": "build",
+    "explanation": "build - built - built と変化します。名詞形は building（建物）。受け身で This temple was built in 1400.（この寺は1400年に建てられた）という形が、日本文化の紹介文でよく出ます。"
+  },
+  {
+    "id": "e135",
+    "category": "英単語（動詞）",
+    "question": "「破壊する」を英語1語で書きなさい。desで始まる語です。",
+    "answer": "destroy",
+    "explanation": "名詞形は destruction。The forest was destroyed.（森林は破壊された）のように受け身で使われることが多い語です。環境問題の長文で protect（守る）と対で登場します。"
+  },
+  {
+    "id": "e136",
+    "category": "英単語（動詞）",
+    "question": "「守る、保護する」を英語1語で書きなさい。proで始まる語です。",
+    "answer": "protect",
+    "explanation": "pro（前に）+ tect（覆う）で、前に覆いをかけて守るイメージです。protect A from B（BからAを守る）という形が重要。protect the environment（環境を守る）は英作文の必須フレーズです。"
+  },
+  {
+    "id": "e137",
+    "category": "英単語（動詞）",
+    "question": "「（命を）救う」を英語1語で書きなさい。",
+    "answer": "save",
+    "explanation": "「救う」のほかに「節約する、貯金する」という意味もあります。save energy（省エネする）、save money（貯金する）。ひとつの単語が複数の意味を持つ典型例で、文脈から判断する力が問われます。"
+  },
+  {
+    "id": "e138",
+    "category": "英単語（動詞）",
+    "question": "「集める」を英語1語で書きなさい。colで始まる語です。",
+    "answer": "collect",
+    "explanation": "col（ともに）+ lect（集める）という成り立ち。名詞形は collection（収集品）。同じ lect を含む select（選ぶ）は「離して選び取る」という意味です。"
+  },
+  {
+    "id": "e139",
+    "category": "英単語（動詞）",
+    "question": "「選ぶ」を英語1語で書きなさい。chで始まる語です。",
+    "answer": "choose",
+    "explanation": "choose - chose - chosen と変化します。原形は o が2つ、過去形は1つ。名詞形は choice（選択）で、こちらもつづりが変わるので要注意です。"
+  },
+  {
+    "id": "e140",
+    "category": "英単語（動詞）",
+    "question": "「比べる」を英語1語で書きなさい。comで始まる語です。",
+    "answer": "compare",
+    "explanation": "compare A with B（AとBを比べる）の形で使います。compared with ～（～と比べると）は、グラフの読み取り問題の説明文で頻出。名詞形は comparison です。"
+  },
+  {
+    "id": "e141",
+    "category": "英単語（動詞）",
+    "question": "「続ける」を英語1語で書きなさい。conで始まる語です。",
+    "answer": "continue",
+    "explanation": "後ろには to不定詞・ing形のどちらも続けられます。似た意味の keep は必ず ing形をとり、keep running（走り続ける）となる点が違いです。名詞形は continuation。"
+  },
+  {
+    "id": "e142",
+    "category": "英単語（動詞）",
+    "question": "「終える」を英語1語で書きなさい。fで始まる語です。",
+    "answer": "finish",
+    "explanation": "後ろに動詞を続けるときは必ず ing形です（finish eating）。to eat とはできません。end との違いは、finish が「やり遂げて終える」というニュアンスを持つことです。"
+  },
+  {
+    "id": "e143",
+    "category": "英単語（動詞）",
+    "question": "「改善する、上達する」を英語1語で書きなさい。impで始まる語です。",
+    "answer": "improve",
+    "explanation": "im（中へ）+ prove（利益）で、よりよくするという意味です。improve my English（英語を上達させる）は自己紹介や目標を語る英作文で使えます。名詞形は improvement。"
+  },
+  {
+    "id": "e144",
+    "category": "英単語（動詞）",
+    "question": "「増える、増やす」を英語1語で書きなさい。incで始まる語です。",
+    "answer": "increase",
+    "explanation": "反対語は decrease（減る）。グラフを説明する長文で必ず対で出てきます。名詞としても使え、そのときはアクセントの位置が前に移動するという面白い性質があります。"
+  },
+  {
+    "id": "e145",
+    "category": "英単語（動詞）",
+    "question": "「起こる、生じる」を英語1語で書きなさい。hapで始まる語です。",
+    "answer": "happen",
+    "explanation": "What happened?（何が起きたの？）は会話の定番です。受け身にはできず、was happened という形は誤り。happen to ～ で「たまたま～する」という意味にもなります。"
+  },
+  {
+    "id": "e146",
+    "category": "英単語（動詞）",
+    "question": "「現れる」を英語1語で書きなさい。appで始まる語です。",
+    "answer": "appear",
+    "explanation": "反対語は disappear（消える）で、dis- をつけると反対の意味になるパターンです。appear には「～のように見える」という意味もあり、He appears tired.（彼は疲れているようだ）と使います。"
+  },
+  {
+    "id": "e147",
+    "category": "英単語（動詞）",
+    "question": "「気づく」を英語1語で書きなさい。notで始まる語です。",
+    "answer": "notice",
+    "explanation": "名詞では「掲示、通知」という意味になります。notice that ～（～ということに気づく）の形で使い、意識せず自然に目に入って気づくニュアンスです。"
+  },
+  {
+    "id": "e148",
+    "category": "英単語（動詞）",
+    "question": "「理解する」を英語1語で書きなさい。unで始まる語です。",
+    "answer": "understand",
+    "explanation": "understand - understood - understood と変化します。under（下に）+ stand（立つ）で、相手の立場の下に立つことが理解するということ。語の成り立ちがそのまま教訓になっている単語です。"
+  },
+  {
+    "id": "e149",
+    "category": "英単語（動詞）",
+    "question": "「同意する、賛成する」を英語1語で書きなさい。agで始まる語です。",
+    "answer": "agree",
+    "explanation": "agree with 人（人に賛成する）、agree to 提案（提案に同意する）と前置詞を使い分けます。I agree with you. は会話でも英作文でも活躍する表現です。反対語は disagree。"
+  },
+  {
+    "id": "e150",
+    "category": "英単語（動詞）",
+    "question": "「許す、許可する」を英語1語で書きなさい。alで始まる語です。",
+    "answer": "allow",
+    "explanation": "allow 人 to ～（人が～するのを許す）の形が重要です。受け身の be allowed to ～（～することを許されている）もよく出ます。発音は「アラウ」で、w は読みません。"
+  },
+  {
+    "id": "e151",
+    "category": "英単語（動詞）",
+    "question": "「貸す」を英語1語で書きなさい。lで始まる語です。",
+    "answer": "lend",
+    "explanation": "lend - lent - lent と変化します。反対語の borrow（借りる）とセットで覚えるのが鉄則。貸すのが lend、借りるのが borrow です。Can I borrow your pen?（ペンを借りていい？）が定番の使い方。"
+  },
+  {
+    "id": "e152",
+    "category": "英単語（動詞）",
+    "question": "「借りる」を英語1語で書きなさい。bで始まる語です。",
+    "answer": "borrow",
+    "explanation": "無料で持ち運べるものを借りるときに使います。トイレや電話のように持ち運べないものは use を使い、May I use the bathroom? と言うのが正解。borrow the bathroom では通じません。"
+  },
+  {
+    "id": "e153",
+    "category": "英単語（動詞）",
+    "question": "「運ぶ」を英語1語で書きなさい。cで始まる語です。",
+    "answer": "carry",
+    "explanation": "3人称単数現在は y を i に変えて carries、過去形は carried となります。carry out ～ で「～を実行する」という熟語になり、長文でよく登場します。"
+  },
+  {
+    "id": "e154",
+    "category": "英単語（動詞）",
+    "question": "「（ボールなどを）投げる」を英語1語で書きなさい。thで始まる語です。",
+    "answer": "throw",
+    "explanation": "throw - threw - thrown と変化します。過去形 threw は through（～を通って）と発音が同じなので、聞き取り問題では文脈で判断します。throw away ～ は「～を捨てる」。"
+  },
+  {
+    "id": "e155",
+    "category": "英単語（動詞）",
+    "question": "「捕まえる、（乗り物に）間に合う」を英語1語で書きなさい。cで始まる語です。",
+    "answer": "catch",
+    "explanation": "catch - caught - caught と変化します。catch a cold（風邪をひく）、catch the bus（バスに間に合う）と、意味が広がるのが面白いところ。反対は miss the bus（バスに乗り遅れる）です。"
+  },
+  {
+    "id": "e156",
+    "category": "英単語（動詞）",
+    "question": "「到達する、着く」を英語1語で書きなさい。rで始まる語です。",
+    "answer": "reach",
+    "explanation": "他動詞なので前置詞は不要で、reach the station が正しい形です。同じ意味の arrive は arrive at the station、get は get to the station。3つの言い方で前置詞が違う点が入試の頻出ポイントです。"
+  },
+  {
+    "id": "e157",
+    "category": "英単語（動詞）",
+    "question": "「発見する」を英語1語で書きなさい。disで始まる語です。",
+    "answer": "discover",
+    "explanation": "dis（打ち消し）+ cover（覆う）で、覆いを取り去ることが発見です。もともとあったものを見つけるのが discover、なかったものを生み出すのが invent（発明する）という違いを問う問題が頻出します。"
+  },
+  {
+    "id": "e158",
+    "category": "英単語（動詞）",
+    "question": "「（お金を）支払う」を英語1語で書きなさい。pで始まる語です。",
+    "answer": "pay",
+    "explanation": "pay - paid - paid と変化し、つづりが y から id に変わる点に注意。pay for ～ で「～の代金を払う」となり、pay for the book が正しい形です。pay attention to ～ は「～に注意を払う」。"
+  },
+  {
+    "id": "e159",
+    "category": "英単語（動詞）",
+    "question": "「（時間やお金を）費やす」を英語1語で書きなさい。spで始まる語です。",
+    "answer": "spend",
+    "explanation": "spend - spent - spent と変化します。spend 時間 ing（～するのに時間を使う）という形が最重要で、I spent two hours doing my homework. のように使います。to do とはしません。"
+  },
+  {
+    "id": "e160",
+    "category": "英単語（動詞）",
+    "question": "「表現する」を英語1語で書きなさい。exで始まる語です。",
+    "answer": "express",
+    "explanation": "ex（外へ）+ press（押し出す）で、心の中のものを外へ押し出すことが表現するということ。名詞形は expression（表現、表情）。急行列車の express も「押し出すように速い」から来ています。"
+  },
+  {
+    "id": "e011",
+    "category": "英単語（形容詞・副詞）",
+    "question": "「重要な」を英語1語で書きなさい。",
+    "answer": "important",
+    "explanation": "もとは「重要である」という意味の動詞 import から来ています。ちなみに輸入という意味の import も同じつづり。国にとって重要なものを運びこむ、と考えるとつながりが見えてきます。"
+  },
+  {
+    "id": "e012",
+    "category": "英単語（形容詞・副詞）",
+    "question": "「外国の」を英語1語で書きなさい。",
+    "answer": "foreign",
+    "explanation": "つづりの中の g を発音しないのがポイントで、「フォーリン」と読みます。foreign country（外国）、foreign language（外国語）のように使います。書き取りでは g を落としてしまう人が多いので気をつけましょう。"
+  },
+  {
+    "id": "e013",
+    "category": "英単語（形容詞・副詞）",
+    "question": "「便利な」を英語1語で書きなさい。",
+    "answer": "convenient",
+    "explanation": "名詞形は convenience。日本語のコンビニは convenience store（便利な店）を短くしたものです。ただしこの略し方は日本独自なので、海外で convenience と言っても通じません。"
+  },
+  {
+    "id": "e014",
+    "category": "英単語（形容詞・副詞）",
+    "question": "「有名な」を英語1語で書きなさい。",
+    "answer": "famous",
+    "explanation": "be famous for ～ で「～で有名だ」という形でよく使います。Kyoto is famous for its temples.（京都は寺で有名だ）のように。人が有名な場合は be famous as ～（～として有名）を使い分けます。"
+  },
+  {
+    "id": "e015",
+    "category": "英単語（形容詞・副詞）",
+    "question": "「危険な」を英語1語で書きなさい。",
+    "answer": "dangerous",
+    "explanation": "名詞の danger（危険）に、性質を表す -ous がついた形です。同じパターンに nervous（緊張した）、famous（有名な）などがあります。-ous がついたら形容詞、と覚えておくと品詞の判断が速くなります。"
+  },
+  {
+    "id": "e161",
+    "category": "英単語（形容詞・副詞）",
+    "question": "「難しい」を英語1語で書きなさい。dで始まる語です。",
+    "answer": "difficult",
+    "explanation": "名詞形は difficulty（困難）。hard も「難しい」ですが、こちらは「かたい、熱心に」という意味も持ちます。It is difficult for me to ～（私が～するのは難しい）は英作文の頻出の型です。"
+  },
+  {
+    "id": "e162",
+    "category": "英単語（形容詞・副詞）",
+    "question": "「忙しい」を英語1語で書きなさい。",
+    "answer": "busy",
+    "explanation": "be busy ～ing（～するのに忙しい）の形で使い、to不定詞にはしません。発音は「ビジー」で、つづりの u を「ア」と読まない例外的な語。名詞形は business（仕事、商売）です。"
+  },
+  {
+    "id": "e163",
+    "category": "英単語（形容詞・副詞）",
+    "question": "「静かな」を英語1語で書きなさい。qで始まる語です。",
+    "answer": "quiet",
+    "explanation": "quite（まったく、かなり）と1文字違いで、意味も発音も違うため、入試で最も狙われるペアのひとつです。quiet は「クワイエット」、quite は「クワイト」。母音の位置に注意しましょう。"
+  },
+  {
+    "id": "e164",
+    "category": "英単語（形容詞・副詞）",
+    "question": "「うるさい、騒がしい」を英語1語で書きなさい。nで始まる語です。",
+    "answer": "noisy",
+    "explanation": "名詞 noise（騒音）に -y をつけた形です。この -y をつけて形容詞にするパターンは、rain → rainy、cloud → cloudy、health → healthy など数多くあります。"
+  },
+  {
+    "id": "e165",
+    "category": "英単語（形容詞・副詞）",
+    "question": "「強い」を英語1語で書きなさい。",
+    "answer": "strong",
+    "explanation": "名詞形は strength（強さ）で、つづりが大きく変わる点が要注意です。long → length（長さ）も同じパターン。副詞は strongly（強く）となります。"
+  },
+  {
+    "id": "e166",
+    "category": "英単語（形容詞・副詞）",
+    "question": "「弱い」を英語1語で書きなさい。",
+    "answer": "weak",
+    "explanation": "week（週）とまったく同じ発音なので、聞き取り問題では文脈で判断します。「今週」は this week、「弱点」は a weak point。名詞形は weakness です。"
+  },
+  {
+    "id": "e167",
+    "category": "英単語（形容詞・副詞）",
+    "question": "「賢い」を英語1語で書きなさい。wで始まる語です。",
+    "answer": "wise",
+    "explanation": "経験を積んで得た知恵のある賢さを指します。頭の回転が速い賢さは clever や smart。名詞形は wisdom（知恵）で、つづりが変わるので注意しましょう。"
+  },
+  {
+    "id": "e168",
+    "category": "英単語（形容詞・副詞）",
+    "question": "「まちがった」を英語1語で書きなさい。wで始まる語です。",
+    "answer": "wrong",
+    "explanation": "先頭の w を発音しない語で、読みは「ロング」。反対語は right（正しい）ですが、right には「右」「権利」という意味もあります。What's wrong? は「どうしたの？」という会話の定番です。"
+  },
+  {
+    "id": "e169",
+    "category": "英単語（形容詞・副詞）",
+    "question": "「驚いた」という気持ちを表す語を英語1語で書きなさい。surで始まる語です。",
+    "answer": "surprised",
+    "explanation": "人が驚いているときは be surprised、ものごとが驚かせるときは surprising。I was surprised at the news.（その知らせに驚いた）のように前置詞は at を使います。interested と interesting の関係と同じ仕組みです。"
+  },
+  {
+    "id": "e170",
+    "category": "英単語（形容詞・副詞）",
+    "question": "「疲れた」を英語1語で書きなさい。tで始まる語です。",
+    "answer": "tired",
+    "explanation": "be tired from ～（～で疲れている）に対し、be tired of ～ は「～に飽きている」とまったく違う意味になります。前置詞ひとつで意味が変わる、入試頻出の対比です。"
+  },
+  {
+    "id": "e171",
+    "category": "英単語（形容詞・副詞）",
+    "question": "「のどがかわいた」を英語1語で書きなさい。thで始まる語です。",
+    "answer": "thirsty",
+    "explanation": "hungry（空腹の）と対で覚えます。名詞形は thirst（のどのかわき）。I'm thirsty. と言えば「何か飲み物がほしい」という意味になり、会話で自然に使える表現です。"
+  },
+  {
+    "id": "e172",
+    "category": "英単語（形容詞・副詞）",
+    "question": "「健康な」を英語1語で書きなさい。heで始まる語です。",
+    "answer": "healthy",
+    "explanation": "名詞 health に -y をつけた形です。反対は unhealthy。stay healthy（健康を保つ）、a healthy diet（健康的な食事）のように使い、健康をテーマにした長文で頻出します。"
+  },
+  {
+    "id": "e173",
+    "category": "英単語（形容詞・副詞）",
+    "question": "「役に立つ」を英語1語で書きなさい。usで始まる語です。",
+    "answer": "useful",
+    "explanation": "use（使う）+ ful（満ちた）で「使いでがある」。-ful は「～に満ちた」を表し、beautiful、careful、helpful も同じ作りです。反対は -less をつけて useless（役に立たない）。"
+  },
+  {
+    "id": "e174",
+    "category": "英単語（形容詞・副詞）",
+    "question": "「必要な」を英語1語で書きなさい。necで始まる語です。",
+    "answer": "necessary",
+    "explanation": "c が1つ、s が2つという、つづりミスの多い語です。It is necessary for us to ～（私たちが～することが必要だ）の形で使います。名詞形は necessity（必要性）。"
+  },
+  {
+    "id": "e175",
+    "category": "英単語（形容詞・副詞）",
+    "question": "「可能な」を英語1語で書きなさい。posで始まる語です。",
+    "answer": "possible",
+    "explanation": "反対語は im- をつけて impossible（不可能な）。as ～ as possible（できるだけ～）は英作文の必須表現で、as soon as possible（できるだけ早く）は ASAP と略されるほど頻用されます。"
+  },
+  {
+    "id": "e176",
+    "category": "英単語（形容詞・副詞）",
+    "question": "「本当の、真実の」を英語1語で書きなさい。tで始まる語です。",
+    "answer": "true",
+    "explanation": "名詞形は truth（真実）で、つづりが変わります。come true（実現する）は、My dream came true.（夢がかなった）の形で英作文の定番。反対語は false（誤りの）です。"
+  },
+  {
+    "id": "e177",
+    "category": "英単語（形容詞・副詞）",
+    "question": "「高価な、値段が高い」を英語1語で書きなさい。exで始まる語です。",
+    "answer": "expensive",
+    "explanation": "値段には high / low を使い、expensive / cheap は品物に使います。The price is expensive. は誤りで、正しくは The price is high. 日本語の感覚とずれるため入試で狙われます。"
+  },
+  {
+    "id": "e178",
+    "category": "英単語（形容詞・副詞）",
+    "question": "「（値段が）安い」を英語1語で書きなさい。chで始まる語です。",
+    "answer": "cheap",
+    "explanation": "「安い」だけでなく「安っぽい」という否定的な響きも持ちます。単に値段が手ごろだと言いたいときは inexpensive や reasonable を使うほうが失礼になりません。"
+  },
+  {
+    "id": "e179",
+    "category": "英単語（形容詞・副詞）",
+    "question": "「貧しい」を英語1語で書きなさい。pで始まる語です。",
+    "answer": "poor",
+    "explanation": "反対は rich（豊かな）。「かわいそうな」「下手な」という意味もあり、Poor you!（かわいそうに）、I'm poor at math.（数学が苦手だ）と幅広く使われます。"
+  },
+  {
+    "id": "e180",
+    "category": "英単語（形容詞・副詞）",
+    "question": "「共通の、ふつうの」を英語1語で書きなさい。comで始まる語です。",
+    "answer": "common",
+    "explanation": "have ～ in common（～を共通して持つ）という熟語が重要です。common sense は「常識」。usual（いつもの）とは違い、common は「多くの人に共通して見られる」というニュアンスです。"
+  },
+  {
+    "id": "e181",
+    "category": "英単語（形容詞・副詞）",
+    "question": "「特別な」を英語1語で書きなさい。spで始まる語です。",
+    "answer": "special",
+    "explanation": "副詞は especially（特に）で、頭に e がつく点に注意。名詞 specialist は「専門家」です。a special day（特別な日）は日記や手紙形式の英作文でよく使います。"
+  },
+  {
+    "id": "e182",
+    "category": "英単語（形容詞・副詞）",
+    "question": "「現代の、近代の」を英語1語で書きなさい。modで始まる語です。",
+    "answer": "modern",
+    "explanation": "発音は「モダン」で、アクセントは前にあります。modern technology（現代の科学技術）、modern art（現代美術）のように使い、伝統と対比させる長文で traditional とセットで登場します。"
+  },
+  {
+    "id": "e183",
+    "category": "英単語（形容詞・副詞）",
+    "question": "「古代の」を英語1語で書きなさい。anで始まる語です。",
+    "answer": "ancient",
+    "explanation": "old が単に「古い」なのに対し、こちらは何千年も前の古代を指します。ancient Egypt（古代エジプト）、ancient times（古代）のように使い、読みは「エインシェント」です。"
+  },
+  {
+    "id": "e184",
+    "category": "英単語（形容詞・副詞）",
+    "question": "「自由な、ひまな、無料の」を英語1語で書きなさい。fで始まる語です。",
+    "answer": "free",
+    "explanation": "ひとつの語で「自由な」「ひまな」「無料の」の3つの意味を持ちます。free time（ひまな時間）、for free（無料で）。名詞形は freedom（自由）です。"
+  },
+  {
+    "id": "e185",
+    "category": "英単語（形容詞・副詞）",
+    "question": "「深い」を英語1語で書きなさい。dで始まる語です。",
+    "answer": "deep",
+    "explanation": "名詞形は depth（深さ）。反対語は shallow（浅い）です。副詞 deeply は「深く」で、be deeply moved（深く感動する）のように気持ちを表すときにも使われます。"
+  },
+  {
+    "id": "e186",
+    "category": "英単語（形容詞・副詞）",
+    "question": "「幅の広い」を英語1語で書きなさい。wで始まる語です。",
+    "answer": "wide",
+    "explanation": "名詞形は width（幅）。反対語は narrow（狭い）です。部屋が「広い」と言いたいときは wide ではなく large を使うのが自然で、日本語の「広い」との使い分けに注意しましょう。"
+  },
+  {
+    "id": "e187",
+    "category": "英単語（形容詞・副詞）",
+    "question": "「重い」を英語1語で書きなさい。hで始まる語です。",
+    "answer": "heavy",
+    "explanation": "反対語は light（軽い）。heavy rain（大雨）、heavy traffic（交通渋滞）のように、量や程度が多いことを表すのにも使われます。日本語の「重い雨」とは言わないので発想の違いが面白いところです。"
+  },
+  {
+    "id": "e188",
+    "category": "英単語（形容詞・副詞）",
+    "question": "「新鮮な」を英語1語で書きなさい。frで始まる語です。",
+    "answer": "fresh",
+    "explanation": "fresh vegetables（新鮮な野菜）のほか、fresh air（新鮮な空気）、a fresh start（新たな出発）のようにも使えます。日本語の「フレッシュ」とほぼ同じ感覚で使える、数少ない外来語のひとつです。"
+  },
+  {
+    "id": "e189",
+    "category": "英単語（形容詞・副詞）",
+    "question": "「十分な」を英語1語で書きなさい。enで始まる語です。",
+    "answer": "enough",
+    "explanation": "つづりの gh を「フ」と読む、発音の難しい語です（イナフ）。形容詞を修飾するときは後ろに置き、old enough to drive（運転できる年齢だ）のように使う点が最重要ポイントです。"
+  },
+  {
+    "id": "e190",
+    "category": "英単語（形容詞・副詞）",
+    "question": "「いくつかの、数個の」を英語1語で書きなさい。seで始まる語です。",
+    "answer": "several",
+    "explanation": "some より多く、many より少ない、だいたい3〜5個くらいを指します。数えられる名詞の複数形とともに使い、several times（数回）、several people（数人）のように用います。"
+  },
+  {
+    "id": "e191",
+    "category": "英単語（形容詞・副詞）",
+    "question": "「ほとんど、もう少しで」を表す副詞を英語1語で書きなさい。alで始まる語です。",
+    "answer": "almost",
+    "explanation": "almost all the students（ほとんどすべての生徒）のように使います。almost students とは言えず、all や every とセットにするのがポイント。I almost missed the train. なら「もう少しで乗り遅れるところだった」。"
+  },
+  {
+    "id": "e192",
+    "category": "英単語（形容詞・副詞）",
+    "question": "「ふつうは、たいてい」を表す副詞を英語1語で書きなさい。usで始まる語です。",
+    "answer": "usually",
+    "explanation": "頻度を表す副詞は、always（いつも）＞ usually ＞ often ＞ sometimes ＞ never（決してない）の順に頻度が下がります。置く位置は一般動詞の前、be動詞の後ろが原則です。"
+  },
+  {
+    "id": "e193",
+    "category": "英単語（形容詞・副詞）",
+    "question": "「突然に」を表す副詞を英語1語で書きなさい。sudで始まる語です。",
+    "answer": "suddenly",
+    "explanation": "形容詞 sudden に -ly をつけた形です。物語文で場面が急に変わるときの合図になる語なので、長文でこの語が出てきたら展開が変わると意識して読むとよいでしょう。"
+  },
+  {
+    "id": "e194",
+    "category": "英単語（形容詞・副詞）",
+    "question": "「最近」を表す副詞を英語1語で書きなさい。recで始まる語です。",
+    "answer": "recently",
+    "explanation": "現在完了や過去形とともに使われます。似た表現の these days（このごろ）は現在形と使うのが基本で、時制との相性が異なる点が問われます。"
+  },
+  {
+    "id": "e195",
+    "category": "英単語（形容詞・副詞）",
+    "question": "「ついに、最後に」を表す副詞を英語1語で書きなさい。fiで始まる語です。",
+    "answer": "finally",
+    "explanation": "長い過程のすえにたどり着いたことを表します。英作文で意見を並べるときは、First,（まず）→ Second,（次に）→ Finally,（最後に）と並べると構成がはっきりします。"
+  },
+  {
+    "id": "e196",
+    "category": "英単語（形容詞・副詞）",
+    "question": "「実際に、実は」を表す副詞を英語1語で書きなさい。acで始まる語です。",
+    "answer": "actually",
+    "explanation": "会話では、相手の予想と違うことを言うときの前置きとして活躍します。Actually, I've never been there.（実は、行ったことがないんです）のように使います。形容詞は actual（実際の）。"
+  },
+  {
+    "id": "e197",
+    "category": "英単語（形容詞・副詞）",
+    "question": "「注意深く」を表す副詞を英語1語で書きなさい。carで始まる語です。",
+    "answer": "carefully",
+    "explanation": "形容詞 careful に -ly をつけた形です。Listen carefully.（注意して聞きなさい）はリスニング問題の指示文の定番。反対は carelessly（不注意に）で、-less は「～がない」を表します。"
+  },
+  {
+    "id": "e198",
+    "category": "英単語（形容詞・副詞）",
+    "question": "「たがいに影響しあう」ではなく「国際的な」を意味する語を英語1語で書きなさい。intで始まる語です。",
+    "answer": "international",
+    "explanation": "inter（間の）+ national（国の）で、国と国のあいだ、つまり国際的という意味です。同じ inter を含む語に internet（ネットワーク間の網）、interview（間で見る＝面接）があります。"
+  },
+  {
+    "id": "e199",
+    "category": "英単語（形容詞・副詞）",
+    "question": "「地元の、その地方の」を英語1語で書きなさい。loで始まる語です。",
+    "answer": "local",
+    "explanation": "日本語の「ローカル＝田舎の」という語感とは違い、単に「その土地の」という意味です。local food（郷土料理）、local people（地元の人々）のように使い、地域紹介の英作文で活躍します。"
+  },
+  {
+    "id": "e200",
+    "category": "英単語（形容詞・副詞）",
+    "question": "「（人が）ものを書くのが上手だ」ではなく「（作品が）すばらしい」を意味する語を英語1語で書きなさい。wonで始まる語です。",
+    "answer": "wonderful",
+    "explanation": "wonder（驚き、不思議）+ ful で「驚きに満ちた」という成り立ちです。動詞の wonder は「～かしらと思う」で、I wonder if you could help me.（手伝っていただけないでしょうか）は丁寧な依頼表現になります。"
+  },
+  {
+    "id": "e201",
+    "category": "反対語",
+    "question": "large の反対の意味を表す語を英語1語で書きなさい。",
+    "answer": "small",
+    "explanation": "big とほぼ同じ意味ですが、large のほうがやや改まった語です。ちなみに big には「重要な」という意味もあり、a big decision（重大な決断）のように使えます。"
+  },
+  {
+    "id": "e202",
+    "category": "反対語",
+    "question": "short（長さについて）の反対の意味を表す語を英語1語で書きなさい。",
+    "answer": "long",
+    "explanation": "short は「短い」と「背が低い」の両方を表すため、反対語も文脈で変わります。長さなら long、身長なら tall。名詞形は length（長さ）で、つづりが大きく変わる点に注意しましょう。"
+  },
+  {
+    "id": "e203",
+    "category": "反対語",
+    "question": "young の反対の意味を表す語を英語1語で書きなさい。",
+    "answer": "old",
+    "explanation": "old は「年をとった」と「古い」の2つの意味を持つため、反対語も young と new に分かれます。How old are you? が年齢をたずねる表現なのは、この語が年齢の尺度そのものだからです。"
+  },
+  {
+    "id": "e204",
+    "category": "反対語",
+    "question": "difficult の反対の意味を表す語を英語1語で書きなさい。",
+    "answer": "easy",
+    "explanation": "副詞は easily（簡単に）、名詞は ease（容易さ）です。Take it easy. は「気楽にね、じゃあね」という別れぎわのあいさつとしても使われます。"
+  },
+  {
+    "id": "e205",
+    "category": "反対語",
+    "question": "expensive の反対の意味を表す語を英語1語で書きなさい。",
+    "answer": "cheap",
+    "explanation": "値段が高いものには expensive、安いものには cheap を使います。ただし cheap は「安っぽい」という響きも持つため、店員に向かって使うと失礼になることがあります。"
+  },
+  {
+    "id": "e206",
+    "category": "反対語",
+    "question": "strong の反対の意味を表す語を英語1語で書きなさい。",
+    "answer": "weak",
+    "explanation": "weak は week（週）と同じ発音なので、聞き取りでは文脈が頼りです。「弱点」は a weak point、「弱まる」は weaken。-en をつけて動詞にするパターンです。"
+  },
+  {
+    "id": "e207",
+    "category": "反対語",
+    "question": "light（重さについて）の反対の意味を表す語を英語1語で書きなさい。",
+    "answer": "heavy",
+    "explanation": "light は「軽い」と「明るい」の両方を表す語で、反対語も heavy と dark に分かれます。名詞では「光」の意味になり、ひとつの語が3つの顔を持つ代表例です。"
+  },
+  {
+    "id": "e208",
+    "category": "反対語",
+    "question": "clean の反対の意味を表す語を英語1語で書きなさい。",
+    "answer": "dirty",
+    "explanation": "名詞 dirt（よごれ、土）に -y をつけた形容詞です。clean は形容詞（きれいな）と動詞（そうじする）を兼ねており、clean my room（部屋をそうじする）のように使えます。"
+  },
+  {
+    "id": "e209",
+    "category": "反対語",
+    "question": "safe の反対の意味を表す語を英語1語で書きなさい。",
+    "answer": "dangerous",
+    "explanation": "名詞は danger（危険）で、-ous をつけて形容詞にします。この -ous のパターンには famous（有名な）、nervous（緊張した）、serious（深刻な）などがあります。"
+  },
+  {
+    "id": "e210",
+    "category": "反対語",
+    "question": "possible の反対の意味を表す語を英語1語で書きなさい。",
+    "answer": "impossible",
+    "explanation": "im- は「打ち消し」を表します。m や p の前では im-、それ以外では in- になるのがルールで、impossible、important に対して incorrect、invisible となります。発音のしやすさが理由です。"
+  },
+  {
+    "id": "e211",
+    "category": "反対語",
+    "question": "true の反対の意味を表す語を英語1語で書きなさい。fで始まる語です。",
+    "answer": "false",
+    "explanation": "テストの正誤問題を True or False（○か×か）と呼ぶのはここから来ています。発音は「フォールス」。日本語の「フェイク」にあたる fake は「にせものの」で、少し意味が違います。"
+  },
+  {
+    "id": "e212",
+    "category": "反対語",
+    "question": "remember の反対の意味を表す語を英語1語で書きなさい。",
+    "answer": "forget",
+    "explanation": "forget - forgot - forgotten と変化します。forget to ～ は「～するのを忘れる（まだしていない）」、forget ～ing は「～したことを忘れる（もうした）」と意味が変わる最重要ポイントです。"
+  },
+  {
+    "id": "e213",
+    "category": "反対語",
+    "question": "buy の反対の意味を表す語を英語1語で書きなさい。",
+    "answer": "sell",
+    "explanation": "sell - sold - sold と変化します。buy も buy - bought - bought と不規則変化。sold out は「売り切れ」で、日本語でもそのまま使われていますね。"
+  },
+  {
+    "id": "e214",
+    "category": "反対語",
+    "question": "push の反対の意味を表す語を英語1語で書きなさい。",
+    "answer": "pull",
+    "explanation": "ドアに貼ってある PUSH（押す）と PULL（引く）の表示でおなじみです。海外で建物に入るとき、この2語を知っているだけで迷わずにすみます。発音は「プシュ」と「プル」。"
+  },
+  {
+    "id": "e215",
+    "category": "反対語",
+    "question": "win の反対の意味を表す語を英語1語で書きなさい。",
+    "answer": "lose",
+    "explanation": "lose - lost - lost と変化します。「なくす」という意味もあり、I lost my key.（かぎをなくした）と使えます。形容詞 lost は「道に迷った」で、I'm lost. なら「道に迷いました」。"
+  },
+  {
+    "id": "e216",
+    "category": "反対語",
+    "question": "always の反対の意味を表す語を英語1語で書きなさい。",
+    "answer": "never",
+    "explanation": "never は否定の意味を含むため、not と一緒には使いません。現在完了とともに使うと「一度も～したことがない」となり、I have never been to Kyoto. のように経験を否定します。"
+  },
+  {
+    "id": "e217",
+    "category": "反対語",
+    "question": "increase の反対の意味を表す語を英語1語で書きなさい。deで始まる語です。",
+    "answer": "decrease",
+    "explanation": "de- は「下へ」を表す接頭語です。同じ de- を持つ語に decline（下がる）、descend（降りる）があります。グラフの説明文で increase と対になって必ず登場します。"
+  },
+  {
+    "id": "e218",
+    "category": "反対語",
+    "question": "appear の反対の意味を表す語を英語1語で書きなさい。",
+    "answer": "disappear",
+    "explanation": "dis- は打ち消しを表し、agree → disagree、like → dislike、honest → dishonest も同じ作りです。接頭語の意味を知っていると、初めて見る単語でも意味の見当がつけられます。"
+  },
+  {
+    "id": "e219",
+    "category": "反対語",
+    "question": "north の反対の意味を表す語を英語1語で書きなさい。",
+    "answer": "south",
+    "explanation": "方角は north（北）、south（南）、east（東）、west（西）の4つ。日本語では北・南・東・西の順ですが、英語では north, south, east, west と並べるのが一般的です。"
+  },
+  {
+    "id": "e220",
+    "category": "反対語",
+    "question": "right（右）の反対の意味を表す語を英語1語で書きなさい。",
+    "answer": "left",
+    "explanation": "left は leave（去る）の過去形と同じ形なので、文中でどちらか判断する必要があります。right には「右」「正しい」「権利」の3つの意味があり、human rights なら「人権」です。"
+  },
+  {
+    "id": "e221",
+    "category": "派生語・語形変化",
+    "question": "beautiful の名詞形（美しさ）を英語1語で書きなさい。",
+    "answer": "beauty",
+    "explanation": "形容詞の -ful を取って -y に変える形です。Beauty is in the eye of the beholder.（美は見る人の目の中にある＝美しさは人それぞれ）ということわざもあります。"
+  },
+  {
+    "id": "e222",
+    "category": "派生語・語形変化",
+    "question": "happy の名詞形（幸福）を英語1語で書きなさい。",
+    "answer": "happiness",
+    "explanation": "y を i に変えて -ness をつけます。この -ness は形容詞を名詞にする代表的な語尾で、kind → kindness（親切）、sad → sadness（悲しみ）、dark → darkness（暗さ）も同じ作りです。"
+  },
+  {
+    "id": "e223",
+    "category": "派生語・語形変化",
+    "question": "different の名詞形（違い）を英語1語で書きなさい。",
+    "answer": "difference",
+    "explanation": "-ent を -ence に変えるパターンです。同じ作りに important → importance、silent → silence があります。make a difference は「違いを生む、影響を与える」という重要な熟語です。"
+  },
+  {
+    "id": "e224",
+    "category": "派生語・語形変化",
+    "question": "decide の名詞形（決定）を英語1語で書きなさい。",
+    "answer": "decision",
+    "explanation": "-de が -sion に変わる点に注意しましょう。make a decision（決断する）の形で使います。同じ変化に conclude → conclusion（結論）があります。"
+  },
+  {
+    "id": "e225",
+    "category": "派生語・語形変化",
+    "question": "discover の名詞形（発見）を英語1語で書きなさい。",
+    "answer": "discovery",
+    "explanation": "動詞の語尾に -y をつけて名詞にします。同じ作りに deliver → delivery（配達）があります。make a discovery で「発見をする」となります。"
+  },
+  {
+    "id": "e226",
+    "category": "派生語・語形変化",
+    "question": "know の名詞形（知識）を英語1語で書きなさい。",
+    "answer": "knowledge",
+    "explanation": "know に -ledge がつくという、他にあまり例のない変化をします。先頭の k は発音しません。数えられない名詞なので、much knowledge とは言えても many knowledges とは言えません。"
+  },
+  {
+    "id": "e227",
+    "category": "派生語・語形変化",
+    "question": "die の名詞形（死）を英語1語で書きなさい。",
+    "answer": "death",
+    "explanation": "動詞 die、名詞 death、形容詞 dead（死んでいる）と、3つとも形が違う要注意のグループです。die の ing形は dying となり、e を y に変える例外的な変化をします。"
+  },
+  {
+    "id": "e228",
+    "category": "派生語・語形変化",
+    "question": "succeed の名詞形（成功）を英語1語で書きなさい。",
+    "answer": "success",
+    "explanation": "動詞は -ceed、名詞は -cess とつづりが変わります。形容詞は successful（成功した）。succeed in ～ing（～に成功する）の in を落とすミスが多いので注意しましょう。"
+  },
+  {
+    "id": "e229",
+    "category": "派生語・語形変化",
+    "question": "nature の形容詞形（自然の）を英語1語で書きなさい。",
+    "answer": "natural",
+    "explanation": "語尾の e を取って -al をつけます。同じ作りに culture → cultural（文化の）、center → central（中心の）があります。It's natural for him to ～ で「彼が～するのは当然だ」となります。"
+  },
+  {
+    "id": "e230",
+    "category": "派生語・語形変化",
+    "question": "use の形容詞形で「役に立つ」を意味する語を英語1語で書きなさい。",
+    "answer": "useful",
+    "explanation": "-ful は「～に満ちた」を表します。反対の -less は「～がない」で、useless（役に立たない）、careless（不注意な）、homeless（家のない）となります。この2つの語尾を知ると語彙が一気に広がります。"
+  },
+  {
+    "id": "e231",
+    "category": "派生語・語形変化",
+    "question": "health の形容詞形（健康な）を英語1語で書きなさい。",
+    "answer": "healthy",
+    "explanation": "名詞に -y をつけて形容詞にするパターンです。sun → sunny（晴れた）、wind → windy（風の強い）、snow → snowy（雪の降る）と、天気を表す語に多く見られます。"
+  },
+  {
+    "id": "e232",
+    "category": "派生語・語形変化",
+    "question": "science に対応する「科学者」を表す語を英語1語で書きなさい。",
+    "answer": "scientist",
+    "explanation": "-ist は「～をする人」を表します。artist（芸術家）、pianist（ピアニスト）、dentist（歯科医）も同じ作り。動詞に -er をつける teacher 型とあわせて、人を表す語尾を整理しておきましょう。"
+  },
+  {
+    "id": "e233",
+    "category": "派生語・語形変化",
+    "question": "music に対応する「音楽家」を表す語を英語1語で書きなさい。",
+    "answer": "musician",
+    "explanation": "-ian も「～をする人」を表す語尾で、politician（政治家）、magician（手品師）が同じ仲間です。music は「ミュージック」ですが musician は「ミュージシャン」とアクセントの位置が変わります。"
+  },
+  {
+    "id": "e234",
+    "category": "派生語・語形変化",
+    "question": "long の名詞形（長さ）を英語1語で書きなさい。",
+    "answer": "length",
+    "explanation": "o が e に変わるという、予想しにくい変化をします。同じパターンに strong → strength（強さ）、wide → width（幅）、deep → depth（深さ）、high → height（高さ）があり、まとめて覚えるのが効率的です。"
+  },
+  {
+    "id": "e235",
+    "category": "派生語・語形変化",
+    "question": "high の名詞形（高さ）を英語1語で書きなさい。",
+    "answer": "height",
+    "explanation": "つづりから予想しにくく、発音も「ハイト」となる要注意語です。What is the height of the tower?（塔の高さはどれくらいですか）のように使います。"
+  },
+  {
+    "id": "e236",
+    "category": "派生語・語形変化",
+    "question": "free の名詞形（自由）を英語1語で書きなさい。",
+    "answer": "freedom",
+    "explanation": "-dom は「状態」を表す語尾で、kingdom（王国＝王の治める状態）も同じ作りです。freedom of speech（言論の自由）は社会をテーマにした長文で登場します。"
+  },
+  {
+    "id": "e237",
+    "category": "派生語・語形変化",
+    "question": "child の複数形を英語1語で書きなさい。",
+    "answer": "children",
+    "explanation": "s をつけない不規則な複数形です。man → men、woman → women、person → people も同じ仲間。women の発音は「ウィメン」で、単数の woman「ウーマン」と母音が変わる点にも注意しましょう。"
+  },
+  {
+    "id": "e238",
+    "category": "派生語・語形変化",
+    "question": "foot の複数形を英語1語で書きなさい。",
+    "answer": "feet",
+    "explanation": "oo が ee に変わる不規則変化で、tooth → teeth（歯）、goose → geese（ガチョウ）も同じパターンです。on foot は「徒歩で」という熟語で、こちらは単数形のまま使います。"
+  },
+  {
+    "id": "e239",
+    "category": "派生語・語形変化",
+    "question": "leaf の複数形を英語1語で書きなさい。",
+    "answer": "leaves",
+    "explanation": "f や fe で終わる語は、v に変えて -es をつけます。knife → knives（ナイフ）、life → lives（命）、wife → wives（妻）も同じ変化。leaves は動詞 leave の3人称単数形と同じ形になります。"
+  },
+  {
+    "id": "e240",
+    "category": "派生語・語形変化",
+    "question": "easy の副詞形（簡単に）を英語1語で書きなさい。",
+    "answer": "easily",
+    "explanation": "y を i に変えて -ly をつけます。happy → happily、busy → busily も同じ。ふつうは -ly をつけるだけですが（careful → carefully）、y で終わる語だけこの変化をします。"
+  },
+  {
+    "id": "e021",
+    "category": "動詞の変化",
+    "question": "go の過去形を書きなさい。",
+    "answer": "went",
+    "explanation": "go - went - gone と変化します。まったく形が変わるので、声に出してリズムで覚えるのが近道。なお現在完了で has gone to ～ は「行ってしまって今ここにいない」、has been to ～ は「行ったことがある」と、意味がはっきり違います。"
+  },
+  {
+    "id": "e022",
+    "category": "動詞の変化",
+    "question": "see の過去分詞を書きなさい。",
+    "answer": "seen",
+    "explanation": "see - saw - seen。「スィー・ソー・スィーン」とリズムよく唱えると自然に身につきます。ちなみに過去形の saw は、名詞ではのこぎりという意味にもなります。"
+  },
+  {
+    "id": "e023",
+    "category": "動詞の変化",
+    "question": "take の過去形を書きなさい。",
+    "answer": "took",
+    "explanation": "take - took - taken と変化します。take は「取る」だけでなく、take a bath（風呂に入る）、take a picture（写真を撮る）、take care of（世話をする）など、非常に多くの熟語で使われる超重要動詞です。"
+  },
+  {
+    "id": "e024",
+    "category": "動詞の変化",
+    "question": "write の過去分詞を書きなさい。",
+    "answer": "written",
+    "explanation": "write - wrote - written。過去分詞では t が2つ重なる点に注意しましょう。同じパターンに bite - bit - bitten があります。書くときについ t を1つにしてしまいがちなので、意識して練習を。"
+  },
+  {
+    "id": "e025",
+    "category": "動詞の変化",
+    "question": "buy の過去形を書きなさい。",
+    "answer": "bought",
+    "explanation": "buy - bought - bought。過去形と過去分詞が同じ形です。よく似た変化に bring - brought - brought（持ってくる）があり、この2つは混同しやすいので、意味とセットで整理しておきましょう。"
+  },
+  {
+    "id": "e026",
+    "category": "動詞の変化",
+    "question": "study の3人称単数現在形を書きなさい。",
+    "answer": "studies",
+    "explanation": "y の直前が子音のときは、y を i に変えて -es をつけます。だから study は studies。一方 play は y の前が母音（a）なので、そのまま plays。この見分け方は、複数形をつくるときもまったく同じルールです。"
+  },
+  {
+    "id": "e027",
+    "category": "動詞の変化",
+    "question": "run のing形を書きなさい。",
+    "answer": "running",
+    "explanation": "短い母音1つ+子音1つで終わる語は、最後の子音を重ねてから -ing をつけます。だから running。同じパターンに swim → swimming、sit → sitting、cut → cutting などがあります。"
+  },
+  {
+    "id": "e028",
+    "category": "動詞の変化",
+    "question": "speak の過去分詞を書きなさい。",
+    "answer": "spoken",
+    "explanation": "speak - spoke - spoken と変化します。過去分詞は受け身でよく使われ、English is spoken in many countries.（英語は多くの国で話されている）は定番の文です。"
+  },
+  {
+    "id": "e029",
+    "category": "動詞の変化",
+    "question": "eat の過去形を書きなさい。",
+    "answer": "ate",
+    "explanation": "eat - ate - eaten。過去形 ate の発音は「エイト」で、数字の eight とまったく同じ音になります。会話では前後の文脈で聞き分けます。"
+  },
+  {
+    "id": "e030",
+    "category": "動詞の変化",
+    "question": "know の過去分詞を書きなさい。",
+    "answer": "known",
+    "explanation": "know - knew - known。先頭の k は発音せず「ノウ」と読みます。この読まない k は、knife（ナイフ）、knee（ひざ）、knock（ノックする）などにも共通するパターンです。"
+  },
+  {
+    "id": "e031",
+    "category": "助動詞",
+    "question": "must とほぼ同じ意味を表す2語の表現を書きなさい。",
+    "answer": "have to",
+    "explanation": "must とほぼ同じ意味ですが、must は話し手が「そうすべきだ」と感じている主観的な意味合い、have to は規則や事情による客観的な意味合いという違いがあります。また must には過去形がないので、過去は had to を使います。"
+  },
+  {
+    "id": "e032",
+    "category": "助動詞",
+    "question": "Can you 〜? よりもていねいに依頼するときに使う助動詞を1語で書きなさい。",
+    "answer": "could",
+    "explanation": "Could you ～? は Can you ～? より丁寧な依頼になります。過去形を使うと丁寧になるのは、少し距離を置いた遠回しな言い方になるから。日本語で「できますか」より「できますでしょうか」が丁寧なのと同じ感覚です。"
+  },
+  {
+    "id": "e033",
+    "category": "助動詞",
+    "question": "「〜すべきだ」を表す助動詞を1語で書きなさい。",
+    "answer": "should",
+    "explanation": "「～したほうがよい」という助言に使います。似た表現の had better はもっと強く、「そうしないとまずいことになる」という警告のニュアンス。目上の人には使わないほうが無難です。"
+  },
+  {
+    "id": "e034",
+    "category": "助動詞",
+    "question": "「〜かもしれない」を表す助動詞を1語で書きなさい。",
+    "answer": "may",
+    "explanation": "may には「～してもよい（許可）」と「～かもしれない（推量）」の2つの意味があります。May I use your pen? なら許可を求める文。推量の強さは、might < may < can < should < must の順で強くなります。"
+  },
+  {
+    "id": "e035",
+    "category": "助動詞",
+    "question": "You ( ) not be late. の( )に入る「〜してはいけない」を表す助動詞を書きなさい。",
+    "answer": "must",
+    "explanation": "must not は「～してはいけない」という強い禁止です。ここで絶対に押さえたいのが、don't have to は「～しなくてよい」という意味で、まったく違うこと。not がつくと意味が正反対になるので、テストでも頻出です。"
+  },
+  {
+    "id": "e036",
+    "category": "不定詞・動名詞",
+    "question": "I want ( ) study English. の( )に入る1語を書きなさい。",
+    "answer": "to",
+    "explanation": "want のあとに動詞を続けるときは、必ず to + 動詞の原形（to不定詞）にします。want to ～ で「～したい」。会話では wanna と短縮されることもありますが、書くときはきちんと want to と書きましょう。"
+  },
+  {
+    "id": "e037",
+    "category": "不定詞・動名詞",
+    "question": "I enjoy ( ) soccer. の( )に play を適する形にして入れなさい。",
+    "answer": "playing",
+    "explanation": "enjoy のあとに動詞を続けるときは、必ず ing形（動名詞）にします。同じ仲間は enjoy, finish, stop, mind, practice など。それぞれの頭文字をとってメガフェプスという語呂で覚える方法が有名です。"
+  },
+  {
+    "id": "e038",
+    "category": "不定詞・動名詞",
+    "question": "It is easy ( ) me to swim. の( )に入る1語を書きなさい。",
+    "answer": "for",
+    "explanation": "It is ... for 人 to ～ で「（人）にとって～するのは…だ」という定番の形です。ただし kind や nice のように人の性質を表す形容詞のときだけは for ではなく of を使い、It is kind of you to help me. となります。"
+  },
+  {
+    "id": "e039",
+    "category": "不定詞・動名詞",
+    "question": "I have a lot of homework ( ) do today. の( )に入る1語を書きなさい。",
+    "answer": "to",
+    "explanation": "名詞のうしろに置いて「～すべき、～するための」と説明する使い方で、形容詞的用法といいます。homework to do で「やるべき宿題」。日本語と語順が逆になるので、後ろから前に訳すのがコツです。"
+  },
+  {
+    "id": "e040",
+    "category": "不定詞・動名詞",
+    "question": "He finished ( ) the book. の( )に read を適する形にして入れなさい。",
+    "answer": "reading",
+    "explanation": "finish のあとの動詞は必ず ing形になります。to read としないよう注意。ちなみに stop は両方使えますが、stop reading は「読むのをやめる」、stop to read は「読むために立ち止まる」と意味がまったく変わる有名な例です。"
+  },
+  {
+    "id": "e041",
+    "category": "不定詞・動名詞",
+    "question": "「彼女に何と言えばよいかわからない」I don't know what ( ) say. の( )に入る1語を書きなさい。",
+    "answer": "to",
+    "explanation": "疑問詞 + to不定詞 の形で、what to say は「何を言えばよいか」。ほかにも how to use（使い方）、where to go（どこへ行けばよいか）、when to start（いつ始めればよいか）と応用が利く便利な形です。"
+  },
+  {
+    "id": "e042",
+    "category": "比較",
+    "question": "big の比較級を書きなさい。",
+    "answer": "bigger",
+    "explanation": "短い母音1つ+子音1つで終わる語は、最後の子音を重ねて -er をつけます。だから bigger。同じパターンに hot → hotter、sad → sadder があります。ing形をつくるときのルールとまったく同じですね。"
+  },
+  {
+    "id": "e043",
+    "category": "比較",
+    "question": "good の最上級を書きなさい。",
+    "answer": "best",
+    "explanation": "good と well は、どちらも better - best と変化します。まったく形が変わってしまう不規則変化なので、good/well - better - best とセットで唱えて覚えましょう。日本語でもベスト、ベターとして使われていますね。"
+  },
+  {
+    "id": "e044",
+    "category": "比較",
+    "question": "many の比較級を書きなさい。",
+    "answer": "more",
+    "explanation": "many（数）と much（量）は、どちらも more - most と変化します。数と量で使い分けるのに、比較級から先は同じ形になるのがおもしろいところ。more は「もっと」という意味で単独でもよく使われます。"
+  },
+  {
+    "id": "e045",
+    "category": "比較",
+    "question": "easy の比較級を書きなさい。",
+    "answer": "easier",
+    "explanation": "y の直前が子音のときは、y を i に変えて -er をつけます。だから easier。同じパターンに busy → busier、happy → happier。3人称単数のときのルールと同じ発想です。"
+  },
+  {
+    "id": "e046",
+    "category": "比較",
+    "question": "This book is more interesting ( ) that one. の( )に入る1語を書きなさい。",
+    "answer": "than",
+    "explanation": "比較級とセットで使い、「～よりも」という意味を表します。than のあとに来るのは比べる相手。ちなみに than と then（そのとき）はつづりも見た目もそっくりなので、書き間違いに注意しましょう。"
+  },
+  {
+    "id": "e047",
+    "category": "比較",
+    "question": "Tom is the tallest ( ) the five boys. の( )に入る1語を書きなさい。",
+    "answer": "of",
+    "explanation": "最上級のあとの「～の中で」には2種類あります。of は of the five boys のように仲間や数を表す語の前、in は in my class のように場所や集団を表す語の前。数がきたら of、場所がきたら in と覚えましょう。"
+  },
+  {
+    "id": "e048",
+    "category": "受け身",
+    "question": "受け身の文は「be動詞＋動詞の( )」で表す。( )に入る語を漢字4字で答えなさい。",
+    "answer": "過去分詞",
+    "explanation": "受け身（受動態）は be動詞 + 過去分詞 でつくります。「～される」という意味になり、だれがやったかを言いたいときは by ～ を加えます。動作をする人よりも、されるものに注目したいときに使う表現です。"
+  },
+  {
+    "id": "e049",
+    "category": "受け身",
+    "question": "This room is ( ) by Tom every day. の( )に clean を適する形にして入れなさい。",
+    "answer": "cleaned",
+    "explanation": "clean は規則動詞なので、過去分詞は -ed をつけるだけで cleaned。be動詞の is と合わせて is cleaned となり、「掃除される」という受け身の形が完成します。"
+  },
+  {
+    "id": "e050",
+    "category": "受け身",
+    "question": "English is ( ) in many countries. の( )に speak を適する形にして入れなさい。",
+    "answer": "spoken",
+    "explanation": "speak の過去分詞は spoken。English is spoken in many countries. は受け身の代表例としてよく出てきます。だれが話すかより「英語が話されている」という事実に注目したい文なので、受け身がぴったりなのです。"
+  },
+  {
+    "id": "e051",
+    "category": "受け身",
+    "question": "受け身の文で「〜によって」を表すときに使う前置詞を1語で書きなさい。",
+    "answer": "by",
+    "explanation": "受け身で動作をする人やものを示すときは by を使います。This book was written by Soseki. のように。ただし by 以外を使う決まり文句もあり、be covered with（～におおわれている）、be known to（～に知られている）などが有名です。"
+  },
+  {
+    "id": "e052",
+    "category": "現在完了",
+    "question": "現在完了は「have[has]＋動詞の( )」で表す。( )に入る語を漢字4字で答えなさい。",
+    "answer": "過去分詞",
+    "explanation": "現在完了は have[has] + 過去分詞 でつくります。表す意味は継続・経験・完了の3つ。過去形が「過去の一点」を表すのに対し、現在完了は過去と現在をつなげて今の状況を語る表現だ、という点が最大の違いです。"
+  },
+  {
+    "id": "e053",
+    "category": "現在完了",
+    "question": "I ( ) lived in Tokyo for three years. の( )に入る1語を書きなさい。",
+    "answer": "have",
+    "explanation": "主語が I なので have を使います（he や she なら has）。for three years と期間が示されているので、これは「ずっと住んでいる」という継続用法。過去形の lived だと、今も住んでいるかどうかがわかりません。"
+  },
+  {
+    "id": "e054",
+    "category": "現在完了",
+    "question": "「〜へ行ったことがある」は have been ( ) 〜 で表す。( )に入る1語を書きなさい。",
+    "answer": "to",
+    "explanation": "have been to ～ は「～へ行ったことがある」という経験を表します。似ている have gone to ～ は「行ってしまって今ここにいない」という意味なので大違い。been なら戻ってきている、gone なら行きっぱなし、と覚えましょう。"
+  },
+  {
+    "id": "e055",
+    "category": "現在完了",
+    "question": "I have ( ) finished my homework. の( )に「もう・すでに」を表す1語を入れなさい。",
+    "answer": "already",
+    "explanation": "already は「もう、すでに」という意味で、完了用法の肯定文で使います。疑問文では yet（もう～しましたか）、否定文でも yet（まだ～していない）と、位置と意味が変わるのでセットで整理しておきましょう。"
+  },
+  {
+    "id": "e056",
+    "category": "現在完了",
+    "question": "Have you ( ) seen this movie? の( )に「今までに」を表す1語を入れなさい。",
+    "answer": "ever",
+    "explanation": "ever は「今までに」という意味で、経験をたずねる疑問文で使います。答えるときは Yes, I have. / No, I have never seen it. のように。never は「一度もない」という強い否定を表します。"
+  },
+  {
+    "id": "e057",
+    "category": "現在完了",
+    "question": "現在完了で「〜以来ずっと」を表すとき、後ろに時の一点がくる前置詞を1語で書きなさい。",
+    "answer": "since",
+    "explanation": "since のあとには 2020 や last year のように「いつから」という時の一点がきます。一方 for のあとには three years のように「どれくらいの間」という期間がきます。この使い分けは、継続用法で必ず問われるポイントです。"
+  },
+  {
+    "id": "e058",
+    "category": "関係代名詞・分詞",
+    "question": "先行詞が「人」で主格のときに使う関係代名詞を1語で書きなさい。",
+    "answer": "who",
+    "explanation": "先行詞が人で、そのあとに動詞が続くときは who を使います。The boy who is running is Tom. のように、2つの文を1つにまとめる接着剤の役割。関係代名詞のあとに動詞がくれば主格、主語がくれば目的格と見分けられます。"
+  },
+  {
+    "id": "e059",
+    "category": "関係代名詞・分詞",
+    "question": "先行詞が「もの」のときに使う関係代名詞を1語で書きなさい。（that 以外）",
+    "answer": "which",
+    "explanation": "先行詞がものや動物のときは which を使い、主格でも目的格でも使えます。なお、人でもものでも使える万能の that もあり、会話では that が好まれる傾向があります。"
+  },
+  {
+    "id": "e060",
+    "category": "関係代名詞・分詞",
+    "question": "the boy ( ) under the tree「木の下で走っている少年」の( )に run を適する形にして入れなさい。",
+    "answer": "running",
+    "explanation": "動詞の ing形 を名詞のうしろに置いて「～している」と説明する使い方です（現在分詞の後置修飾）。ポイントは、1語だけなら名詞の前（a running boy）、2語以上なら名詞のうしろ（the boy running under the tree）に置くこと。"
+  },
+  {
+    "id": "e061",
+    "category": "関係代名詞・分詞",
+    "question": "a book ( ) by Soseki「漱石によって書かれた本」の( )に write を適する形にして入れなさい。",
+    "answer": "written",
+    "explanation": "過去分詞を名詞のうしろに置くと「～された」という受け身の意味で説明できます。a book written by Soseki で「漱石によって書かれた本」。現在分詞なら「している」、過去分詞なら「されている」と、意味が正反対になる点に注目しましょう。"
+  },
+  {
+    "id": "e062",
+    "category": "熟語・会話表現",
+    "question": "「〜を探す」look ( ) の( )に入る1語を書きなさい。",
+    "answer": "for",
+    "explanation": "look は前置詞ひとつで意味ががらりと変わります。look at（～を見る）、look for（～を探す）、look after（～の世話をする）、look forward to（～を楽しみに待つ）。動詞そのものより前置詞が意味を決めている、おもしろい例です。"
+  },
+  {
+    "id": "e063",
+    "category": "熟語・会話表現",
+    "question": "「〜の世話をする」take care ( ) の( )に入る1語を書きなさい。",
+    "answer": "of",
+    "explanation": "take care of は look after とほぼ同じ意味です。別れぎわの Take care! は「気をつけてね」というあいさつになり、日常会話でとてもよく使われます。"
+  },
+  {
+    "id": "e064",
+    "category": "熟語・会話表現",
+    "question": "「〜を誇りに思う」be proud ( ) の( )に入る1語を書きなさい。",
+    "answer": "of",
+    "explanation": "be proud of ～ で「～を誇りに思う」。I'm proud of you. は、相手をほめるときの最高の言葉のひとつです。名詞形は pride（誇り）です。"
+  },
+  {
+    "id": "e065",
+    "category": "熟語・会話表現",
+    "question": "「〜が得意だ」be good ( ) の( )に入る1語を書きなさい。",
+    "answer": "at",
+    "explanation": "be good at ～ で「～が得意だ」。at のあとには名詞か動名詞（ing形）がきます。反対は be poor at や be bad at（～が苦手だ）。I'm good at playing soccer. のように使います。"
+  },
+  {
+    "id": "e066",
+    "category": "熟語・会話表現",
+    "question": "「〜に興味がある」be interested ( ) の( )に入る1語を書きなさい。",
+    "answer": "in",
+    "explanation": "be interested in ～ で「～に興味がある」。ここで注意したいのは、興味をもっているのは人なので必ず interested（される側の形）を使うこと。interesting は「（それ自体が）おもしろい」という意味で、混同しやすい代表例です。"
+  },
+  {
+    "id": "e067",
+    "category": "熟語・会話表現",
+    "question": "「AをBに変える」turn A ( ) B の( )に入る1語を書きなさい。",
+    "answer": "into",
+    "explanation": "turn A into B で「AをBに変える」。into には「中へ入りこむ」というイメージがあり、まったく別のものに変身するニュアンスが出ます。水が氷になるように、姿が変わるときに使われる前置詞です。"
+  },
+  {
+    "id": "e068",
+    "category": "熟語・会話表現",
+    "question": "「もちろんです」と快諾するときの Of ( ). の( )に入る1語を書きなさい。",
+    "answer": "course",
+    "explanation": "Of course. は「もちろんです」と快く応じるときの決まり文句。Sure. や No problem. も同じように使えます。course には「進路」という意味があり、当然そうなる道筋、というところから生まれた表現です。"
+  },
+  {
+    "id": "e069",
+    "category": "熟語・会話表現",
+    "question": "電話で「どちら様ですか」とたずねる Who's ( ), please? の( )に入る1語を書きなさい。",
+    "answer": "calling",
+    "explanation": "電話では、相手のことを you ではなく this や that で表すという独特のルールがあります。Who's calling, please? で「どちら様ですか」。自分を名乗るときも I am ではなく This is Tom (speaking). と言います。"
+  },
+  {
+    "id": "e070",
+    "category": "熟語・会話表現",
+    "question": "「お手伝いしましょうか」May I ( ) you? の( )に入る1語を書きなさい。",
+    "answer": "help",
+    "explanation": "May I help you? は、店員が客に声をかけるときの決まり文句で、日本語の「いらっしゃいませ」にあたります。客として何かを探しているときは、I'm looking for ～ と答えれば会話がスムーズに進みます。"
+  }
+]
