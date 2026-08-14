@@ -596,6 +596,7 @@
     <button id="start-btn">いざ出陣（学習開始）</button>
     <button id="review-btn" style="background: #4a3b35;">復習戦 (0件)</button>
     <button onclick="goHome()" style="background: #332822; margin-top: 5px;">本陣へ戻る</button>
+    <button id="sound-btn" style="background: #332822; font-size: 0.9rem; padding: 8px;">🔊 効果音: オン</button>
 
     <!-- 🏆 正解数に応じて解像度が上がる絵巻 -->
     <div class="reward-panel">
@@ -667,6 +668,84 @@
   let correctTotal = 0;
   let sessionStartLevel = 0;
 
+  // ----- ⚔️ 抜刀の効果音（sounds/slash.mp3 を再生する） -----
+
+  const SLASH_FILE = 'sounds/slash.mp3';
+
+  let audioCtx = null;
+  let slashBuffer = null;      // 読みこみ済みの音声データ
+  let slashFailed = false;     // 読みこみに失敗したか
+  let soundEnabled = localStorage.getItem('soundEnabled') !== 'off';
+
+  function getAudioContext() {
+    if (audioCtx) return audioCtx;
+    const AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) return null;
+    audioCtx = new AC();
+    return audioCtx;
+  }
+
+  // 音声ファイルは一度だけ読みこんで展開しておく。
+  // 毎回ファイルを読むと、正解した瞬間に音が遅れて出てしまう
+  function loadSlashSound() {
+    const ctx = getAudioContext();
+    if (!ctx || slashBuffer || slashFailed) return;
+
+    fetch(SLASH_FILE)
+      .then(res => {
+        if (!res.ok) throw new Error(res.status);
+        return res.arrayBuffer();
+      })
+      .then(data => ctx.decodeAudioData(data))
+      .then(decoded => {
+        slashBuffer = decoded;
+        updateSoundBtn();
+      })
+      .catch(() => {
+        slashFailed = true;
+        updateSoundBtn();
+      });
+  }
+
+  // power: ダメージ倍率。会心や連撃ほど、わずかに速く鋭い音になる
+  function playSlashSound(power) {
+    if (!soundEnabled || !slashBuffer) return;
+
+    const ctx = getAudioContext();
+    if (!ctx) return;
+    if (ctx.state === 'suspended') ctx.resume();
+
+    const source = ctx.createBufferSource();
+    source.buffer = slashBuffer;
+    source.playbackRate.value = 0.94 + Math.min(power, 1.5) * 0.08;
+
+    // 元ファイルの最大振幅が0.6のため、他の演出と音量がそろうよう持ち上げる
+    const gain = ctx.createGain();
+    gain.gain.value = 1.45;
+
+    // 毎回新しく作るので、連続で正解しても音が途切れず重なって鳴る
+    source.connect(gain).connect(ctx.destination);
+    source.start();
+  }
+
+  function updateSoundBtn() {
+    const btn = document.getElementById('sound-btn');
+    if (slashFailed) {
+      btn.textContent = '⚠️ 効果音: 読みこめません';
+      return;
+    }
+    btn.textContent = soundEnabled ? '🔊 効果音: オン' : '🔇 効果音: オフ';
+  }
+
+  document.getElementById('sound-btn').addEventListener('click', () => {
+    soundEnabled = !soundEnabled;
+    localStorage.setItem('soundEnabled', soundEnabled ? 'on' : 'off');
+    updateSoundBtn();
+    if (soundEnabled) playSlashSound(1.2);  // 切りかえたその場で音を確認できる
+  });
+
+  updateSoundBtn();  // 前回オフにしていた場合に備えて表示を合わせる
+
   let currentSubjectKey = '';
   let currentSubjectName = '';
   let allQuestions = [];
@@ -693,6 +772,7 @@
     wrongQuestions = JSON.parse(localStorage.getItem(`wrongQuestions_${key}`) || '[]');
     correctTotal = parseInt(localStorage.getItem(`correctTotal_${key}`), 10) || 0;
     loadRewardImage(key);
+    loadSlashSound();  // 出題前に読みこんでおき、正解した瞬間に遅れなく鳴らす
 
     fetch(`${key}.json`)
       .then(response => {
@@ -959,6 +1039,7 @@
     }
 
     updateComboBadge();
+    playSlashSound(multiplier);
 
     const damagePercent = baseDamagePerQuestion * multiplier;
     enemyHp -= damagePercent;
