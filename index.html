@@ -532,7 +532,206 @@
       text-align: center;
     }
 
+    /* ✅ 解答後に出す「要復習」のチェック */
+    .mark-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 10px;
+      padding: 10px 12px;
+      background: rgba(80, 60, 30, 0.35);
+      border: 1px solid #6b5236;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      color: #f0e0c8;
+      user-select: none;
+    }
+
+    .mark-row input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+      flex-shrink: 0;
+    }
+
+    /* 📋 復習リスト */
+    .review-summary {
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid #44332a;
+      border-radius: 8px;
+      padding: 10px;
+      margin-bottom: 12px;
+      font-size: 0.9rem;
+      color: #ccb89a;
+      text-align: center;
+      line-height: 1.7;
+    }
+
+    .review-list {
+      max-height: 46vh;
+      overflow-y: auto;
+      margin-bottom: 14px;
+      border: 1px solid #443028;
+      border-radius: 8px;
+      background: rgba(0, 0, 0, 0.4);
+      padding: 8px;
+    }
+
+    .review-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      padding: 10px;
+      border-bottom: 1px solid #38281f;
+    }
+
+    .review-item:last-child { border-bottom: none; }
+
+    .review-badges {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      flex-shrink: 0;
+    }
+
+    .review-badge {
+      display: inline-block;
+      width: 26px;
+      height: 26px;
+      line-height: 26px;
+      text-align: center;
+      border-radius: 5px;
+      font-weight: bold;
+      font-size: 0.9rem;
+    }
+
+    /* 違＝間違えた問題、復＝自分で印をつけた問題 */
+    .badge-wrong { background: rgba(220, 53, 69, 0.35); border: 1px solid var(--danger); color: #ff9ba3; }
+    .badge-marked { background: rgba(243, 168, 82, 0.25); border: 1px solid #f3a852; color: #ffcf90; }
+
+    .review-body { flex: 1; min-width: 0; }
+
+    .review-q {
+      font-size: 0.92rem;
+      line-height: 1.6;
+      color: #eee;
+      margin-bottom: 4px;
+    }
+
+    .review-a { font-size: 0.86rem; color: #8fd9a0; }
+    .review-cat { font-size: 0.78rem; color: #9a8a76; }
+
+    .review-remove {
+      width: auto;
+      flex-shrink: 0;
+      padding: 5px 10px;
+      font-size: 0.78rem;
+      background: #4a3b35;
+      border-color: #665248;
+      margin-bottom: 0;
+      align-self: center;
+    }
+
+    .review-empty {
+      padding: 30px 10px;
+      text-align: center;
+      color: #9a8a76;
+      font-size: 0.9rem;
+      line-height: 1.8;
+    }
+
     .hidden { display: none !important; }
+
+    /* =========================================================
+       🖥 パソコン向け。空いている左右を使い、縦スクロールを減らす
+       ========================================================= */
+    @media (min-width: 900px) {
+      body {
+        justify-content: center;
+        padding: 24px 3vw;
+      }
+
+      /* 戦闘中は左半分に敵、右半分にカードを置く */
+      .app-container {
+        max-width: 680px;
+        margin-bottom: 0;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 26px 30px;
+      }
+
+      /* 戦闘中は左に敵を置くため、カードを右へ寄せる */
+      body.quiz-layout .app-container {
+        margin-right: 2vw;
+      }
+
+      .enemy-stage {
+        left: 30%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        height: 360px;
+      }
+
+      .enemy-sprite {
+        max-width: 300px;
+        max-height: 300px;
+      }
+
+      .fixed-battle-ui {
+        left: 30%;
+        top: auto;
+        bottom: 14%;
+        width: 34vw;
+        max-width: 420px;
+      }
+
+      /* 斬撃やダメージ数値も、敵のいる位置に合わせる */
+      .impact-effect, .slash-effect { left: 30%; top: 50%; }
+      .damage-num { left: 30%; top: 30%; font-size: 2.6rem; }
+
+      /* 問題と入力欄を大きくして読みやすくする */
+      h1 { font-size: 1.7rem; }
+      h2 { font-size: 1.4rem; }
+      .question-card { font-size: 1.2rem; padding: 20px; min-height: 90px; }
+      #answer-input { font-size: 1.15rem; padding: 14px; }
+      .explanation { font-size: 1rem; max-height: none; }
+      .stats { font-size: 0.95rem; padding: 10px 14px; }
+
+      /* 教科選択は3列に広げる */
+      .subject-grid { grid-template-columns: repeat(3, 1fr); }
+
+      /* 分野選択は左、絵巻は右に並べる */
+      #setup-screen {
+        display: grid;
+        grid-template-columns: 1fr 260px;
+        gap: 26px;
+        align-items: start;
+      }
+
+      #setup-screen > h2 { grid-column: 1 / -1; }
+      .setup-main { grid-column: 1; }
+      #setup-screen .reward-panel { grid-column: 2; margin-top: 0; }
+
+      /* 縦に余裕があるので、分野は多めに見せてスクロールを減らす */
+      .category-group { max-height: 340px; }
+      .reward-canvas { width: 216px; height: 324px; }
+
+      /* 復習リストも広く使う */
+      .review-list { max-height: 54vh; }
+      .review-q { font-size: 1rem; }
+    }
+
+    /* さらに広い画面では、復習リストを2列に並べて一覧性を上げる */
+    @media (min-width: 1280px) {
+      .app-container { max-width: 760px; }
+      #review-screen .review-list {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0 14px;
+        max-height: 58vh;
+      }
+    }
   </style>
 </head>
 <body class="home-layout">
@@ -582,21 +781,25 @@
   <!-- 2. 分野設定画面 -->
   <div id="setup-screen" class="hidden">
     <h2 id="subject-title">教科名</h2>
-    <label><b id="category-label">出題分野を選択:</b></label>
 
-    <div class="select-tools">
-      <button type="button" id="select-all-btn">全選択</button>
-      <button type="button" id="deselect-all-btn">全解除</button>
+    <!-- 広い画面では、この列の右側に絵巻を並べる -->
+    <div class="setup-main">
+      <label><b id="category-label">出題分野を選択:</b></label>
+
+      <div class="select-tools">
+        <button type="button" id="select-all-btn">全選択</button>
+        <button type="button" id="deselect-all-btn">全解除</button>
+      </div>
+
+      <div class="category-group" id="category-checkboxes">
+        <!-- JavaScriptで動的生成 -->
+      </div>
+
+      <button id="start-btn">いざ出陣（学習開始）</button>
+      <button id="review-btn" style="background: #4a3b35;">復習リスト (0件)</button>
+      <button onclick="goHome()" style="background: #332822; margin-top: 5px;">本陣へ戻る</button>
+      <button id="sound-btn" style="background: #332822; font-size: 0.9rem; padding: 8px;">🔊 効果音: オン</button>
     </div>
-
-    <div class="category-group" id="category-checkboxes">
-      <!-- JavaScriptで動的生成 -->
-    </div>
-
-    <button id="start-btn">いざ出陣（学習開始）</button>
-    <button id="review-btn" style="background: #4a3b35;">復習戦 (0件)</button>
-    <button onclick="goHome()" style="background: #332822; margin-top: 5px;">本陣へ戻る</button>
-    <button id="sound-btn" style="background: #332822; font-size: 0.9rem; padding: 8px;">🔊 効果音: オン</button>
 
     <!-- 🏆 正解数に応じて解像度が上がる絵巻 -->
     <div class="reward-panel">
@@ -630,9 +833,33 @@
     </form>
 
     <div id="feedback" class="feedback"></div>
+
+    <!-- 解答後に、この問題を自分の判断で復習対象にできる -->
+    <label id="mark-row" class="mark-row hidden">
+      <input type="checkbox" id="mark-check">
+      <span>この問題を要復習にする</span>
+    </label>
+
     <div id="explanation" class="explanation hidden"></div>
     <button id="next-btn" class="hidden" style="margin-top: 10px; background: #28a745;">次の問題へ</button>
     <button id="back-setup-btn" style="background: #4a3b35; margin-top: 10px;">陣形選択に戻る</button>
+  </div>
+
+  <!-- 4. 復習リスト画面（間違えた問題と、自分で印をつけた問題をまとめて見る） -->
+  <div id="review-screen" class="hidden">
+    <h2>復習リスト</h2>
+    <div id="review-summary" class="review-summary"></div>
+
+    <div class="select-tools">
+      <button type="button" id="review-filter-all">すべて</button>
+      <button type="button" id="review-filter-wrong">違 のみ</button>
+      <button type="button" id="review-filter-marked">復 のみ</button>
+    </div>
+
+    <div id="review-list" class="review-list"></div>
+
+    <button id="review-start-btn">この一覧で出陣</button>
+    <button id="review-back-btn" style="background: #4a3b35;">陣形選択に戻る</button>
   </div>
 </div>
 
@@ -753,7 +980,9 @@
   let currentQuestionIndex = 0;
   let correctCount = 0;
   let answeredCount = 0;
-  let wrongQuestions = [];
+  let wrongQuestions = [];    // 間違えた問題（自動で記録）
+  let markedQuestions = [];   // 要復習として自分で印をつけた問題
+  let reviewFilter = 'all';   // 復習リストの絞りこみ: all / wrong / marked
 
   let questionStartTime = 0;
   let sessionStartTime = 0;
@@ -770,6 +999,7 @@
     document.getElementById('category-label').textContent = `出題する${labelText}を選択:`;
 
     wrongQuestions = JSON.parse(localStorage.getItem(`wrongQuestions_${key}`) || '[]');
+    markedQuestions = JSON.parse(localStorage.getItem(`markedQuestions_${key}`) || '[]');
     correctTotal = parseInt(localStorage.getItem(`correctTotal_${key}`), 10) || 0;
     loadRewardImage(key);
     loadSlashSound();  // 出題前に読みこんでおき、正解した瞬間に遅れなく鳴らす
@@ -913,31 +1143,153 @@
     updateReviewBtn();
   });
 
+  // ----- 📋 復習リスト（間違えた問題と、印をつけた問題をまとめて扱う） -----
+
+  const isWrong = id => wrongQuestions.some(q => q.id === id);
+  const isMarked = id => markedQuestions.some(q => q.id === id);
+
+  function saveReviewState() {
+    localStorage.setItem(`wrongQuestions_${currentSubjectKey}`, JSON.stringify(wrongQuestions));
+    localStorage.setItem(`markedQuestions_${currentSubjectKey}`, JSON.stringify(markedQuestions));
+  }
+
+  // 両方を1つにまとめる。どちらにも入っている問題は1件として扱う
+  function buildReviewList() {
+    const cats = getSelectedCategories();
+    const merged = new Map();
+    wrongQuestions.concat(markedQuestions).forEach(q => {
+      if (cats.includes(q.category)) merged.set(q.id, q);
+    });
+    return [...merged.values()];
+  }
+
+  function filteredReviewList() {
+    return buildReviewList().filter(q => {
+      if (reviewFilter === 'wrong') return isWrong(q.id);
+      if (reviewFilter === 'marked') return isMarked(q.id);
+      return true;
+    });
+  }
+
   function updateReviewBtn() {
     const selectedCats = getSelectedCategories();
-    const filteredWrong = wrongQuestions.filter(q => selectedCats.includes(q.category));
-
     const btn = document.getElementById('review-btn');
-    btn.textContent = `選択分野から復習 (${filteredWrong.length}件)`;
-    btn.disabled = filteredWrong.length === 0;
+    const total = buildReviewList().length;
 
+    btn.textContent = `復習リスト (${total}件)`;
+    btn.disabled = total === 0;
     document.getElementById('start-btn').disabled = selectedCats.length === 0;
   }
 
-  document.getElementById('start-btn').addEventListener('click', () => startQuiz(false));
-  document.getElementById('review-btn').addEventListener('click', () => startQuiz(true));
+  function renderReviewScreen() {
+    const list = filteredReviewList();
+    const all = buildReviewList();
+    const wrongCount = all.filter(q => isWrong(q.id)).length;
+    const markedCount = all.filter(q => isMarked(q.id)).length;
 
-  function startQuiz(isReviewMode) {
+    document.getElementById('review-summary').textContent =
+      `全${all.length}件　（違 まちがえた ${wrongCount}件 ／ 復 要復習 ${markedCount}件）`;
+
+    const box = document.getElementById('review-list');
+    box.textContent = '';
+
+    if (list.length === 0) {
+      const empty = document.createElement('div');
+      empty.className = 'review-empty';
+      empty.textContent = all.length === 0
+        ? '復習する問題はまだありません。\n間違えた問題は自動で、気になった問題はチェックを入れると、ここに集まります。'
+        : 'この絞りこみに当てはまる問題はありません。';
+      box.appendChild(empty);
+    }
+
+    list.forEach(q => {
+      const item = document.createElement('div');
+      item.className = 'review-item';
+
+      const badges = document.createElement('div');
+      badges.className = 'review-badges';
+      if (isWrong(q.id)) {
+        const b = document.createElement('span');
+        b.className = 'review-badge badge-wrong';
+        b.textContent = '違';
+        b.title = 'まちがえた問題';
+        badges.appendChild(b);
+      }
+      if (isMarked(q.id)) {
+        const b = document.createElement('span');
+        b.className = 'review-badge badge-marked';
+        b.textContent = '復';
+        b.title = '自分で要復習にした問題';
+        badges.appendChild(b);
+      }
+
+      const body = document.createElement('div');
+      body.className = 'review-body';
+      const cat = document.createElement('div');
+      cat.className = 'review-cat';
+      cat.textContent = q.category;
+      const text = document.createElement('div');
+      text.className = 'review-q';
+      text.textContent = q.question;
+      const ans = document.createElement('div');
+      ans.className = 'review-a';
+      ans.textContent = `答え: ${q.answer}`;
+      body.append(cat, text, ans);
+
+      const remove = document.createElement('button');
+      remove.className = 'review-remove';
+      remove.textContent = '解除';
+      remove.addEventListener('click', () => {
+        wrongQuestions = wrongQuestions.filter(x => x.id !== q.id);
+        markedQuestions = markedQuestions.filter(x => x.id !== q.id);
+        saveReviewState();
+        renderReviewScreen();
+        updateReviewBtn();
+      });
+
+      item.append(badges, body, remove);
+      box.appendChild(item);
+    });
+
+    const startBtn = document.getElementById('review-start-btn');
+    startBtn.textContent = `この一覧で出陣（${list.length}問）`;
+    startBtn.disabled = list.length === 0;
+  }
+
+  function goReview() {
+    reviewFilter = 'all';
+    document.getElementById('setup-screen').classList.add('hidden');
+    document.getElementById('review-screen').classList.remove('hidden');
+    renderReviewScreen();
+  }
+
+  document.getElementById('review-btn').addEventListener('click', goReview);
+  document.getElementById('review-back-btn').addEventListener('click', goSetup);
+  document.getElementById('review-start-btn').addEventListener('click', () => startQuiz(filteredReviewList()));
+
+  [['review-filter-all', 'all'], ['review-filter-wrong', 'wrong'], ['review-filter-marked', 'marked']]
+    .forEach(([id, mode]) => {
+      document.getElementById(id).addEventListener('click', () => {
+        reviewFilter = mode;
+        renderReviewScreen();
+      });
+    });
+
+  document.getElementById('start-btn').addEventListener('click', () => startQuiz(null));
+
+  // questions に配列を渡すと復習戦、null なら通常戦
+  function startQuiz(questions) {
     const selectedCats = getSelectedCategories();
 
-    if (isReviewMode) {
-      currentSessionQuestions = wrongQuestions.filter(q => selectedCats.includes(q.category));
+    if (questions) {
+      currentSessionQuestions = questions.slice();
       document.getElementById('current-mode').textContent = "復習戦";
     } else {
       currentSessionQuestions = allQuestions.filter(q => selectedCats.includes(q.category));
       document.getElementById('current-mode').textContent = "通常戦";
     }
 
+    document.getElementById('review-screen').classList.add('hidden');
     currentSessionQuestions.sort(() => Math.random() - 0.5);
 
     currentQuestionIndex = 0;
@@ -961,6 +1313,7 @@
     document.getElementById('full-fx-layer').classList.remove('hidden');
     document.getElementById('fixed-battle-ui').classList.remove('hidden');
 
+    document.body.classList.add('quiz-layout');
     document.getElementById('setup-screen').classList.add('hidden');
     document.getElementById('quiz-screen').classList.remove('hidden');
     showQuestion();
@@ -983,6 +1336,7 @@
     feedback.className = 'feedback';
     feedback.textContent = '';
     document.getElementById('explanation').classList.add('hidden');
+    document.getElementById('mark-row').classList.add('hidden');
 
     updateStats();
     questionStartTime = Date.now();
@@ -1116,12 +1470,27 @@
     // 正解・不正解にかかわらず解説を読ませてから次へ進ませる
     showExplanation(q);
 
+    // 解説を読んだうえで、自分で要復習にするか決められるようにする
+    document.getElementById('mark-check').checked = isMarked(q.id);
+    document.getElementById('mark-row').classList.remove('hidden');
+
     const nextBtn = document.getElementById('next-btn');
     nextBtn.textContent = enemyHp <= 0 ? '戦果を確認する' : '次の問題へ';
     nextBtn.classList.remove('hidden');
 
     updateStats();
-    localStorage.setItem(`wrongQuestions_${currentSubjectKey}`, JSON.stringify(wrongQuestions));
+    saveReviewState();
+    updateReviewBtn();
+  });
+
+  document.getElementById('mark-check').addEventListener('change', (e) => {
+    const q = currentSessionQuestions[currentQuestionIndex];
+    if (e.target.checked) {
+      if (!isMarked(q.id)) markedQuestions.push(q);
+    } else {
+      markedQuestions = markedQuestions.filter(x => x.id !== q.id);
+    }
+    saveReviewState();
     updateReviewBtn();
   });
 
@@ -1218,6 +1587,8 @@
 
   function goSetup() {
     hideBattleLayers();
+    document.body.classList.remove('quiz-layout');
+    document.getElementById('review-screen').classList.add('hidden');
     document.getElementById('quiz-screen').classList.add('hidden');
     document.getElementById('setup-screen').classList.remove('hidden');
     updateReviewBtn();
@@ -1226,7 +1597,9 @@
 
   function goHome() {
     hideBattleLayers();
+    document.body.classList.remove('quiz-layout');
     document.body.classList.add('home-layout');
+    document.getElementById('review-screen').classList.add('hidden');
     document.getElementById('setup-screen').classList.add('hidden');
     document.getElementById('home-screen').classList.remove('hidden');
   }
