@@ -783,6 +783,117 @@
       .result-canvas { max-width: 360px; }
     }
 
+    /* 📅 続けた記録 */
+    .study-panel {
+      background: rgba(0, 0, 0, 0.45);
+      border: 1px solid #5a4530;
+      border-radius: 10px;
+      padding: 14px;
+      margin-bottom: 16px;
+    }
+
+    .study-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      text-align: center;
+      margin-bottom: 12px;
+    }
+
+    .study-row span {
+      display: block;
+      font-size: 1.7rem;
+      font-weight: bold;
+      color: #f3a852;
+      text-shadow: 0 0 10px rgba(243, 168, 82, 0.4);
+      line-height: 1.1;
+    }
+
+    .study-row small { font-size: 0.7rem; color: #a89684; letter-spacing: 0.05em; }
+
+    /* 直近2週間の棒グラフ */
+    .streak-bars {
+      display: grid;
+      grid-template-columns: repeat(14, 1fr);
+      gap: 3px;
+      align-items: end;
+      height: 40px;
+      margin-bottom: 8px;
+    }
+
+    .streak-bars i {
+      display: block;
+      background: #f3a852;
+      border-radius: 2px 2px 0 0;
+      min-height: 3px;
+    }
+
+    .streak-bars i.none { background: rgba(255, 255, 255, 0.09); height: 3px; }
+    .streak-bars i.today { background: #ffd479; box-shadow: 0 0 8px rgba(255, 212, 121, 0.7); }
+
+    .streak-note {
+      font-size: 0.78rem;
+      color: #a89684;
+      text-align: center;
+      line-height: 1.6;
+      margin-bottom: 10px;
+    }
+
+    .record-btn {
+      background: #332822 !important;
+      font-size: 0.85rem;
+      padding: 8px;
+      margin-bottom: 0;
+    }
+
+    /* 記録画面のカレンダー */
+    .record-cal-label { font-size: 0.82rem; color: #a89684; margin-bottom: 6px; }
+
+    .record-calendar {
+      display: grid;
+      grid-template-rows: repeat(7, 1fr);
+      grid-auto-flow: column;
+      gap: 4px;
+      margin-bottom: 10px;
+    }
+
+    .record-calendar i, .record-legend i {
+      display: block;
+      aspect-ratio: 1;
+      border-radius: 3px;
+      background: rgba(255, 255, 255, 0.07);
+    }
+
+    .record-calendar i.lv1, .record-legend i.lv1 { background: rgba(243, 168, 82, 0.35); }
+    .record-calendar i.lv2, .record-legend i.lv2 { background: rgba(243, 168, 82, 0.65); }
+    .record-calendar i.lv3, .record-legend i.lv3 { background: #f3a852; }
+
+    .record-legend {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 4px;
+      font-size: 0.72rem;
+      color: #a89684;
+      margin-bottom: 16px;
+    }
+
+    .record-legend i { width: 12px; height: 12px; aspect-ratio: auto; }
+
+    .record-subjects { margin-bottom: 16px; }
+
+    .record-subject-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.88rem;
+      color: #e8ddcc;
+      padding: 7px 0;
+      border-bottom: 1px solid #38281f;
+    }
+
+    .record-subject-row b { flex: 1; font-weight: normal; }
+    .record-subject-row span { color: #f3a852; font-weight: bold; }
+
     .hidden { display: none !important; }
 
     /* =========================================================
@@ -948,6 +1059,18 @@
   <!-- 1. ホーム画面（教科選択） -->
   <div id="home-screen">
     <h1>一問一答 学習合戦</h1>
+
+    <!-- 続けた記録。ここが再訪の動機になる -->
+    <div class="study-panel">
+      <div class="study-row">
+        <div><span id="streak-num">0</span><small>連続日数</small></div>
+        <div><span id="today-num">0</span><small>今日の問題</small></div>
+        <div><span id="total-num">0</span><small>累計の問題</small></div>
+      </div>
+      <div id="streak-bars" class="streak-bars"></div>
+      <div id="streak-note" class="streak-note"></div>
+      <button id="record-btn" class="record-btn">記録をくわしく見る</button>
+    </div>
     <p style="text-align: center; color: #bba;">出陣する教科を選択してください</p>
 
     <div class="subject-grid">
@@ -1041,6 +1164,21 @@
     <button id="back-setup-btn" style="background: #4a3b35; margin-top: 10px;">陣形選択に戻る</button>
   </div>
 
+  <!-- 6. 学習の記録 -->
+  <div id="record-screen" class="hidden">
+    <h2>学習の記録</h2>
+    <div id="record-summary" class="review-summary"></div>
+    <div class="record-cal-label">直近10週間</div>
+    <div id="record-calendar" class="record-calendar"></div>
+    <div class="record-legend">
+      <span>少</span>
+      <i class="lv0"></i><i class="lv1"></i><i class="lv2"></i><i class="lv3"></i>
+      <span>多</span>
+    </div>
+    <div id="record-subjects" class="record-subjects"></div>
+    <button id="record-back-btn" style="background: #4a3b35;">本陣へ戻る</button>
+  </div>
+
   <!-- 4. 戦果カード（画像として保存・共有できる） -->
   <div id="result-screen" class="hidden">
     <canvas id="result-canvas" class="result-canvas" width="1080" height="1920"></canvas>
@@ -1099,6 +1237,152 @@
   let rewardImage = null;
   let correctTotal = 0;
   let sessionStartLevel = 0;
+
+  // ----- 📅 学習の記録（日付・連続日数） -----
+
+  const GRACE_PER_WEEK = 2;   // 週にこの回数までは休んでも連続が途切れない
+
+  const dateKey = d => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+  const loadStudyLog = () => JSON.parse(localStorage.getItem('studyLog') || '{}');
+
+  function recordAnswer(ok, seconds) {
+    const log = loadStudyLog();
+    const key = dateKey(new Date());
+    const day = log[key] || { answered: 0, correct: 0, seconds: 0, subjects: [] };
+    day.answered++;
+    if (ok) day.correct++;
+    day.seconds += Math.round(seconds);
+    if (!day.subjects.includes(currentSubjectKey)) day.subjects.push(currentSubjectKey);
+    log[key] = day;
+    localStorage.setItem('studyLog', JSON.stringify(log));
+  }
+
+  // 連続日数。休んだ日があっても、直近7日のうち2日までなら途切れない。
+  // 1日休んだだけでゼロに戻る設計は、その時点で開かれなくなるため
+  function computeStreak(log) {
+    const d = new Date();
+    if (!log[dateKey(d)]) d.setDate(d.getDate() - 1);  // 今日はこれからなので数えない
+
+    let streak = 0;
+    const missed = [];
+    for (let i = 0; i < 400; i++) {
+      if (log[dateKey(d)]) {
+        streak++;
+      } else {
+        missed.push(i);
+        // 直近7日ぶんの中に休みが3日あったら、そこで連続は終わり
+        if (missed.filter(x => x > i - 7).length > GRACE_PER_WEEK) break;
+      }
+      d.setDate(d.getDate() - 1);
+    }
+    // 守りの残数は「直近7日のうち、今日を除いて休んだ日数」から数える。
+    // 数え方を単純にしておかないと、残り何回休めるのかを本人が予測できない
+    let recentMiss = 0;
+    for (let i = 1; i < 7; i++) {
+      const back = new Date();
+      back.setDate(back.getDate() - i);
+      if (!log[dateKey(back)]) recentMiss++;
+    }
+    return { streak, graceLeft: Math.max(0, GRACE_PER_WEEK - recentMiss) };
+  }
+
+  function updateStudyPanel() {
+    const log = loadStudyLog();
+    const today = log[dateKey(new Date())] || { answered: 0 };
+    const { streak, graceLeft } = computeStreak(log);
+    const total = Object.values(log).reduce((a, d) => a + d.answered, 0);
+
+    document.getElementById('streak-num').textContent = streak;
+    document.getElementById('today-num').textContent = today.answered;
+    document.getElementById('total-num').textContent = total;
+
+    // 直近14日の棒グラフ
+    const bars = document.getElementById('streak-bars');
+    bars.textContent = '';
+    const counts = [];
+    for (let i = 13; i >= 0; i--) {
+      const d = new Date();
+      d.setDate(d.getDate() - i);
+      counts.push((log[dateKey(d)] || {}).answered || 0);
+    }
+    const max = Math.max(10, ...counts);
+    counts.forEach((n, i) => {
+      const bar = document.createElement('i');
+      if (n === 0) bar.className = 'none';
+      else {
+        bar.style.height = `${Math.max(12, Math.round(n / max * 100))}%`;
+        if (i === 13) bar.className = 'today';
+      }
+      bars.appendChild(bar);
+    });
+
+    const note = document.getElementById('streak-note');
+    if (today.answered > 0) {
+      note.textContent = `今日はもう解きました　守り 残り${graceLeft}`;
+    } else if (streak > 0) {
+      note.textContent = `連続${streak}日を守るには、今日1問でも解けば大丈夫　守り 残り${graceLeft}`;
+    } else {
+      note.textContent = '1問でも解けば、今日から連続が始まります';
+    }
+  }
+
+  function renderRecordScreen() {
+    const log = loadStudyLog();
+    const { streak, graceLeft } = computeStreak(log);
+    const days = Object.values(log);
+    const total = days.reduce((a, d) => a + d.answered, 0);
+    const correct = days.reduce((a, d) => a + d.correct, 0);
+    const minutes = Math.round(days.reduce((a, d) => a + d.seconds, 0) / 60);
+
+    document.getElementById('record-summary').textContent =
+      `連続${streak}日（休める回数 残り${graceLeft}）　学習した日 ${days.length}日　` +
+      `累計${total}問　正答率${total ? Math.round(correct / total * 100) : 0}%　のべ${minutes}分`;
+
+    // 直近10週間を、日曜はじまりの列で並べる
+    const cal = document.getElementById('record-calendar');
+    cal.textContent = '';
+    const end = new Date();
+    end.setDate(end.getDate() + (6 - end.getDay()));
+    for (let i = 69; i >= 0; i--) {
+      const d = new Date(end);
+      d.setDate(d.getDate() - i);
+      const n = (log[dateKey(d)] || {}).answered || 0;
+      const cell = document.createElement('i');
+      cell.className = n === 0 ? '' : (n < 10 ? 'lv1' : (n < 30 ? 'lv2' : 'lv3'));
+      cell.title = `${dateKey(d)}　${n}問`;
+      cal.appendChild(cell);
+    }
+
+    // 教科ごとの累計（絵巻の進み具合と同じ数字）
+    const box = document.getElementById('record-subjects');
+    box.textContent = '';
+    [['history', '歴史'], ['math', '数学'], ['science', '理科'],
+     ['geography', '地理'], ['english', '英語']].forEach(([key, name]) => {
+      const solved = JSON.parse(localStorage.getItem(`solvedIds_${key}`) || '[]').length;
+      const row = document.createElement('div');
+      row.className = 'record-subject-row';
+      const b = document.createElement('b');
+      b.textContent = name;
+      const v = document.createElement('span');
+      v.textContent = `${solved}問`;
+      row.append(b, v);
+      box.appendChild(row);
+    });
+  }
+
+  document.getElementById('record-btn').addEventListener('click', () => {
+    document.getElementById('home-screen').classList.add('hidden');
+    document.getElementById('record-screen').classList.remove('hidden');
+    renderRecordScreen();
+  });
+
+  document.getElementById('record-back-btn').addEventListener('click', () => {
+    document.getElementById('record-screen').classList.add('hidden');
+    document.getElementById('home-screen').classList.remove('hidden');
+    updateStudyPanel();
+  });
+
+  updateStudyPanel();
 
   // ----- ⚔️ 抜刀の効果音（sounds/slash.mp3 を再生する） -----
 
@@ -1838,6 +2122,7 @@
     }
 
     sessionLog.push({ id: q.id, category: q.category, ok: verdict === 'correct' });
+    recordAnswer(verdict === 'correct', answerTimeSec);
 
     // 正解・不正解にかかわらず解説を読ませてから次へ進ませる
     showExplanation(q);
@@ -2153,6 +2438,7 @@
     document.getElementById('result-screen').classList.add('hidden');
     document.getElementById('setup-screen').classList.add('hidden');
     document.getElementById('home-screen').classList.remove('hidden');
+    updateStudyPanel();
   }
 </script>
 </body>
