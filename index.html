@@ -695,6 +695,80 @@
       letter-spacing: 0.1em;
     }
 
+    /* 出題数の選択 */
+    .count-tools {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-bottom: 15px;
+    }
+
+    .count-tools button {
+      padding: 10px 4px;
+      font-size: 0.95rem;
+      background: #3a2a24;
+      border-color: #775544;
+      margin-bottom: 0;
+      line-height: 1.3;
+    }
+
+    .count-tools button small {
+      display: block;
+      font-size: 0.68rem;
+      font-weight: normal;
+      color: #b09880;
+      margin-top: 2px;
+    }
+
+    .count-tools button.selected {
+      background: linear-gradient(180deg, #8b1a1a 0%, #5c0e0e 100%);
+      border-color: #d4a04a;
+      box-shadow: 0 0 10px rgba(212, 160, 74, 0.5);
+    }
+
+    .count-tools button.selected small { color: #ffd9a0; }
+
+    /* 中断からの再開 */
+    .resume-box {
+      background: rgba(80, 60, 30, 0.4);
+      border: 1px solid #d4a04a;
+      border-radius: 8px;
+      padding: 12px;
+      margin-bottom: 16px;
+    }
+
+    .resume-box > div {
+      font-size: 0.9rem;
+      color: #ffd9a0;
+      margin-bottom: 10px;
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    .resume-discard {
+      background: #4a3b35 !important;
+      border-color: #665248 !important;
+      font-size: 0.82rem;
+      padding: 7px;
+      margin-bottom: 0;
+    }
+
+    /* 惜しい（1〜2文字違い）の判定 */
+    .feedback.close {
+      background-color: rgba(243, 168, 82, 0.18);
+      border: 1px solid #f3a852;
+      color: #ffd08a;
+      display: block;
+    }
+
+    .feedback .yours {
+      display: block;
+      margin-top: 4px;
+      font-size: 0.85rem;
+      font-weight: normal;
+      color: #c9b193;
+    }
+
     .hidden { display: none !important; }
 
     /* =========================================================
@@ -877,6 +951,13 @@
 
     <!-- 広い画面では、この列の右側に絵巻を並べる -->
     <div class="setup-main">
+      <!-- 前回の合戦が途中で終わっていれば、ここから再開できる -->
+      <div id="resume-box" class="resume-box hidden">
+        <div id="resume-text"></div>
+        <button id="resume-btn">前回の合戦を再開する</button>
+        <button id="resume-discard-btn" class="resume-discard">やめて最初から</button>
+      </div>
+
       <label><b id="category-label">出題分野を選択:</b></label>
 
       <div class="select-tools">
@@ -886,6 +967,14 @@
 
       <div class="category-group" id="category-checkboxes">
         <!-- JavaScriptで動的生成 -->
+      </div>
+
+      <label><b>1回の合戦の問題数:</b></label>
+      <div class="count-tools" id="count-tools">
+        <button type="button" data-count="10">10問<small>約3分</small></button>
+        <button type="button" data-count="20">20問<small>約7分</small></button>
+        <button type="button" data-count="50">50問<small>約17分</small></button>
+        <button type="button" data-count="0">全問<small>じっくり</small></button>
       </div>
 
       <button id="start-btn">いざ出陣（学習開始）</button>
@@ -959,9 +1048,10 @@
 <script>
   // この正答率で敵のHPがちょうど0になるようにダメージ量を配分する
   const DEFEAT_ACCURACY = 0.9;
-  // 解答時間の判定（秒）
-  const CRITICAL_SEC = 3.0;  // これ以内なら会心の一撃
-  const COMBO_SEC = 5.0;     // これを超えると連撃が途切れ、ダメージが減る
+  // 解答時間の判定（秒）。速さは加点のみで、遅くても減点しない。
+  // 減点があると、スマホ入力の人やじっくり考える人が全問正解しても倒せなくなるため
+  const CRITICAL_SEC = 3.0;  // これ以内なら会心の一撃（1.3倍）
+  const QUICK_SEC = 8.0;     // これ以内なら鋭い一撃（1.15倍）
 
   // 🏆 ご褒美の絵巻：教科ごとの累計正解数に応じて解像度が上がる
   const REWARD_TITLES = {
@@ -1076,6 +1166,8 @@
   let wrongQuestions = [];    // 間違えた問題（自動で記録）
   let markedQuestions = [];   // 要復習として自分で印をつけた問題
   let reviewFilter = 'all';   // 復習リストの絞りこみ: all / wrong / marked
+  let questionLimit = parseInt(localStorage.getItem('questionLimit'), 10);
+  if (isNaN(questionLimit)) questionLimit = 10;   // 1回の合戦の問題数。0で全問
 
   let questionStartTime = 0;
   let sessionStartTime = 0;
@@ -1134,6 +1226,7 @@
 
     updateReviewBtn();
     updateRewardPanel();
+    updateResumeBox();
   }
 
   // ----- 🏆 ご褒美の絵巻 -----
@@ -1368,6 +1461,91 @@
       });
     });
 
+  function updateCountBtns() {
+    document.querySelectorAll('#count-tools button').forEach(b => {
+      b.classList.toggle('selected', Number(b.dataset.count) === questionLimit);
+    });
+  }
+
+  document.querySelectorAll('#count-tools button').forEach(b => {
+    b.addEventListener('click', () => {
+      questionLimit = Number(b.dataset.count);
+      localStorage.setItem('questionLimit', String(questionLimit));
+      updateCountBtns();
+    });
+  });
+  updateCountBtns();
+
+  // ----- 💾 中断した合戦の保存と再開 -----
+
+  function saveSession() {
+    if (!currentSessionQuestions.length) return;
+    localStorage.setItem(`session_${currentSubjectKey}`, JSON.stringify({
+      ids: currentSessionQuestions.map(x => x.id),
+      index: currentQuestionIndex,
+      correctCount, answeredCount, enemyHp, comboCount, maxComboCount,
+      base: baseDamagePerQuestion,
+      mode: document.getElementById('current-mode').textContent,
+    }));
+  }
+
+  function clearSession() {
+    localStorage.removeItem(`session_${currentSubjectKey}`);
+  }
+
+  function updateResumeBox() {
+    const box = document.getElementById('resume-box');
+    const raw = localStorage.getItem(`session_${currentSubjectKey}`);
+    if (!raw) { box.classList.add('hidden'); return; }
+    try {
+      const st = JSON.parse(raw);
+      document.getElementById('resume-text').textContent =
+        `前回の${st.mode}が途中です　${st.index}/${st.ids.length}問　敵HP ${Math.ceil(Math.max(0, st.enemyHp))}`;
+      box.classList.remove('hidden');
+    } catch (err) {
+      clearSession();
+      box.classList.add('hidden');
+    }
+  }
+
+  function enterBattle() {
+    updateHpBar();
+    updateComboBadge();
+    document.body.classList.add('quiz-layout');
+    document.getElementById('enemy-stage').classList.remove('hidden');
+    document.getElementById('full-fx-layer').classList.remove('hidden');
+    document.getElementById('fixed-battle-ui').classList.remove('hidden');
+    document.getElementById('vertical-battle-ui').classList.remove('hidden');
+    document.getElementById('review-screen').classList.add('hidden');
+    document.getElementById('setup-screen').classList.add('hidden');
+    document.getElementById('quiz-screen').classList.remove('hidden');
+    showQuestion();
+  }
+
+  document.getElementById('resume-btn').addEventListener('click', () => {
+    const st = JSON.parse(localStorage.getItem(`session_${currentSubjectKey}`));
+    const byId = new Map(allQuestions.map(x => [x.id, x]));
+    currentSessionQuestions = st.ids.map(id => byId.get(id)).filter(Boolean);
+    if (!currentSessionQuestions.length) { clearSession(); updateResumeBox(); return; }
+
+    currentQuestionIndex = Math.min(st.index, currentSessionQuestions.length - 1);
+    correctCount = st.correctCount;
+    answeredCount = st.answeredCount;
+    enemyHp = st.enemyHp;
+    comboCount = st.comboCount;
+    maxComboCount = st.maxComboCount;
+    baseDamagePerQuestion = st.base;
+    sessionStartLevel = rewardLevel(correctTotal);
+    sessionStartTime = Date.now();
+    document.getElementById('current-mode').textContent = st.mode;
+    enterBattle();
+  });
+
+  document.getElementById('resume-discard-btn').addEventListener('click', () => {
+    clearSession();
+    updateResumeBox();
+  });
+
   document.getElementById('start-btn').addEventListener('click', () => startQuiz(null));
 
   // questions に配列を渡すと復習戦、null なら通常戦
@@ -1382,8 +1560,12 @@
       document.getElementById('current-mode').textContent = "通常戦";
     }
 
-    document.getElementById('review-screen').classList.add('hidden');
     currentSessionQuestions.sort(() => Math.random() - 0.5);
+
+    // 通常戦は選んだ問題数で切る（復習戦は一覧の件数をそのまま使う）
+    if (!questions && questionLimit > 0) {
+      currentSessionQuestions = currentSessionQuestions.slice(0, questionLimit);
+    }
 
     currentQuestionIndex = 0;
     correctCount = 0;
@@ -1398,19 +1580,7 @@
     const totalQ = currentSessionQuestions.length;
     baseDamagePerQuestion = totalQ > 0 ? (100 / (totalQ * DEFEAT_ACCURACY)) : 100;
 
-    updateHpBar();
-    updateComboBadge();
-
-    // 敵立ち絵・UIを表示
-    document.getElementById('enemy-stage').classList.remove('hidden');
-    document.getElementById('full-fx-layer').classList.remove('hidden');
-    document.getElementById('fixed-battle-ui').classList.remove('hidden');
-    document.getElementById('vertical-battle-ui').classList.remove('hidden');
-
-    document.body.classList.add('quiz-layout');
-    document.getElementById('setup-screen').classList.add('hidden');
-    document.getElementById('quiz-screen').classList.remove('hidden');
-    showQuestion();
+    enterBattle();
   }
 
   function showQuestion() {
@@ -1433,6 +1603,7 @@
     document.getElementById('mark-row').classList.add('hidden');
 
     updateStats();
+    saveSession();
     questionStartTime = Date.now();
   }
 
@@ -1459,33 +1630,42 @@
     }
   }
 
-  function triggerAttackEffect(timeSec) {
+  function triggerAttackEffect(timeSec, mode) {
     const enemySprite = document.getElementById('enemy-sprite');
     const impact = document.getElementById('impact');
     const slash = document.getElementById('slash');
     const damage = document.getElementById('damage');
 
-    let multiplier = 1.0;
-    let label = '';
+    let multiplier, label;
 
-    if (timeSec <= COMBO_SEC) {
+    if (mode === 'close') {
+      // 惜しい解答。半分のダメージは通し、連撃は途切れさせない
+      multiplier = 0.5;
+      label = '惜しい! ';
+    } else {
       comboCount++;
       if (comboCount > maxComboCount) maxComboCount = comboCount;
 
-      if (comboCount >= 3) {
-        multiplier = 1.5;
-        label = `🔥 ${comboCount}連撃! `;
-      } else if (timeSec <= CRITICAL_SEC) {
-        multiplier = 1.2;
+      // ① 速さによる加点。遅くても1.0倍で、減点はしない
+      multiplier = 1.0;
+      label = '見事! ';
+      if (timeSec <= CRITICAL_SEC) {
+        multiplier = 1.3;
         label = '⚡ 会心の一撃! ';
-      } else {
-        multiplier = 1.0;
-        label = '見事! ';
+      } else if (timeSec <= QUICK_SEC) {
+        multiplier = 1.15;
+        label = '鋭い一撃! ';
       }
-    } else {
-      comboCount = 0;
-      multiplier = 0.7;
-      label = '浅い! ';
+
+      // ② 連撃による加点。速さとは別枠にして、会心が連撃に食われないようにする
+      let comboBonus = 0;
+      if (comboCount >= 10) comboBonus = 0.5;
+      else if (comboCount >= 6) comboBonus = 0.3;
+      else if (comboCount >= 3) comboBonus = 0.15;
+      if (comboBonus > 0) {
+        multiplier += comboBonus;
+        label = `🔥 ${comboCount}連撃! ` + label;
+      }
     }
 
     updateComboBadge();
@@ -1525,6 +1705,54 @@
     }
   });
 
+  // ----- ✍️ 解答の判定 -----
+
+  // 全角と半角、カタカナとひらがな、区切り記号の違いで不正解にしない
+  function normalize(text) {
+    let t = String(text).trim().toLowerCase();
+    t = t.replace(/[！-～]/g, c => String.fromCharCode(c.charCodeAt(0) - 0xFEE0));
+    t = t.replace(/[\s\u3000]/g, '');
+    t = t.replace(/[・、。，．「」『』]/g, '');
+    t = t.replace(/ヶ/g, 'ケ').replace(/ヵ/g, 'カ');
+    t = t.replace(/[ァ-ヶ]/g, c => String.fromCharCode(c.charCodeAt(0) - 0x60));
+    return t;
+  }
+
+  // 何文字違うか（レーベンシュタイン距離）
+  function editDistance(a, b) {
+    const dp = Array.from({ length: a.length + 1 }, (_, i) => {
+      const row = new Array(b.length + 1).fill(0);
+      row[0] = i;
+      return row;
+    });
+    for (let j = 0; j <= b.length; j++) dp[0][j] = j;
+    for (let i = 1; i <= a.length; i++) {
+      for (let j = 1; j <= b.length; j++) {
+        dp[i][j] = Math.min(
+          dp[i - 1][j] + 1,
+          dp[i][j - 1] + 1,
+          dp[i - 1][j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1)
+        );
+      }
+    }
+    return dp[a.length][b.length];
+  }
+
+  // 'correct'（正解） / 'close'（惜しい） / 'wrong'（不正解）
+  function judgeAnswer(input, q) {
+    const given = normalize(input);
+    const answers = [q.answer].concat(q.alt || []).map(normalize);
+    if (answers.includes(given)) return 'correct';
+
+    // 短い答えは1文字違うと別の答えになりうるので、惜しい判定を使わない
+    const allowed = given.length <= 3 ? 0 : (given.length <= 6 ? 1 : 2);
+    if (allowed > 0 && answers.some(a =>
+        Math.abs(a.length - given.length) <= allowed && editDistance(given, a) <= allowed)) {
+      return 'close';
+    }
+    return 'wrong';
+  }
+
   // 解答判定
   document.getElementById('answer-form').addEventListener('submit', (e) => {
     e.preventDefault();
@@ -1538,11 +1766,10 @@
     document.getElementById('answer-input').disabled = true;
     document.getElementById('submit-btn').classList.add('hidden');
 
-    const cleanInput = input.toLowerCase().replaceAll(' ', '');
-    const cleanAnswer = q.answer.toLowerCase().replaceAll(' ', '');
+    const verdict = judgeAnswer(input, q);
 
-    if (cleanInput === cleanAnswer) {
-      triggerAttackEffect(answerTimeSec);
+    if (verdict === 'correct') {
+      triggerAttackEffect(answerTimeSec, 'correct');
 
       correctCount++;
       correctTotal++;
@@ -1551,6 +1778,19 @@
       feedback.className = "feedback correct";
       feedback.textContent = `正解！⭕ (${answerTimeSec.toFixed(1)}秒)`;
       wrongQuestions = wrongQuestions.filter(item => item.id !== q.id);
+
+    } else if (verdict === 'close') {
+      // 1〜2文字違い。正解にはしないが、半分のダメージを通し連撃も切らさない
+      triggerAttackEffect(answerTimeSec, 'close');
+
+      feedback.className = "feedback close";
+      feedback.textContent = `惜しい！正答は「${q.answer}」`;
+      const yours = document.createElement('span');
+      yours.className = 'yours';
+      yours.textContent = `あなたの答え: ${input}`;
+      feedback.appendChild(yours);
+
+      if (!wrongQuestions.some(item => item.id === q.id)) wrongQuestions.push(q);
 
     } else {
       comboCount = 0;
@@ -1575,6 +1815,7 @@
     nextBtn.classList.remove('hidden');
 
     updateStats();
+    saveSession();
     saveReviewState();
     updateReviewBtn();
   });
@@ -1658,6 +1899,7 @@
       `-------------------------` +
       rewardMsg;
 
+    clearSession();
     alert(summaryText);
     goSetup();
   }
@@ -1690,6 +1932,7 @@
     document.getElementById('setup-screen').classList.remove('hidden');
     updateReviewBtn();
     updateRewardPanel();
+    updateResumeBox();
   }
 
   function goHome() {

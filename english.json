@@ -312,7 +312,10 @@
     "category": "英単語（名詞）",
     "question": "「近所の人、隣人」を英語1語で書きなさい。",
     "answer": "neighbor",
-    "explanation": "つづりの gh を発音しない要注意語で、読みは「ネイバー」。イギリス式では neighbour と書きます。neighborhood なら「近所、地域」という意味になります。"
+    "explanation": "つづりの gh を発音しない要注意語で、読みは「ネイバー」。イギリス式では neighbour と書きます。neighborhood なら「近所、地域」という意味になります。",
+    "alt": [
+      "neighbour"
+    ]
   },
   {
     "id": "e106",
@@ -396,7 +399,10 @@
     "category": "英単語（名詞）",
     "question": "「写真」を英語1語で書きなさい。photで始まる語です。",
     "answer": "photograph",
-    "explanation": "photo（光）+ graph（描く）で「光で描いたもの」。省略形の photo でも通じます。写真を撮るは take a picture / take a photo で、shoot は使いません。"
+    "explanation": "photo（光）+ graph（描く）で「光で描いたもの」。省略形の photo でも通じます。写真を撮るは take a picture / take a photo で、shoot は使いません。",
+    "alt": [
+      "photo"
+    ]
   },
   {
     "id": "e118",
