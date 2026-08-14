@@ -769,6 +769,20 @@
       color: #c9b193;
     }
 
+    /* 🏅 戦果カード */
+    .result-canvas {
+      display: block;
+      width: 100%;
+      max-width: 300px;
+      margin: 0 auto 16px;
+      border-radius: 10px;
+      box-shadow: 0 8px 26px rgba(0, 0, 0, 0.8), 0 0 14px rgba(212, 160, 74, 0.3);
+    }
+
+    @media (min-width: 900px) {
+      .result-canvas { max-width: 360px; }
+    }
+
     .hidden { display: none !important; }
 
     /* =========================================================
@@ -1027,7 +1041,15 @@
     <button id="back-setup-btn" style="background: #4a3b35; margin-top: 10px;">陣形選択に戻る</button>
   </div>
 
-  <!-- 4. 復習リスト画面（間違えた問題と、自分で印をつけた問題をまとめて見る） -->
+  <!-- 4. 戦果カード（画像として保存・共有できる） -->
+  <div id="result-screen" class="hidden">
+    <canvas id="result-canvas" class="result-canvas" width="1080" height="1920"></canvas>
+    <button id="result-save-btn">画像として保存する</button>
+    <button id="result-again-btn" style="background: #28a745;">同じ条件でもう一度</button>
+    <button id="result-back-btn" style="background: #4a3b35;">陣形選択に戻る</button>
+  </div>
+
+  <!-- 5. 復習リスト画面（間違えた問題と、自分で印をつけた問題をまとめて見る） -->
   <div id="review-screen" class="hidden">
     <h2>復習リスト</h2>
     <div id="review-summary" class="review-summary"></div>
@@ -1168,6 +1190,8 @@
   let reviewFilter = 'all';   // 復習リストの絞りこみ: all / wrong / marked
   let questionLimit = parseInt(localStorage.getItem('questionLimit'), 10);
   if (isNaN(questionLimit)) questionLimit = 10;   // 1回の合戦の問題数。0で全問
+  let sessionLog = [];        // この合戦の記録 {id, category, ok}
+  let solvedIds = new Set();  // 一度でも正解した問題。絵巻の解放はこの数で数える
 
   let questionStartTime = 0;
   let sessionStartTime = 0;
@@ -1185,6 +1209,7 @@
 
     wrongQuestions = JSON.parse(localStorage.getItem(`wrongQuestions_${key}`) || '[]');
     markedQuestions = JSON.parse(localStorage.getItem(`markedQuestions_${key}`) || '[]');
+    solvedIds = new Set(JSON.parse(localStorage.getItem(`solvedIds_${key}`) || '[]'));
     correctTotal = parseInt(localStorage.getItem(`correctTotal_${key}`), 10) || 0;
     loadRewardImage(key);
     loadSlashSound();  // 出題前に読みこんでおき、正解した瞬間に遅れなく鳴らす
@@ -1483,7 +1508,7 @@
     localStorage.setItem(`session_${currentSubjectKey}`, JSON.stringify({
       ids: currentSessionQuestions.map(x => x.id),
       index: currentQuestionIndex,
-      correctCount, answeredCount, enemyHp, comboCount, maxComboCount,
+      correctCount, answeredCount, enemyHp, comboCount, maxComboCount, sessionLog,
       base: baseDamagePerQuestion,
       mode: document.getElementById('current-mode').textContent,
     }));
@@ -1517,6 +1542,7 @@
     document.getElementById('fixed-battle-ui').classList.remove('hidden');
     document.getElementById('vertical-battle-ui').classList.remove('hidden');
     document.getElementById('review-screen').classList.add('hidden');
+    document.getElementById('result-screen').classList.add('hidden');
     document.getElementById('setup-screen').classList.add('hidden');
     document.getElementById('quiz-screen').classList.remove('hidden');
     showQuestion();
@@ -1534,6 +1560,7 @@
     enemyHp = st.enemyHp;
     comboCount = st.comboCount;
     maxComboCount = st.maxComboCount;
+    sessionLog = st.sessionLog || [];
     baseDamagePerQuestion = st.base;
     sessionStartLevel = rewardLevel(correctTotal);
     sessionStartTime = Date.now();
@@ -1552,6 +1579,7 @@
   function startQuiz(questions) {
     const selectedCats = getSelectedCategories();
 
+    lastWasReview = Boolean(questions);
     if (questions) {
       currentSessionQuestions = questions.slice();
       document.getElementById('current-mode').textContent = "復習戦";
@@ -1570,6 +1598,7 @@
     currentQuestionIndex = 0;
     correctCount = 0;
     answeredCount = 0;
+    sessionLog = [];
     comboCount = 0;
     maxComboCount = 0;
     enemyHp = 100;
@@ -1772,8 +1801,13 @@
       triggerAttackEffect(answerTimeSec, 'correct');
 
       correctCount++;
-      correctTotal++;
-      localStorage.setItem(`correctTotal_${currentSubjectKey}`, String(correctTotal));
+      // 同じ問題を繰り返しても絵巻は進まない（初めて正解した問題だけ数える）
+      if (!solvedIds.has(q.id)) {
+        solvedIds.add(q.id);
+        correctTotal++;
+        localStorage.setItem(`correctTotal_${currentSubjectKey}`, String(correctTotal));
+        localStorage.setItem(`solvedIds_${currentSubjectKey}`, JSON.stringify([...solvedIds]));
+      }
 
       feedback.className = "feedback correct";
       feedback.textContent = `正解！⭕ (${answerTimeSec.toFixed(1)}秒)`;
@@ -1803,6 +1837,8 @@
       }
     }
 
+    sessionLog.push({ id: q.id, category: q.category, ok: verdict === 'correct' });
+
     // 正解・不正解にかかわらず解説を読ませてから次へ進ませる
     showExplanation(q);
 
@@ -1811,7 +1847,8 @@
     document.getElementById('mark-row').classList.remove('hidden');
 
     const nextBtn = document.getElementById('next-btn');
-    nextBtn.textContent = enemyHp <= 0 ? '戦果を確認する' : '次の問題へ';
+    const isLast = currentQuestionIndex + 1 >= currentSessionQuestions.length;
+    nextBtn.textContent = isLast ? '戦果を確認する' : '次の問題へ';
     nextBtn.classList.remove('hidden');
 
     updateStats();
@@ -1845,13 +1882,10 @@
     box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
 
-  // 敵を討ち取っていれば戦果報告へ、そうでなければ次の問題へ
+  // 敵を討ち取っても、選んだ問題数は最後までやり切る
+  // （途中で打ち切ると「10問選んだのに8問で終わる」ことになるため）
   function proceed() {
-    if (enemyHp <= 0) {
-      finishQuiz();
-    } else {
-      nextQuestion();
-    }
+    nextQuestion();
   }
 
   function nextQuestion() {
@@ -1869,40 +1903,215 @@
     return mins > 0 ? `${mins}分${secs}秒` : `${secs}秒`;
   }
 
+  // ----- 🏅 戦果カード -----
+
+  const SERIF = '"Hiragino Mincho ProN", "Yu Mincho", serif';
+  let lastWasReview = false;
+
+  function rankOf(accuracy) {
+    if (accuracy >= 100) return { letter: 'S', color: '#e8c06a', glow: 'rgba(232,192,106,0.55)', word: '完全制覇' };
+    if (accuracy >= 90)  return { letter: 'A', color: '#d8dde3', glow: 'rgba(216,221,227,0.4)', word: '見事な戦い' };
+    if (accuracy >= 70)  return { letter: 'B', color: '#c98a4a', glow: 'rgba(201,138,74,0.4)', word: '善戦' };
+    return { letter: 'C', color: '#9a8a7e', glow: 'rgba(154,138,126,0.3)', word: '修練あるのみ' };
+  }
+
+  function roundRect(ctx, x, y, w, h, r) {
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.arcTo(x + w, y, x + w, y + h, r);
+    ctx.arcTo(x + w, y + h, x, y + h, r);
+    ctx.arcTo(x, y + h, x, y, r);
+    ctx.arcTo(x, y, x + w, y, r);
+    ctx.closePath();
+  }
+
+  function drawResultCard(data) {
+    const cv = document.getElementById('result-canvas');
+    const ctx = cv.getContext('2d');
+    const W = cv.width, H = cv.height, mid = W / 2;
+    const rank = rankOf(data.accuracy);
+
+    // 背景
+    const bg = ctx.createLinearGradient(0, 0, 0, H);
+    bg.addColorStop(0, '#25120f');
+    bg.addColorStop(0.5, '#140b09');
+    bg.addColorStop(1, '#0a0504');
+    ctx.fillStyle = bg;
+    ctx.fillRect(0, 0, W, H);
+
+    // 成績に応じた光
+    const glow = ctx.createRadialGradient(mid, 620, 60, mid, 620, 700);
+    glow.addColorStop(0, rank.glow);
+    glow.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = glow;
+    ctx.fillRect(0, 0, W, H);
+
+    ctx.strokeStyle = rank.color;
+    ctx.lineWidth = 6;
+    roundRect(ctx, 40, 40, W - 80, H - 80, 28);
+    ctx.stroke();
+
+    ctx.textAlign = 'center';
+
+    // 見出し
+    ctx.fillStyle = rank.color;
+    ctx.font = `bold 76px ${SERIF}`;
+    ctx.fillText(data.defeated ? '敵将 討ち取ったり' : '合 戦 終 了', mid, 210);
+
+    ctx.fillStyle = '#c9b193';
+    ctx.font = `40px ${SERIF}`;
+    ctx.fillText(`${data.subject}　${data.mode}`, mid, 290);
+
+    // 正答率
+    ctx.fillStyle = '#f5e9d8';
+    ctx.font = `bold 300px ${SERIF}`;
+    ctx.fillText(`${data.accuracy}`, mid - 40, 640);
+    ctx.font = `bold 90px ${SERIF}`;
+    ctx.fillText('%', mid + 200, 640);
+    ctx.fillStyle = '#9a8a7e';
+    ctx.font = `36px ${SERIF}`;
+    ctx.fillText('正 答 率', mid, 710);
+
+    // 評価の印
+    ctx.beginPath();
+    ctx.arc(mid, 880, 92, 0, Math.PI * 2);
+    ctx.fillStyle = 'rgba(0,0,0,0.55)';
+    ctx.fill();
+    ctx.strokeStyle = rank.color;
+    ctx.lineWidth = 5;
+    ctx.stroke();
+    ctx.fillStyle = rank.color;
+    ctx.font = `bold 104px ${SERIF}`;
+    ctx.fillText(rank.letter, mid, 918);
+    ctx.font = `38px ${SERIF}`;
+    ctx.fillText(rank.word, mid, 1030);
+
+    // 3つの数字
+    const cells = [
+      ['討伐数', `${data.correct} / ${data.total}`],
+      ['最大連撃', `${data.maxCombo}`],
+      ['所要時間', data.time],
+    ];
+    cells.forEach(([label, value], i) => {
+      const x = 150 + i * 260;
+      ctx.fillStyle = '#8a7a70';
+      ctx.font = `32px ${SERIF}`;
+      ctx.fillText(label, x + 90, 1120);
+      ctx.fillStyle = '#f0e0c8';
+      ctx.font = `bold 54px ${SERIF}`;
+      ctx.fillText(value, x + 90, 1190);
+    });
+
+    // 分野別の内訳
+    let y = 1300;
+    ctx.fillStyle = '#9a8a7e';
+    ctx.font = `34px ${SERIF}`;
+    ctx.textAlign = 'left';
+    ctx.fillText('分野別', 110, y);
+    y += 46;
+
+    const shown = data.byCategory.slice(0, 4);
+    shown.forEach(row => {
+      const pct = row.total ? row.correct / row.total : 0;
+      ctx.fillStyle = '#e8ddcc';
+      ctx.font = `32px ${SERIF}`;
+      ctx.fillText(row.name.length > 10 ? row.name.slice(0, 9) + '…' : row.name, 110, y + 32);
+      ctx.textAlign = 'right';
+      ctx.fillStyle = '#c9b193';
+      ctx.fillText(`${row.correct}/${row.total}`, W - 110, y + 32);
+      ctx.textAlign = 'left';
+      ctx.fillStyle = 'rgba(255,255,255,0.10)';
+      roundRect(ctx, 110, y + 48, W - 220, 14, 7);
+      ctx.fill();
+      ctx.fillStyle = pct >= 0.8 ? '#e8c06a' : (pct >= 0.5 ? '#8fd9a0' : '#e0798a');
+      roundRect(ctx, 110, y + 48, Math.max(14, (W - 220) * pct), 14, 7);
+      ctx.fill();
+      y += 92;
+    });
+
+    ctx.textAlign = 'center';
+    const rest = data.byCategory.length - shown.length;
+    if (rest > 0) {
+      ctx.fillStyle = '#6d5f56';
+      ctx.font = `28px ${SERIF}`;
+      ctx.fillText(`ほか${rest}分野`, mid, y + 10);
+    }
+
+    if (data.rewardMsg) {
+      ctx.fillStyle = '#e8c06a';
+      ctx.font = `34px ${SERIF}`;
+      ctx.fillText(data.rewardMsg, mid, 1762);
+    }
+
+    ctx.fillStyle = '#6d5f56';
+    ctx.font = `30px ${SERIF}`;
+    ctx.fillText(data.date, mid, 1818);
+    ctx.fillStyle = '#8a7a70';
+    ctx.font = `32px ${SERIF}`;
+    ctx.fillText('一問一答 学習合戦', mid, 1868);
+  }
+
   function finishQuiz() {
-    const totalQ = answeredCount;
-    const accuracyRate = totalQ === 0 ? 0 : Math.round((correctCount / totalQ) * 100);
-    const isDefeated = enemyHp <= 0;
+    const total = answeredCount;
+    const accuracy = total === 0 ? 0 : Math.round((correctCount / total) * 100);
+    const elapsed = Math.round((Date.now() - sessionStartTime) / 1000);
 
-    const elapsedSeconds = Math.round((Date.now() - sessionStartTime) / 1000);
-    const timeFormatted = formatElapsedTime(elapsedSeconds);
+    // 分野ごとに集計する
+    const map = new Map();
+    sessionLog.forEach(r => {
+      const row = map.get(r.category) || { name: r.category, correct: 0, total: 0 };
+      row.total++;
+      if (r.ok) row.correct++;
+      map.set(r.category, row);
+    });
 
-    const titleMsg = isDefeated ? "🎉 敵将討ち取ったりーッ！完全勝利！" : "💪 合戦終了！次回こそ討ち取らん！";
-
-    // 絵巻のレベルが上がっていれば、戦果報告で知らせる
     const newLevel = rewardLevel(correctTotal);
     let rewardMsg = '';
     if (newLevel > sessionStartLevel) {
       rewardMsg = newLevel >= REWARD_MAX_LEVEL
-        ? `\n\n🏆 絵巻が完全に開かれた！（Lv.${REWARD_MAX_LEVEL}）`
-        : `\n\n🏆 絵巻の解像度が上がった！ Lv.${sessionStartLevel} → Lv.${newLevel}`;
+        ? '絵巻が完全に開かれた'
+        : `絵巻の解像度が上がった  Lv.${sessionStartLevel} → Lv.${newLevel}`;
     }
 
-    const summaryText =
-      `${titleMsg}\n\n` +
-      `-------------------------\n` +
-      `【戦果報告】\n` +
-      `・所要時間: ${timeFormatted}\n` +
-      `・討伐数: ${correctCount} / ${totalQ} 問\n` +
-      `・正答率: ${accuracyRate}%\n` +
-      `・最大連撃: ${maxComboCount} 連撃🔥\n` +
-      `-------------------------` +
-      rewardMsg;
+    const now = new Date();
+    drawResultCard({
+      subject: currentSubjectName,
+      mode: document.getElementById('current-mode').textContent,
+      defeated: enemyHp <= 0,
+      accuracy, correct: correctCount, total,
+      maxCombo: maxComboCount,
+      time: formatElapsedTime(elapsed),
+      byCategory: [...map.values()].sort((a, b) => b.total - a.total),
+      rewardMsg,
+      date: `${now.getFullYear()}年${now.getMonth() + 1}月${now.getDate()}日`,
+    });
 
     clearSession();
-    alert(summaryText);
-    goSetup();
+    hideBattleLayers();
+    document.body.classList.remove('quiz-layout');
+    document.getElementById('quiz-screen').classList.add('hidden');
+    document.getElementById('result-screen').classList.remove('hidden');
+    updateReviewBtn();
+    updateRewardPanel();
   }
+
+  document.getElementById('result-save-btn').addEventListener('click', () => {
+    const link = document.createElement('a');
+    link.download = `戦果_${currentSubjectName}_${new Date().toISOString().slice(0, 10)}.png`;
+    link.href = document.getElementById('result-canvas').toDataURL('image/png');
+    link.click();
+  });
+
+  document.getElementById('result-again-btn').addEventListener('click', () => {
+    document.getElementById('result-screen').classList.add('hidden');
+    if (lastWasReview) startQuiz(filteredReviewList());
+    else startQuiz(null);
+  });
+
+  document.getElementById('result-back-btn').addEventListener('click', () => {
+    document.getElementById('result-screen').classList.add('hidden');
+    goSetup();
+  });
 
   document.getElementById('next-btn').addEventListener('click', proceed);
   document.getElementById('back-setup-btn').addEventListener('click', goSetup);
@@ -1928,6 +2137,7 @@
     hideBattleLayers();
     document.body.classList.remove('quiz-layout');
     document.getElementById('review-screen').classList.add('hidden');
+    document.getElementById('result-screen').classList.add('hidden');
     document.getElementById('quiz-screen').classList.add('hidden');
     document.getElementById('setup-screen').classList.remove('hidden');
     updateReviewBtn();
@@ -1940,6 +2150,7 @@
     document.body.classList.remove('quiz-layout');
     document.body.classList.add('home-layout');
     document.getElementById('review-screen').classList.add('hidden');
+    document.getElementById('result-screen').classList.add('hidden');
     document.getElementById('setup-screen').classList.add('hidden');
     document.getElementById('home-screen').classList.remove('hidden');
   }
