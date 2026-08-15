@@ -1488,16 +1488,19 @@
     civics: '絵巻 ─ 天下を治める者',
   };
 
-  // need: 到達に必要な累計正解数 / veil: かかっている影の濃さ（0で完全に晴れる）
+  // need: 到達に必要な累計正解数 / cloud: 金雲が残っている割合（0で完全に晴れる）
   const REWARD_STEPS = [
-    { need: 0,   veil: 0.94 },
-    { need: 10,  veil: 0.84 },
-    { need: 25,  veil: 0.70 },
-    { need: 50,  veil: 0.54 },
-    { need: 85,  veil: 0.36 },
-    { need: 125, veil: 0.18 },
-    { need: 170, veil: 0 },
+    { need: 0,   cloud: 1.00 },
+    { need: 10,  cloud: 0.84 },
+    { need: 25,  cloud: 0.68 },
+    { need: 50,  cloud: 0.50 },
+    { need: 85,  cloud: 0.34 },
+    { need: 125, cloud: 0.17 },
+    { need: 170, cloud: 0 },
   ];
+
+  // 絵巻の進み具合が、そのまま自分の位でもある
+  const RANK_TITLES = ['見習い', '足軽', '弓取り', '侍', '侍大将', '軍師', '軍神'];
   const REWARD_MAX_LEVEL = REWARD_STEPS.length - 1;
 
   let rewardImage = null;
@@ -1507,17 +1510,60 @@
   // ----- 🗣 味方のひとこと と、軍勢の声 -----
 
   // 味方のセリフ。状況ごとに用意し、直近に出たものは繰り返さない
+  // 位が上がるほど、味方が見せる顔が増えていく。lv はそのセリフが解放される段階
   const ALLY_LINES = {
-    start:    ['さあ、はじめよう', '今日もつきあうよ', '無理のない分だけでいい', '肩の力を抜いていこう'],
-    correct:  ['その調子', '今の、届いた', '効いてる', 'いいね、続けよう', 'しっかり通った', '手ごたえあり'],
-    critical: ['速い、見えてた？', '今の一撃、鋭い', '迷いがないね', '見事な太刀筋'],
-    combo:    ['乗ってきたね', '止まらないで', 'このまま押し切ろう', '流れはこっちだ'],
-    close:    ['そこ、私も迷う', '惜しい。あと一文字', '筋は合ってる', 'next で取り返せる'],
-    wrong:    ['大丈夫、次で取り返せる', 'そこは私も苦手だった', '今おぼえたなら勝ち', '解説を読んでおこう', 'ここで会えたのが収穫'],
+    start: [
+      { t: 'さあ、はじめよう', lv: 0 },
+      { t: '今日もつきあうよ', lv: 0 },
+      { t: '無理のない分だけでいい', lv: 0 },
+      { t: '肩の力を抜いていこう', lv: 1 },
+      { t: 'また来てくれたんだね', lv: 2 },
+      { t: '君となら、どこまでも行ける', lv: 4 },
+      { t: 'この陣、君に預ける', lv: 6 },
+    ],
+    correct: [
+      { t: 'その調子', lv: 0 },
+      { t: '今の、届いた', lv: 0 },
+      { t: '効いてる', lv: 0 },
+      { t: 'いいね、続けよう', lv: 1 },
+      { t: 'しっかり通った', lv: 1 },
+      { t: '手ごたえあり', lv: 2 },
+      { t: '前より速くなった', lv: 3 },
+      { t: '君の一手は、もう迷いがない', lv: 5 },
+    ],
+    critical: [
+      { t: '速い、見えてた？', lv: 0 },
+      { t: '今の一撃、鋭い', lv: 0 },
+      { t: '迷いがないね', lv: 2 },
+      { t: '見事な太刀筋', lv: 3 },
+      { t: 'その速さ、もう軍師の域だ', lv: 5 },
+    ],
+    combo: [
+      { t: '乗ってきたね', lv: 0 },
+      { t: '止まらないで', lv: 0 },
+      { t: 'このまま押し切ろう', lv: 1 },
+      { t: '流れはこっちだ', lv: 2 },
+      { t: '背中は任せて', lv: 4 },
+      { t: '軍勢がついてきている', lv: 6 },
+    ],
+    close: [
+      { t: 'そこ、私も迷う', lv: 0 },
+      { t: '惜しい。あと一文字', lv: 0 },
+      { t: '筋は合ってる', lv: 1 },
+      { t: '次で取り返せる', lv: 2 },
+      { t: 'そこまで来ていれば十分だ', lv: 4 },
+    ],
+    wrong: [
+      { t: '大丈夫、次で取り返せる', lv: 0 },
+      { t: 'そこは私も苦手だった', lv: 0 },
+      { t: '今おぼえたなら勝ち', lv: 0 },
+      { t: '解説を読んでおこう', lv: 1 },
+      { t: 'ここで会えたのが収穫', lv: 2 },
+      { t: '落とした一つが、次の備えになる', lv: 4 },
+      { t: '何度でもつきあうよ', lv: 6 },
+    ],
   };
-  ALLY_LINES.close[3] = '次で取り返せる';
 
-  // 後方で見ている軍勢。実在の人物ではなく、すべて架空の呼び名
   const AUDIENCE = [
     '名無しの足軽', '通りすがりの牢人', '三河の農民', '陣中の小姓', '名もなき忍',
     '甲斐の馬廻', '越後の弓兵', '堺の商人', '京の町人', '見物の旅人',
@@ -1548,8 +1594,13 @@
   }
 
   function sayAlly(kind) {
+    const level = rewardLevel(correctTotal);
+    const pool = (ALLY_LINES[kind] || ALLY_LINES.correct)
+      .filter(x => x.lv <= level)
+      .map(x => x.t);
+
     const bubble = document.getElementById('ally-bubble');
-    bubble.textContent = pickLine(ALLY_LINES[kind] || ALLY_LINES.correct, recentAllyLines);
+    bubble.textContent = pickLine(pool, recentAllyLines);
     bubble.classList.remove('pop');
     void bubble.offsetWidth;   // アニメを再生し直すための書きこみ
     bubble.classList.add('pop');
@@ -1975,25 +2026,68 @@
       return;
     }
 
-    // 味方として画面に出すため、モザイクではなく「影が晴れていく」形にする。
-    // モザイクだと何が描いてあるか分からず、相棒として成立しないため
     ctx.imageSmoothingEnabled = true;
     ctx.drawImage(rewardImage, 0, 0, w, h);
+    drawGoldClouds(ctx, w, h, REWARD_STEPS[level].cloud);
+  }
 
-    const veil = REWARD_STEPS[level].veil;
-    if (veil > 0) {
-      ctx.globalCompositeOperation = 'source-atop';   // 絵の形の中だけを暗くする
-      ctx.fillStyle = `rgba(8, 4, 2, ${veil})`;
-      ctx.fillRect(0, 0, w, h);
-      ctx.globalCompositeOperation = 'source-over';
+  // 洛中洛外図などで場面を隠す「金雲」を描く。
+  // 正解を重ねるほど雲が減り、下の絵があらわれていく
+  function drawGoldClouds(ctx, w, h, remain) {
+    if (remain <= 0) return;
+
+    const BANDS = 12;
+    const bandH = h / BANDS;
+
+    // 顔のあたりから先に晴れるよう、そこに近い帯ほど早く消す
+    const focus = BANDS * 0.26;
+    const order = Array.from({ length: BANDS }, (_, i) => i)
+      .sort((a, b) => Math.abs(a - focus) - Math.abs(b - focus));
+    const cleared = new Set(order.slice(0, Math.round(BANDS * (1 - remain))));
+
+    const gold = ctx.createLinearGradient(0, 0, w, h);
+    gold.addColorStop(0, '#f0d089');
+    gold.addColorStop(0.45, '#d9ab4e');
+    gold.addColorStop(1, '#b8862f');
+
+    for (let i = 0; i < BANDS; i++) {
+      if (cleared.has(i)) continue;
+      const y = i * bandH;
+      const pad = bandH * 0.26;
+      const r = pad * 1.5;
+      const lobes = 6;
+
+      ctx.fillStyle = gold;
+      ctx.beginPath();
+      ctx.rect(0, y + pad, w, bandH - pad * 2);
+      // 上下のふちに半円を並べて、雲らしいふくらみをつくる
+      for (let k = 0; k < lobes; k++) {
+        const cx = (k + 0.5) * (w / lobes);
+        ctx.moveTo(cx + r, y + pad);
+        ctx.arc(cx, y + pad, r, 0, Math.PI * 2);
+        ctx.moveTo(cx + (w / lobes) / 2 + r, y + bandH - pad);
+        ctx.arc(cx + (w / lobes) / 2, y + bandH - pad, r, 0, Math.PI * 2);
+      }
+      ctx.fill();
+
+      // 金の輪郭を薄く重ねて、絵巻らしい質感にする
+      ctx.strokeStyle = 'rgba(255, 236, 180, 0.35)';
+      ctx.lineWidth = Math.max(1, w / 220);
+      ctx.stroke();
     }
+  }
+
+  // その位で使えるセリフが何通りあるか
+  function countAllyLines(level) {
+    return Object.values(ALLY_LINES)
+      .reduce((sum, arr) => sum + arr.filter(x => x.lv <= level).length, 0);
   }
 
   function updateRewardPanel() {
     const level = rewardLevel(correctTotal);
 
     document.getElementById('reward-title').textContent = REWARD_TITLES[currentSubjectKey] || '絵巻';
-    document.getElementById('reward-level').textContent = `Lv.${level} / ${REWARD_MAX_LEVEL}`;
+    document.getElementById('reward-level').textContent = `${RANK_TITLES[level]}（Lv.${level}）`;
     drawReward(document.getElementById('reward-canvas'), level);
 
     const fill = document.getElementById('reward-bar-fill');
@@ -2001,13 +2095,17 @@
 
     if (level >= REWARD_MAX_LEVEL) {
       fill.style.width = '100%';
-      caption.textContent = `累計${correctTotal}問正解。影は完全に晴れた！（タップで拡大）`;
+      caption.textContent =
+        `累計${correctTotal}問正解。金雲は完全に晴れた！　セリフ${countAllyLines(level)}種（タップで拡大）`;
     } else {
       const from = REWARD_STEPS[level].need;
       const to = REWARD_STEPS[level + 1].need;
       fill.style.width = `${Math.round((correctTotal - from) / (to - from) * 100)}%`;
+      caption.dataset.lines = countAllyLines(level);
       caption.textContent =
-        `累計${correctTotal}問正解 ／ あと${to - correctTotal}問でLv.${level + 1}、影がさらに晴れる`;
+        `累計${correctTotal}問正解　セリフ${countAllyLines(level)}種\n` +
+        `あと${to - correctTotal}問で「${RANK_TITLES[level + 1]}」に昇格し、` +
+        `金雲が晴れてセリフが${countAllyLines(level + 1) - countAllyLines(level)}種増える`;
     }
   }
 
@@ -2016,7 +2114,7 @@
     const level = rewardLevel(correctTotal);
     drawReward(document.getElementById('reward-overlay-canvas'), level);
     document.getElementById('reward-overlay-caption').textContent =
-      `${REWARD_TITLES[currentSubjectKey]}　Lv.${level} / ${REWARD_MAX_LEVEL}（画面をタップで閉じる）`;
+      `${REWARD_TITLES[currentSubjectKey]}　${RANK_TITLES[level]}（画面をタップで閉じる）`;
     document.getElementById('reward-overlay').classList.remove('hidden');
   });
 
@@ -2807,19 +2905,24 @@
     ctx.font = `40px ${SERIF}`;
     ctx.fillText(`${data.subject}　${data.mode}`, mid, 290);
 
+    // 位（称号）を刻む
+    ctx.fillStyle = rank.color;
+    ctx.font = `34px ${SERIF}`;
+    ctx.fillText(`― ${data.rank} ―`, mid, 348);
+
     // 正答率
     ctx.fillStyle = '#f5e9d8';
     ctx.font = `bold 300px ${SERIF}`;
-    ctx.fillText(`${data.accuracy}`, mid - 40, 640);
+    ctx.fillText(`${data.accuracy}`, mid - 40, 672);
     ctx.font = `bold 90px ${SERIF}`;
-    ctx.fillText('%', mid + 200, 640);
+    ctx.fillText('%', mid + 200, 672);
     ctx.fillStyle = '#9a8a7e';
     ctx.font = `36px ${SERIF}`;
-    ctx.fillText('正 答 率', mid, 710);
+    ctx.fillText('正 答 率', mid, 736);
 
     // 評価の印
     ctx.beginPath();
-    ctx.arc(mid, 880, 92, 0, Math.PI * 2);
+    ctx.arc(mid, 896, 92, 0, Math.PI * 2);
     ctx.fillStyle = 'rgba(0,0,0,0.55)';
     ctx.fill();
     ctx.strokeStyle = rank.color;
@@ -2827,9 +2930,9 @@
     ctx.stroke();
     ctx.fillStyle = rank.color;
     ctx.font = `bold 104px ${SERIF}`;
-    ctx.fillText(rank.letter, mid, 918);
+    ctx.fillText(rank.letter, mid, 934);
     ctx.font = `38px ${SERIF}`;
-    ctx.fillText(rank.word, mid, 1030);
+    ctx.fillText(rank.word, mid, 1042);
 
     // 3つの数字
     const cells = [
@@ -2914,8 +3017,8 @@
     let rewardMsg = '';
     if (newLevel > sessionStartLevel) {
       rewardMsg = newLevel >= REWARD_MAX_LEVEL
-        ? '絵巻の影が完全に晴れた'
-        : `絵巻の影が晴れてきた  Lv.${sessionStartLevel} → Lv.${newLevel}`;
+        ? `金雲が晴れ、「${RANK_TITLES[REWARD_MAX_LEVEL]}」に到達`
+        : `金雲が晴れた  「${RANK_TITLES[sessionStartLevel]}」→「${RANK_TITLES[newLevel]}」`;
     }
 
     const now = new Date();
@@ -2927,6 +3030,7 @@
       maxCombo: maxComboCount,
       time: formatElapsedTime(elapsed),
       byCategory: [...map.values()].sort((a, b) => b.total - a.total),
+      rank: RANK_TITLES[newLevel],
       rewardMsg,
       date: `${now.getFullYear()}年${now.getMonth() + 1}月${now.getDate()}日`,
     });
