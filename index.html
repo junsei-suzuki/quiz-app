@@ -11,15 +11,56 @@
       --danger: #dc3545;
       --bg: #120c0a;
       --card-bg: rgba(25, 20, 20, 0.88);
+
+      /* 教科ごとに差しかえる色。既定は歴史の臙脂 */
+      --accent: #f3a852;
+      --tint: rgba(139, 0, 0, 0.3);
+      --bg-top: #1a0f0d;
+      --bg-mid: #0d0806;
+      --btn1: #8b1a1a;
+      --btn2: #5c0e0e;
+      --btn-border: #a33232;
+      --card-border: #5a3825;
     }
+
+    /* 今どの教科をやっているかが、画面の色で分かるようにする */
+    body[data-subject="math"] {
+      --accent: #9fb0ef; --tint: rgba(60, 70, 170, 0.32);
+      --bg-top: #0f1230; --bg-mid: #070818;
+      --btn1: #2f3a86; --btn2: #1b2050; --btn-border: #4a58ad; --card-border: #35407e;
+    }
+    body[data-subject="science"] {
+      --accent: #8fd9a0; --tint: rgba(30, 120, 70, 0.3);
+      --bg-top: #0c1c12; --bg-mid: #06110a;
+      --btn1: #1f6a41; --btn2: #123f27; --btn-border: #358a59; --card-border: #2c6543;
+    }
+    body[data-subject="geography"] {
+      --accent: #f0c46a; --tint: rgba(160, 110, 30, 0.3);
+      --bg-top: #1e1608; --bg-mid: #120d05;
+      --btn1: #8a6320; --btn2: #5a4013; --btn-border: #b08434; --card-border: #6b4f22;
+    }
+    body[data-subject="english"] {
+      --accent: #8fc4f0; --tint: rgba(30, 80, 160, 0.32);
+      --bg-top: #08172c; --bg-mid: #050e1b;
+      --btn1: #1d4a80; --btn2: #112c4d; --btn-border: #2f6ba8; --card-border: #26507e;
+    }
+    body[data-subject="civics"] {
+      --accent: #d7dbe6; --tint: rgba(120, 130, 160, 0.26);
+      --bg-top: #14161f; --bg-mid: #0b0c12;
+      --btn1: #454b63; --btn2: #2a2e3d; --btn-border: #6b7290; --card-border: #4a5068;
+    }
+
+    /* 夜や電車で使うときのために、画面全体を落ち着かせる */
+    body.night { filter: brightness(0.72) saturate(0.78); }
 
     body {
       font-family: "Hiragino Mincho ProN", "Yu Mincho", -apple-system, BlinkMacSystemFont, serif;
       background-color: var(--bg);
       /* ⚔️ 戦国荒野風の背景（赤黒い雲・荒涼とした大地イメージ） */
       background:
-        radial-gradient(circle at 50% 30%, rgba(139, 0, 0, 0.3) 0%, transparent 70%),
-        linear-gradient(to bottom, #1a0f0d 0%, #0d0806 60%, #050302 100%);
+        radial-gradient(circle at 50% 30%, var(--tint) 0%, transparent 70%),
+        linear-gradient(to bottom, var(--bg-top) 0%, var(--bg-mid) 60%, #050302 100%);
+      transition: background 0.4s ease;
       color: #eaeaea;
       margin: 0;
       padding: 15px;
@@ -57,7 +98,7 @@
       width: 100%;
       max-width: 500px;
       background: var(--card-bg);
-      border: 1px solid #5a3825;
+      border: 1px solid var(--card-border);
       border-radius: 12px;
       padding: 20px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.8), 0 0 15px rgba(139, 0, 0, 0.3);
@@ -71,7 +112,7 @@
     h1, h2 {
       text-align: center;
       margin-top: 0;
-      color: #f3a852;
+      color: var(--accent);
       text-shadow: 0 2px 4px rgba(0,0,0,0.8);
     }
 
@@ -91,9 +132,9 @@
     }
 
     button {
-      background: linear-gradient(180deg, #8b1a1a 0%, #5c0e0e 100%);
+      background: linear-gradient(180deg, var(--btn1) 0%, var(--btn2) 100%);
       color: #ffe6d0;
-      border: 1px solid #a33232;
+      border: 1px solid var(--btn-border);
       font-weight: bold;
       cursor: pointer;
       text-shadow: 0 1px 2px #000;
@@ -721,7 +762,7 @@
     }
 
     .count-tools button.selected {
-      background: linear-gradient(180deg, #8b1a1a 0%, #5c0e0e 100%);
+      background: linear-gradient(180deg, var(--btn1) 0%, var(--btn2) 100%);
       border-color: #d4a04a;
       box-shadow: 0 0 10px rgba(212, 160, 74, 0.5);
     }
@@ -803,7 +844,7 @@
       display: block;
       font-size: 1.7rem;
       font-weight: bold;
-      color: #f3a852;
+      color: var(--accent);
       text-shadow: 0 0 10px rgba(243, 168, 82, 0.4);
       line-height: 1.1;
     }
@@ -1046,6 +1087,53 @@
       border-radius: 1px;
     }
 
+    /* 合戦中の手ごたえ切りかえ */
+    .battle-sound-btn {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      width: 40px;
+      height: 40px;
+      padding: 0;
+      margin: 0;
+      font-size: 1.1rem;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.6) !important;
+      border: 1px solid #6b5236 !important;
+      z-index: 30;
+      line-height: 1;
+    }
+
+    @media (min-width: 900px) {
+      .battle-sound-btn { top: auto; bottom: 18px; right: 18px; }
+    }
+
+    /* 4択のボタン。位置と高さを固定する */
+    .choice-box {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .choice-box button {
+      min-height: 52px;
+      font-size: 1rem;
+      margin-bottom: 0;
+      background: linear-gradient(180deg, #3a2a24 0%, #241915 100%);
+      border-color: #775544;
+      white-space: normal;
+      line-height: 1.4;
+    }
+
+    .choice-box button:disabled { opacity: 0.45; }
+
+    .choice-box button.is-answer {
+      background: linear-gradient(180deg, #1f6a41 0%, #123f27 100%) !important;
+      border-color: #4cc47a !important;
+      opacity: 1;
+    }
+
     .hidden { display: none !important; }
 
     /* =========================================================
@@ -1189,6 +1277,9 @@
   <div id="combo-badge" class="combo-badge">0 COMBO!</div>
 </div>
 
+<!-- 合戦中でも、その場で手ごたえを切りかえられるようにする -->
+<button id="battle-sound-btn" class="battle-sound-btn hidden">📳</button>
+
 <!-- 🩸 パソコン向け：敵の下にのびる縦のHPバー。下から削れて敵へ迫っていく -->
 <div id="vertical-battle-ui" class="vertical-battle-ui hidden">
   <div class="vhp-container">
@@ -1259,6 +1350,12 @@
         <!-- JavaScriptで動的生成 -->
       </div>
 
+      <label><b>答え方:</b></label>
+      <div class="count-tools" id="mode-tools" style="grid-template-columns: 1fr 1fr;">
+        <button type="button" data-mode="write">書いて答える<small>力がつく</small></button>
+        <button type="button" data-mode="choice">選んで答える<small>片手でできる</small></button>
+      </div>
+
       <label><b>1回の合戦の問題数:</b></label>
       <div class="count-tools" id="count-tools">
         <button type="button" data-count="10">10問<small>約3分</small></button>
@@ -1270,7 +1367,8 @@
       <button id="start-btn">いざ出陣（学習開始）</button>
       <button id="review-btn" style="background: #4a3b35;">復習リスト (0件)</button>
       <button onclick="goHome()" style="background: #332822; margin-top: 5px;">本陣へ戻る</button>
-      <button id="sound-btn" style="background: #332822; font-size: 0.9rem; padding: 8px;">🔊 効果音: オン</button>
+      <button id="sound-btn" style="background: #332822; font-size: 0.9rem; padding: 8px;">📳 手ごたえ: バイブ</button>
+      <button id="night-btn" style="background: #332822; font-size: 0.9rem; padding: 8px;">🌙 画面を暗くする</button>
     </div>
 
     <!-- 🏆 正解数に応じて解像度が上がる絵巻 -->
@@ -1312,6 +1410,9 @@
       <input type="text" id="answer-input" placeholder="回答を入力" autocomplete="off" required>
       <button type="submit" id="submit-btn">一撃を叩き込む！</button>
     </form>
+
+    <!-- 選んで答えるモード。ボタンの高さを固定して指を動かさずに済むようにする -->
+    <div id="choice-box" class="choice-box hidden"></div>
 
     <div id="feedback" class="feedback"></div>
 
@@ -1640,7 +1741,18 @@
   let audioCtx = null;
   let slashBuffer = null;      // 読みこみ済みの音声データ
   let slashFailed = false;     // 読みこみに失敗したか
-  let soundEnabled = localStorage.getItem('soundEnabled') !== 'off';
+
+  // 教室・電車・深夜で1回鳴っただけでアプリを消される事故を避けるため、
+  // 初期値は音ではなく振動にしてある
+  const FEEDBACK_MODES = ['vibe', 'sound', 'none'];
+  const FEEDBACK_LABEL = { vibe: '📳 手ごたえ: バイブ', sound: '🔊 手ごたえ: 音', none: '🔇 手ごたえ: なし' };
+  let feedbackMode = localStorage.getItem('feedbackMode');
+  if (!feedbackMode) {
+    // 以前の設定があれば引き継ぐ
+    const old = localStorage.getItem('soundEnabled');
+    feedbackMode = old === 'on' ? 'sound' : (old === 'off' ? 'none' : 'vibe');
+    localStorage.setItem('feedbackMode', feedbackMode);
+  }
 
   function getAudioContext() {
     if (audioCtx) return audioCtx;
@@ -1674,7 +1786,16 @@
 
   // power: ダメージ倍率。会心や連撃ほど、わずかに速く鋭い音になる
   function playSlashSound(power) {
-    if (!soundEnabled || !slashBuffer) return;
+    if (feedbackMode === 'none') return;
+
+    // 振動なら音の代わりに手ごたえを返す。強い一撃ほど長く震わせる
+    if (feedbackMode === 'vibe') {
+      if (navigator.vibrate) {
+        navigator.vibrate(power >= 1.4 ? [30, 40, 30, 40, 60] : (power >= 1.25 ? 80 : 30));
+      }
+      return;
+    }
+    if (!slashBuffer) return;
 
     const ctx = getAudioContext();
     if (!ctx) return;
@@ -1694,22 +1815,38 @@
   }
 
   function updateSoundBtn() {
-    const btn = document.getElementById('sound-btn');
-    if (slashFailed) {
-      btn.textContent = '⚠️ 効果音: 読みこめません';
-      return;
-    }
-    btn.textContent = soundEnabled ? '🔊 効果音: オン' : '🔇 効果音: オフ';
+    let label = FEEDBACK_LABEL[feedbackMode];
+    if (feedbackMode === 'sound' && slashFailed) label = '⚠️ 音を読みこめません';
+    document.getElementById('sound-btn').textContent = label;
+    document.getElementById('battle-sound-btn').textContent =
+      { vibe: '📳', sound: '🔊', none: '🔇' }[feedbackMode];
   }
 
-  document.getElementById('sound-btn').addEventListener('click', () => {
-    soundEnabled = !soundEnabled;
-    localStorage.setItem('soundEnabled', soundEnabled ? 'on' : 'off');
+  function cycleFeedbackMode() {
+    feedbackMode = FEEDBACK_MODES[(FEEDBACK_MODES.indexOf(feedbackMode) + 1) % FEEDBACK_MODES.length];
+    localStorage.setItem('feedbackMode', feedbackMode);
     updateSoundBtn();
-    if (soundEnabled) playSlashSound(1.2);  // 切りかえたその場で音を確認できる
-  });
+    if (feedbackMode !== 'none') playSlashSound(1.2);  // 切りかえたその場で確かめられる
+  }
 
-  updateSoundBtn();  // 前回オフにしていた場合に備えて表示を合わせる
+  document.getElementById('sound-btn').addEventListener('click', cycleFeedbackMode);
+  document.getElementById('battle-sound-btn').addEventListener('click', cycleFeedbackMode);
+
+  updateSoundBtn();  // 前回の設定に表示を合わせる
+
+  // 夜間モード
+  let nightMode = localStorage.getItem('nightMode') === 'on';
+  function applyNight() {
+    document.body.classList.toggle('night', nightMode);
+    document.getElementById('night-btn').textContent =
+      nightMode ? '☀️ 明るさを戻す' : '🌙 画面を暗くする';
+  }
+  document.getElementById('night-btn').addEventListener('click', () => {
+    nightMode = !nightMode;
+    localStorage.setItem('nightMode', nightMode ? 'on' : 'off');
+    applyNight();
+  });
+  applyNight();
 
   let currentSubjectKey = '';
   let currentSubjectName = '';
@@ -1736,6 +1873,7 @@
   function selectSubject(key, name, labelText) {
     currentSubjectKey = key;
     currentSubjectName = name;
+    document.body.dataset.subject = key;
 
     document.getElementById('subject-title').textContent = `${name} 一問一答`;
     document.getElementById('category-label').textContent = `出題する${labelText}を選択:`;
@@ -2105,6 +2243,55 @@
       });
     });
 
+  // 選んで答えるモード。誤答は同じ分野の他の問題の答えから借りるので、データ追加は不要
+  let answerMode = localStorage.getItem('answerMode') || 'write';
+
+  function updateModeBtns() {
+    document.querySelectorAll('#mode-tools button').forEach(b => {
+      b.classList.toggle('selected', b.dataset.mode === answerMode);
+    });
+  }
+
+  document.querySelectorAll('#mode-tools button').forEach(b => {
+    b.addEventListener('click', () => {
+      answerMode = b.dataset.mode;
+      localStorage.setItem('answerMode', answerMode);
+      updateModeBtns();
+    });
+  });
+  updateModeBtns();
+
+  function buildChoices(q) {
+    const pool = allQuestions
+      .filter(x => x.category === q.category && x.answer !== q.answer)
+      .map(x => x.answer);
+    const others = [];
+    while (others.length < 3 && pool.length) {
+      const pick = pool.splice(Math.floor(Math.random() * pool.length), 1)[0];
+      if (!others.includes(pick)) others.push(pick);
+    }
+    return [q.answer, ...others].sort(() => Math.random() - 0.5);
+  }
+
+  function showChoices(q) {
+    const box = document.getElementById('choice-box');
+    box.textContent = '';
+    buildChoices(q).forEach(text => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.textContent = text;
+      btn.addEventListener('click', () => {
+        box.querySelectorAll('button').forEach(b => {
+          b.disabled = true;
+          if (b.textContent === q.answer) b.classList.add('is-answer');
+        });
+        submitAnswer(text);
+      });
+      box.appendChild(btn);
+    });
+    box.classList.remove('hidden');
+  }
+
   function updateCountBtns() {
     document.querySelectorAll('#count-tools button').forEach(b => {
       b.classList.toggle('selected', Number(b.dataset.count) === questionLimit);
@@ -2172,6 +2359,7 @@
     document.getElementById('full-fx-layer').classList.remove('hidden');
     document.getElementById('fixed-battle-ui').classList.remove('hidden');
     document.getElementById('vertical-battle-ui').classList.remove('hidden');
+    document.getElementById('battle-sound-btn').classList.remove('hidden');
     document.getElementById('review-screen').classList.add('hidden');
     document.getElementById('result-screen').classList.add('hidden');
     document.getElementById('setup-screen').classList.add('hidden');
@@ -2254,7 +2442,16 @@
     const input = document.getElementById('answer-input');
     input.value = '';
     input.disabled = false;
-    input.focus();  // 続けてキーボードだけで解答できるようにする
+    const choiceBox = document.getElementById('choice-box');
+
+    if (answerMode === 'choice') {
+      document.getElementById('answer-form').classList.add('hidden');
+      showChoices(q);
+    } else {
+      document.getElementById('answer-form').classList.remove('hidden');
+      choiceBox.classList.add('hidden');
+      input.focus();  // 続けてキーボードだけで解答できるようにする
+    }
     document.getElementById('submit-btn').classList.remove('hidden');
     document.getElementById('next-btn').classList.add('hidden');
 
@@ -2318,6 +2515,9 @@
         multiplier = 1.15;
         label = '鋭い一撃! ';
       }
+
+      // 選んで答えるモードは易しいぶん、通るダメージを抑える
+      if (answerMode === 'choice') multiplier *= 0.65;
 
       // ② 連撃による加点。速さとは別枠にして、会心が連撃に食われないようにする
       let comboBonus = 0;
@@ -2418,7 +2618,10 @@
   // 解答判定
   document.getElementById('answer-form').addEventListener('submit', (e) => {
     e.preventDefault();
-    const input = document.getElementById('answer-input').value.trim();
+    submitAnswer(document.getElementById('answer-input').value.trim());
+  });
+
+  function submitAnswer(input) {
     const q = currentSessionQuestions[currentQuestionIndex];
     const feedback = document.getElementById('feedback');
 
@@ -2496,7 +2699,7 @@
     saveSession();
     saveReviewState();
     updateReviewBtn();
-  });
+  }
 
   document.getElementById('mark-check').addEventListener('change', (e) => {
     const q = currentSessionQuestions[currentQuestionIndex];
@@ -2786,6 +2989,7 @@
     document.getElementById('full-fx-layer').classList.add('hidden');
     document.getElementById('fixed-battle-ui').classList.add('hidden');
     document.getElementById('vertical-battle-ui').classList.add('hidden');
+    document.getElementById('battle-sound-btn').classList.add('hidden');
   }
 
   function goSetup() {
@@ -2801,6 +3005,7 @@
   }
 
   function goHome() {
+    delete document.body.dataset.subject;
     hideBattleLayers();
     document.body.classList.remove('quiz-layout');
     document.body.classList.add('home-layout');
