@@ -1325,5 +1325,1831 @@
     "end": ".",
     "answer": "Please go straight along this street.",
     "explanation": "道案内の定番表現。along は「〜に沿って」で、道なりに進むようすを表します。曲がるときは Turn right at the second corner.（2つ目の角を右に）。道をたずねられたときにそのまま使える一文です。"
+  },
+  {
+    "id": "o081",
+    "category": "be動詞",
+    "question": "私は中学生です。",
+    "tokens": [
+      "I",
+      "am",
+      "a",
+      "junior",
+      "high",
+      "school",
+      "student"
+    ],
+    "end": ".",
+    "answer": "I am a junior high school student.",
+    "explanation": "主語が I のときの be動詞は am。a junior high school student と長い名詞のかたまりですが、a は先頭に1つだけです。be動詞は「＝（イコール）」の役割で、I と student を結びつけていると考えると、語順が組み立てやすくなります。"
+  },
+  {
+    "id": "o082",
+    "category": "be動詞",
+    "question": "彼女は私の姉です。",
+    "tokens": [
+      "she",
+      "is",
+      "my",
+      "sister"
+    ],
+    "end": ".",
+    "answer": "She is my sister.",
+    "explanation": "主語が he / she / it のときの be動詞は is。my のような所有を表す語がつくと、a や the はつけません（× a my sister）。日本語の「姉」と「妹」はどちらも sister で、区別したいときは older sister / younger sister と言います。"
+  },
+  {
+    "id": "o083",
+    "category": "be動詞",
+    "question": "私たちは今、教室にいます。",
+    "tokens": [
+      "we",
+      "are",
+      "in",
+      "the",
+      "classroom",
+      "now"
+    ],
+    "end": ".",
+    "answer": "We are in the classroom now.",
+    "explanation": "主語が we / you / they のときの be動詞は are。ここでの be動詞は「〜です」ではなく「〜にいる・ある」の意味です。場所を表す語といっしょに使うと、この意味になると覚えておきましょう。"
+  },
+  {
+    "id": "o084",
+    "category": "be動詞",
+    "question": "あなたはカナダ出身ですか。",
+    "tokens": [
+      "are",
+      "you",
+      "from",
+      "Canada"
+    ],
+    "end": "?",
+    "answer": "Are you from Canada?",
+    "explanation": "be動詞の疑問文は、be動詞を主語の前に出すだけ。do や does は使いません。be from 〜 で「〜の出身だ」。答えるときは Yes, I am. / No, I am not. と、同じ be動詞で返します。"
+  },
+  {
+    "id": "o085",
+    "category": "be動詞",
+    "question": "私は空腹ではありません。",
+    "tokens": [
+      "I",
+      "am",
+      "not",
+      "hungry"
+    ],
+    "end": ".",
+    "answer": "I am not hungry.",
+    "explanation": "be動詞の打ち消しは、be動詞のうしろに not を置くだけ。一般動詞のように don't は使いません（× I don't hungry）。hungry は形容詞なので、前に be動詞が必要です。ここは混同がとても多いところ。"
+  },
+  {
+    "id": "o086",
+    "category": "be動詞",
+    "question": "その本はつくえの上にあります。",
+    "tokens": [
+      "the",
+      "book",
+      "is",
+      "on",
+      "the",
+      "desk"
+    ],
+    "end": ".",
+    "answer": "The book is on the desk.",
+    "explanation": "ものが「ある」ときも be動詞を使います。on は表面にくっついている状態を表すので、机の上なら on the desk。中に入っているなら in、そばなら by や near と、位置によって前置詞を使い分けます。"
+  },
+  {
+    "id": "o087",
+    "category": "be動詞",
+    "question": "私の父は昨日、忙しかったです。",
+    "tokens": [
+      "my",
+      "father",
+      "was",
+      "busy",
+      "yesterday"
+    ],
+    "end": ".",
+    "answer": "My father was busy yesterday.",
+    "explanation": "過去の be動詞は、am と is が was に、are が were になります。yesterday が過去の目印。busy は形容詞なので、日本語の「忙しかった」に引きずられて動詞のように扱わないよう気をつけましょう。"
+  },
+  {
+    "id": "o088",
+    "category": "be動詞",
+    "question": "彼らはそのとき、公園にいました。",
+    "tokens": [
+      "they",
+      "were",
+      "in",
+      "the",
+      "park",
+      "then"
+    ],
+    "end": ".",
+    "answer": "They were in the park then.",
+    "explanation": "主語が they なので過去の be動詞は were。then（そのとき）が過去を示しています。were は are の過去形で、you の場合も単数・複数を問わず were を使います（× you was）。"
+  },
+  {
+    "id": "o089",
+    "category": "be動詞",
+    "question": "この花はとても美しい。",
+    "tokens": [
+      "this",
+      "flower",
+      "is",
+      "very",
+      "beautiful"
+    ],
+    "end": ".",
+    "answer": "This flower is very beautiful.",
+    "explanation": "very は形容詞を強める副詞で、beautiful の直前に置きます。this flower が主語のかたまり。this は「この」と名詞につく使い方と、「これ」と単独で使う使い方の両方があります。"
+  },
+  {
+    "id": "o090",
+    "category": "be動詞",
+    "question": "あなたのかばんはどこにありますか。",
+    "tokens": [
+      "where",
+      "is",
+      "your",
+      "bag"
+    ],
+    "end": "?",
+    "answer": "Where is your bag?",
+    "explanation": "疑問詞のある be動詞の疑問文は〈疑問詞 + be動詞 + 主語〉。Where is 〜? で場所をたずねます。答えるときは It is under the chair.（いすの下です）のように、場所を表す語で返します。"
+  },
+  {
+    "id": "o091",
+    "category": "be動詞",
+    "question": "私たちは同じクラスです。",
+    "tokens": [
+      "we",
+      "are",
+      "in",
+      "the",
+      "same",
+      "class"
+    ],
+    "end": ".",
+    "answer": "We are in the same class.",
+    "explanation": "「同じクラスです」は be in the same class と、in を使って表します。same の前には必ず the がつくのがきまり（× a same class）。「同じ」と言えば一つに決まるから、と考えると納得できます。"
+  },
+  {
+    "id": "o092",
+    "category": "be動詞",
+    "question": "その映画はおもしろかったですか。",
+    "tokens": [
+      "was",
+      "the",
+      "movie",
+      "interesting"
+    ],
+    "end": "?",
+    "answer": "Was the movie interesting?",
+    "explanation": "過去の be動詞の疑問文も、was を主語の前に出すだけ。interesting は「（見る人にとって）おもしろい」で、人が「興味を持っている」なら interested を使います。この使い分けは定期テストの定番です。"
+  },
+  {
+    "id": "o093",
+    "category": "一般動詞",
+    "question": "私は毎日、英語を勉強します。",
+    "tokens": [
+      "I",
+      "study",
+      "English",
+      "every",
+      "day"
+    ],
+    "end": ".",
+    "answer": "I study English every day.",
+    "explanation": "be動詞以外の動詞を一般動詞といいます。主語が I なので study はそのままの形。every day が「毎日」といういつものことを表すので、現在形を使います。every day は2語で書くのを忘れずに。"
+  },
+  {
+    "id": "o094",
+    "category": "一般動詞",
+    "question": "彼は毎朝、犬を散歩させます。",
+    "tokens": [
+      "he",
+      "walks",
+      "his",
+      "dog",
+      "every",
+      "morning"
+    ],
+    "end": ".",
+    "answer": "He walks his dog every morning.",
+    "explanation": "主語が he / she / it のとき、現在形の一般動詞には s がつきます。walk は「歩く」ですが、walk the dog と目的語をとると「犬を散歩させる」という意味になるのがおもしろいところ。"
+  },
+  {
+    "id": "o095",
+    "category": "一般動詞",
+    "question": "私は野球が好きではありません。",
+    "tokens": [
+      "I",
+      "do",
+      "not",
+      "like",
+      "baseball"
+    ],
+    "end": ".",
+    "answer": "I do not like baseball.",
+    "explanation": "一般動詞の打ち消しは〈do not + 動詞の原形〉。be動詞は使いません（× I am not like baseball）。ここは中学英語で最もまちがえやすい部分のひとつなので、be動詞の文としっかり分けて覚えましょう。"
+  },
+  {
+    "id": "o096",
+    "category": "一般動詞",
+    "question": "彼女はピアノをひきません。",
+    "tokens": [
+      "she",
+      "does",
+      "not",
+      "play",
+      "the",
+      "piano"
+    ],
+    "end": ".",
+    "answer": "She does not play the piano.",
+    "explanation": "主語が3人称単数のときは does not。does がsの働きを引き受けるので、動詞は原形の play に戻ります（× does not plays）。楽器には the をつけて play the piano となる点もあわせて確認しましょう。"
+  },
+  {
+    "id": "o097",
+    "category": "一般動詞",
+    "question": "あなたは音楽が好きですか。",
+    "tokens": [
+      "do",
+      "you",
+      "like",
+      "music"
+    ],
+    "end": "?",
+    "answer": "Do you like music?",
+    "explanation": "一般動詞の疑問文は Do を文の先頭に置きます。答えるときは Yes, I do. / No, I do not. と do で返します。music は数えられない名詞なので、a をつけたり複数形にしたりしません。"
+  },
+  {
+    "id": "o098",
+    "category": "一般動詞",
+    "question": "彼は放課後、サッカーをしますか。",
+    "tokens": [
+      "does",
+      "he",
+      "play",
+      "soccer",
+      "after",
+      "school"
+    ],
+    "end": "?",
+    "answer": "Does he play soccer after school?",
+    "explanation": "主語が3人称単数の疑問文は Does で始め、動詞は原形にします。after school で「放課後」。ここは the をつけません。学校を建物ではなく「授業」という活動として見ているためです。"
+  },
+  {
+    "id": "o099",
+    "category": "一般動詞",
+    "question": "私の母は病院で働いています。",
+    "tokens": [
+      "my",
+      "mother",
+      "works",
+      "at",
+      "a",
+      "hospital"
+    ],
+    "end": ".",
+    "answer": "My mother works at a hospital.",
+    "explanation": "work at 〜 で「〜で働く」。at は一点をさす前置詞で、勤め先のように場所をひとつの点として見るときに使います。主語が my mother なので works と s がつくことも忘れずに。"
+  },
+  {
+    "id": "o100",
+    "category": "一般動詞",
+    "question": "私たちは毎週日曜日にテニスをします。",
+    "tokens": [
+      "we",
+      "play",
+      "tennis",
+      "on",
+      "Sundays"
+    ],
+    "end": ".",
+    "answer": "We play tennis on Sundays.",
+    "explanation": "曜日には on を使います。Sundays と複数形にすると「毎週日曜日に」という繰り返しの意味になるのがポイント。every Sunday と言いかえられます。スポーツには the をつけません。"
+  },
+  {
+    "id": "o101",
+    "category": "一般動詞",
+    "question": "彼は英語をとても上手に話します。",
+    "tokens": [
+      "he",
+      "speaks",
+      "English",
+      "very",
+      "well"
+    ],
+    "end": ".",
+    "answer": "He speaks English very well.",
+    "explanation": "動詞のようすを説明する語（副詞）は、ふつう文の終わりに置きます。well は「上手に」。good は名詞を説明する形容詞なので、× speaks English very good とはしません。この区別はよく問われます。"
+  },
+  {
+    "id": "o102",
+    "category": "一般動詞",
+    "question": "あなたは何のスポーツが好きですか。",
+    "tokens": [
+      "what",
+      "sport",
+      "do",
+      "you",
+      "like"
+    ],
+    "end": "?",
+    "answer": "What sport do you like?",
+    "explanation": "〈What + 名詞〉で「何の〜」とたずねます。そのうしろは do you like と一般動詞の疑問文の語順。What sport 〜? は種類をたずねる言い方で、Which sport 〜? なら限られた中から選ばせる言い方になります。"
+  },
+  {
+    "id": "o103",
+    "category": "一般動詞",
+    "question": "私は毎晩、宿題をします。",
+    "tokens": [
+      "I",
+      "do",
+      "my",
+      "homework",
+      "every",
+      "night"
+    ],
+    "end": ".",
+    "answer": "I do my homework every night.",
+    "explanation": "do は「〜する」という一般動詞でもあり、疑問文や打ち消しをつくる助けの語でもあります。ここは前者。do my homework で「宿題をする」という決まった言い方です。"
+  },
+  {
+    "id": "o104",
+    "category": "一般動詞",
+    "question": "私の兄はテレビを見ません。",
+    "tokens": [
+      "my",
+      "brother",
+      "does",
+      "not",
+      "watch",
+      "TV"
+    ],
+    "end": ".",
+    "answer": "My brother does not watch TV.",
+    "explanation": "watch は動いているものをじっと見ること、see は自然と目に入ること、look at は視線を向けること。テレビは動く映像を見るので watch を使います。does not のあとなので原形のままです。"
+  },
+  {
+    "id": "o105",
+    "category": "疑問詞",
+    "question": "これは何ですか。",
+    "tokens": [
+      "what",
+      "is",
+      "this"
+    ],
+    "end": "?",
+    "answer": "What is this?",
+    "explanation": "疑問詞は必ず文の先頭に置きます。What is this? はもっとも基本的な形。答えるときは It is a pen. のように it で受けるのがふつうで、This is a pen. とくり返す必要はありません。"
+  },
+  {
+    "id": "o106",
+    "category": "疑問詞",
+    "question": "だれがこの絵をかいたのですか。",
+    "tokens": [
+      "who",
+      "painted",
+      "this",
+      "picture"
+    ],
+    "end": "?",
+    "answer": "Who painted this picture?",
+    "explanation": "who が主語になるときは、did を使わずそのまま動詞を続けます（× Who did paint 〜）。疑問詞が主語のときは、ふつうの文と同じ語順になるというきまりです。ここはとてもまちがえやすいところ。"
+  },
+  {
+    "id": "o107",
+    "category": "疑問詞",
+    "question": "あなたはいつ日本に来たのですか。",
+    "tokens": [
+      "when",
+      "did",
+      "you",
+      "come",
+      "to",
+      "Japan"
+    ],
+    "end": "?",
+    "answer": "When did you come to Japan?",
+    "explanation": "When は時をたずねる疑問詞。うしろは did you come と過去の疑問文の語順で、did があるので動詞は原形の come に戻ります。答えるときは Last year. のように時を表す語で返します。"
+  },
+  {
+    "id": "o108",
+    "category": "疑問詞",
+    "question": "あなたはどこに住んでいますか。",
+    "tokens": [
+      "where",
+      "do",
+      "you",
+      "live"
+    ],
+    "end": "?",
+    "answer": "Where do you live?",
+    "explanation": "Where は場所をたずねます。live は「住む」で、そのあとに場所を続けるときは live in Tokyo と in が必要ですが、Where があるときは in を重ねません（× Where do you live in?）。"
+  },
+  {
+    "id": "o109",
+    "category": "疑問詞",
+    "question": "なぜあなたは英語を勉強するのですか。",
+    "tokens": [
+      "why",
+      "do",
+      "you",
+      "study",
+      "English"
+    ],
+    "end": "?",
+    "answer": "Why do you study English?",
+    "explanation": "Why は理由をたずねる疑問詞。答えるときは Because 〜（〜だから）や To 〜（〜するために）を使います。Why don't you 〜? という形になると「〜しませんか」という誘いの意味に変わるのもおもしろいところ。"
+  },
+  {
+    "id": "o110",
+    "category": "疑問詞",
+    "question": "あなたはどうやって学校へ行きますか。",
+    "tokens": [
+      "how",
+      "do",
+      "you",
+      "go",
+      "to",
+      "school"
+    ],
+    "end": "?",
+    "answer": "How do you go to school?",
+    "explanation": "How は手段や方法をたずねます。答えるときは By bus.（バスで）のように by を使い、乗り物には a や the をつけません。ただし「歩いて」は by ではなく on foot という決まった言い方です。"
+  },
+  {
+    "id": "o111",
+    "category": "疑問詞",
+    "question": "あなたは兄弟が何人いますか。",
+    "tokens": [
+      "how",
+      "many",
+      "brothers",
+      "do",
+      "you",
+      "have"
+    ],
+    "end": "?",
+    "answer": "How many brothers do you have?",
+    "explanation": "〈How many + 複数名詞〉で数をたずねます。名詞を複数形にするのを忘れがち。量をたずねるときは How much を使い、こちらは数えられない名詞といっしょに使います。"
+  },
+  {
+    "id": "o112",
+    "category": "疑問詞",
+    "question": "これはだれのかばんですか。",
+    "tokens": [
+      "whose",
+      "bag",
+      "is",
+      "this"
+    ],
+    "end": "?",
+    "answer": "Whose bag is this?",
+    "explanation": "Whose は「だれの」と持ち主をたずねる疑問詞。うしろに名詞をつけて Whose bag とひとかたまりで文の先頭に置きます。答えるときは It is mine.（私のです）のように所有を表す代名詞で返します。"
+  },
+  {
+    "id": "o113",
+    "category": "疑問詞",
+    "question": "今、何時ですか。",
+    "tokens": [
+      "what",
+      "time",
+      "is",
+      "it",
+      "now"
+    ],
+    "end": "?",
+    "answer": "What time is it now?",
+    "explanation": "時刻をたずねる決まった言い方。ここでの it は「それ」ではなく、時間や天気を表すときに主語として置く特別な it です。答えるときも It is seven. と it を使います。"
+  },
+  {
+    "id": "o114",
+    "category": "疑問詞",
+    "question": "あなたはどちらのペンがほしいですか。",
+    "tokens": [
+      "which",
+      "pen",
+      "do",
+      "you",
+      "want"
+    ],
+    "end": "?",
+    "answer": "Which pen do you want?",
+    "explanation": "Which は「どちら・どれ」と、限られた中から選ばせるときに使います。範囲が決まっていないときは What。〈Which + 名詞〉でひとかたまりにして先頭に置くのは、What sport 〜? と同じ形です。"
+  },
+  {
+    "id": "o115",
+    "category": "疑問詞",
+    "question": "あなたのお姉さんは何歳ですか。",
+    "tokens": [
+      "how",
+      "old",
+      "is",
+      "your",
+      "sister"
+    ],
+    "end": "?",
+    "answer": "How old is your sister?",
+    "explanation": "How old で年齢をたずねます。How は形容詞と組み合わせて、How tall（どのくらい高い）、How long（どのくらい長い）、How far（どのくらい遠い）と、いろいろな程度をたずねられます。"
+  },
+  {
+    "id": "o116",
+    "category": "疑問詞",
+    "question": "あなたは放課後、何をしますか。",
+    "tokens": [
+      "what",
+      "do",
+      "you",
+      "do",
+      "after",
+      "school"
+    ],
+    "end": "?",
+    "answer": "What do you do after school?",
+    "explanation": "do が2回出てきます。前の do は疑問文をつくる助けの語、うしろの do は「する」という一般動詞。同じ形でも役割がちがう、英語らしいおもしろさが出ている文です。"
+  },
+  {
+    "id": "o117",
+    "category": "命令文",
+    "question": "このドアを開けてください。",
+    "tokens": [
+      "please",
+      "open",
+      "this",
+      "door"
+    ],
+    "end": ".",
+    "answer": "Please open this door.",
+    "explanation": "命令文は主語を置かず、動詞の原形で始めます。please をつけるとていねいになり、文の先頭でも終わりでもかまいません。終わりに置くときは、Open this door, please. とコンマを入れます。"
+  },
+  {
+    "id": "o118",
+    "category": "命令文",
+    "question": "教室で走ってはいけません。",
+    "tokens": [
+      "do",
+      "not",
+      "run",
+      "in",
+      "the",
+      "classroom"
+    ],
+    "end": ".",
+    "answer": "Do not run in the classroom.",
+    "explanation": "「〜するな」という打ち消しの命令文は、動詞の原形の前に Do not（Don't）を置きます。主語がないのに do が出てくるのが特徴。掲示や注意書きでよく見かける形です。"
+  },
+  {
+    "id": "o119",
+    "category": "命令文",
+    "question": "いっしょに昼食を食べましょう。",
+    "tokens": [
+      "let",
+      "us",
+      "eat",
+      "lunch",
+      "together"
+    ],
+    "end": ".",
+    "answer": "Let us eat lunch together.",
+    "explanation": "Let us は短くして Let's となり、「〜しましょう」と誘う言い方になります。うしろは必ず動詞の原形。答えるときは Yes, let's.（そうしましょう）や Sorry, I can not.（ごめん、無理）と返します。"
+  },
+  {
+    "id": "o120",
+    "category": "命令文",
+    "question": "風邪をひかないように気をつけなさい。",
+    "tokens": [
+      "be",
+      "careful",
+      "not",
+      "to",
+      "catch",
+      "a",
+      "cold"
+    ],
+    "end": ".",
+    "answer": "Be careful not to catch a cold.",
+    "explanation": "careful は形容詞なので、命令文では原形の be を使います。〈be careful not to + 動詞の原形〉で「〜しないように気をつける」。to 不定詞を打ち消すときは、to の前に not を置くのがきまりです。"
+  },
+  {
+    "id": "o121",
+    "category": "命令文",
+    "question": "窓を閉めないでください。",
+    "tokens": [
+      "please",
+      "do",
+      "not",
+      "close",
+      "the",
+      "window"
+    ],
+    "end": ".",
+    "answer": "Please do not close the window.",
+    "explanation": "ていねいな打ち消しの命令文。please は Do not の前に置きます。close の反対は open。ドアや窓のように、開け閉めできるものに使います。"
+  },
+  {
+    "id": "o122",
+    "category": "命令文",
+    "question": "この本を読んでみて。",
+    "tokens": [
+      "try",
+      "to",
+      "read",
+      "this",
+      "book"
+    ],
+    "end": ".",
+    "answer": "Try to read this book.",
+    "explanation": "try to 〜 で「〜してみる、〜しようとする」。try のうしろが動名詞の try reading になると「ためしに読んでみる」と、少しニュアンスが変わります。to 不定詞は「これからすること」を指す形です。"
+  },
+  {
+    "id": "o123",
+    "category": "命令文",
+    "question": "手を洗いなさい。",
+    "tokens": [
+      "wash",
+      "your",
+      "hands"
+    ],
+    "end": ".",
+    "answer": "Wash your hands.",
+    "explanation": "英語では、自分の体の部分にも my や your といった所有を表す語をつけます（× wash hands）。手は2つあるので hands と複数形。日本語にはない感覚なので、意識して覚えたいところです。"
+  },
+  {
+    "id": "o124",
+    "category": "命令文",
+    "question": "ここで写真をとらないでください。",
+    "tokens": [
+      "please",
+      "do",
+      "not",
+      "take",
+      "pictures",
+      "here"
+    ],
+    "end": ".",
+    "answer": "Please do not take pictures here.",
+    "explanation": "take a picture で「写真をとる」。ここは何枚もという含みなので pictures と複数形にしています。観光地の掲示でよく見かける表現なので、そのまま覚えておくと役に立ちます。"
+  },
+  {
+    "id": "o125",
+    "category": "命令文",
+    "question": "公園へ行きましょう。",
+    "tokens": [
+      "let",
+      "us",
+      "go",
+      "to",
+      "the",
+      "park"
+    ],
+    "end": ".",
+    "answer": "Let us go to the park.",
+    "explanation": "Let's go to 〜 は誘いの定番。go のうしろに場所を続けるときは to が必要ですが、home や there のような語には to をつけません（× go to home）。この例外は要注意です。"
+  },
+  {
+    "id": "o126",
+    "category": "命令文",
+    "question": "静かにしてください。",
+    "tokens": [
+      "please",
+      "be",
+      "quiet"
+    ],
+    "end": ".",
+    "answer": "Please be quiet.",
+    "explanation": "quiet は形容詞なので、命令文では原形の be をつけて Be quiet. とします。please をつけるとやわらかい言い方に。似た語の quite（かなり）とはつづりも意味もちがうので、混同しないように。"
+  },
+  {
+    "id": "o127",
+    "category": "命令文",
+    "question": "宿題を忘れないで。",
+    "tokens": [
+      "do",
+      "not",
+      "forget",
+      "your",
+      "homework"
+    ],
+    "end": ".",
+    "answer": "Do not forget your homework.",
+    "explanation": "forget は「忘れる」。うしろに to 不定詞が続くと「〜するのを忘れる」、動名詞が続くと「〜したことを忘れる」と意味が変わります。ここは目的語が名詞なので、そのまま続けます。"
+  },
+  {
+    "id": "o128",
+    "category": "命令文",
+    "question": "この地図を見て。",
+    "tokens": [
+      "look",
+      "at",
+      "this",
+      "map"
+    ],
+    "end": ".",
+    "answer": "Look at this map.",
+    "explanation": "look は「視線を向ける」という意味なので、見る対象の前に at が必要です（× look this map）。see は「自然と目に入る」、watch は「動くものをじっと見る」。3つの使い分けは頻出です。"
+  },
+  {
+    "id": "o129",
+    "category": "進行形",
+    "question": "私は今、本を読んでいます。",
+    "tokens": [
+      "I",
+      "am",
+      "reading",
+      "a",
+      "book",
+      "now"
+    ],
+    "end": ".",
+    "answer": "I am reading a book now.",
+    "explanation": "現在進行形は〈be動詞 + 動詞のing形〉で、今まさにしている最中のことを表します。now が目印。be動詞は主語に合わせて am / is / are と変えますが、ing形のほうは主語で変わりません。"
+  },
+  {
+    "id": "o130",
+    "category": "進行形",
+    "question": "彼は今、音楽を聞いています。",
+    "tokens": [
+      "he",
+      "is",
+      "listening",
+      "to",
+      "music",
+      "now"
+    ],
+    "end": ".",
+    "answer": "He is listening to music now.",
+    "explanation": "listen は「耳をかたむける」なので、聞く対象の前に to が必要です。listening to music でひとかたまり。hear が「自然と聞こえる」なのに対し、listen は自分から聞こうとする動作です。"
+  },
+  {
+    "id": "o131",
+    "category": "進行形",
+    "question": "私たちは昼食を作っているところです。",
+    "tokens": [
+      "we",
+      "are",
+      "making",
+      "lunch"
+    ],
+    "end": ".",
+    "answer": "We are making lunch.",
+    "explanation": "make の ing形は、最後の e を取って making とします。come → coming、write → writing も同じきまり。take → taking も含めて、e で終わる動詞はまとめて覚えておくと安心です。"
+  },
+  {
+    "id": "o132",
+    "category": "進行形",
+    "question": "彼女は今、走っていません。",
+    "tokens": [
+      "she",
+      "is",
+      "not",
+      "running",
+      "now"
+    ],
+    "end": ".",
+    "answer": "She is not running now.",
+    "explanation": "進行形の打ち消しは be動詞のうしろに not。run のように〈短い母音 + 子音字〉で終わる語は、最後の文字を重ねて running とします。swim → swimming、sit → sitting も同じ形です。"
+  },
+  {
+    "id": "o133",
+    "category": "進行形",
+    "question": "あなたは何をしているのですか。",
+    "tokens": [
+      "what",
+      "are",
+      "you",
+      "doing"
+    ],
+    "end": "?",
+    "answer": "What are you doing?",
+    "explanation": "進行形の疑問文は be動詞を主語の前に出します。疑問詞があるときは、その前に置きます。答えるときも I am studying. のように進行形で返すのが自然です。"
+  },
+  {
+    "id": "o134",
+    "category": "進行形",
+    "question": "鳥が空を飛んでいます。",
+    "tokens": [
+      "a",
+      "bird",
+      "is",
+      "flying",
+      "in",
+      "the",
+      "sky"
+    ],
+    "end": ".",
+    "answer": "A bird is flying in the sky.",
+    "explanation": "fly の ing形はそのまま flying。y を i に変えるのは -ed をつけるときのきまりで、ing形では変えません。空を飛ぶは in the sky と in を使い、空を広がりのある空間として見ています。"
+  },
+  {
+    "id": "o135",
+    "category": "進行形",
+    "question": "私の父はそのとき、車を洗っていました。",
+    "tokens": [
+      "my",
+      "father",
+      "was",
+      "washing",
+      "his",
+      "car",
+      "then"
+    ],
+    "end": ".",
+    "answer": "My father was washing his car then.",
+    "explanation": "過去進行形は〈was[were] + ing形〉で、過去のある時点で進行中だった動作を表します。then（そのとき）が目印。主語が my father なので was を使います。"
+  },
+  {
+    "id": "o136",
+    "category": "進行形",
+    "question": "彼らはサッカーをしていましたか。",
+    "tokens": [
+      "were",
+      "they",
+      "playing",
+      "soccer"
+    ],
+    "end": "?",
+    "answer": "Were they playing soccer?",
+    "explanation": "過去進行形の疑問文は were を主語の前に。答えるときは Yes, they were. / No, they were not. と were で返します。they の be動詞は現在なら are、過去なら were です。"
+  },
+  {
+    "id": "o137",
+    "category": "進行形",
+    "question": "だれかがドアをノックしています。",
+    "tokens": [
+      "someone",
+      "is",
+      "knocking",
+      "on",
+      "the",
+      "door"
+    ],
+    "end": ".",
+    "answer": "Someone is knocking on the door.",
+    "explanation": "someone は「だれか」で、単数あつかいなので is を使います。knock on the door でドアをノックする。knock の k は発音しません。know や knife と同じ仲間です。"
+  },
+  {
+    "id": "o138",
+    "category": "進行形",
+    "question": "私は今、テレビを見ているのではありません。",
+    "tokens": [
+      "I",
+      "am",
+      "not",
+      "watching",
+      "TV",
+      "now"
+    ],
+    "end": ".",
+    "answer": "I am not watching TV now.",
+    "explanation": "進行形の打ち消し。「見ていない」を表すのに do not は使いません（× I do not watching）。be動詞がある文では、打ち消しも疑問文も be動詞が受け持つ、というきまりを思い出しましょう。"
+  },
+  {
+    "id": "o139",
+    "category": "進行形",
+    "question": "雨が降っています。",
+    "tokens": [
+      "it",
+      "is",
+      "raining"
+    ],
+    "end": ".",
+    "answer": "It is raining.",
+    "explanation": "天気を表すときの主語は it。「それ」という意味はなく、置き場所を埋めるための特別な it です。時刻や曜日、明るさを言うときにも同じ it を使います。"
+  },
+  {
+    "id": "o140",
+    "category": "進行形",
+    "question": "彼女は台所で料理をしています。",
+    "tokens": [
+      "she",
+      "is",
+      "cooking",
+      "in",
+      "the",
+      "kitchen"
+    ],
+    "end": ".",
+    "answer": "She is cooking in the kitchen.",
+    "explanation": "cook は「（火を使って）料理する」という動詞。「料理人」という名詞でもあります。部屋の中は in を使い、in the kitchen で「台所で」。建物の中にいるイメージです。"
+  },
+  {
+    "id": "o141",
+    "category": "名詞・代名詞",
+    "question": "私はかばんの中に3冊の本を持っています。",
+    "tokens": [
+      "I",
+      "have",
+      "three",
+      "books",
+      "in",
+      "my",
+      "bag"
+    ],
+    "end": ".",
+    "answer": "I have three books in my bag.",
+    "explanation": "数えられる名詞は、2つ以上のとき複数形にします。book → books。数を表す語のうしろは必ず複数形（× three book）。in my bag のように、所有を表す語がつくと a や the はつけません。"
+  },
+  {
+    "id": "o142",
+    "category": "名詞・代名詞",
+    "question": "これは彼女のかさです。",
+    "tokens": [
+      "this",
+      "is",
+      "her",
+      "umbrella"
+    ],
+    "end": ".",
+    "answer": "This is her umbrella.",
+    "explanation": "her は「彼女の」。所有を表す語は名詞の前に置きます。母音で始まる umbrella でも、her があるので a や an は不要。hers なら「彼女のもの」と、うしろに名詞をつけずに使う形になります。"
+  },
+  {
+    "id": "o143",
+    "category": "名詞・代名詞",
+    "question": "そのペンは私のものです。",
+    "tokens": [
+      "that",
+      "pen",
+      "is",
+      "mine"
+    ],
+    "end": ".",
+    "answer": "That pen is mine.",
+    "explanation": "mine は「私のもの」で、my pen をひとことで言いかえた形。my は名詞の前につき、mine は単独で使う、という役割のちがいがあります。yours、his、hers、ours、theirs も同じ仲間です。"
+  },
+  {
+    "id": "o144",
+    "category": "名詞・代名詞",
+    "question": "私は彼をよく知っています。",
+    "tokens": [
+      "I",
+      "know",
+      "him",
+      "well"
+    ],
+    "end": ".",
+    "answer": "I know him well.",
+    "explanation": "動詞のうしろにくる代名詞は目的格になります。he → him、she → her、they → them、I → me。「彼を」と日本語で言うときに him を選ぶ、と結びつけて覚えましょう。"
+  },
+  {
+    "id": "o145",
+    "category": "名詞・代名詞",
+    "question": "水を一杯いただけますか。",
+    "tokens": [
+      "can",
+      "I",
+      "have",
+      "a",
+      "glass",
+      "of",
+      "water"
+    ],
+    "end": "?",
+    "answer": "Can I have a glass of water?",
+    "explanation": "water は数えられない名詞なので、a water とは言えません。数えたいときは a glass of water（コップ一杯の水）のように入れ物で数えます。a cup of tea、a piece of paper も同じ考え方です。"
+  },
+  {
+    "id": "o146",
+    "category": "名詞・代名詞",
+    "question": "私には友達がたくさんいます。",
+    "tokens": [
+      "I",
+      "have",
+      "a",
+      "lot",
+      "of",
+      "friends"
+    ],
+    "end": ".",
+    "answer": "I have a lot of friends.",
+    "explanation": "a lot of は「たくさんの」で、数えられる名詞にも数えられない名詞にも使える便利な言い方。many は数えられる名詞、much は数えられない名詞と使い分けが必要なので、迷ったら a lot of が安全です。"
+  },
+  {
+    "id": "o147",
+    "category": "名詞・代名詞",
+    "question": "その少年たちは私のクラスメイトです。",
+    "tokens": [
+      "those",
+      "boys",
+      "are",
+      "my",
+      "classmates"
+    ],
+    "end": ".",
+    "answer": "Those boys are my classmates.",
+    "explanation": "this の複数形が these、that の複数形が those です。主語が複数なので be動詞は are、classmate も複数形の classmates に。3か所そろえて複数にするのがポイントです。"
+  },
+  {
+    "id": "o148",
+    "category": "名詞・代名詞",
+    "question": "私は毎日、彼らに会います。",
+    "tokens": [
+      "I",
+      "see",
+      "them",
+      "every",
+      "day"
+    ],
+    "end": ".",
+    "answer": "I see them every day.",
+    "explanation": "they の目的格は them。動詞のうしろなので them になります。see は「（自然と）目に入る、会う」で、約束して会うときは meet を使うことが多いのも覚えておきたいところ。"
+  },
+  {
+    "id": "o149",
+    "category": "名詞・代名詞",
+    "question": "机の上に本が一冊あります。",
+    "tokens": [
+      "there",
+      "is",
+      "a",
+      "book",
+      "on",
+      "the",
+      "desk"
+    ],
+    "end": ".",
+    "answer": "There is a book on the desk.",
+    "explanation": "There is 〜 で「〜がある」。there に「そこ」の意味はなく、文を始めるための置き場所です。うしろの名詞が単数なら is、複数なら are を使うので、be動詞は名詞に合わせて決まります。"
+  },
+  {
+    "id": "o150",
+    "category": "名詞・代名詞",
+    "question": "公園にたくさんの子どもがいます。",
+    "tokens": [
+      "there",
+      "are",
+      "many",
+      "children",
+      "in",
+      "the",
+      "park"
+    ],
+    "end": ".",
+    "answer": "There are many children in the park.",
+    "explanation": "child の複数形は children で、s をつけない不規則な形です。man → men、woman → women、foot → feet も同じ仲間。うしろが複数なので There are になります。"
+  },
+  {
+    "id": "o151",
+    "category": "名詞・代名詞",
+    "question": "彼の名前は健です。",
+    "tokens": [
+      "his",
+      "name",
+      "is",
+      "Ken"
+    ],
+    "end": ".",
+    "answer": "His name is Ken.",
+    "explanation": "his は「彼の」と「彼のもの」の両方に使える、少し得な語です。人の名前は大文字で書き始めるのがきまり。My name is 〜 と同じ形なので、自己紹介の練習にも使えます。"
+  },
+  {
+    "id": "o152",
+    "category": "名詞・代名詞",
+    "question": "これらの写真はとても美しい。",
+    "tokens": [
+      "these",
+      "pictures",
+      "are",
+      "very",
+      "beautiful"
+    ],
+    "end": ".",
+    "answer": "These pictures are very beautiful.",
+    "explanation": "these は this の複数形。うしろの名詞も pictures と複数、be動詞も are と、3か所をそろえます。日本語には複数形がないぶん、意識して確認するくせをつけたいところです。"
+  },
+  {
+    "id": "o153",
+    "category": "前置詞・接続詞",
+    "question": "私は7時に朝食を食べます。",
+    "tokens": [
+      "I",
+      "have",
+      "breakfast",
+      "at",
+      "seven"
+    ],
+    "end": ".",
+    "answer": "I have breakfast at seven.",
+    "explanation": "時刻には at、朝や午後などの幅のある時間帯には in、曜日や日付には on を使います。at は一点、in は広がり、on はくっついている、というイメージで整理すると迷いません。have は「食べる」の意味でも使えます。"
+  },
+  {
+    "id": "o154",
+    "category": "前置詞・接続詞",
+    "question": "私は4月に生まれました。",
+    "tokens": [
+      "I",
+      "was",
+      "born",
+      "in",
+      "April"
+    ],
+    "end": ".",
+    "answer": "I was born in April.",
+    "explanation": "月には in を使います。be born は「生まれる」で、生まれるのは一度きりなので過去形の was born が基本の形。月の名前は文の途中でも大文字で書き始めます。"
+  },
+  {
+    "id": "o155",
+    "category": "前置詞・接続詞",
+    "question": "私たちは日曜日に会いましょう。",
+    "tokens": [
+      "let",
+      "us",
+      "meet",
+      "on",
+      "Sunday"
+    ],
+    "end": ".",
+    "answer": "Let us meet on Sunday.",
+    "explanation": "曜日には on。日付にも on を使い、on May 5th のようになります。meet は約束して会うことを表す動詞で、初対面なら Nice to meet you. と使います。"
+  },
+  {
+    "id": "o156",
+    "category": "前置詞・接続詞",
+    "question": "私は疲れていたので早く寝ました。",
+    "tokens": [
+      "I",
+      "went",
+      "to",
+      "bed",
+      "early",
+      "because",
+      "I",
+      "was",
+      "tired"
+    ],
+    "end": ".",
+    "answer": "I went to bed early because I was tired.",
+    "explanation": "because は理由をつなぐ接続詞で、うしろには〈主語 + 動詞〉が続きます。Why 〜? に答えるときにも使える語。似た働きの so は「だから」と結果をつなぐので、前後が入れかわります。"
+  },
+  {
+    "id": "o157",
+    "category": "前置詞・接続詞",
+    "question": "もし明日晴れたら、私は出かけます。",
+    "tokens": [
+      "if",
+      "it",
+      "is",
+      "sunny",
+      "tomorrow",
+      "I",
+      "will",
+      "go",
+      "out"
+    ],
+    "end": ".",
+    "answer": "If it is sunny tomorrow I will go out.",
+    "explanation": "if のあとの文では、未来のことでも現在形を使うのがきまりです（× if it will be sunny）。時や条件を表すまとまりの中では未来形を使わない、という中学英語の重要なルールです。"
+  },
+  {
+    "id": "o158",
+    "category": "前置詞・接続詞",
+    "question": "私は音楽が好きですが、姉は好きではありません。",
+    "tokens": [
+      "I",
+      "like",
+      "music",
+      "but",
+      "my",
+      "sister",
+      "does",
+      "not"
+    ],
+    "end": ".",
+    "answer": "I like music but my sister does not.",
+    "explanation": "but は反対の内容をつなぐ接続詞。文の終わりの does not のうしろには like music が省かれています。同じ言葉のくり返しを避けるのは英語らしい書き方です。"
+  },
+  {
+    "id": "o159",
+    "category": "前置詞・接続詞",
+    "question": "彼女はテレビを見ながら夕食を作りました。",
+    "tokens": [
+      "she",
+      "made",
+      "dinner",
+      "while",
+      "she",
+      "watched",
+      "TV"
+    ],
+    "end": ".",
+    "answer": "She made dinner while she watched TV.",
+    "explanation": "while は「〜している間に」と、同時に起きていることをつなぐ接続詞。when が時の一点をさすのに対し、while は幅のある時間を表します。ここも〈主語 + 動詞〉が続きます。"
+  },
+  {
+    "id": "o160",
+    "category": "前置詞・接続詞",
+    "question": "私は学校の前であなたを待ちます。",
+    "tokens": [
+      "I",
+      "will",
+      "wait",
+      "for",
+      "you",
+      "in",
+      "front",
+      "of",
+      "the",
+      "school"
+    ],
+    "end": ".",
+    "answer": "I will wait for you in front of the school.",
+    "explanation": "wait for 〜 で「〜を待つ」。for を落としがちです。in front of 〜 は3語で「〜の前で」というかたまり。反対は behind（〜のうしろに）で、こちらは1語です。"
+  },
+  {
+    "id": "o161",
+    "category": "前置詞・接続詞",
+    "question": "私が家に着いたとき、母は料理をしていました。",
+    "tokens": [
+      "when",
+      "I",
+      "got",
+      "home",
+      "my",
+      "mother",
+      "was",
+      "cooking"
+    ],
+    "end": ".",
+    "answer": "When I got home my mother was cooking.",
+    "explanation": "when は「〜のとき」。got home の home は「家へ」という意味の副詞なので、to をつけません（× got to home）。there や here も同じで、to が不要な語の仲間です。"
+  },
+  {
+    "id": "o162",
+    "category": "前置詞・接続詞",
+    "question": "彼は先生であり、また作家でもあります。",
+    "tokens": [
+      "he",
+      "is",
+      "a",
+      "teacher",
+      "and",
+      "a",
+      "writer"
+    ],
+    "end": ".",
+    "answer": "He is a teacher and a writer.",
+    "explanation": "and は同じ働きのものを並べる接続詞。ここでは a teacher と a writer という2つの名詞をつないでいます。それぞれに a をつけるのは、別々の役割だとはっきり示すためです。"
+  },
+  {
+    "id": "o163",
+    "category": "前置詞・接続詞",
+    "question": "私は夕食のあとに宿題をします。",
+    "tokens": [
+      "I",
+      "do",
+      "my",
+      "homework",
+      "after",
+      "dinner"
+    ],
+    "end": ".",
+    "answer": "I do my homework after dinner.",
+    "explanation": "after は「〜のあとに」。反対は before（〜の前に）です。うしろに名詞をとる前置詞としても、〈主語 + 動詞〉をとる接続詞としても使えるのが、after と before の便利なところ。"
+  },
+  {
+    "id": "o164",
+    "category": "前置詞・接続詞",
+    "question": "駅までバスで行きます。",
+    "tokens": [
+      "I",
+      "go",
+      "to",
+      "the",
+      "station",
+      "by",
+      "bus"
+    ],
+    "end": ".",
+    "answer": "I go to the station by bus.",
+    "explanation": "交通手段は by で表し、乗り物には a や the をつけません（× by a bus）。ただし「歩いて」だけは例外で on foot と言います。この例外はテストでよく問われます。"
+  },
+  {
+    "id": "o165",
+    "category": "現在完了",
+    "question": "私は宿題をもう終えましたか。",
+    "tokens": [
+      "have",
+      "you",
+      "finished",
+      "your",
+      "homework",
+      "yet"
+    ],
+    "end": "?",
+    "answer": "Have you finished your homework yet?",
+    "explanation": "疑問文での yet は「もう」。打ち消しの文では「まだ」になり、意味が変わります。どちらも文の終わりに置くのが決まり。already は「もう」で、こちらは have と過去分詞のあいだに入ります。"
+  },
+  {
+    "id": "o166",
+    "category": "現在完了",
+    "question": "彼女は昨年からずっと東京に住んでいます。",
+    "tokens": [
+      "she",
+      "has",
+      "lived",
+      "in",
+      "Tokyo",
+      "since",
+      "last",
+      "year"
+    ],
+    "end": ".",
+    "answer": "She has lived in Tokyo since last year.",
+    "explanation": "since のうしろには「いつから」という始まりの時点がきます。last year のような語句でも、we were children のような文でもかまいません。期間の長さを言うときは for を使います。"
+  },
+  {
+    "id": "o167",
+    "category": "現在完了",
+    "question": "私はその歌手に2回会ったことがあります。",
+    "tokens": [
+      "I",
+      "have",
+      "met",
+      "the",
+      "singer",
+      "twice"
+    ],
+    "end": ".",
+    "answer": "I have met the singer twice.",
+    "explanation": "経験を表す現在完了。回数は once（1回）、twice（2回）、three times（3回）。meet の過去分詞は met です。会ったという経験が今の自分に残っている、という気持ちがこの形には入っています。"
+  },
+  {
+    "id": "o168",
+    "category": "現在完了",
+    "question": "あなたは長いあいだ彼を知っているのですか。",
+    "tokens": [
+      "have",
+      "you",
+      "known",
+      "him",
+      "for",
+      "a",
+      "long",
+      "time"
+    ],
+    "end": "?",
+    "answer": "Have you known him for a long time?",
+    "explanation": "know は状態を表す動詞なので、継続でも進行形にしません。for a long time で「長いあいだ」。him と目的格になっているのは、動詞 known のうしろにきているからです。"
+  },
+  {
+    "id": "o169",
+    "category": "受け身",
+    "question": "この部屋は生徒たちによって使われています。",
+    "tokens": [
+      "this",
+      "room",
+      "is",
+      "used",
+      "by",
+      "the",
+      "students"
+    ],
+    "end": ".",
+    "answer": "This room is used by the students.",
+    "explanation": "だれが使っているかを言いたいので by をつけます。by のうしろが代名詞なら by them と目的格に。use の過去分詞は used で、発音は「ユーズド」と濁ります。"
+  },
+  {
+    "id": "o170",
+    "category": "受け身",
+    "question": "その窓は昨日、割られました。",
+    "tokens": [
+      "the",
+      "window",
+      "was",
+      "broken",
+      "yesterday"
+    ],
+    "end": ".",
+    "answer": "The window was broken yesterday.",
+    "explanation": "break - broke - broken。だれが割ったか言わないのは、分からないか、言う必要がないから。受け身は「したこと」より「されたこと」に目を向けたいときに選ばれる形です。"
+  },
+  {
+    "id": "o171",
+    "category": "受け身",
+    "question": "英語はこの学校で教えられていますか。",
+    "tokens": [
+      "is",
+      "English",
+      "taught",
+      "at",
+      "this",
+      "school"
+    ],
+    "end": "?",
+    "answer": "Is English taught at this school?",
+    "explanation": "受け身の疑問文は be動詞を前に出すだけ。teach - taught - taught で、つづりが大きく変わる不規則動詞です。学校を一点として見るので at を使います。"
+  },
+  {
+    "id": "o172",
+    "category": "受け身",
+    "question": "これらの写真は私の兄によって撮られました。",
+    "tokens": [
+      "these",
+      "pictures",
+      "were",
+      "taken",
+      "by",
+      "my",
+      "brother"
+    ],
+    "end": ".",
+    "answer": "These pictures were taken by my brother.",
+    "explanation": "主語が複数なので be動詞は were。take - took - taken。写真をとるのは take で、make や get ではありません。these は this の複数形です。"
+  },
+  {
+    "id": "o173",
+    "category": "比較",
+    "question": "この本は3冊の中でいちばんおもしろい。",
+    "tokens": [
+      "this",
+      "book",
+      "is",
+      "the",
+      "most",
+      "interesting",
+      "of",
+      "the",
+      "three"
+    ],
+    "end": ".",
+    "answer": "This book is the most interesting of the three.",
+    "explanation": "つづりの長い語の最上級は、the most をつけてつくります。仲間の中でくらべるので of the three。場所や集団なら in を使うので、in と of の使い分けもあわせて確認しましょう。"
+  },
+  {
+    "id": "o174",
+    "category": "比較",
+    "question": "私の自転車はあなたのより新しい。",
+    "tokens": [
+      "my",
+      "bike",
+      "is",
+      "newer",
+      "than",
+      "yours"
+    ],
+    "end": ".",
+    "answer": "My bike is newer than yours.",
+    "explanation": "new は短い語なので -er をつけて newer。yours は your bike のかわりで、同じ語のくり返しを避けています。than のうしろが何とくらべているのかを、いつも意識しましょう。"
+  },
+  {
+    "id": "o175",
+    "category": "比較",
+    "question": "彼はクラスでいちばん速く走ります。",
+    "tokens": [
+      "he",
+      "runs",
+      "the",
+      "fastest",
+      "in",
+      "his",
+      "class"
+    ],
+    "end": ".",
+    "answer": "He runs the fastest in his class.",
+    "explanation": "fast は形容詞にも副詞にもなる語で、比較級は faster、最上級は fastest。クラスという集団の中なので in を使います。runs と s がついているのは、主語が he だからです。"
+  },
+  {
+    "id": "o176",
+    "category": "比較",
+    "question": "私は英語が数学より好きです。",
+    "tokens": [
+      "I",
+      "like",
+      "English",
+      "better",
+      "than",
+      "math"
+    ],
+    "end": ".",
+    "answer": "I like English better than math.",
+    "explanation": "「AよりBが好き」は like B better than A。日本語と語順が逆になるので、than のうしろに置くほうが「くらべる相手」だと意識すると迷いません。well の比較級 better を使う点にも注目です。"
+  },
+  {
+    "id": "o177",
+    "category": "助動詞",
+    "question": "あなたは英語を話すことができますか。",
+    "tokens": [
+      "can",
+      "you",
+      "speak",
+      "English"
+    ],
+    "end": "?",
+    "answer": "Can you speak English?",
+    "explanation": "can の疑問文は can を主語の前に出すだけ。do や does は使いません。答えるときは Yes, I can. / No, I can not. と can で返します。うしろの動詞はいつでも原形です。"
+  },
+  {
+    "id": "o178",
+    "category": "助動詞",
+    "question": "彼は昨日、忙しかったにちがいない。",
+    "tokens": [
+      "he",
+      "must",
+      "have",
+      "been",
+      "busy",
+      "yesterday"
+    ],
+    "end": ".",
+    "answer": "He must have been busy yesterday.",
+    "explanation": "〈must have + 過去分詞〉で「〜だったにちがいない」と、過去のことを強く推し量る言い方。must の「〜しなければならない」とはちがう使い方で、高校へつながる大事な形です。"
+  },
+  {
+    "id": "o179",
+    "category": "助動詞",
+    "question": "窓を開けましょうか。",
+    "tokens": [
+      "shall",
+      "I",
+      "open",
+      "the",
+      "window"
+    ],
+    "end": "?",
+    "answer": "Shall I open the window?",
+    "explanation": "Shall I 〜? は「（私が）〜しましょうか」という申し出。相手のために何かをするときに使います。Shall we 〜? なら「いっしょに〜しましょうか」と誘いの意味になります。"
+  },
+  {
+    "id": "o180",
+    "category": "助動詞",
+    "question": "あなたはここで靴をぬぐべきです。",
+    "tokens": [
+      "you",
+      "should",
+      "take",
+      "off",
+      "your",
+      "shoes",
+      "here"
+    ],
+    "end": ".",
+    "answer": "You should take off your shoes here.",
+    "explanation": "take off で「（衣類や靴を）ぬぐ」。反対は put on（身につける）です。靴は2つで一組なので shoes と複数形。should のうしろは原形の take のままです。"
+  },
+  {
+    "id": "o181",
+    "category": "不定詞・動名詞",
+    "question": "私は本を読むことが好きです。",
+    "tokens": [
+      "I",
+      "like",
+      "reading",
+      "books"
+    ],
+    "end": ".",
+    "answer": "I like reading books.",
+    "explanation": "like のうしろは動名詞でも to 不定詞でもかまいません。like to read books とも言えます。ただし enjoy は動名詞だけ、want は to 不定詞だけ、と決まっている動詞もあるので注意しましょう。"
+  },
+  {
+    "id": "o182",
+    "category": "不定詞・動名詞",
+    "question": "私たちは公園で野球をして楽しみました。",
+    "tokens": [
+      "we",
+      "enjoyed",
+      "playing",
+      "baseball",
+      "in",
+      "the",
+      "park"
+    ],
+    "end": ".",
+    "answer": "We enjoyed playing baseball in the park.",
+    "explanation": "enjoy のうしろは必ず動名詞で、to 不定詞は続けられません（× enjoy to play）。finish、stop、practice も動名詞をとる仲間。まとめて覚えておくと得点源になります。"
+  },
+  {
+    "id": "o183",
+    "category": "不定詞・動名詞",
+    "question": "私は何か食べるものがほしい。",
+    "tokens": [
+      "I",
+      "want",
+      "something",
+      "to",
+      "eat"
+    ],
+    "end": ".",
+    "answer": "I want something to eat.",
+    "explanation": "to eat が something をうしろから説明する形で、「食べるための何か」という意味になります。something を説明する語は、形容詞でも不定詞でも、うしろに置くのが英語のきまりです。"
+  },
+  {
+    "id": "o184",
+    "category": "不定詞・動名詞",
+    "question": "彼女は歌手になるために一生けんめい練習しました。",
+    "tokens": [
+      "she",
+      "practiced",
+      "hard",
+      "to",
+      "be",
+      "a",
+      "singer"
+    ],
+    "end": ".",
+    "answer": "She practiced hard to be a singer.",
+    "explanation": "「〜するために」と目的を表す to 不定詞。practice のうしろに動詞を置くときは動名詞ですが、ここでは目的を表しているので to 不定詞です。hard は「一生けんめい」という副詞です。"
+  },
+  {
+    "id": "o185",
+    "category": "関係代名詞・分詞",
+    "question": "私は英語を教えている先生を知っています。",
+    "tokens": [
+      "I",
+      "know",
+      "a",
+      "teacher",
+      "who",
+      "teaches",
+      "English"
+    ],
+    "end": ".",
+    "answer": "I know a teacher who teaches English.",
+    "explanation": "who が主語の働きをする関係代名詞なので、省略できません。うしろの動詞が teaches と s がついているのは、who が指しているのが a teacher というひとりの人だからです。"
+  },
+  {
+    "id": "o186",
+    "category": "関係代名詞・分詞",
+    "question": "彼が書いた手紙はとても長かった。",
+    "tokens": [
+      "the",
+      "letter",
+      "which",
+      "he",
+      "wrote",
+      "was",
+      "very",
+      "long"
+    ],
+    "end": ".",
+    "answer": "The letter which he wrote was very long.",
+    "explanation": "which が目的語の働きをしているので、省略して The letter he wrote 〜 とも言えます。文の本当の動詞は was。あいだにはさまった説明にまどわされないことが読解のコツです。"
+  },
+  {
+    "id": "o187",
+    "category": "関係代名詞・分詞",
+    "question": "木の下でねむっているねこを見て。",
+    "tokens": [
+      "look",
+      "at",
+      "the",
+      "cat",
+      "sleeping",
+      "under",
+      "the",
+      "tree"
+    ],
+    "end": ".",
+    "answer": "Look at the cat sleeping under the tree.",
+    "explanation": "sleeping under the tree が the cat をうしろから説明する現在分詞のかたまり。look at で「〜を見る」なので at を落とさないように。分詞は関係代名詞の短縮版だと考えると分かりやすくなります。"
+  },
+  {
+    "id": "o188",
+    "category": "関係代名詞・分詞",
+    "question": "彼女は中国で作られたかばんを買いました。",
+    "tokens": [
+      "she",
+      "bought",
+      "a",
+      "bag",
+      "made",
+      "in",
+      "China"
+    ],
+    "end": ".",
+    "answer": "She bought a bag made in China.",
+    "explanation": "made in China が a bag をうしろから説明する過去分詞のかたまり。「作られた」と受け身の意味になるのが過去分詞の働きです。buy - bought - bought と変化します。"
+  },
+  {
+    "id": "o189",
+    "category": "動詞の変化",
+    "question": "私は今朝、6時に起きました。",
+    "tokens": [
+      "I",
+      "got",
+      "up",
+      "at",
+      "six",
+      "this",
+      "morning"
+    ],
+    "end": ".",
+    "answer": "I got up at six this morning.",
+    "explanation": "get - got - got（gotten）。this morning は「今朝」で、すでに過ぎたことなので過去形を使います。get up は起き上がる動作、wake up は目が覚めることで、少しちがいます。"
+  },
+  {
+    "id": "o190",
+    "category": "動詞の変化",
+    "question": "彼女は先週、新しいかばんを買いました。",
+    "tokens": [
+      "she",
+      "bought",
+      "a",
+      "new",
+      "bag",
+      "last",
+      "week"
+    ],
+    "end": ".",
+    "answer": "She bought a new bag last week.",
+    "explanation": "buy - bought - bought。last week が過去の目印です。bought は「ボート」と発音し、つづりの gh は読みません。thought や brought も同じ仲間です。"
+  },
+  {
+    "id": "o191",
+    "category": "動詞の変化",
+    "question": "私たちは明日、映画を見るつもりです。",
+    "tokens": [
+      "we",
+      "are",
+      "going",
+      "to",
+      "see",
+      "a",
+      "movie",
+      "tomorrow"
+    ],
+    "end": ".",
+    "answer": "We are going to see a movie tomorrow.",
+    "explanation": "be going to は前もって決めていた予定。tomorrow が未来の目印です。映画を見るは see a movie で、映画館の大きな画面をながめるイメージ。テレビなら watch を使います。"
+  },
+  {
+    "id": "o192",
+    "category": "動詞の変化",
+    "question": "彼は昨夜、その本を読みませんでした。",
+    "tokens": [
+      "he",
+      "did",
+      "not",
+      "read",
+      "the",
+      "book",
+      "last",
+      "night"
+    ],
+    "end": ".",
+    "answer": "He did not read the book last night.",
+    "explanation": "過去の打ち消しは did not。did が過去を受け持つので、動詞は原形の read に戻ります。read は原形も過去形も同じつづりですが、過去形は「レッド」と読み方が変わります。"
+  },
+  {
+    "id": "o193",
+    "category": "熟語・会話表現",
+    "question": "私は昨日、祖母の世話をしました。",
+    "tokens": [
+      "I",
+      "took",
+      "care",
+      "of",
+      "my",
+      "grandmother",
+      "yesterday"
+    ],
+    "end": ".",
+    "answer": "I took care of my grandmother yesterday.",
+    "explanation": "take care of で「〜の世話をする」。3語でひとかたまりの動詞のように働きます。take - took - taken と変化するので、過去形は took。別れぎわの Take care. は「気をつけてね」です。"
+  },
+  {
+    "id": "o194",
+    "category": "熟語・会話表現",
+    "question": "その電車は10分遅れました。",
+    "tokens": [
+      "the",
+      "train",
+      "was",
+      "ten",
+      "minutes",
+      "late"
+    ],
+    "end": ".",
+    "answer": "The train was ten minutes late.",
+    "explanation": "「〜分遅れる」は〈時間 + late〉で表します。late は「遅れた」という形容詞なので、前に be動詞が必要。反対は early で、こちらも形容詞と副詞の両方に使えます。"
+  },
+  {
+    "id": "o195",
+    "category": "熟語・会話表現",
+    "question": "私は彼の意見に賛成です。",
+    "tokens": [
+      "I",
+      "agree",
+      "with",
+      "him"
+    ],
+    "end": ".",
+    "answer": "I agree with him.",
+    "explanation": "agree with 〜 で「〜に賛成する」。人には with、意見や案には to や on を使うこともあります。agree は動詞なので、× I am agree とはしません。まちがえやすいところです。"
+  },
+  {
+    "id": "o196",
+    "category": "熟語・会話表現",
+    "question": "どうぞ召し上がってください。",
+    "tokens": [
+      "please",
+      "help",
+      "yourself"
+    ],
+    "end": ".",
+    "answer": "Please help yourself.",
+    "explanation": "help oneself で「自由に取って食べる」。直訳すると「自分を助ける」ですが、食卓では「ご自由にどうぞ」というもてなしの言葉になります。相手が複数なら yourselves と形が変わります。"
   }
 ]

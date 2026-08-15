@@ -66,9 +66,6 @@
       --btn-sub: #3d3d44; --btn-sub2: #2b2b31;
     }
 
-    /* 夜や電車で使うときのために、画面全体を落ち着かせる */
-    body.night { filter: brightness(0.72) saturate(0.78); }
-
     body {
       font-family: "Hiragino Mincho ProN", "Yu Mincho", -apple-system, BlinkMacSystemFont, serif;
       background-color: var(--bg);
@@ -1598,7 +1595,6 @@
       <button id="review-btn" class="btn-sub">復習リスト (0件)</button>
       <button onclick="goHome()" class="btn-sub2" style="margin-top: 5px;">本陣へ戻る</button>
       <button id="sound-btn" class="btn-sub2" style="font-size: 0.9rem; padding: 8px;">📳 手ごたえ: バイブ</button>
-      <button id="night-btn" class="btn-sub2" style="font-size: 0.9rem; padding: 8px;">🌙 画面を暗くする</button>
     </div>
 
     <!-- 🏆 正解数に応じて解像度が上がる絵巻 -->
@@ -2137,19 +2133,9 @@
 
   updateSoundBtn();  // 前回の設定に表示を合わせる
 
-  // 夜間モード
-  let nightMode = localStorage.getItem('nightMode') === 'on';
-  function applyNight() {
-    document.body.classList.toggle('night', nightMode);
-    document.getElementById('night-btn').textContent =
-      nightMode ? '☀️ 明るさを戻す' : '🌙 画面を暗くする';
-  }
-  document.getElementById('night-btn').addEventListener('click', () => {
-    nightMode = !nightMode;
-    localStorage.setItem('nightMode', nightMode ? 'on' : 'off');
-    applyNight();
-  });
-  applyNight();
+  // 「画面を暗くする」は取りやめた。前に暗くしたまま消すと戻せなくなるので、
+  // 保存されていた設定も消しておく
+  localStorage.removeItem('nightMode');
 
   let currentSubjectKey = '';
   let currentSubjectName = '';
@@ -2333,10 +2319,8 @@
     const BANDS = 12;
     const bandH = h / BANDS;
 
-    // 顔のあたりから先に晴れるよう、そこに近い帯ほど早く消す
-    const focus = BANDS * 0.26;
-    const order = Array.from({ length: BANDS }, (_, i) => i)
-      .sort((a, b) => Math.abs(a - focus) - Math.abs(b - focus));
+    // 足もとから順に晴らし、顔がいちばん最後に出るようにする
+    const order = Array.from({ length: BANDS }, (_, i) => BANDS - 1 - i);
     const cleared = new Set(order.slice(0, Math.round(BANDS * (1 - remain))));
 
     const gold = ctx.createLinearGradient(0, 0, w, h);
@@ -2690,8 +2674,11 @@
     chemical: ['H2O', 'CO2', 'O2', 'N2', 'H2', 'NaCl', 'HCl', 'NH3', 'CuO', 'FeS',
                'ZnO', 'MgO', 'CaCO3', 'Ag', 'Cu', 'Fe', 'Zn', 'Mg', 'Na', 'Cl', 'O', 'H', 'C', 'N'],
     crop1: ['米', '麦', '茶', '梅', '桃', '栗', '豆', '芋', '菜', '藍', '綿', '絹'],
+    // 文法用語。英語の中に日本語の答えが少なく、字数をそろえた誤答をつくれないため
     grammar: ['現在分詞', '現在完了', '過去完了', '過去形', '現在形', '原形', '不定詞',
-              '動名詞', '比較級', '最上級', '進行形', '受け身', '助動詞', '関係代名詞'],
+              '動名詞', '比較級', '最上級', '進行形', '受け身', '助動詞', '関係代名詞',
+              '主語の前', '文の最後', '動詞の前', '現在', '過去', '未来', '分詞', '命令',
+              '疑問', '否定', '単数', '複数', '主語', '動詞', '名詞', '副詞'],
     shape: ['正三角形', '直角三角形', '二等辺三角形', '鈍角三角形', '鋭角三角形',
             '平行四辺形', 'ひし形', '台形', '正方形', '長方形', 'おうぎ形', '正多角形'],
   };
