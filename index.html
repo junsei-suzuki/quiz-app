@@ -21,33 +21,49 @@
       --btn2: #5c0e0e;
       --btn-border: #a33232;
       --card-border: #5a3825;
+      /* 控えめなボタン（戻る・設定など）の色。これも教科に合わせる */
+      --btn-sub: #4a3b35; --btn-sub2: #332822;
     }
 
-    /* 今どの教科をやっているかが、画面の色で分かるようにする */
-    body[data-subject="math"] {
-      --accent: #9fb0ef; --tint: rgba(60, 70, 170, 0.32);
-      --bg-top: #0f1230; --bg-mid: #070818;
-      --btn1: #2f3a86; --btn2: #1b2050; --btn-border: #4a58ad; --card-border: #35407e;
-    }
-    body[data-subject="science"] {
-      --accent: #8fd9a0; --tint: rgba(30, 120, 70, 0.3);
-      --bg-top: #0c1c12; --bg-mid: #06110a;
-      --btn1: #1f6a41; --btn2: #123f27; --btn-border: #358a59; --card-border: #2c6543;
+    /* 今どの教科をやっているかが、画面の色で分かるようにする。
+       歴史=紫 / 地理=黄 / 理科=緑 / 数学=青 / 英語=赤 / 公民=白 */
+    body[data-subject="history"] {
+      --accent: #c9a6f2; --tint: rgba(115, 60, 180, 0.32);
+      --bg-top: #170d26; --bg-mid: #0b0614;
+      --btn1: #5e3199; --btn2: #391c5e; --btn-border: #8354c6; --card-border: #4c2b7a;
+      --btn-sub: #3d2b55; --btn-sub2: #2a1d3b;
     }
     body[data-subject="geography"] {
-      --accent: #f0c46a; --tint: rgba(160, 110, 30, 0.3);
-      --bg-top: #1e1608; --bg-mid: #120d05;
-      --btn1: #8a6320; --btn2: #5a4013; --btn-border: #b08434; --card-border: #6b4f22;
+      --accent: #f7db63; --tint: rgba(190, 155, 25, 0.30);
+      --bg-top: #221c06; --bg-mid: #141003;
+      --btn1: #9c7c17; --btn2: #66510e; --btn-border: #c9a733; --card-border: #7a631d;
+      --btn-sub: #4a3f16; --btn-sub2: #332c10;
+    }
+    body[data-subject="science"] {
+      --accent: #86e0a2; --tint: rgba(25, 135, 75, 0.30);
+      --bg-top: #0b1f13; --bg-mid: #05120a;
+      --btn1: #1d7343; --btn2: #114327; --btn-border: #34985d; --card-border: #2a6d45;
+      --btn-sub: #1c3b28; --btn-sub2: #13291b;
+    }
+    body[data-subject="math"] {
+      --accent: #8ec4fb; --tint: rgba(35, 95, 200, 0.32);
+      --bg-top: #08182f; --bg-mid: #040d1b;
+      --btn1: #21519f; --btn2: #123061; --btn-border: #3a76c9; --card-border: #2a5590;
+      --btn-sub: #1b2f4d; --btn-sub2: #122036;
     }
     body[data-subject="english"] {
-      --accent: #8fc4f0; --tint: rgba(30, 80, 160, 0.32);
-      --bg-top: #08172c; --bg-mid: #050e1b;
-      --btn1: #1d4a80; --btn2: #112c4d; --btn-border: #2f6ba8; --card-border: #26507e;
+      --accent: #ff9f95; --tint: rgba(185, 35, 35, 0.32);
+      --bg-top: #260909; --bg-mid: #150404;
+      --btn1: #a82626; --btn2: #6e1414; --btn-border: #d24d4d; --card-border: #832c2c;
+      --btn-sub: #4a2020; --btn-sub2: #331616;
     }
+    /* 公民は白。ボタンまで白くすると文字が読めなくなるので、
+       ふちと差し色を白くして、面は明るい灰にとどめる */
     body[data-subject="civics"] {
-      --accent: #d7dbe6; --tint: rgba(120, 130, 160, 0.26);
-      --bg-top: #14161f; --bg-mid: #0b0c12;
-      --btn1: #454b63; --btn2: #2a2e3d; --btn-border: #6b7290; --card-border: #4a5068;
+      --accent: #f5f5f7; --tint: rgba(220, 220, 226, 0.16);
+      --bg-top: #1e1e21; --bg-mid: #0e0e10;
+      --btn1: #6d6d78; --btn2: #43434c; --btn-border: #b9b9c4; --card-border: #62626d;
+      --btn-sub: #3d3d44; --btn-sub2: #2b2b31;
     }
 
     /* 夜や電車で使うときのために、画面全体を落ち着かせる */
@@ -142,10 +158,12 @@
     }
 
     button:active { opacity: 0.9; transform: translateY(1px); }
+    /* 押せないボタンは、どの教科の色にも寄せず無彩色にする。
+       茶色のままだと紫や白のテーマで浮いてしまう */
     button:disabled {
-      background: #443833 !important;
-      border-color: #554842 !important;
-      color: #887770 !important;
+      background: #3b3b3d !important;
+      border-color: #4d4d50 !important;
+      color: #84848a !important;
       cursor: not-allowed;
     }
 
@@ -164,6 +182,32 @@
       color: #f0e0d0;
       border: 1px solid #775544;
       margin-bottom: 0;
+    }
+
+    /* 入り口の時点で、教科ごとのイメージカラーが分かるようにする */
+    .subject-btn[data-subject="history"] {
+      background: linear-gradient(180deg, #5e3199 0%, #331a55 100%);
+      border-color: #8354c6; color: #f0e6ff;
+    }
+    .subject-btn[data-subject="geography"] {
+      background: linear-gradient(180deg, #9c7c17 0%, #5b480c 100%);
+      border-color: #c9a733; color: #fff6d2;
+    }
+    .subject-btn[data-subject="science"] {
+      background: linear-gradient(180deg, #1d7343 0%, #0f3b23 100%);
+      border-color: #34985d; color: #dcf6e5;
+    }
+    .subject-btn[data-subject="math"] {
+      background: linear-gradient(180deg, #21519f 0%, #102b57 100%);
+      border-color: #3a76c9; color: #ddebff;
+    }
+    .subject-btn[data-subject="english"] {
+      background: linear-gradient(180deg, #a82626 0%, #611212 100%);
+      border-color: #d24d4d; color: #ffe0dc;
+    }
+    .subject-btn[data-subject="civics"] {
+      background: linear-gradient(180deg, #f1f1f3 0%, #c4c4c9 100%);
+      border-color: #ffffff; color: #22222a; text-shadow: none;
     }
 
     /* 分野・カテゴリチェックボックス */
@@ -202,8 +246,8 @@
     .select-tools button {
       padding: 6px 12px;
       font-size: 0.85rem;
-      background: #4a3b35;
-      border-color: #665248;
+      background: var(--btn-sub);
+      border-color: var(--card-border);
       margin-bottom: 0;
     }
 
@@ -466,7 +510,7 @@
       padding: 12px 14px;
       background: linear-gradient(180deg, rgba(62, 46, 31, 0.55) 0%, rgba(28, 21, 16, 0.6) 100%);
       border: 1px solid #6b5236;
-      border-left: 4px solid #f3a852;
+      border-left: 4px solid var(--accent);
       border-radius: 8px;
       font-size: 0.95rem;
       line-height: 1.85;
@@ -478,7 +522,7 @@
 
     .explanation-title {
       display: block;
-      color: #f3a852;
+      color: var(--accent);
       font-weight: bold;
       font-size: 0.85rem;
       letter-spacing: 0.15em;
@@ -500,7 +544,7 @@
       justify-content: space-between;
       align-items: baseline;
       font-size: 0.85rem;
-      color: #f3a852;
+      color: var(--accent);
       margin-bottom: 10px;
     }
 
@@ -674,8 +718,8 @@
       flex-shrink: 0;
       padding: 5px 10px;
       font-size: 0.78rem;
-      background: #4a3b35;
-      border-color: #665248;
+      background: var(--btn-sub);
+      border-color: var(--card-border);
       margin-bottom: 0;
       align-self: center;
     }
@@ -749,8 +793,8 @@
     .count-tools button {
       padding: 10px 4px;
       font-size: 0.95rem;
-      background: #3a2a24;
-      border-color: #775544;
+      background: var(--btn-sub);
+      border-color: var(--card-border);
       margin-bottom: 0;
       line-height: 1.3;
     }
@@ -789,8 +833,8 @@
     }
 
     .resume-discard {
-      background: #4a3b35 !important;
-      border-color: #665248 !important;
+      background: var(--btn-sub) !important;
+      border-color: var(--card-border) !important;
       font-size: 0.82rem;
       padding: 7px;
       margin-bottom: 0;
@@ -882,7 +926,7 @@
     }
 
     .record-btn {
-      background: #332822 !important;
+      background: var(--btn-sub2) !important;
       font-size: 0.85rem;
       padding: 8px;
       margin-bottom: 0;
@@ -1116,7 +1160,7 @@
       position: absolute;
       left: 0; bottom: -3px;
       height: 2px;
-      background: #f3a852;
+      background: var(--accent);
       opacity: 0.55;
       border-radius: 1px;
     }
@@ -1296,7 +1340,11 @@
 
     .order-tools { display: grid; grid-template-columns: 1fr 2fr; gap: 8px; margin-top: 8px; }
     .order-tools button { margin-bottom: 0; }
-    .order-reset { background: #4a3b35; }
+    .order-reset { background: var(--btn-sub); }
+
+    /* 戻る・設定などの控えめなボタン。教科の色に合わせる */
+    .btn-sub { background: var(--btn-sub); }
+    .btn-sub2 { background: var(--btn-sub2); }
     .order-hint { font-size: 0.74rem; color: #9d9187; margin-top: 6px; text-align: center; }
 
     /* 解説を読むときは、語群と操作ボタンを引っこめて場所をあける */
@@ -1487,12 +1535,12 @@
     <p style="text-align: center; color: #bba;">出陣する教科を選択してください</p>
 
     <div class="subject-grid">
-      <button class="subject-btn" onclick="selectSubject('history', '歴史', '時代')">📜 歴史</button>
-      <button class="subject-btn" onclick="selectSubject('math', '数学', '分野')">📐 数学</button>
-      <button class="subject-btn" onclick="selectSubject('science', '理科', '分野')">🧪 理科</button>
-      <button class="subject-btn" onclick="selectSubject('geography', '地理', '地方・分野')">🌍 地理</button>
-      <button class="subject-btn" onclick="selectSubject('english', '英語', 'ジャンル')">🔤 英語</button>
-      <button class="subject-btn" onclick="selectSubject('civics', '公民', '分野')">⚖️ 公民</button>
+      <button class="subject-btn" data-subject="history" onclick="selectSubject('history', '歴史', '時代')">📜 歴史</button>
+      <button class="subject-btn" data-subject="math" onclick="selectSubject('math', '数学', '分野')">📐 数学</button>
+      <button class="subject-btn" data-subject="science" onclick="selectSubject('science', '理科', '分野')">🧪 理科</button>
+      <button class="subject-btn" data-subject="geography" onclick="selectSubject('geography', '地理', '地方・分野')">🌍 地理</button>
+      <button class="subject-btn" data-subject="english" onclick="selectSubject('english', '英語', 'ジャンル')">🔤 英語</button>
+      <button class="subject-btn" data-subject="civics" onclick="selectSubject('civics', '公民', '分野')">⚖️ 公民</button>
     </div>
   </div>
 
@@ -1547,10 +1595,10 @@
       </div>
 
       <button id="start-btn">いざ出陣（学習開始）</button>
-      <button id="review-btn" style="background: #4a3b35;">復習リスト (0件)</button>
-      <button onclick="goHome()" style="background: #332822; margin-top: 5px;">本陣へ戻る</button>
-      <button id="sound-btn" style="background: #332822; font-size: 0.9rem; padding: 8px;">📳 手ごたえ: バイブ</button>
-      <button id="night-btn" style="background: #332822; font-size: 0.9rem; padding: 8px;">🌙 画面を暗くする</button>
+      <button id="review-btn" class="btn-sub">復習リスト (0件)</button>
+      <button onclick="goHome()" class="btn-sub2" style="margin-top: 5px;">本陣へ戻る</button>
+      <button id="sound-btn" class="btn-sub2" style="font-size: 0.9rem; padding: 8px;">📳 手ごたえ: バイブ</button>
+      <button id="night-btn" class="btn-sub2" style="font-size: 0.9rem; padding: 8px;">🌙 画面を暗くする</button>
     </div>
 
     <!-- 🏆 正解数に応じて解像度が上がる絵巻 -->
@@ -1617,7 +1665,7 @@
 
     <div id="explanation" class="explanation hidden"></div>
     <button id="next-btn" class="hidden" style="margin-top: 10px; background: #28a745;">次の問題へ</button>
-    <button id="back-setup-btn" style="background: #4a3b35; margin-top: 10px;">陣形選択に戻る</button>
+    <button id="back-setup-btn" class="btn-sub" style="margin-top: 10px;">陣形選択に戻る</button>
   </div>
 
   <!-- 6. 学習の記録 -->
@@ -1632,7 +1680,7 @@
       <span>多</span>
     </div>
     <div id="record-subjects" class="record-subjects"></div>
-    <button id="record-back-btn" style="background: #4a3b35;">本陣へ戻る</button>
+    <button id="record-back-btn" class="btn-sub">本陣へ戻る</button>
   </div>
 
   <!-- 4. 戦果カード（画像として保存・共有できる） -->
@@ -1640,8 +1688,8 @@
     <canvas id="result-canvas" class="result-canvas" width="1080" height="1920"></canvas>
     <button id="result-save-btn">画像として保存する</button>
     <button id="result-retry-btn" class="hidden" style="background: #28a745;">まちがえた問題だけ解き直す</button>
-    <button id="result-again-btn" style="background: #4a3b35;">同じ条件でもう一度</button>
-    <button id="result-back-btn" style="background: #4a3b35;">陣形選択に戻る</button>
+    <button id="result-again-btn" class="btn-sub">同じ条件でもう一度</button>
+    <button id="result-back-btn" class="btn-sub">陣形選択に戻る</button>
   </div>
 
   <!-- 5. 復習リスト画面（間違えた問題と、自分で印をつけた問題をまとめて見る） -->
@@ -1659,7 +1707,7 @@
     <div id="review-list" class="review-list"></div>
 
     <button id="review-start-btn">この一覧で出陣</button>
-    <button id="review-back-btn" style="background: #4a3b35;">陣形選択に戻る</button>
+    <button id="review-back-btn" class="btn-sub">陣形選択に戻る</button>
   </div>
 </div>
 
