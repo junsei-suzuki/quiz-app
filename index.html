@@ -999,6 +999,53 @@
       .comment-line { font-size: 0.84rem; }
     }
 
+    .review-reveal {
+      width: auto;
+      padding: 4px 10px;
+      font-size: 0.76rem;
+      background: #3a2f28;
+      border-color: #5c4a3d;
+      margin: 4px 0 0;
+      box-shadow: none;
+    }
+
+    .review-detail {
+      margin-top: 6px;
+      padding: 8px;
+      background: rgba(0, 0, 0, 0.35);
+      border-left: 3px solid #6b5236;
+      border-radius: 4px;
+    }
+
+    .review-e {
+      font-size: 0.78rem;
+      line-height: 1.65;
+      color: #cbbfae;
+      margin-top: 5px;
+    }
+
+    .review-due { font-size: 0.72rem; color: #8fd9a0; margin-top: 2px; }
+
+    /* 分野ごとの到達度 */
+    .category-item { position: relative; }
+
+    .category-progress {
+      margin-left: auto;
+      font-size: 0.78rem;
+      color: #a89684;
+      flex-shrink: 0;
+      padding-left: 8px;
+    }
+
+    .category-item .bar {
+      position: absolute;
+      left: 0; bottom: -3px;
+      height: 2px;
+      background: #f3a852;
+      opacity: 0.55;
+      border-radius: 1px;
+    }
+
     .hidden { display: none !important; }
 
     /* =========================================================
@@ -1298,7 +1345,8 @@
   <div id="result-screen" class="hidden">
     <canvas id="result-canvas" class="result-canvas" width="1080" height="1920"></canvas>
     <button id="result-save-btn">画像として保存する</button>
-    <button id="result-again-btn" style="background: #28a745;">同じ条件でもう一度</button>
+    <button id="result-retry-btn" class="hidden" style="background: #28a745;">まちがえた問題だけ解き直す</button>
+    <button id="result-again-btn" style="background: #4a3b35;">同じ条件でもう一度</button>
     <button id="result-back-btn" style="background: #4a3b35;">陣形選択に戻る</button>
   </div>
 
@@ -1308,6 +1356,7 @@
     <div id="review-summary" class="review-summary"></div>
 
     <div class="select-tools">
+      <button type="button" id="review-filter-due">今日の分</button>
       <button type="button" id="review-filter-all">すべて</button>
       <button type="button" id="review-filter-wrong">違 のみ</button>
       <button type="button" id="review-filter-marked">復 のみ</button>
@@ -1671,7 +1720,7 @@
   let answeredCount = 0;
   let wrongQuestions = [];    // 間違えた問題（自動で記録）
   let markedQuestions = [];   // 要復習として自分で印をつけた問題
-  let reviewFilter = 'all';   // 復習リストの絞りこみ: all / wrong / marked
+  let reviewFilter = 'due';   // 復習リストの絞りこみ: due / all / wrong / marked
   let questionLimit = parseInt(localStorage.getItem('questionLimit'), 10);
   if (isNaN(questionLimit)) questionLimit = 10;   // 1回の合戦の問題数。0で全問
   let sessionLog = [];        // この合戦の記録 {id, category, ok}
@@ -1730,6 +1779,20 @@
 
       label.appendChild(checkbox);
       label.appendChild(document.createTextNode(cat));
+
+      // その分野を何問できるようになったか
+      const inCat = allQuestions.filter(q => q.category === cat);
+      const done = inCat.filter(q => solvedIds.has(q.id)).length;
+      const prog = document.createElement('span');
+      prog.className = 'category-progress';
+      prog.textContent = `${done}/${inCat.length}`;
+      label.appendChild(prog);
+
+      const bar = document.createElement('span');
+      bar.className = 'bar';
+      bar.style.width = `${Math.round(done / inCat.length * 100)}%`;
+      label.appendChild(bar);
+
       container.appendChild(label);
     });
 
@@ -1840,8 +1903,54 @@
 
   // ----- 📋 復習リスト（間違えた問題と、印をつけた問題をまとめて扱う） -----
 
+  // 正解するたびに次に出るまでの間隔をのばす。忘れかけたころに出すのが最も定着する
+  const SRS_DAYS = [3, 7, 14, 30];
+  const MASTER_LEVEL = 4;   // これだけ連続で正解したら「違」から外す
+
   const isWrong = id => wrongQuestions.some(q => q.id === id);
   const isMarked = id => markedQuestions.some(q => q.id === id);
+  const isDue = entry => !entry.due || entry.due <= dateKey(new Date());
+
+  function promote(entry) {
+    entry.srsLevel = (entry.srsLevel || 0) + 1;
+    const days = SRS_DAYS[Math.min(entry.srsLevel - 1, SRS_DAYS.length - 1)];
+    const d = new Date();
+    d.setDate(d.getDate() + days);
+    entry.due = dateKey(d);
+  }
+
+  function demote(entry) {
+    entry.srsLevel = 0;
+    entry.due = dateKey(new Date());
+  }
+
+  // 復習の予定を進める。正解しても即座には消さず、日をあけてもう一度出す
+  function updateSchedule(q, correct) {
+    const wrong = wrongQuestions.find(x => x.id === q.id);
+    const marked = markedQuestions.find(x => x.id === q.id);
+
+    if (correct) {
+      if (wrong) {
+        promote(wrong);
+        if (wrong.srsLevel >= MASTER_LEVEL) {
+          wrongQuestions = wrongQuestions.filter(x => x.id !== q.id);
+        }
+      }
+      if (marked) promote(marked);
+    } else {
+      if (marked) demote(marked);
+      if (wrong) demote(wrong);
+      else wrongQuestions.push(Object.assign({}, q, { srsLevel: 0, due: dateKey(new Date()) }));
+    }
+  }
+
+  function dueCount() {
+    const seen = new Map();
+    wrongQuestions.concat(markedQuestions).forEach(q => {
+      if (isDue(q)) seen.set(q.id, true);
+    });
+    return seen.size;
+  }
 
   function saveReviewState() {
     localStorage.setItem(`wrongQuestions_${currentSubjectKey}`, JSON.stringify(wrongQuestions));
@@ -1860,6 +1969,7 @@
 
   function filteredReviewList() {
     return buildReviewList().filter(q => {
+      if (reviewFilter === 'due') return isDue(q);
       if (reviewFilter === 'wrong') return isWrong(q.id);
       if (reviewFilter === 'marked') return isMarked(q.id);
       return true;
@@ -1871,7 +1981,10 @@
     const btn = document.getElementById('review-btn');
     const total = buildReviewList().length;
 
-    btn.textContent = `復習リスト (${total}件)`;
+    const due = dueCount();
+    btn.textContent = due > 0
+      ? `復習リスト（今日 ${due}問 / 全${total}件）`
+      : `復習リスト (${total}件)`;
     btn.disabled = total === 0;
     document.getElementById('start-btn').disabled = selectedCats.length === 0;
   }
@@ -1883,7 +1996,7 @@
     const markedCount = all.filter(q => isMarked(q.id)).length;
 
     document.getElementById('review-summary').textContent =
-      `全${all.length}件　（違 まちがえた ${wrongCount}件 ／ 復 要復習 ${markedCount}件）`;
+      `今日やる ${dueCount()}問　／　全${all.length}件（違 ${wrongCount}件・復 ${markedCount}件）`;
 
     const box = document.getElementById('review-list');
     box.textContent = '';
@@ -1926,10 +2039,31 @@
       const text = document.createElement('div');
       text.className = 'review-q';
       text.textContent = q.question;
-      const ans = document.createElement('div');
-      ans.className = 'review-a';
-      ans.textContent = `答え: ${q.answer}`;
-      body.append(cat, text, ans);
+      // 答えは伏せておく。見えたまま出陣できると、読んで打つだけで進めてしまう
+      const ans = document.createElement('button');
+      ans.className = 'review-reveal';
+      ans.textContent = '答えと解説を見る';
+      const detail = document.createElement('div');
+      detail.className = 'review-detail hidden';
+      const aLine = document.createElement('div');
+      aLine.className = 'review-a';
+      aLine.textContent = `答え: ${q.answer}`;
+      const eLine = document.createElement('div');
+      eLine.className = 'review-e';
+      eLine.textContent = q.explanation || '';
+      detail.append(aLine, eLine);
+      ans.addEventListener('click', () => {
+        detail.classList.toggle('hidden');
+        ans.textContent = detail.classList.contains('hidden') ? '答えと解説を見る' : '閉じる';
+      });
+
+      // 次にいつ出るか
+      const entry = wrongQuestions.find(x => x.id === q.id) || markedQuestions.find(x => x.id === q.id);
+      const when = document.createElement('div');
+      when.className = 'review-due';
+      when.textContent = isDue(entry) ? '今日の復習' : `次は ${entry.due} から`;
+
+      body.append(cat, text, when, ans, detail);
 
       const remove = document.createElement('button');
       remove.className = 'review-remove';
@@ -1952,7 +2086,7 @@
   }
 
   function goReview() {
-    reviewFilter = 'all';
+    reviewFilter = dueCount() > 0 ? 'due' : 'all';
     document.getElementById('setup-screen').classList.add('hidden');
     document.getElementById('review-screen').classList.remove('hidden');
     renderReviewScreen();
@@ -1962,7 +2096,8 @@
   document.getElementById('review-back-btn').addEventListener('click', goSetup);
   document.getElementById('review-start-btn').addEventListener('click', () => startQuiz(filteredReviewList()));
 
-  [['review-filter-all', 'all'], ['review-filter-wrong', 'wrong'], ['review-filter-marked', 'marked']]
+  [['review-filter-due', 'due'], ['review-filter-all', 'all'],
+   ['review-filter-wrong', 'wrong'], ['review-filter-marked', 'marked']]
     .forEach(([id, mode]) => {
       document.getElementById(id).addEventListener('click', () => {
         reviewFilter = mode;
@@ -2309,7 +2444,7 @@
 
       feedback.className = "feedback correct";
       feedback.textContent = `正解！⭕ (${answerTimeSec.toFixed(1)}秒)`;
-      wrongQuestions = wrongQuestions.filter(item => item.id !== q.id);
+      updateSchedule(q, true);
 
     } else if (verdict === 'close') {
       // 1〜2文字違い。正解にはしないが、半分のダメージを通し連撃も切らさない
@@ -2322,7 +2457,7 @@
       yours.textContent = `あなたの答え: ${input}`;
       feedback.appendChild(yours);
 
-      if (!wrongQuestions.some(item => item.id === q.id)) wrongQuestions.push(q);
+      updateSchedule(q, false);
 
     } else {
       comboCount = 0;
@@ -2330,9 +2465,7 @@
 
       feedback.className = "feedback incorrect";
       feedback.textContent = `無念…❌ (正答: ${q.answer})`;
-      if (!wrongQuestions.some(item => item.id === q.id)) {
-        wrongQuestions.push(q);
-      }
+      updateSchedule(q, false);
     }
 
     sessionLog.push({ id: q.id, category: q.category, ok: verdict === 'correct' });
@@ -2415,6 +2548,7 @@
 
   const SERIF = '"Hiragino Mincho ProN", "Yu Mincho", serif';
   let lastWasReview = false;
+  let lastMissed = [];
 
   function rankOf(accuracy) {
     if (accuracy >= 100) return { letter: 'S', color: '#e8c06a', glow: 'rgba(232,192,106,0.55)', word: '完全制覇' };
@@ -2594,6 +2728,14 @@
       date: `${now.getFullYear()}年${now.getMonth() + 1}月${now.getDate()}日`,
     });
 
+    // その合戦で落とした問題だけを、その場で解き直せるようにする
+    const missedIds = sessionLog.filter(r => !r.ok).map(r => r.id);
+    const byId = new Map(allQuestions.map(x => [x.id, x]));
+    lastMissed = [...new Set(missedIds)].map(id => byId.get(id)).filter(Boolean);
+    const retryBtn = document.getElementById('result-retry-btn');
+    retryBtn.textContent = `まちがえた${lastMissed.length}問だけ解き直す`;
+    retryBtn.classList.toggle('hidden', lastMissed.length === 0);
+
     clearSession();
     hideBattleLayers();
     document.body.classList.remove('quiz-layout');
@@ -2608,6 +2750,11 @@
     link.download = `戦果_${currentSubjectName}_${new Date().toISOString().slice(0, 10)}.png`;
     link.href = document.getElementById('result-canvas').toDataURL('image/png');
     link.click();
+  });
+
+  document.getElementById('result-retry-btn').addEventListener('click', () => {
+    document.getElementById('result-screen').classList.add('hidden');
+    startQuiz(lastMissed);
   });
 
   document.getElementById('result-again-btn').addEventListener('click', () => {
