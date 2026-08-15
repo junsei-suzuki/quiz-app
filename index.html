@@ -1183,7 +1183,8 @@
       <button class="subject-btn" onclick="selectSubject('math', '数学', '分野')">📐 数学</button>
       <button class="subject-btn" onclick="selectSubject('science', '理科', '分野')">🧪 理科</button>
       <button class="subject-btn" onclick="selectSubject('geography', '地理', '地方・分野')">🌍 地理</button>
-      <button class="subject-btn" onclick="selectSubject('english', '英語', 'ジャンル')" style="grid-column: span 2;">🔤 英単語・文法</button>
+      <button class="subject-btn" onclick="selectSubject('english', '英語', 'ジャンル')">🔤 英語</button>
+      <button class="subject-btn" onclick="selectSubject('civics', '公民', '分野')">⚖️ 公民</button>
     </div>
   </div>
 
@@ -1334,6 +1335,7 @@
     science: '絵巻 ─ 万象の錬成師',
     geography: '絵巻 ─ 旅路の踏破者',
     english: '絵巻 ─ 大海の冒険者',
+    civics: '絵巻 ─ 天下を治める者',
   };
 
   // need: 到達に必要な累計正解数 / veil: かかっている影の濃さ（0で完全に晴れる）
@@ -1555,7 +1557,7 @@
     const box = document.getElementById('record-subjects');
     box.textContent = '';
     [['history', '歴史'], ['math', '数学'], ['science', '理科'],
-     ['geography', '地理'], ['english', '英語']].forEach(([key, name]) => {
+     ['geography', '地理'], ['english', '英語'], ['civics', '公民']].forEach(([key, name]) => {
       const solved = JSON.parse(localStorage.getItem(`solvedIds_${key}`) || '[]').length;
       const row = document.createElement('div');
       row.className = 'record-subject-row';
@@ -1763,6 +1765,12 @@
     if (!rewardImage) {
       ctx.fillStyle = '#2a1f18';
       ctx.fillRect(0, 0, w, h);
+      ctx.fillStyle = '#7a6754';
+      ctx.textAlign = 'center';
+      ctx.font = `${Math.round(w / 9)}px "Hiragino Mincho ProN", serif`;
+      ctx.fillText('絵巻', w / 2, h / 2 - w / 12);
+      ctx.font = `${Math.round(w / 13)}px "Hiragino Mincho ProN", serif`;
+      ctx.fillText('準備中', w / 2, h / 2 + w / 12);
       return;
     }
 
