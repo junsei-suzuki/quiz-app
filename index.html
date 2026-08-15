@@ -106,6 +106,24 @@
       z-index: 2;
     }
 
+    /* 本陣からそのまま始められる欄。教科を選び直す手間をなくす */
+    .quick-start { display: grid; gap: 8px; margin-bottom: 14px; }
+
+    .quick-btn {
+      text-align: left;
+      padding: 12px 14px;
+      margin-bottom: 0;
+      line-height: 1.45;
+      background: linear-gradient(180deg, #3d5a3a 0%, #24361f 100%);
+      border-color: #5f8a58;
+    }
+    .quick-btn.review { background: linear-gradient(180deg, #3a3f5a 0%, #202436 100%); border-color: #5a63a0; }
+    .quick-btn b { display: block; font-size: 1rem; }
+    .quick-btn small {
+      display: block; font-size: 0.8rem; font-weight: normal;
+      opacity: 0.85; margin-top: 2px;
+    }
+
     /* 🎯 アプリメイン容器（画面中央～下部に配置） */
     .app-container {
       width: 100%;
@@ -1248,6 +1266,32 @@
     /* 画面がとても低い端末では、解説の中だけをスクロールさせて、
        「次の問題へ」が画面の外に押し出されないようにする。
        ダメージ演出は .full-fx-layer（z-index 15）にあるのでカードには隠れない */
+    /* スマホは画面に空きがない。大きな数値を浮かせると味方の吹き出しか
+       HPバーのどちらかに必ず重なるので、判定の右端に小さく出す。
+       斬撃と衝撃波はそのまま出るので、手ごたえは失われない */
+    @media (max-width: 899px) {
+      .damage-num { display: none; }
+    }
+
+    .hit-badge {
+      flex: 0 0 auto;
+      align-self: center;
+      font-size: 0.86rem;
+      font-weight: 900;
+      font-style: italic;
+      color: #ffea00;
+      text-shadow: 0 0 8px rgba(255, 234, 0, 0.5);
+      white-space: nowrap;
+      animation: hit-pop 0.5s ease-out;
+    }
+    @media (min-width: 900px) { .hit-badge { display: none; } }   /* パソコンは敵のそばに大きく出す */
+
+    @keyframes hit-pop {
+      0%   { transform: scale(0.5); opacity: 0; }
+      55%  { transform: scale(1.18); opacity: 1; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
     /* ソフトキーボードが出ている間。画面の下半分がキーボードに隠れてしまうため、
        問題と入力欄を画面の上へ寄せる。敵とは重なってよい（ユーザーの指示） */
     @media (max-width: 899px) {
@@ -1348,6 +1392,9 @@
     .order-tools { display: grid; grid-template-columns: 1fr 2fr; gap: 8px; margin-top: 8px; }
     .order-tools button { margin-bottom: 0; }
     .order-reset { background: var(--btn-sub); }
+
+    /* 画像の保存は控えめに。学習に戻る道のほうを目立たせる */
+    .result-save { font-size: 0.88rem; padding: 9px; }
 
     /* 戻る・設定などの控えめなボタン。教科の色に合わせる */
     .btn-sub { background: var(--btn-sub); }
@@ -1539,6 +1586,9 @@
       <div id="streak-note" class="streak-note"></div>
       <button id="record-btn" class="record-btn">記録をくわしく見る</button>
     </div>
+    <!-- 前回の続きと、今日の復習。教科を選び直さずにそのまま始められる -->
+    <div id="quick-start" class="quick-start hidden"></div>
+
     <p style="text-align: center; color: #bba;">出陣する教科を選択してください</p>
 
     <div class="subject-grid">
@@ -1692,10 +1742,11 @@
   <!-- 4. 戦果カード（画像として保存・共有できる） -->
   <div id="result-screen" class="hidden">
     <canvas id="result-canvas" class="result-canvas" width="1080" height="1920"></canvas>
-    <button id="result-save-btn">画像として保存する</button>
+    <!-- 学習に戻る道を先に置く。人に見せるボタンが最初にあると身構えさせてしまう -->
     <button id="result-retry-btn" class="hidden" style="background: #28a745;">まちがえた問題だけ解き直す</button>
-    <button id="result-again-btn" class="btn-sub">同じ条件でもう一度</button>
+    <button id="result-again-btn">同じ条件でもう一度</button>
     <button id="result-back-btn" class="btn-sub">陣形選択に戻る</button>
+    <button id="result-save-btn" class="btn-sub2 result-save">画像として保存する</button>
   </div>
 
   <!-- 5. 復習リスト画面（間違えた問題と、自分で印をつけた問題をまとめて見る） -->
@@ -1893,13 +1944,20 @@
   const dateKey = d => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
   const loadStudyLog = () => JSON.parse(localStorage.getItem('studyLog') || '{}');
 
+  // 解答にかかった時間だけだと、解説を読んでいた時間が丸ごと抜け落ちる。
+  // 1問ごとに「前の問題が出てから今まで」を足して、実際に机に向かった時間に近づける
+  let lastRecordAt = 0;
+
   function recordAnswer(ok, seconds) {
     const log = loadStudyLog();
     const key = dateKey(new Date());
     const day = log[key] || { answered: 0, correct: 0, seconds: 0, subjects: [] };
     day.answered++;
     if (ok) day.correct++;
-    day.seconds += Math.round(seconds);
+    // 解説を読む時間もふくめる。ただし中断して放置した時間は数えない
+    const since = lastRecordAt ? (Date.now() - lastRecordAt) / 1000 : seconds;
+    day.seconds += Math.round(Math.min(Math.max(seconds, since), 180));
+    lastRecordAt = Date.now();
     if (!day.subjects.includes(currentSubjectKey)) day.subjects.push(currentSubjectKey);
     log[key] = day;
     localStorage.setItem('studyLog', JSON.stringify(log));
@@ -1986,11 +2044,11 @@
     const days = Object.values(log);
     const total = days.reduce((a, d) => a + d.answered, 0);
     const correct = days.reduce((a, d) => a + d.correct, 0);
-    const minutes = Math.round(days.reduce((a, d) => a + d.seconds, 0) / 60);
+    const totalSeconds = days.reduce((a, d) => a + d.seconds, 0);
 
     document.getElementById('record-summary').textContent =
       `連続${streak}日（休める回数 残り${graceLeft}）　学習した日 ${days.length}日　` +
-      `累計${total}問　正答率${total ? Math.round(correct / total * 100) : 0}%　のべ${minutes}分`;
+      `累計${total}問　正答率${total ? Math.round(correct / total * 100) : 0}%　のべ${describeMinutes(totalSeconds)}`;
 
     // 直近10週間を、日曜はじまりの列で並べる
     const cal = document.getElementById('record-calendar');
@@ -2184,7 +2242,7 @@
   let comboCount = 0;
   let maxComboCount = 0;
 
-  function selectSubject(key, name, labelText) {
+  function selectSubject(key, name, labelText, afterLoad) {
     currentSubjectKey = key;
     currentSubjectName = name;
     document.body.dataset.subject = key;
@@ -2195,6 +2253,7 @@
     wrongQuestions = JSON.parse(localStorage.getItem(`wrongQuestions_${key}`) || '[]');
     markedQuestions = JSON.parse(localStorage.getItem(`markedQuestions_${key}`) || '[]');
     solvedIds = new Set(JSON.parse(localStorage.getItem(`solvedIds_${key}`) || '[]'));
+    loadExcludedCats(key);
     correctTotal = parseInt(localStorage.getItem(`correctTotal_${key}`), 10) || 0;
     loadRewardImage(key);
     loadSlashSound();  // 出題前に読みこんでおき、正解した瞬間に遅れなく鳴らす
@@ -2213,6 +2272,7 @@
         document.body.classList.remove('home-layout');
         document.getElementById('home-screen').classList.add('hidden');
         document.getElementById('setup-screen').classList.remove('hidden');
+        if (afterLoad) afterLoad();
       })
       .catch(err => alert(`${name}のデータ (${err.message || key + '.json'}) の読み込みに失敗しました。`));
   }
@@ -2262,8 +2322,10 @@
       const checkbox = document.createElement('input');
       checkbox.type = 'checkbox';
       checkbox.value = cat;
-      checkbox.checked = true;
-      checkbox.addEventListener('change', updateReviewBtn);
+      // 前に外した分野は覚えておく。毎回すべてに戻ると、
+      // 範囲を絞りたい人は開くたびに「全解除」からやり直すことになる
+      checkbox.checked = !excludedCats.includes(cat);
+      checkbox.addEventListener('change', () => { saveExcludedCats(); updateReviewBtn(); });
 
       label.appendChild(checkbox);
       label.appendChild(document.createTextNode(cat));
@@ -2433,19 +2495,41 @@
     document.getElementById('reward-overlay').classList.add('hidden');
   });
 
+  // 外した分野を教科ごとに覚えておく。「選んだほう」ではなく「外したほう」を
+  // 覚えるので、問題を足して分野が増えても、その分野は既定で出題される
+  let excludedCats = [];
+
+  function loadExcludedCats(key) {
+    try {
+      excludedCats = JSON.parse(localStorage.getItem(`excludedCats_${key}`) || '[]');
+    } catch (err) {
+      excludedCats = [];
+    }
+  }
+
+  function saveExcludedCats() {
+    const boxes = [...document.querySelectorAll('#category-checkboxes input[type="checkbox"]')];
+    excludedCats = boxes.filter(b => !b.checked).map(b => b.value);
+    // すべて外した状態は保存しない。次に開いたとき一問も出せなくなる
+    if (excludedCats.length === boxes.length) return;
+    localStorage.setItem(`excludedCats_${currentSubjectKey}`, JSON.stringify(excludedCats));
+  }
+
   function getSelectedCategories() {
     const checkboxes = document.querySelectorAll('#category-checkboxes input[type="checkbox"]:checked');
     return Array.from(checkboxes).map(cb => cb.value);
   }
 
+  const rememberSelection = () => { saveExcludedCats(); updateReviewBtn(); };
+
   document.getElementById('select-all-btn').addEventListener('click', () => {
     document.querySelectorAll('#category-checkboxes input[type="checkbox"]').forEach(cb => cb.checked = true);
-    updateReviewBtn();
+    rememberSelection();
   });
 
   document.getElementById('deselect-all-btn').addEventListener('click', () => {
     document.querySelectorAll('#category-checkboxes input[type="checkbox"]').forEach(cb => cb.checked = false);
-    updateReviewBtn();
+    rememberSelection();
   });
 
   // ----- 📋 復習リスト（間違えた問題と、印をつけた問題をまとめて扱う） -----
@@ -2954,6 +3038,7 @@
   function saveSession() {
     if (!currentSessionQuestions.length) return;
     localStorage.setItem(`session_${currentSubjectKey}`, JSON.stringify({
+      savedAt: Date.now(),
       ids: currentSessionQuestions.map(x => x.id),
       index: currentQuestionIndex,
       correctCount, answeredCount, enemyHp, comboCount, maxComboCount, sessionLog,
@@ -3067,6 +3152,7 @@
     sessionStartLevel = rewardLevel(correctTotal);
 
     sessionStartTime = Date.now();
+    lastRecordAt = Date.now();
 
     const totalQ = currentSessionQuestions.length;
     baseDamagePerQuestion = totalQ > 0 ? (100 / (totalQ * DEFEAT_ACCURACY)) : 100;
@@ -3108,6 +3194,7 @@
     document.getElementById('submit-btn').classList.remove('hidden');
     document.getElementById('next-btn').classList.add('hidden');
 
+    lastHitLabel = '';
     const feedback = document.getElementById('feedback');
     feedback.className = 'feedback';
     feedback.textContent = '';
@@ -3199,6 +3286,9 @@
     // 「1444」が出てしまい、どれだけ削れたのかが読み取れなくなる
     const displayDamage = Math.round(damagePercent);
     damage.textContent = `${label}${displayDamage}`;
+    // 判定の中に添えるぶんは short にする。「⚡ 会心の一撃! 14」と長いままだと
+    // 判定が2行に折り返し、そのぶん解説が画面の外に押し出される
+    lastHitLabel = `${(label.match(/[⚡🔥]/g) || []).join('')}${displayDamage}`;
 
     enemySprite.classList.remove('shake', 'defeated');
     impact.classList.remove('active');
@@ -3616,6 +3706,9 @@
 
   // 正解・惜しい・不正解を、印と名前と色でまとめて示す。
   // 以前は色のちがいだけだったため、「惜しい」を正解と取りちがえる人がいた
+  // 直前に通したダメージ。スマホでは判定の右端に小さく添える
+  let lastHitLabel = '';
+
   function showVerdict(box, kind, mark, name, note, answer, given) {
     box.className = `feedback ${kind}`;
     box.textContent = '';
@@ -3655,6 +3748,13 @@
       body.appendChild(line);
     }
     box.appendChild(body);
+
+    if (lastHitLabel) {
+      const hit = document.createElement('span');
+      hit.className = 'hit-badge';
+      hit.textContent = lastHitLabel;
+      box.appendChild(hit);
+    }
   }
 
   function appendAnswer(line, label, text, other) {
@@ -3719,6 +3819,14 @@
     } else {
       finishQuiz();
     }
+  }
+
+  // 「のべ0分」と出ると、積み上げている実感がその場で消える
+  function describeMinutes(seconds) {
+    if (seconds < 60) return '1分未満';
+    const mins = Math.round(seconds / 60);
+    if (mins < 60) return `${mins}分`;
+    return `${Math.floor(mins / 60)}時間${mins % 60}分`;
   }
 
   function formatElapsedTime(seconds) {
@@ -3988,6 +4096,92 @@
     document.getElementById('battle-sound-btn').classList.add('hidden');
   }
 
+  // 本陣から直接始められる入口。教科を選び直す手間が、
+  // 「面倒だから今日はやらない」に変わってしまうのを防ぐ
+  const SUBJECTS = [
+    { key: 'history',   name: '歴史',  label: '時代' },
+    { key: 'math',      name: '数学',  label: '分野' },
+    { key: 'science',   name: '理科',  label: '分野' },
+    { key: 'geography', name: '地理',  label: '地方・分野' },
+    { key: 'english',   name: '英語',  label: 'ジャンル' },
+    { key: 'civics',    name: '公民',  label: '分野' },
+  ];
+
+  const readList = key => {
+    try { return JSON.parse(localStorage.getItem(key) || '[]'); } catch (err) { return []; }
+  };
+
+  // 今日ぶんの復習が何問あるか。教科をまたぐと保存先が1教科ぶんしか
+  // 更新されず記録が壊れるので、教科ごとに数えて多い順に出す
+  function dueBySubject() {
+    const today = dateKey(new Date());
+    return SUBJECTS.map(sub => {
+      const seen = new Map();
+      readList(`wrongQuestions_${sub.key}`).concat(readList(`markedQuestions_${sub.key}`))
+        .forEach(q => seen.set(q.id, q));
+      const due = [...seen.values()].filter(q => !q.due || q.due <= today);
+      return { key: sub.key, name: sub.name, label: sub.label, due: due.length };
+    }).filter(x => x.due > 0).sort((a, b) => b.due - a.due);
+  }
+
+  function lastSessionOf(key) {
+    try {
+      const st = JSON.parse(localStorage.getItem(`session_${key}`) || 'null');
+      return st && Array.isArray(st.ids) ? st : null;
+    } catch (err) { return null; }
+  }
+
+  function updateQuickStart() {
+    const box = document.getElementById('quick-start');
+    box.textContent = '';
+    const rows = [];
+
+    // ① 中断している合戦。黙って上書きせず、続きから入れるようにする
+    const paused = SUBJECTS.map(sub => ({ sub, st: lastSessionOf(sub.key) }))
+      .filter(x => x.st && x.st.index < x.st.ids.length)
+      .sort((a, b) => (b.st.savedAt || 0) - (a.st.savedAt || 0))[0];
+    if (paused) {
+      rows.push({
+        cls: 'quick-btn',
+        title: `${paused.sub.name}の合戦を再開する`,
+        note: `${paused.st.mode}　${paused.st.index}/${paused.st.ids.length}問　敵HP ${Math.ceil(Math.max(0, paused.st.enemyHp))}`,
+        run: () => selectSubject(paused.sub.key, paused.sub.name, paused.sub.label, () => {
+          document.getElementById('resume-btn').click();
+        }),
+      });
+    }
+
+    // ② 今日ぶんの復習
+    dueBySubject().slice(0, 2).forEach(sub => {
+      rows.push({
+        cls: 'quick-btn review',
+        title: `${sub.name}の今日の復習　${sub.due}問`,
+        note: '前に間違えた問題と、印をつけた問題',
+        run: () => selectSubject(sub.key, sub.name, sub.label, () => {
+          reviewFilter = 'due';
+          startQuiz(filteredReviewList());
+        }),
+      });
+    });
+
+    rows.forEach(row => {
+      const btn = document.createElement('button');
+      btn.className = row.cls;
+      const b = document.createElement('b');
+      b.textContent = row.title;
+      const small = document.createElement('small');
+      small.textContent = row.note;
+      btn.appendChild(b);
+      btn.appendChild(small);
+      btn.addEventListener('click', row.run);
+      box.appendChild(btn);
+    });
+    box.classList.toggle('hidden', rows.length === 0);
+  }
+
+  // 定義がそろってから最初の1回。上のほうで呼ぶと SUBJECTS がまだ作られていない
+  updateQuickStart();
+
   function goSetup() {
     hideBattleLayers();
     document.body.classList.remove('quiz-layout', 'reading');
@@ -4010,6 +4204,7 @@
     document.getElementById('setup-screen').classList.add('hidden');
     document.getElementById('home-screen').classList.remove('hidden');
     updateStudyPanel();
+    updateQuickStart();
   }
 </script>
 </body>
