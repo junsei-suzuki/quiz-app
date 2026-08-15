@@ -181,31 +181,6 @@
       margin-bottom: 0;
     }
 
-    /* 入り口の時点で、教科ごとのイメージカラーが分かるようにする */
-    .subject-btn[data-subject="history"] {
-      background: linear-gradient(180deg, #5e3199 0%, #331a55 100%);
-      border-color: #8354c6; color: #f0e6ff;
-    }
-    .subject-btn[data-subject="geography"] {
-      background: linear-gradient(180deg, #9c7c17 0%, #5b480c 100%);
-      border-color: #c9a733; color: #fff6d2;
-    }
-    .subject-btn[data-subject="science"] {
-      background: linear-gradient(180deg, #1d7343 0%, #0f3b23 100%);
-      border-color: #34985d; color: #dcf6e5;
-    }
-    .subject-btn[data-subject="math"] {
-      background: linear-gradient(180deg, #21519f 0%, #102b57 100%);
-      border-color: #3a76c9; color: #ddebff;
-    }
-    .subject-btn[data-subject="english"] {
-      background: linear-gradient(180deg, #a82626 0%, #611212 100%);
-      border-color: #d24d4d; color: #ffe0dc;
-    }
-    .subject-btn[data-subject="civics"] {
-      background: linear-gradient(180deg, #f1f1f3 0%, #c4c4c9 100%);
-      border-color: #ffffff; color: #22222a; text-shadow: none;
-    }
 
     /* 分野・カテゴリチェックボックス */
     .category-group {
@@ -476,30 +451,69 @@
       line-height: 1.5;
     }
 
+    /* 判定は「◯ 正解 / △ 惜しい / ✕ 不正解」の3つを、
+       印・色・ふちの太さの3つでまとめて見分けられるようにする。
+       色だけで分けると、惜しいと正解を取りちがえる */
     .feedback {
       margin-top: 8px;
-      padding: 9px;
+      padding: 8px 10px;
       border-radius: 8px;
       font-weight: bold;
-      text-align: center;
+      text-align: left;
       display: none;
       position: relative;
       overflow: hidden;
+      align-items: center;
+      gap: 10px;
     }
+
+    .feedback .mark {
+      flex: 0 0 auto;
+      width: 30px; height: 30px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 50%;
+      font-size: 1.25rem;
+      font-weight: 900;
+      line-height: 1;
+    }
+
+    .feedback .verdict { flex: 1 1 auto; min-width: 0; line-height: 1.5; }
+    .feedback .verdict-name { font-size: 1.05rem; letter-spacing: 0.08em; }
+    /* 見出しと同じ行に置く。行を分けると、解説が画面の外に押し出される */
+    .feedback .verdict-sub { font-size: 0.82rem; font-weight: normal; margin-left: 8px; opacity: 0.9; }
 
     .feedback.correct {
       background-color: rgba(40, 167, 69, 0.2);
-      border: 1px solid var(--success);
-      color: #72e08a;
-      display: block;
+      border: 2px solid var(--success);
+      color: #7ce894;
+      display: flex;
     }
+    .feedback.correct .mark { background: var(--success); color: #08210e; }
+
+    /* 惜しいは「正解ではない」側だとはっきり分かる見た目にする。
+       ふちを破線にして、正解の実線と区別できるようにしてある */
+    .feedback.close {
+      background-color: rgba(243, 168, 82, 0.16);
+      border: 2px dashed #f3a852;
+      color: #ffd08a;
+      display: flex;
+    }
+    .feedback.close .mark { background: #f3a852; color: #2b1a06; }
 
     .feedback.incorrect {
       background-color: rgba(220, 53, 69, 0.2);
-      border: 1px solid var(--danger);
-      color: #ff8e98;
-      display: block;
+      border: 2px solid var(--danger);
+      color: #ff97a0;
+      display: flex;
     }
+    .feedback.incorrect .mark { background: var(--danger); color: #2a0509; }
+
+    /* 自分の答えと正しい答えを、1行に並べて見せる */
+    .feedback .answers { display: block; font-weight: normal; font-size: 0.86rem; margin-top: 2px; }
+    .feedback .answers b { font-weight: bold; }
+    .feedback .answers .label { opacity: 0.72; margin-right: 3px; font-size: 0.78rem; }
+    .feedback .answers .sep { opacity: 0.5; margin: 0 7px; }
+    .feedback .diff { color: #fff; background: rgba(255, 255, 255, 0.24); border-radius: 2px; padding: 0 1px; }
 
     /* 📜 解説（正解・不正解にかかわらず必ず表示する） */
     .explanation {
@@ -515,6 +529,15 @@
       text-align: left;
       max-height: 45vh;
       overflow-y: auto;
+    }
+
+    /* 解説の1文目。ここだけで要点が分かるようにする */
+    .explanation-lead {
+      display: block;
+      font-weight: bold;
+      color: #fff6e8;
+      font-size: 1.02em;
+      margin-bottom: 4px;
     }
 
     .explanation-title {
@@ -837,21 +860,6 @@
       margin-bottom: 0;
     }
 
-    /* 惜しい（1〜2文字違い）の判定 */
-    .feedback.close {
-      background-color: rgba(243, 168, 82, 0.18);
-      border: 1px solid #f3a852;
-      color: #ffd08a;
-      display: block;
-    }
-
-    .feedback .yours {
-      display: block;
-      margin-top: 4px;
-      font-size: 0.85rem;
-      font-weight: normal;
-      color: #c9b193;
-    }
 
     /* 🏅 戦果カード */
     .result-canvas {
@@ -1225,6 +1233,14 @@
       .mark-row input[type="checkbox"] { width: 17px; height: 17px; }
       .explanation { padding: 9px 11px; font-size: 0.86rem; line-height: 1.7; margin-top: 6px; }
       .explanation-title { font-size: 0.76rem; margin-bottom: 3px; }
+      .explanation-lead { font-size: 1em; margin-bottom: 3px; }
+      .feedback { padding: 6px 8px; gap: 8px; }
+      .feedback .mark { width: 26px; height: 26px; font-size: 1.05rem; }
+      .feedback .verdict-name { font-size: 0.98rem; }
+      .feedback .verdict-sub { font-size: 0.76rem; margin-left: 6px; }
+      .feedback .answers { font-size: 0.79rem; }
+      .feedback .answers .label { font-size: 0.72rem; }
+      .feedback .answers .sep { margin: 0 5px; }
       button, input[type="text"] { padding: 9px; margin-bottom: 7px; }
       #back-setup-btn { padding: 6px; font-size: 0.84rem; }
     }
@@ -1253,18 +1269,12 @@
       body.keyboard-tight .question-card { margin-bottom: 8px; }
     }
 
-    /* 答え合わせのあとに残る正解の選択肢は、読むためのものなので小さくてよい。
-       スマホではこの高さぶん、解説が画面の外に押し出されてしまう */
-    @media (max-width: 899px) {
-      body.reading .choice-box { margin-bottom: 6px; }
-      body.reading .choice-box button { min-height: 38px; font-size: 0.92rem; padding: 6px 8px; }
-    }
+    /* 答え合わせのあとの選択肢は隠す。正答は判定の中に「正答 ◯◯」と
+       取りちがえた字の色分けつきで出るので、残しておくと同じことを二度言うことになる */
+    body.reading #choice-box { display: none; }
 
     @media (max-height: 700px) and (max-width: 899px) {
       .explanation { max-height: 30vh; overflow-y: auto; }
-      /* さらに低い画面では選択肢を置く余裕もない。
-         正答は判定バーにも「無念…（正答: ○○）」と出るので、情報は失われない */
-      body.reading #choice-box { display: none; }
     }
 
     @media (max-height: 620px) and (max-width: 899px) {
@@ -1915,11 +1925,17 @@
     }
     // 守りの残数は「直近7日のうち、今日を除いて休んだ日数」から数える。
     // 数え方を単純にしておかないと、残り何回休めるのかを本人が予測できない
+    // 使いはじめる前の日は「休んだ日」に数えない。
+    // 数えていたころは、初回起動の時点で 2−6 → 残り0 と出てしまっていた
+    const firstDay = Object.keys(log).sort()[0];
     let recentMiss = 0;
     for (let i = 1; i < 7; i++) {
       const back = new Date();
       back.setDate(back.getDate() - i);
-      if (!log[dateKey(back)]) recentMiss++;
+      const key = dateKey(back);
+      // まだ一度も解いていないときも、休んだ日は0とみなす
+      if (!firstDay || key < firstDay) continue;
+      if (!log[key]) recentMiss++;
     }
     return { streak, graceLeft: Math.max(0, GRACE_PER_WEEK - recentMiss) };
   }
@@ -2040,8 +2056,10 @@
   const FEEDBACK_MODES = canVibrate ? ['vibe', 'sound', 'none'] : ['sound', 'none'];
   const FEEDBACK_LABEL = {
     vibe: '📳 手ごたえ: バイブ',
-    sound: canVibrate ? '🔊 手ごたえ: 音' : '🔊 手ごたえ: 音（この端末はバイブ非対応）',
-    none: '🔇 手ごたえ: なし',
+    sound: canVibrate ? '🔊 手ごたえ: 音（マナーモードでは鳴りません）'
+                      : '🔊 手ごたえ: 音（この端末はバイブ非対応／マナーモードでは鳴りません）',
+    // 「なし」と書いていたころは、斬撃も観客の声も止まると誤解されていた
+    none: '🤫 手ごたえ: 静（斬撃と観客の声は出ます）',
   };
   let feedbackMode = localStorage.getItem('feedbackMode');
   if (!feedbackMode) {
@@ -2049,8 +2067,9 @@
     const old = localStorage.getItem('soundEnabled');
     feedbackMode = old === 'on' ? 'sound' : (old === 'off' ? 'none' : 'vibe');
   }
-  // 非対応の端末に「バイブ」が保存されたままだと、無反応の原因になる
-  if (!FEEDBACK_MODES.includes(feedbackMode)) feedbackMode = FEEDBACK_MODES[0];
+  // 非対応の端末に「バイブ」が保存されたままだと、無反応の原因になる。
+  // 音に倒すと教室で1問目からいきなり刀が鳴るので、既定は「静」にする
+  if (!FEEDBACK_MODES.includes(feedbackMode)) feedbackMode = canVibrate ? FEEDBACK_MODES[0] : 'none';
   localStorage.setItem('feedbackMode', feedbackMode);
 
   function getAudioContext() {
@@ -2280,10 +2299,24 @@
     img.src = `rewards/${key}.jpg`;
   }
 
+  // 教科によって問題数がちがうので、到達点を問題数に合わせて縮める。
+  // 一律170問だったころは、数学（全168問）と公民（全103問）は
+  // 全問正解しても「天下人」に届かなかった
+  function rewardScale() {
+    const total = qaQuestions.length + orderQuestions.length;
+    const top = REWARD_STEPS[REWARD_MAX_LEVEL].need;
+    if (!total || !top) return 1;
+    return Math.min(1, (total * 0.75) / top);
+  }
+
+  function rewardNeed(level) {
+    return Math.round(REWARD_STEPS[level].need * rewardScale());
+  }
+
   function rewardLevel(total) {
     let level = 0;
     REWARD_STEPS.forEach((step, i) => {
-      if (total >= step.need) level = i;
+      if (total >= rewardNeed(i)) level = i;
     });
     return level;
   }
@@ -2376,8 +2409,8 @@
       caption.textContent =
         `累計${correctTotal}問正解。金雲は完全に晴れた！　セリフ${countAllyLines(level)}種（タップで拡大）`;
     } else {
-      const from = REWARD_STEPS[level].need;
-      const to = REWARD_STEPS[level + 1].need;
+      const from = rewardNeed(level);
+      const to = rewardNeed(level + 1);
       fill.style.width = `${Math.round((correctTotal - from) / (to - from) * 100)}%`;
       caption.dataset.lines = countAllyLines(level);
       caption.textContent =
@@ -3137,8 +3170,10 @@
         label = '鋭い一撃! ';
       }
 
-      // 選んで答えるモードは易しいぶん、通るダメージを抑える
-      if (answerMode === 'choice') multiplier *= 0.65;
+      // 選んで答えるモードは易しいぶん、通るダメージを抑える。
+      // 語順整序は選択肢から選ぶ形式ではないので、この減衰は掛けない
+      const asked = currentSessionQuestions[currentQuestionIndex];
+      if (answerMode === 'choice' && !(asked && Array.isArray(asked.tokens))) multiplier *= 0.65;
 
       // ② 連撃による加点。速さとは別枠にして、会心が連撃に食われないようにする
       let comboBonus = 0;
@@ -3289,29 +3324,22 @@
         localStorage.setItem(`solvedIds_${currentSubjectKey}`, JSON.stringify([...solvedIds]));
       }
 
-      feedback.className = "feedback correct";
-      feedback.textContent = `正解！⭕ (${answerTimeSec.toFixed(1)}秒)`;
+      showVerdict(feedback, 'correct', '◯', '正解',
+        `${answerTimeSec.toFixed(1)}秒で斬った`);
       updateSchedule(q, true);
 
     } else if (verdict === 'close') {
       // 1〜2文字違い。正解にはしないが、半分のダメージを通し連撃も切らさない
       triggerAttackEffect(answerTimeSec, 'close');
 
-      feedback.className = "feedback close";
-      feedback.textContent = `惜しい！正答は「${q.answer}」`;
-      const yours = document.createElement('span');
-      yours.className = 'yours';
-      yours.textContent = `あなたの答え: ${input}`;
-      feedback.appendChild(yours);
-
+      showVerdict(feedback, 'close', '△', '惜しい', '正解ではありません', q.answer, input);
       updateSchedule(q, false);
 
     } else {
       comboCount = 0;
       updateComboBadge();
 
-      feedback.className = "feedback incorrect";
-      feedback.textContent = `無念…❌ (正答: ${q.answer})`;
+      showVerdict(feedback, 'incorrect', '✕', '不正解', '', q.answer, input);
       updateSchedule(q, false);
     }
 
@@ -3396,10 +3424,14 @@
   let orderSlots = [];        // 上の欄に並べた語
   let orderLayout = [];       // 語群の並び。取っても場所は詰めないので、最後まで動かさない
   let orderLocked = false;    // 答え合わせ後は動かせなくする
+  // 語順整序は8語をタップし終えるまでに数秒かかるので、出題からの経過で計ると
+  // 会心（3秒以内）が構造的に取れない。最初の札に触れた時点から計り直す
+  let orderTouched = false;
 
   const isTaken = item => orderSlots.includes(item);
 
   function setupOrder(q) {
+    orderTouched = false;
     const items = q.tokens.map((text, key) => ({ key, text }));
     orderSlots = [];
     orderLayout = shuffled(items);
@@ -3476,6 +3508,7 @@
     function takeFromBank(layoutIndex, slotIndex) {
       const item = orderLayout[layoutIndex];
       if (!item || isTaken(item)) return;
+      if (!orderTouched) { orderTouched = true; questionStartTime = Date.now(); }
       orderSlots.splice(Math.max(0, Math.min(slotIndex, orderSlots.length)), 0, item);
       renderOrder();
     }
@@ -3581,6 +3614,71 @@
     });
   })();
 
+  // 正解・惜しい・不正解を、印と名前と色でまとめて示す。
+  // 以前は色のちがいだけだったため、「惜しい」を正解と取りちがえる人がいた
+  function showVerdict(box, kind, mark, name, note, answer, given) {
+    box.className = `feedback ${kind}`;
+    box.textContent = '';
+
+    const icon = document.createElement('span');
+    icon.className = 'mark';
+    icon.textContent = mark;
+    box.appendChild(icon);
+
+    const body = document.createElement('span');
+    body.className = 'verdict';
+    const title = document.createElement('span');
+    title.className = 'verdict-name';
+    title.textContent = name;
+    body.appendChild(title);
+
+    if (note) {
+      const sub = document.createElement('span');
+      sub.className = 'verdict-sub';
+      sub.textContent = note;
+      body.appendChild(sub);
+    }
+
+    // 正解でないときは、自分の答えと正しい答えを1行に並べて見せる。
+    // 知りたいのは正答そのものより「どこを取りちがえたか」
+    if (answer) {
+      const line = document.createElement('span');
+      line.className = 'answers';
+      if (given) {
+        appendAnswer(line, 'あなた', given, answer);
+        const sep = document.createElement('span');
+        sep.className = 'sep';
+        sep.textContent = '／';
+        line.appendChild(sep);
+      }
+      appendAnswer(line, '正答', answer, given);
+      body.appendChild(line);
+    }
+    box.appendChild(body);
+  }
+
+  function appendAnswer(line, label, text, other) {
+    const tag = document.createElement('span');
+    tag.className = 'label';
+    tag.textContent = label;
+    line.appendChild(tag);
+
+    const body = document.createElement('b');
+    // 相手と違う文字だけ目立たせる。どの字を取りちがえたのかが一目で分かる
+    const others = [...(other || '')];
+    [...text].forEach((ch, i) => {
+      if (other && others[i] !== ch) {
+        const diff = document.createElement('span');
+        diff.className = 'diff';
+        diff.textContent = ch;
+        body.appendChild(diff);
+      } else {
+        body.appendChild(document.createTextNode(ch));
+      }
+    });
+    line.appendChild(body);
+  }
+
   function showExplanation(q) {
     const box = document.getElementById('explanation');
     box.textContent = '';
@@ -3589,7 +3687,19 @@
     title.className = 'explanation-title';
     title.textContent = '📜 解 説';
     box.appendChild(title);
-    box.appendChild(document.createTextNode(q.explanation || 'この問題の解説はまだ用意されていません。'));
+    // 1文目はどの問題でも要約か掴みになっている。そこだけ太字で立てると、
+    // 読み飛ばす人も1行は目に入る（データ側に要約を足す必要はない）
+    const text = q.explanation || 'この問題の解説はまだ用意されていません。';
+    const cut = text.indexOf('。');
+    if (cut > 0 && cut < text.length - 1) {
+      const lead = document.createElement('span');
+      lead.className = 'explanation-lead';
+      lead.textContent = text.slice(0, cut + 1);
+      box.appendChild(lead);
+      box.appendChild(document.createTextNode(text.slice(cut + 1)));
+    } else {
+      box.appendChild(document.createTextNode(text));
+    }
 
     box.classList.remove('hidden');
     document.body.classList.add('reading');
