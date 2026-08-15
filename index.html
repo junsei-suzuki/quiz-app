@@ -210,10 +210,10 @@
     .stats {
       background: rgba(0, 0, 0, 0.5);
       border: 1px solid #44332a;
-      padding: 8px 10px;
+      padding: 6px 10px;
       border-radius: 8px;
-      font-size: 0.85rem;
-      margin-bottom: 12px;
+      font-size: 0.82rem;
+      margin-bottom: 8px;
       display: flex;
       justify-content: space-around;
       text-align: center;
@@ -236,6 +236,7 @@
       align-items: center;
       z-index: 5;
       pointer-events: none;
+      transition: top 0.35s ease, height 0.35s ease;
     }
 
     /* 小さめに配置された敵立ち絵 */
@@ -248,6 +249,7 @@
       /* 待機中は上下させ、生きているように見せる（数値を小さくするほど速くなる） */
       animation: enemy-idle 2.2s ease-in-out infinite;
       transform-origin: center bottom;
+      transition: transform 0.2s, filter 0.3s, max-width 0.35s ease, max-height 0.35s ease;
     }
 
     /* 呼吸するような上下動。浮くほど影が離れて柔らかくなる */
@@ -423,19 +425,19 @@
     .question-card {
       background: rgba(0, 0, 0, 0.5);
       border: 1px solid #553a2e;
-      padding: 15px;
+      padding: 13px;
       border-radius: 8px;
-      min-height: 65px;
+      min-height: 56px;
       font-size: 1.05rem;
-      margin-bottom: 12px;
+      margin-bottom: 9px;
       display: flex;
       align-items: center;
       line-height: 1.5;
     }
 
     .feedback {
-      margin-top: 10px;
-      padding: 10px;
+      margin-top: 8px;
+      padding: 9px;
       border-radius: 8px;
       font-weight: bold;
       text-align: center;
@@ -460,8 +462,8 @@
 
     /* 📜 解説（正解・不正解にかかわらず必ず表示する） */
     .explanation {
-      margin-top: 12px;
-      padding: 14px 16px;
+      margin-top: 8px;
+      padding: 12px 14px;
       background: linear-gradient(180deg, rgba(62, 46, 31, 0.55) 0%, rgba(28, 21, 16, 0.6) 100%);
       border: 1px solid #6b5236;
       border-left: 4px solid #f3a852;
@@ -581,9 +583,9 @@
     .mark-row {
       display: flex;
       align-items: center;
-      gap: 10px;
-      margin-top: 10px;
-      padding: 10px 12px;
+      gap: 9px;
+      margin-top: 8px;
+      padding: 7px 11px;
       background: rgba(80, 60, 30, 0.35);
       border: 1px solid #6b5236;
       border-radius: 8px;
@@ -938,15 +940,15 @@
     /* 🗣 味方と観客の帯 */
     .stage-row {
       display: flex;
-      gap: 12px;
+      gap: 10px;
       align-items: stretch;
-      margin-bottom: 12px;
-      min-height: 118px;
+      margin-bottom: 8px;
+      min-height: 86px;
     }
 
     .ally-canvas {
-      width: 78px;
-      height: 117px;
+      width: 58px;
+      height: 87px;
       flex-shrink: 0;
       border-radius: 8px;
       background: rgba(0, 0, 0, 0.35);
@@ -964,14 +966,14 @@
     /* 味方のひとこと */
     .ally-bubble {
       position: relative;
+      min-height: 34px;
       background: linear-gradient(180deg, rgba(70, 52, 34, 0.85), rgba(44, 32, 22, 0.85));
       border: 1px solid #7a5f3c;
       border-radius: 10px;
-      padding: 8px 12px;
-      font-size: 0.92rem;
+      padding: 6px 11px;
+      font-size: 0.9rem;
       color: #ffeccd;
-      line-height: 1.45;
-      min-height: 38px;
+      line-height: 1.4;
       display: flex;
       align-items: center;
     }
@@ -997,8 +999,8 @@
     /* 軍勢の声。巻物のふちに見立てた細い帯 */
     .comment-strip {
       flex: 1;
-      min-height: 66px;
-      max-height: 66px;
+      min-height: 42px;
+      max-height: 42px;
       overflow: hidden;
       background: rgba(0, 0, 0, 0.4);
       border: 1px solid #443028;
@@ -1032,12 +1034,38 @@
       to   { transform: translateY(0); opacity: 1; }
     }
 
+    /* パソコンでは左側が空いているので、味方と軍勢をそちらへ出す。
+       カードの中は問題・解答・解説だけにして、スクロールなしで読み切れるようにする */
     @media (min-width: 900px) {
-      .stage-row { min-height: 150px; margin-bottom: 16px; }
-      .ally-canvas { width: 100px; height: 150px; }
-      .ally-bubble { font-size: 1.05rem; min-height: 46px; }
-      .comment-strip { min-height: 92px; max-height: 92px; }
-      .comment-line { font-size: 0.84rem; }
+      /* 味方と実況は左の余白へ。カードに backdrop-filter があるため fixed は
+         カード基準になってしまう。カードからの相対位置で左どなりに置く */
+      .stage-row {
+        position: absolute;
+        left: -276px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 246px;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 0;
+        min-height: 0;
+        z-index: 12;
+      }
+      .ally-canvas { width: 190px; height: 285px; }
+      .stage-right { width: 100%; flex: none; }
+      .ally-bubble { font-size: 1rem; min-height: 48px; }
+      .ally-bubble::before {
+        left: 50%;
+        top: -7px;
+        margin-left: -6px;
+        border: none;
+        border-left: 6px solid transparent;
+        border-right: 6px solid transparent;
+        border-bottom: 7px solid #7a5f3c;
+      }
+      .comment-strip { min-height: 110px; max-height: 110px; }
+      .comment-line { font-size: 0.8rem; }
     }
 
     .review-reveal {
@@ -1134,6 +1162,33 @@
       opacity: 1;
     }
 
+    /* 画面の高さが足りない端末では、解説を読み切れるよう各所をさらに詰める */
+    @media (max-height: 745px) and (max-width: 899px) {
+      body { padding: 8px; }
+      .app-container { padding: 12px; }
+      .stage-row { min-height: 64px; gap: 8px; margin-bottom: 6px; }
+      .ally-canvas { width: 44px; height: 66px; }
+      .ally-bubble { min-height: 28px; padding: 5px 9px; font-size: 0.84rem; }
+      .comment-strip { min-height: 28px; max-height: 28px; padding: 2px 7px; }
+      .comment-line { font-size: 0.7rem; line-height: 1.35; }
+      .stats { padding: 5px 8px; font-size: 0.76rem; margin-bottom: 6px; }
+      .question-card { padding: 10px; min-height: 46px; font-size: 0.98rem; margin-bottom: 7px; }
+      .feedback { padding: 7px; font-size: 0.9rem; margin-top: 6px; }
+      .mark-row { padding: 5px 9px; margin-top: 6px; font-size: 0.86rem; }
+      .mark-row input[type="checkbox"] { width: 17px; height: 17px; }
+      .explanation { padding: 9px 11px; font-size: 0.86rem; line-height: 1.7; margin-top: 6px; }
+      .explanation-title { font-size: 0.76rem; margin-bottom: 3px; }
+      button, input[type="text"] { padding: 9px; margin-bottom: 7px; }
+      #back-setup-btn { padding: 6px; font-size: 0.84rem; }
+    }
+
+    /* 画面がとても低い端末では、解説の中だけをスクロールさせて、
+       「次の問題へ」が画面の外に押し出されないようにする。
+       ダメージ演出は .full-fx-layer（z-index 15）にあるのでカードには隠れない */
+    @media (max-height: 620px) and (max-width: 899px) {
+      .explanation { max-height: 26vh; overflow-y: auto; }
+    }
+
     .hidden { display: none !important; }
 
     /* =========================================================
@@ -1155,7 +1210,7 @@
       }
 
       /* 戦闘中は右側に敵とHPバーの列を置くので、その分の幅を空ける */
-      body.quiz-layout { padding-right: 250px; }
+      body.quiz-layout { padding-right: 250px; padding-left: 290px; }
 
       /* 敵は右上に小さく */
       .enemy-stage {
@@ -2379,9 +2434,12 @@
       btn.type = 'button';
       btn.textContent = text;
       btn.addEventListener('click', () => {
+        // 解説の居場所をあけるため、答え合わせのあとは正解の選択肢だけを残す。
+        // 4つ並べたままだと、スマホでは解説が画面の下に押し出されてしまう
         box.querySelectorAll('button').forEach(b => {
           b.disabled = true;
           if (b.textContent === q.answer) b.classList.add('is-answer');
+          else b.classList.add('hidden');
         });
         submitAnswer(text);
       });
@@ -2557,6 +2615,7 @@
     feedback.className = 'feedback';
     feedback.textContent = '';
     document.getElementById('explanation').classList.add('hidden');
+    document.body.classList.remove('reading');
     document.getElementById('mark-row').classList.add('hidden');
 
     updateStats();
@@ -2637,7 +2696,9 @@
 
     updateHpBar();
 
-    const displayDamage = Math.round(damagePercent * 100);
+    // 残りHPと同じ目盛りで見せる。ここを100倍すると「残りHP 86」の横に
+    // 「1444」が出てしまい、どれだけ削れたのかが読み取れなくなる
+    const displayDamage = Math.round(damagePercent);
     damage.textContent = `${label}${displayDamage}`;
 
     enemySprite.classList.remove('shake', 'defeated');
@@ -2728,6 +2789,7 @@
 
     document.getElementById('answer-input').disabled = true;
     document.getElementById('submit-btn').classList.add('hidden');
+    document.getElementById('answer-form').classList.add('hidden');   // 解説の場所をあける
 
     const verdict = judgeAnswer(input, q);
 
@@ -2821,6 +2883,7 @@
     box.appendChild(document.createTextNode(q.explanation || 'この問題の解説はまだ用意されていません。'));
 
     box.classList.remove('hidden');
+    document.body.classList.add('reading');
     box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
 
@@ -3045,7 +3108,7 @@
 
     clearSession();
     hideBattleLayers();
-    document.body.classList.remove('quiz-layout');
+    document.body.classList.remove('quiz-layout', 'reading');
     document.getElementById('quiz-screen').classList.add('hidden');
     document.getElementById('result-screen').classList.remove('hidden');
     updateReviewBtn();
@@ -3098,7 +3161,7 @@
 
   function goSetup() {
     hideBattleLayers();
-    document.body.classList.remove('quiz-layout');
+    document.body.classList.remove('quiz-layout', 'reading');
     document.getElementById('review-screen').classList.add('hidden');
     document.getElementById('result-screen').classList.add('hidden');
     document.getElementById('quiz-screen').classList.add('hidden');
@@ -3111,7 +3174,7 @@
   function goHome() {
     delete document.body.dataset.subject;
     hideBattleLayers();
-    document.body.classList.remove('quiz-layout');
+    document.body.classList.remove('quiz-layout', 'reading');
     document.body.classList.add('home-layout');
     document.getElementById('review-screen').classList.add('hidden');
     document.getElementById('result-screen').classList.add('hidden');
