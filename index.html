@@ -999,9 +999,12 @@
     /* 軍勢の声。巻物のふちに見立てた細い帯 */
     .comment-strip {
       flex: 1;
-      min-height: 42px;
-      max-height: 42px;
+      min-height: 56px;
+      max-height: 56px;
       overflow: hidden;
+      /* 入りきらない古い行は上へ流れて消える。ふちをぼかして切れ目を隠す */
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 14px);
+      mask-image: linear-gradient(to bottom, transparent 0, #000 14px);
       background: rgba(0, 0, 0, 0.4);
       border: 1px solid #443028;
       border-left: 3px solid #6b5236;
@@ -1014,6 +1017,9 @@
     }
 
     .comment-line {
+      /* 縮ませない。既定のままだと帯に4行を押しこもうとして
+         1行6pxまでつぶれ、文字が重なって読めなくなる */
+      flex: 0 0 auto;
       font-size: 0.76rem;
       line-height: 1.5;
       white-space: nowrap;
@@ -1185,8 +1191,22 @@
     /* 画面がとても低い端末では、解説の中だけをスクロールさせて、
        「次の問題へ」が画面の外に押し出されないようにする。
        ダメージ演出は .full-fx-layer（z-index 15）にあるのでカードには隠れない */
+    /* 答え合わせのあとに残る正解の選択肢は、読むためのものなので小さくてよい。
+       スマホではこの高さぶん、解説が画面の外に押し出されてしまう */
+    @media (max-width: 899px) {
+      body.reading .choice-box { margin-bottom: 6px; }
+      body.reading .choice-box button { min-height: 38px; font-size: 0.92rem; padding: 6px 8px; }
+    }
+
+    @media (max-height: 700px) and (max-width: 899px) {
+      .explanation { max-height: 30vh; overflow-y: auto; }
+      /* さらに低い画面では選択肢を置く余裕もない。
+         正答は判定バーにも「無念…（正答: ○○）」と出るので、情報は失われない */
+      body.reading #choice-box { display: none; }
+    }
+
     @media (max-height: 620px) and (max-width: 899px) {
-      .explanation { max-height: 26vh; overflow-y: auto; }
+      .explanation { max-height: 24vh; }
     }
 
     .hidden { display: none !important; }
@@ -2425,16 +2445,243 @@
   });
   updateModeBtns();
 
-  function buildChoices(q) {
-    const pool = allQuestions
-      .filter(x => x.category === q.category && x.answer !== q.answer)
-      .map(x => x.answer);
-    const others = [];
-    while (others.length < 3 && pool.length) {
-      const pick = pool.splice(Math.floor(Math.random() * pool.length), 1)[0];
-      if (!others.includes(pick)) others.push(pick);
+  // 答えの「型」。人物を問う問題に年号や地名が混ざっていると、
+  // 中身を知らなくても消去法で当てられてしまうので、型をそろえて選択肢をつくる
+  function answerKind(q) {
+    const a = q.answer;
+    if (/[はがの](だれ|誰)か/.test(q.question)) return 'person';
+    if (/^-?\d+(\.\d+)?$/.test(a)) return 'number';
+    if (/^-?\d*\/\d+$/.test(a)) return 'fraction';
+    if (/^[A-Z][A-Za-z]*\d/.test(a) || /^[A-Z][a-z]?$/.test(a)) return 'chemical';  // H2O, CO2, O
+    if (/^[A-Z]{2,}[a-z]?$/.test(a)) return 'acronym';                               // GHQ, PKO, SDGs
+    if (/^[A-Za-z][A-Za-z '-]*$/.test(a)) return 'latin';                      // 英単語
+    if (/[a-zA-Zπ]/.test(a) && /[0-9²³=+\-()]/.test(a)) return 'expr';         // 8x, x=4
+    if (/^[ァ-ヴー・]+$/.test(a)) return 'katakana';
+    if (/^[ぁ-ん]+$/.test(a)) return 'hiragana';
+    return 'term';
+  }
+
+  // 設問が「漢字2字で答えなさい」と字数を指定しているとき、
+  // 選択肢の字数がばらばらだと数えるだけで正解が分かってしまう
+  function specifiedLength(q) {
+    const m = q.question.match(/(\d+)\s*字/);
+    return m ? Number(m[1]) : null;
+  }
+
+  const uniqPush = (list, text, answer) => {
+    if (text !== answer && !list.includes(text)) list.push(text);
+  };
+
+  // 略称・化学式・一字の作物は、教科の中に似た答えがほとんど無く、
+  // 借りてくると「GHQ / 沖縄 / 川端康成」のように一目で見分けがついてしまう。
+  // 中学で習う範囲から、まぎらわしい仲間をあらかじめ用意しておく
+  const CHOICE_BANK = {
+    acronym: ['WHO', 'WTO', 'NGO', 'NPO', 'PKO', 'ODA', 'GHQ', 'IMF', 'EU', 'ASEAN',
+              'APEC', 'OPEC', 'UNESCO', 'UNICEF', 'TPP', 'GDP', 'GNP', 'DNA', 'RNA',
+              'LED', 'NATO', 'JICA', 'ILO', 'FAO', 'PTA', 'NHK'],
+    chemical: ['H2O', 'CO2', 'O2', 'N2', 'H2', 'NaCl', 'HCl', 'NH3', 'CuO', 'FeS',
+               'ZnO', 'MgO', 'CaCO3', 'Ag', 'Cu', 'Fe', 'Zn', 'Mg', 'Na', 'Cl', 'O', 'H', 'C', 'N'],
+    crop1: ['米', '麦', '茶', '梅', '桃', '栗', '豆', '芋', '菜', '藍', '綿', '絹'],
+    grammar: ['現在分詞', '現在完了', '過去完了', '過去形', '現在形', '原形', '不定詞',
+              '動名詞', '比較級', '最上級', '進行形', '受け身', '助動詞', '関係代名詞'],
+    shape: ['正三角形', '直角三角形', '二等辺三角形', '鈍角三角形', '鋭角三角形',
+            '平行四辺形', 'ひし形', '台形', '正方形', '長方形', 'おうぎ形', '正多角形'],
+  };
+
+  // 教科の中に同じ種類の答えが1つしかないもの。仲間がいないと、
+  // 公害病の問題に「公的扶助」が並んで一目で見分けがついてしまう
+  const SUFFIX_BANK = {
+    '病': ['水俣病', 'イタイイタイ病', '新潟水俣病', '四日市ぜんそく'],
+    '遺跡': ['吉野ヶ里遺跡', '三内丸山遺跡', '登呂遺跡', '岩宿遺跡'],
+  };
+
+  // 数や式は、他の問題から借りるより「ありがちな計算まちがい」を作るほうが手ごわい
+  function fakeNumbers(a, allowNegative) {
+    const v = Number(a);
+    if (!isFinite(v)) return [];
+    const isInt = Number.isInteger(v);
+    const abs = Math.abs(v);
+    // 340 に対する 341 のような細かすぎるずらし方はしない。
+    // 大きな数では、桁の取りちがえや倍・半分のほうが本物らしいまちがいになる
+    const step = abs >= 20 ? Math.pow(10, Math.floor(Math.log10(abs)) - 1) : 1;
+    const cands = abs >= 20
+      ? [v * 2, v / 2, v * 10, v / 10, v + step, v - step]
+      : (allowNegative ? [-v, v + 1, v - 1, v * 2, v + 2, v - 2]
+                       : [v + 1, v - 1, v + 2, v - 2, v * 2, v + 10]);
+    if (allowNegative && abs >= 20) cands.unshift(-v);
+    const out = [];
+    cands.forEach(c => {
+      if (!isFinite(c) || c === v) return;
+      if (isInt && !Number.isInteger(c)) return;
+      if (!allowNegative && c < 0) return;
+      uniqPush(out, String(c), a);
+    });
+    return out;
+  }
+
+  // 座標や、文字だけの式。まわりから借りると意味の通らない選択肢になる
+  function fakeMathForms(a) {
+    const out = [];
+    let m = a.match(/^\((-?\d+),\s*(-?\d+)\)$/);          // (0,0)
+    if (m) {
+      const x = Number(m[1]), y = Number(m[2]);
+      [[x + 1, y], [x, y + 1], [x + 1, y + 1], [y, x], [-x, -y]]
+        .forEach(([p, r]) => uniqPush(out, `(${p},${r})`, a));
+      return out;
     }
-    return [q.answer, ...others].sort(() => Math.random() - 0.5);
+    m = a.match(/^([a-z])([a-z])$/);                          // ab
+    if (m) {
+      const [, x, y] = m;
+      [`${x}+${y}`, `2${x}${y}`, `${x}-${y}`, `${x}${y}/2`].forEach(t => uniqPush(out, t, a));
+    }
+    return out;
+  }
+
+  function fakeFractions(a) {
+    const m = a.match(/^(-?\d*)\/(\d+)$/);
+    if (!m) return [];
+    const n = m[1] === '' ? 1 : Number(m[1]);
+    const d = Number(m[2]);
+    const out = [];
+    const push = (x, y) => { if (y >= 2 && x !== 0) uniqPush(out, `${x}/${y}`, a); };
+    push(d, n);                      // 逆数。分母と分子の取りちがえは定番のまちがい
+    push(n + 1, d); push(n, d + 1); push(n, d - 1); push(n * 2, d); push(n + 1, d + 1);
+    return out;
+  }
+
+  function fakeExprs(a) {
+    const out = [];
+    const withCoef = (k, rest) => (k === 1 ? rest : k === -1 ? `-${rest}` : `${k}${rest}`);
+    let m = a.match(/^(-?\d+)([a-zA-Zπ].*)$/);        // 8x, 3a, 2x+6 の先頭の係数を変える
+    if (m) {
+      const n = Number(m[1]);
+      [-n, n + 1, n - 1, n * 2, n + 2].forEach(k => {
+        if (k !== 0) uniqPush(out, withCoef(k, m[2]), a);
+      });
+    }
+    m = a.match(/^([a-zA-Z])=(-?\d+)$/);              // x=4
+    if (m) {
+      const v = Number(m[2]);
+      [-v, v + 1, v - 1, v * 2].forEach(k => uniqPush(out, `${m[1]}=${k}`, a));
+    }
+    return out;
+  }
+
+  // 「〜市」「〜平野」のように、答えの種類そのものを表す語尾。
+  // これがそろっていないと、埼玉県の県庁所在地の選択肢に「近郊農業」が並んでしまう
+  const TYPE_SUFFIX = ['の戦い', 'エネルギー', '裁判所', '委員会',
+    '平野', '盆地', '半島', '山地', '山脈', '海流', '海岸', '台地', '高原', '遺跡', '古墳',
+    '時代', '天皇', '条約', '戦争', '事変', 'の乱', 'の変', '主義', '法則', '反応', '現象',
+    '文化', '文学', '運動', '改革', '事件', '会議', '同盟', '幕府', '内閣', '条例', '制度',
+    '農業', '工業', '前線', '細胞', '器官', '気団', '宣言',
+    '病', '市', '県', '川', '山', '湖', '湾', '島', '港', '城', '寺', '藩', '宗',
+    '語', '教', '権', '税', '党', '省', '庁', '院', '法', '令'];
+
+  function typeSuffix(a) {
+    for (const suf of TYPE_SUFFIX) {
+      if (a.length > suf.length && a.endsWith(suf)) return suf;
+    }
+    return null;
+  }
+
+  // まぎらわしさの点数。同じ種類・同じ分野・同じ語尾・同じ字数ほど高い
+  function confusionScore(target, cand) {
+    const ta = target.answer, ca = cand.answer;
+    let s = 0;
+    const ts = typeSuffix(ta);
+    if (ts && ts === typeSuffix(ca)) s += 12;
+    if (cand.category === target.category) s += 8;
+    if (ta.length >= 3 && ca.length >= 3 && ta.slice(-2) === ca.slice(-2)) s += 5;
+    else if (ta.slice(-1) === ca.slice(-1)) s += 2;
+    const d = Math.abs(ta.length - ca.length);
+    s += d === 0 ? 3 : (d === 1 ? 1 : 0);
+    if (ta[0] && ta[0].toLowerCase() === ca[0].toLowerCase()) s += 2;
+    return s;
+  }
+
+  // 正解がどの位置に来るかは偏りなく散らばらせる。
+  // sort に乱数を返す書き方は並びに偏りが出るため使わない
+  function shuffled(list) {
+    const out = list.slice();
+    for (let i = out.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [out[i], out[j]] = [out[j], out[i]];
+    }
+    return out;
+  }
+
+  function buildChoices(q) {
+    const kind = answerKind(q);
+    const banned = new Set([q.answer, ...(q.alt || [])]);
+
+    let made = [];
+    if (kind === 'number') made = fakeNumbers(q.answer, currentSubjectKey === 'math');
+    else if (kind === 'fraction') made = fakeFractions(q.answer);
+    else if (kind === 'expr') made = fakeExprs(q.answer);
+    if (!made.length && currentSubjectKey === 'math') made = fakeMathForms(q.answer);
+    made = made.filter(t => !banned.has(t));
+    if (made.length >= 3) {
+      return shuffled([q.answer, ...shuffled(made.slice(0, 5)).slice(0, 3)]);
+    }
+
+    // 作れないときは、まず用意した仲間から、次に同じ教科の他の問題の答えから借りる
+    const need = specifiedLength(q);
+    // 「27:64」や「(0,0)」を日本語の答えと同じ仲間に入れないよう、3つに分ける
+    const script = a => (/[ぁ-ヿ一-鿿]/.test(a) ? 'ja' : (/[A-Za-z]/.test(a) ? 'latin' : 'num'));
+    const others = made.slice(0, 3);
+
+    let bankKey = CHOICE_BANK[kind] ? kind : null;
+    if (!bankKey && kind === 'term') {
+      // 用意した仲間は、その話をしている問題にだけ使う。
+      // 「惣」のような一字の答えに作物を並べても、まぎらわしくならない
+      if (need === 1 && /農産物|作物|果実|栽培|生産量/.test(q.question)) bankKey = 'crop1';
+      else if (currentSubjectKey === 'english') bankKey = 'grammar';   // 英語の中に日本語の答えが2問しかない
+      else if (currentSubjectKey === 'math' && /三角形|四角形|多角形|図形/.test(q.question)) bankKey = 'shape';
+    }
+    if (bankKey) {
+      const bank = CHOICE_BANK[bankKey]
+        .filter(t => !banned.has(t) && (need === null || t.length === need));
+      shuffled(bank).forEach(t => { if (others.length < 3) uniqPush(others, t, q.answer); });
+    }
+
+    const sufBank = SUFFIX_BANK[typeSuffix(q.answer) || ''];
+    if (sufBank) {
+      shuffled(sufBank.filter(t => !banned.has(t) && (need === null || t.length === need)))
+        .forEach(t => { if (others.length < 3) uniqPush(others, t, q.answer); });
+    }
+
+    const seen = new Set(banned);
+    const pool = [];
+    allQuestions.forEach(x => {
+      if (seen.has(x.answer)) return;
+      if ((x.alt || []).some(alt => banned.has(alt))) return;   // 別解が正答と重なるものは除く
+      seen.add(x.answer);
+      pool.push(x);
+    });
+
+    // 型と字数がそろっているものほど見分けにくい。上から順に足りるまで使う
+    const sameLen = x => need === null || x.answer.length === need;
+    const tiers = [
+      pool.filter(x => answerKind(x) === kind && sameLen(x)),
+      pool.filter(x => script(x.answer) === script(q.answer) && sameLen(x)),
+      pool.filter(x => answerKind(x) === kind),
+      pool.filter(x => script(x.answer) === script(q.answer)),
+      pool,
+    ];
+    for (const tier of tiers) {
+      if (others.length >= 3) break;
+      const ranked = shuffled(tier).sort((x, y) => confusionScore(q, y) - confusionScore(q, x));
+      // 毎回まったく同じ顔ぶれにならないよう幅をもたせつつ、
+      // 点数が大きく落ちる候補（時代ちがいの人物など）までは広げない
+      const best = ranked.length ? confusionScore(q, ranked[0]) : 0;
+      const band = ranked.filter(x => confusionScore(q, x) >= best - 3).slice(0, 6);
+      // まず点数の近いものから選ぶ。足りなければ同じ段の残りで埋める。
+      // ここで次の段へ移ってしまうと、字数の指定などの条件が崩れる
+      [...shuffled(band), ...ranked].forEach(x => {
+        if (others.length < 3) uniqPush(others, x.answer, q.answer);
+      });
+    }
+    return shuffled([q.answer, ...others.slice(0, 3)]);
   }
 
   function showChoices(q) {
