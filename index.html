@@ -1191,6 +1191,27 @@
     /* 画面がとても低い端末では、解説の中だけをスクロールさせて、
        「次の問題へ」が画面の外に押し出されないようにする。
        ダメージ演出は .full-fx-layer（z-index 15）にあるのでカードには隠れない */
+    /* ソフトキーボードが出ている間。画面の下半分がキーボードに隠れてしまうため、
+       問題と入力欄を画面の上へ寄せる。敵とは重なってよい（ユーザーの指示） */
+    @media (max-width: 899px) {
+      body.keyboard {
+        justify-content: flex-start;
+        padding-top: 40px;        /* 画面最上部のHPバーを避ける */
+      }
+      /* 味方・実況・戻るボタンは、入力中は見えなくてよい */
+      body.keyboard .stage-row,
+      body.keyboard #back-setup-btn { display: none; }
+      body.keyboard .app-container { margin-bottom: 0; }
+      body.keyboard .stats { margin-bottom: 8px; }
+      /* 敵はカードの下でうっすら見える程度にして、問題文を読みやすくする */
+      body.keyboard .enemy-stage { opacity: 0.28; }
+
+      /* キーボードで見える範囲がとくに狭い端末では、進捗の帯も引っこめる */
+      body.keyboard-tight { padding-top: 28px; }
+      body.keyboard-tight .stats { display: none; }
+      body.keyboard-tight .question-card { margin-bottom: 8px; }
+    }
+
     /* 答え合わせのあとに残る正解の選択肢は、読むためのものなので小さくてよい。
        スマホではこの高さぶん、解説が画面の外に押し出されてしまう */
     @media (max-width: 899px) {
@@ -3047,6 +3068,8 @@
 
     document.getElementById('answer-input').disabled = true;
     document.getElementById('submit-btn').classList.add('hidden');
+    document.getElementById('answer-input').blur();                  // キーボードを閉じる
+    applyKeyboardMode(false);
     document.getElementById('answer-form').classList.add('hidden');   // 解説の場所をあける
 
     const verdict = judgeAnswer(input, q);
@@ -3129,6 +3152,40 @@
     saveReviewState();
     updateReviewBtn();
   });
+
+  // スマホでフリック入力をすると、キーボードが画面の下半分を覆って問題文が隠れる。
+  // 入力中だけカードを画面の上へ寄せ、問題と入力欄が必ず見えるようにする
+  const viewport = window.visualViewport;
+  let widestViewHeight = viewport ? viewport.height : 0;
+  let keyboardOn = false;
+
+  function keyboardShown() {
+    if (!viewport) return false;
+    // キーボードが出ると見える範囲が縮む。いちばん広かったときとの差で判定する。
+    // iPhone は innerHeight が変わらず、Android は変わるので、この方法なら両方に効く
+    widestViewHeight = Math.max(widestViewHeight, viewport.height);
+    return widestViewHeight - viewport.height > 120;
+  }
+
+  function applyKeyboardMode(on) {
+    // 小さい端末ではキーボードの上がさらに狭くなるので、削る量を一段増やす
+    document.body.classList.toggle('keyboard-tight', on && !!viewport && viewport.height < 380);
+    if (on === keyboardOn) return;
+    keyboardOn = on;
+    document.body.classList.toggle('keyboard', on);
+    if (on) window.scrollTo(0, 0);
+  }
+
+  (function watchKeyboard() {
+    const input = document.getElementById('answer-input');
+    // キーボードが出るまで少し間があるため、縮むのを待ってから切りかえる
+    input.addEventListener('focus', () => setTimeout(() => applyKeyboardMode(keyboardShown()), 150));
+    // blur では戻さない。送信ボタンを押した瞬間に blur → 配置が変わる → 指の下から
+    // ボタンが逃げてタップが外れる。キーボードが実際に閉じて画面が広がってから戻す
+    if (viewport) {
+      viewport.addEventListener('resize', () => applyKeyboardMode(keyboardShown()));
+    }
+  })();
 
   function showExplanation(q) {
     const box = document.getElementById('explanation');
