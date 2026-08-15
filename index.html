@@ -1848,17 +1848,28 @@
   let slashBuffer = null;      // 読みこみ済みの音声データ
   let slashFailed = false;     // 読みこみに失敗したか
 
+  // iPhone・iPad は Vibration API を実装していない（ブラウザを変えても同じ）。
+  // 対応の有無を見ずにバイブを出すと、選べるのに何も起きず壊れて見えるため、
+  // 非対応の端末では選択肢そのものから外し、理由を画面に出す
+  const canVibrate = typeof navigator.vibrate === 'function';
+
   // 教室・電車・深夜で1回鳴っただけでアプリを消される事故を避けるため、
   // 初期値は音ではなく振動にしてある
-  const FEEDBACK_MODES = ['vibe', 'sound', 'none'];
-  const FEEDBACK_LABEL = { vibe: '📳 手ごたえ: バイブ', sound: '🔊 手ごたえ: 音', none: '🔇 手ごたえ: なし' };
+  const FEEDBACK_MODES = canVibrate ? ['vibe', 'sound', 'none'] : ['sound', 'none'];
+  const FEEDBACK_LABEL = {
+    vibe: '📳 手ごたえ: バイブ',
+    sound: canVibrate ? '🔊 手ごたえ: 音' : '🔊 手ごたえ: 音（この端末はバイブ非対応）',
+    none: '🔇 手ごたえ: なし',
+  };
   let feedbackMode = localStorage.getItem('feedbackMode');
   if (!feedbackMode) {
     // 以前の設定があれば引き継ぐ
     const old = localStorage.getItem('soundEnabled');
     feedbackMode = old === 'on' ? 'sound' : (old === 'off' ? 'none' : 'vibe');
-    localStorage.setItem('feedbackMode', feedbackMode);
   }
+  // 非対応の端末に「バイブ」が保存されたままだと、無反応の原因になる
+  if (!FEEDBACK_MODES.includes(feedbackMode)) feedbackMode = FEEDBACK_MODES[0];
+  localStorage.setItem('feedbackMode', feedbackMode);
 
   function getAudioContext() {
     if (audioCtx) return audioCtx;
