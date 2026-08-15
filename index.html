@@ -1282,6 +1282,8 @@
 
     .order-slots .order-chip { border-color: var(--accent); }
     .order-chip.dragging { opacity: 0.25; }
+    /* 取った語は消さずに隠す。場所が残るので、残りの語が左へ詰まらない */
+    .order-chip.taken { visibility: hidden; }
 
     .order-chip.ghost {
       position: fixed; z-index: 40; pointer-events: none;
@@ -3357,17 +3359,19 @@
   // 「as ... as」のように同じ語が2回出る文があるため、語は番号で持つ。
   // 文字で消すと、もう片方まで消えてしまう
   let orderSlots = [];        // 上の欄に並べた語
-  let orderBankItems = [];    // 語群に残っている語
+  let orderLayout = [];       // 語群の並び。取っても場所は詰めないので、最後まで動かさない
   let orderLocked = false;    // 答え合わせ後は動かせなくする
+
+  const isTaken = item => orderSlots.includes(item);
 
   function setupOrder(q) {
     const items = q.tokens.map((text, key) => ({ key, text }));
     orderSlots = [];
-    orderBankItems = shuffled(items);
+    orderLayout = shuffled(items);
     // まぐれで最初から正解の並びにならないようにする
-    if (orderBankItems.length > 2 &&
-        orderBankItems.map(t => t.text).join(' ') === q.tokens.join(' ')) {
-      orderBankItems.push(orderBankItems.shift());
+    if (orderLayout.length > 2 &&
+        orderLayout.map(t => t.text).join(' ') === q.tokens.join(' ')) {
+      orderLayout.push(orderLayout.shift());
     }
     orderLocked = false;
     renderOrder();
@@ -3398,10 +3402,17 @@
       end.textContent = (q && q.end) || '.';
       slots.appendChild(end);
     }
-    orderBankItems.forEach((item, i) => bank.appendChild(makeChip(item, 'bank', i)));
+
+    // 取った語は消さずに見えなくするだけ。こうすると残りの語が左へ動かず、
+    // どこに何があったかを覚えたまま並べかえられる
+    orderLayout.forEach((item, i) => {
+      const chip = makeChip(item, 'bank', i);
+      if (isTaken(item)) chip.classList.add('taken');
+      bank.appendChild(chip);
+    });
 
     // 語群を使い切るまでは判定させない
-    document.getElementById('order-submit-btn').disabled = orderBankItems.length > 0;
+    document.getElementById('order-submit-btn').disabled = orderSlots.length < orderLayout.length;
   }
 
   function orderSentence() {
@@ -3426,12 +3437,24 @@
     const bank = document.getElementById('order-bank');
     let drag = null;
 
-    function moveItem(from, fromIndex, to, toIndex) {
-      const source = from === 'slot' ? orderSlots : orderBankItems;
-      const [item] = source.splice(fromIndex, 1);
+    // 語群から上の欄へ。語群側は場所をそのまま空けておく
+    function takeFromBank(layoutIndex, slotIndex) {
+      const item = orderLayout[layoutIndex];
+      if (!item || isTaken(item)) return;
+      orderSlots.splice(Math.max(0, Math.min(slotIndex, orderSlots.length)), 0, item);
+      renderOrder();
+    }
+
+    // 上の欄から語群へ。もとあった場所へ戻る
+    function returnToBank(slotIndex) {
+      orderSlots.splice(slotIndex, 1);
+      renderOrder();
+    }
+
+    function moveWithinSlots(fromIndex, toIndex) {
+      const [item] = orderSlots.splice(fromIndex, 1);
       if (!item) return renderOrder();
-      const target = to === 'slot' ? orderSlots : orderBankItems;
-      target.splice(Math.max(0, Math.min(toIndex, target.length)), 0, item);
+      orderSlots.splice(Math.max(0, Math.min(toIndex, orderSlots.length)), 0, item);
       renderOrder();
     }
 
@@ -3487,15 +3510,23 @@
 
       // 動かさずに離した＝タップ。反対側へ移す
       if (!d.moved) {
-        if (d.where === 'bank') moveItem('bank', d.index, 'slot', orderSlots.length);
-        else moveItem('slot', d.index, 'bank', orderBankItems.length);
+        if (d.where === 'bank') takeFromBank(d.index, orderSlots.length);
+        else returnToBank(d.index);
         return;
       }
-      const to = isOver(slots, e.clientX, e.clientY) ? 'slot'
-               : (isOver(bank, e.clientX, e.clientY) ? 'bank' : null);
-      if (!to) return renderOrder();   // 枠の外で離したら元に戻す
-      const container = to === 'slot' ? slots : bank;
-      moveItem(d.where, d.index, to, insertIndexAt(container, e.clientX, e.clientY));
+      const onSlots = isOver(slots, e.clientX, e.clientY);
+      const onBank = isOver(bank, e.clientX, e.clientY);
+      if (!onSlots && !onBank) return renderOrder();   // 枠の外で離したら元に戻す
+
+      if (d.where === 'bank') {
+        // 語群へ落としても、その語はもとの場所に残るだけ
+        if (onSlots) takeFromBank(d.index, insertIndexAt(slots, e.clientX, e.clientY));
+        else renderOrder();
+      } else if (onSlots) {
+        moveWithinSlots(d.index, insertIndexAt(slots, e.clientX, e.clientY));
+      } else {
+        returnToBank(d.index);
+      }
     }
 
     area.addEventListener('pointerup', finishDrag);
@@ -3503,13 +3534,13 @@
 
     document.getElementById('order-reset-btn').addEventListener('click', () => {
       if (orderLocked) return;
-      orderBankItems = shuffled(orderBankItems.concat(orderSlots));
+      // 語群の並びは変えずに、全部もとの場所へ戻す
       orderSlots = [];
       renderOrder();
     });
 
     document.getElementById('order-submit-btn').addEventListener('click', () => {
-      if (orderLocked || orderBankItems.length > 0) return;
+      if (orderLocked || orderSlots.length < orderLayout.length) return;
       const q = currentSessionQuestions[currentQuestionIndex];
       submitAnswer(orderSentence(), judgeOrder(q));
     });
