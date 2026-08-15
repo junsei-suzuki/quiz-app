@@ -955,27 +955,80 @@
       margin-bottom: 0;
     }
 
-    /* 記録画面のカレンダー */
-    .record-cal-label { font-size: 0.82rem; color: #a89684; margin-bottom: 6px; }
+    /* 記録画面のカレンダー。月表示で、日付をタップすると詳細と
+       「決戦の日」の登録が見られる */
+    .record-cal-label { font-size: 0.82rem; color: #a89684; margin-bottom: 10px; }
+
+    .cal-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    .cal-header button { width: auto; padding: 6px 12px; margin-bottom: 0; font-size: 0.9rem; }
+    .cal-title { font-weight: bold; font-size: 0.98rem; min-width: 7em; text-align: center; }
+    .cal-badge {
+      font-size: 0.68rem;
+      padding: 2px 9px;
+      border-radius: 999px;
+      background: rgba(243, 168, 82, 0.22);
+      border: 1px solid #f3a852;
+      color: #ffd08a;
+      white-space: nowrap;
+    }
 
     .record-calendar {
       display: grid;
-      grid-template-rows: repeat(7, 1fr);
-      grid-auto-flow: column;
+      grid-template-columns: repeat(7, 1fr);
       gap: 4px;
-      margin-bottom: 10px;
+      margin-bottom: 6px;
     }
 
-    .record-calendar i, .record-legend i {
-      display: block;
+    .cal-weekday {
+      text-align: center;
+      font-size: 0.68rem;
+      color: #a89684;
+      padding-bottom: 2px;
+    }
+
+    .cal-cell {
       aspect-ratio: 1;
-      border-radius: 3px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      font-variant-numeric: tabular-nums;
+      color: #d8cdbd;
       background: rgba(255, 255, 255, 0.07);
+      border: 1px solid transparent;
+      margin-bottom: 0;
+      padding: 0;
+      cursor: pointer;
     }
+    .cal-cell.empty { visibility: hidden; cursor: default; }
+    .cal-cell.lv1 { background: rgba(243, 168, 82, 0.35); }
+    .cal-cell.lv2 { background: rgba(243, 168, 82, 0.65); }
+    .cal-cell.lv3 { background: #f3a852; color: #2b1a06; font-weight: bold; }
+    .cal-cell.today { border-color: #fff; }
+    .cal-cell.future { opacity: 0.5; }
+    .cal-cell.exam { border-color: #ff8e98; border-width: 2px; }
+    .cal-cell.selected { outline: 2px solid #fff; outline-offset: 1px; }
 
-    .record-calendar i.lv1, .record-legend i.lv1 { background: rgba(243, 168, 82, 0.35); }
-    .record-calendar i.lv2, .record-legend i.lv2 { background: rgba(243, 168, 82, 0.65); }
-    .record-calendar i.lv3, .record-legend i.lv3 { background: #f3a852; }
+    .cal-detail {
+      margin-top: 4px;
+      margin-bottom: 16px;
+      padding: 12px 14px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      font-size: 0.86rem;
+      text-align: left;
+      line-height: 1.7;
+    }
+    .cal-detail p { margin: 6px 0 0; }
+    .cal-detail button { width: auto; padding: 9px 14px; margin: 10px 0 0; }
 
     .record-legend {
       display: flex;
@@ -984,10 +1037,18 @@
       gap: 4px;
       font-size: 0.72rem;
       color: #a89684;
-      margin-bottom: 16px;
+      margin-bottom: 10px;
     }
 
-    .record-legend i { width: 12px; height: 12px; aspect-ratio: auto; }
+    .record-legend i {
+      display: block;
+      width: 12px; height: 12px;
+      border-radius: 3px;
+      background: rgba(255, 255, 255, 0.07);
+    }
+    .record-legend i.lv1 { background: rgba(243, 168, 82, 0.35); }
+    .record-legend i.lv2 { background: rgba(243, 168, 82, 0.65); }
+    .record-legend i.lv3 { background: #f3a852; }
 
     .record-subjects { margin-bottom: 16px; }
 
@@ -1400,6 +1461,56 @@
     .order-tools button { margin-bottom: 0; }
     .order-reset { background: var(--btn-sub); }
 
+    /* 答えや言葉で問題をさがす検索欄 */
+    .search-block { display: flex; gap: 8px; margin: 14px 0; }
+    .search-block input[type="text"] { flex: 1 1 auto; margin-bottom: 0; }
+    .search-block button { flex: 0 0 auto; width: auto; padding: 12px 16px; margin-bottom: 0; }
+
+    .search-results { margin-bottom: 14px; text-align: left; }
+    .search-count, .search-empty { font-size: 0.8rem; color: #a89684; margin: 0 0 8px; }
+
+    .search-item {
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      margin-bottom: 8px;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .search-item-head {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px;
+      width: 100%;
+      text-align: left;
+      padding: 10px 12px;
+      background: transparent;
+      border: none;
+      color: #f0e0d0;
+      margin-bottom: 0;
+      cursor: pointer;
+    }
+
+    .search-tag, .search-cat {
+      font-size: 0.68rem;
+      letter-spacing: 0.03em;
+      padding: 2px 7px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.08);
+      color: #c9b193;
+      flex: 0 0 auto;
+    }
+    .search-tag { background: var(--btn1); color: #ffe6d0; }
+    .search-q { flex: 1 1 auto; font-size: 0.9rem; line-height: 1.5; }
+
+    .search-item-body { padding: 0 14px 14px; border-top: 1px solid var(--card-border); }
+    .search-answer { font-size: 0.9rem; margin: 10px 0 6px; }
+    .search-explanation { font-size: 0.85rem; color: #d8cdbd; line-height: 1.7; margin: 0 0 10px; }
+    .search-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+    .search-actions button { flex: 1 1 auto; width: auto; margin-bottom: 0; padding: 9px; font-size: 0.84rem; }
+    .search-practice { background: var(--btn1); }
+
     /* 記録画面の設定まわり */
     .record-block {
       margin-top: 18px;
@@ -1613,6 +1724,13 @@
     <!-- 前回の続きと、今日の復習。教科を選び直さずにそのまま始められる -->
     <div id="quick-start" class="quick-start hidden"></div>
 
+    <!-- 答えや言葉から、どの問題だったかを全教科横断でさがす -->
+    <div class="search-block">
+      <input type="text" id="global-search-input" placeholder="答えや言葉で問題をさがす（全教科）">
+      <button type="button" id="global-search-btn">さがす</button>
+    </div>
+    <div id="global-search-results" class="search-results hidden"></div>
+
     <p style="text-align: center; color: #bba;">出陣する教科を選択してください</p>
 
     <div class="subject-grid">
@@ -1644,6 +1762,12 @@
         <button type="button" id="select-all-btn">全選択</button>
         <button type="button" id="deselect-all-btn">全解除</button>
       </div>
+
+      <!-- この教科の中だけをさがす。チェックで外した分野の問題も対象になる -->
+      <div class="search-block">
+        <input type="text" id="subject-search-input" placeholder="この教科の中をさがす">
+      </div>
+      <div id="subject-search-results" class="search-results hidden"></div>
 
       <div class="category-group" id="category-checkboxes">
         <!-- JavaScriptで動的生成 -->
@@ -1752,13 +1876,22 @@
   <div id="record-screen" class="hidden">
     <h2>学習の記録</h2>
     <div id="record-summary" class="review-summary"></div>
-    <div class="record-cal-label">直近10週間</div>
+
+    <div class="cal-header">
+      <button type="button" id="cal-prev-btn" class="btn-sub">◀</button>
+      <span id="cal-title" class="cal-title"></span>
+      <span id="cal-tier" class="cal-badge hidden"></span>
+      <button type="button" id="cal-next-btn" class="btn-sub">▶</button>
+    </div>
     <div id="record-calendar" class="record-calendar"></div>
     <div class="record-legend">
       <span>少</span>
       <i class="lv0"></i><i class="lv1"></i><i class="lv2"></i><i class="lv3"></i>
       <span>多</span>
     </div>
+    <p id="cal-ratio" class="record-cal-label"></p>
+    <div id="cal-detail" class="cal-detail hidden"></div>
+
     <div id="record-subjects" class="record-subjects"></div>
 
     <!-- テストの日を決めておくと、それまでに一度は必ず出す -->
@@ -2086,6 +2219,12 @@
     }
   }
 
+  // 表示している月と、タップして選んだ日。record-btn を押すたびに今月へ戻す
+  let calMonth = null;
+  let calSelectedDay = null;
+  const WEEKDAYS = ['日', '月', '火', '水', '木', '金', '土'];
+  const startOfMonth = d => new Date(d.getFullYear(), d.getMonth(), 1);
+
   function renderRecordScreen() {
     const log = loadStudyLog();
     const { streak, graceLeft } = computeStreak(log);
@@ -2098,20 +2237,7 @@
       `連続${streak}日（休める回数 残り${graceLeft}）　学習した日 ${days.length}日　` +
       `累計${total}問　正答率${total ? Math.round(correct / total * 100) : 0}%　のべ${describeMinutes(totalSeconds)}`;
 
-    // 直近10週間を、日曜はじまりの列で並べる
-    const cal = document.getElementById('record-calendar');
-    cal.textContent = '';
-    const end = new Date();
-    end.setDate(end.getDate() + (6 - end.getDay()));
-    for (let i = 69; i >= 0; i--) {
-      const d = new Date(end);
-      d.setDate(d.getDate() - i);
-      const n = (log[dateKey(d)] || {}).answered || 0;
-      const cell = document.createElement('i');
-      cell.className = n === 0 ? '' : (n < 10 ? 'lv1' : (n < 30 ? 'lv2' : 'lv3'));
-      cell.title = `${dateKey(d)}　${n}問`;
-      cal.appendChild(cell);
-    }
+    renderCalendar(log);
 
     // 教科ごとの累計（絵巻の進み具合と同じ数字）
     const box = document.getElementById('record-subjects');
@@ -2130,9 +2256,138 @@
     });
   }
 
+  // 月ごとのカレンダー。日付が入っているので「いつがんばったか」を思い出せる。
+  // タップした日は下に詳細を出し、未来の日ならそのまま決戦の日として登録できる
+  function renderCalendar(log) {
+    if (!calMonth) calMonth = startOfMonth(new Date());
+    const year = calMonth.getFullYear(), month = calMonth.getMonth();
+    const today = new Date();
+    const todayKey = dateKey(today);
+    const exam = examDate();
+
+    document.getElementById('cal-title').textContent = `${year}年${month + 1}月`;
+
+    const grid = document.getElementById('record-calendar');
+    grid.textContent = '';
+    WEEKDAYS.forEach(w => {
+      const cell = document.createElement('div');
+      cell.className = 'cal-weekday';
+      cell.textContent = w;
+      grid.appendChild(cell);
+    });
+
+    const startPad = new Date(year, month, 1).getDay();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    for (let i = 0; i < startPad; i++) {
+      const cell = document.createElement('div');
+      cell.className = 'cal-cell empty';
+      grid.appendChild(cell);
+    }
+
+    let activeDays = 0;
+    for (let day = 1; day <= daysInMonth; day++) {
+      const key = dateKey(new Date(year, month, day));
+      const n = (log[key] || {}).answered || 0;
+      if (n > 0) activeDays++;
+
+      const cell = document.createElement('button');
+      cell.type = 'button';
+      cell.className = 'cal-cell'
+        + (n === 0 ? '' : (n < 10 ? ' lv1' : (n < 30 ? ' lv2' : ' lv3')))
+        + (key === todayKey ? ' today' : '')
+        + (key > todayKey ? ' future' : '')
+        + (key === exam ? ' exam' : '')
+        + (key === calSelectedDay ? ' selected' : '');
+      cell.textContent = String(day);
+      cell.title = n ? `${key}　${n}問` : key;
+      cell.addEventListener('click', () => { calSelectedDay = key; renderRecordScreen(); });
+      grid.appendChild(cell);
+    }
+
+    // 分母は月の日数ではなく、今日までの経過日数にする。
+    // 月初めに見ると「1/31日」のように実際より頑張っていないふうに見えてしまうため
+    const isCurrentMonth = year === today.getFullYear() && month === today.getMonth();
+    const isPastMonth = new Date(year, month + 1, 0) < today;
+    const denom = isCurrentMonth ? today.getDate() : (isPastMonth ? daysInMonth : 0);
+    document.getElementById('cal-ratio').textContent =
+      denom > 0 ? `この月は ${activeDays}/${denom}日 学習しました` : '';
+
+    // 皆勤ではなく、日数のかせぎで段位が上がる。休んだ週があっても目減りしない
+    const tier = document.getElementById('cal-tier');
+    tier.textContent = activeDays >= 20 ? '常在戦場' : activeDays >= 10 ? '奮戦' : activeDays >= 5 ? '参陣' : '';
+    tier.classList.toggle('hidden', !tier.textContent);
+
+    renderDayDetail(log);
+  }
+
+  function renderDayDetail(log) {
+    const box = document.getElementById('cal-detail');
+    box.textContent = '';
+    if (!calSelectedDay) { box.classList.add('hidden'); return; }
+    box.classList.remove('hidden');
+
+    const d = new Date(calSelectedDay);
+    const label = `${d.getMonth() + 1}月${d.getDate()}日（${WEEKDAYS[d.getDay()]}）`;
+    const todayKey = dateKey(new Date());
+    const entry = log[calSelectedDay];
+
+    const title = document.createElement('p');
+    title.style.cssText = 'margin:0;font-weight:bold;';
+    title.textContent = label + (calSelectedDay === examDate() ? '　── 決戦の日' : '');
+    box.appendChild(title);
+
+    const detail = document.createElement('p');
+    const subjectNames = { history: '歴史', math: '数学', science: '理科', geography: '地理', english: '英語', civics: '公民' };
+    if (entry && entry.answered) {
+      const subs = (entry.subjects || []).map(k => subjectNames[k] || k).join('・');
+      detail.textContent = `${entry.answered}問・正答率${Math.round(entry.correct / entry.answered * 100)}%・${describeMinutes(entry.seconds || 0)}` + (subs ? `／${subs}` : '');
+    } else if (calSelectedDay > todayKey) {
+      detail.textContent = 'これから来る日です。';
+    } else {
+      detail.textContent = 'この日は学習していません。';
+    }
+    box.appendChild(detail);
+
+    // 過去の日には決戦の日を置けない。今日から先だけ操作できるようにする
+    if (calSelectedDay >= todayKey) {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'btn-sub';
+      if (calSelectedDay === examDate()) {
+        btn.textContent = '決戦の日をやめる';
+        btn.addEventListener('click', () => {
+          localStorage.removeItem('examDate');
+          updateExamUI();
+          renderRecordScreen();
+        });
+      } else {
+        btn.textContent = 'この日を決戦の日にする';
+        btn.addEventListener('click', () => {
+          localStorage.setItem('examDate', calSelectedDay);
+          updateExamUI();
+          renderRecordScreen();
+        });
+      }
+      box.appendChild(btn);
+    }
+  }
+
+  document.getElementById('cal-prev-btn').addEventListener('click', () => {
+    calMonth = new Date(calMonth.getFullYear(), calMonth.getMonth() - 1, 1);
+    calSelectedDay = null;
+    renderRecordScreen();
+  });
+  document.getElementById('cal-next-btn').addEventListener('click', () => {
+    calMonth = new Date(calMonth.getFullYear(), calMonth.getMonth() + 1, 1);
+    calSelectedDay = null;
+    renderRecordScreen();
+  });
+
   document.getElementById('record-btn').addEventListener('click', () => {
     document.getElementById('home-screen').classList.add('hidden');
     document.getElementById('record-screen').classList.remove('hidden');
+    calMonth = startOfMonth(new Date());
+    calSelectedDay = null;
     renderRecordScreen();
     updateExamUI();
     document.getElementById('transfer-note').textContent = '';
@@ -2370,6 +2625,12 @@
   });
 
   function initSetupScreen() {
+    // 教科を切りかえたときに、前の教科の検索結果が残らないようにする
+    const searchInput = document.getElementById('subject-search-input');
+    if (searchInput) searchInput.value = '';
+    const searchBox = document.getElementById('subject-search-results');
+    if (searchBox) { searchBox.textContent = ''; searchBox.classList.add('hidden'); }
+
     const categories = [...new Set(allQuestions.map(q => q.category))];
     const container = document.getElementById('category-checkboxes');
     container.innerHTML = '';
@@ -4364,6 +4625,209 @@
     };
     reader.readAsText(file);
   });
+
+  // ----- 検索：答えや言葉から問題をさがす -----
+
+  // 教科ごとの localStorage を直接読み書きする。検索は「今どの教科を
+  // 開いているか」と無関係に動くので、いま読みこまれている markedQuestions
+  // だけを見ていると、開いていない教科ぶんの印が反映できない
+  function isMarkedDirect(subjectKey, id) {
+    return readList(`markedQuestions_${subjectKey}`).some(x => x.id === id);
+  }
+
+  function toggleMarkedDirect(subjectKey, q) {
+    const key = `markedQuestions_${subjectKey}`;
+    let list = readList(key);
+    list = list.some(x => x.id === q.id) ? list.filter(x => x.id !== q.id) : list.concat([q]);
+    localStorage.setItem(key, JSON.stringify(list));
+    if (currentSubjectKey === subjectKey) {
+      markedQuestions = list;
+      updateReviewBtn();
+    }
+  }
+
+  // 教科をまたいで全問題を読みこむ。ブラウザとService Workerの両方に
+  // 控えがあるので、圏外でも探し物ができる
+  let searchCorpus = null;
+
+  async function loadSearchCorpus() {
+    if (searchCorpus) return searchCorpus;
+    const entries = await Promise.all(SUBJECTS.map(async (sub) => {
+      try {
+        const qaRes = await fetch(`${sub.key}.json`);
+        const qa = qaRes.ok ? await qaRes.json() : [];
+        let order = [];
+        if (ORDER_FILE[sub.key]) {
+          const orderRes = await fetch(ORDER_FILE[sub.key]);
+          order = orderRes.ok ? await orderRes.json() : [];
+        }
+        return [sub.key, qa.concat(order)];
+      } catch (err) {
+        return [sub.key, []];
+      }
+    }));
+    searchCorpus = Object.fromEntries(entries);
+    return searchCorpus;
+  }
+
+  // 設問・答え・別解・解説のどこかに含まれていれば見つける。
+  // 表記ゆれ（全角半角・かな）に強くするため normalize() も併用する
+  function matchQuestion(q, rawQuery, normQuery) {
+    const fields = [q.question, q.answer, q.explanation].concat(q.alt || []);
+    for (const field of fields) {
+      if (!field) continue;
+      if (field.toLowerCase().includes(rawQuery) || normalize(field).includes(normQuery)) return true;
+    }
+    return false;
+  }
+
+  function runSearch(corpus, query) {
+    const rawQuery = query.trim().toLowerCase();
+    if (!rawQuery) return [];
+    const normQuery = normalize(query);
+    const out = [];
+    Object.entries(corpus).forEach(([subjectKey, list]) => {
+      list.forEach(q => { if (matchQuestion(q, rawQuery, normQuery)) out.push({ subjectKey, q }); });
+    });
+    return out;
+  }
+
+  const subjectName = key => (SUBJECTS.find(x => x.key === key) || {}).name || key;
+
+  function practiceSingleQuestion(subjectKey, questionId) {
+    const sub = SUBJECTS.find(x => x.key === subjectKey);
+    const run = () => {
+      const q = qaQuestions.concat(orderQuestions).find(x => x.id === questionId);
+      if (q) startQuiz([q]);
+    };
+    if (currentSubjectKey === subjectKey && qaQuestions.length) run();
+    else selectSubject(sub.key, sub.name, sub.label, run);
+  }
+
+  const SEARCH_LIMIT = 50;
+
+  function renderSearchResults(container, results, showSubject) {
+    container.textContent = '';
+    if (!results.length) {
+      const p = document.createElement('p');
+      p.className = 'search-empty';
+      p.textContent = '見つかりませんでした。別の言葉や、答えの一部で探してみてください。';
+      container.appendChild(p);
+      container.classList.remove('hidden');
+      return;
+    }
+
+    const info = document.createElement('p');
+    info.className = 'search-count';
+    info.textContent = results.length > SEARCH_LIMIT
+      ? `${results.length}件見つかりました（先頭${SEARCH_LIMIT}件を表示。もっと詳しい言葉で絞りこめます）`
+      : `${results.length}件見つかりました`;
+    container.appendChild(info);
+
+    results.slice(0, SEARCH_LIMIT).forEach(({ subjectKey, q }) => {
+      const item = document.createElement('div');
+      item.className = 'search-item';
+
+      const head = document.createElement('button');
+      head.type = 'button';
+      head.className = 'search-item-head';
+      if (showSubject) {
+        const tag = document.createElement('span');
+        tag.className = 'search-tag';
+        tag.textContent = subjectName(subjectKey);
+        head.appendChild(tag);
+      }
+      const catTag = document.createElement('span');
+      catTag.className = 'search-cat';
+      catTag.textContent = q.category;
+      head.appendChild(catTag);
+      const qtext = document.createElement('span');
+      qtext.className = 'search-q';
+      qtext.textContent = q.question;
+      head.appendChild(qtext);
+
+      const body = document.createElement('div');
+      body.className = 'search-item-body hidden';
+
+      const ans = document.createElement('p');
+      ans.className = 'search-answer';
+      const label = document.createElement('b');
+      label.textContent = '答え: ';
+      ans.appendChild(label);
+      ans.appendChild(document.createTextNode(q.answer));
+      body.appendChild(ans);
+
+      const exp = document.createElement('p');
+      exp.className = 'search-explanation';
+      exp.textContent = q.explanation || '';
+      body.appendChild(exp);
+
+      const actions = document.createElement('div');
+      actions.className = 'search-actions';
+
+      const markBtn = document.createElement('button');
+      markBtn.type = 'button';
+      markBtn.className = 'btn-sub';
+      const syncMarkLabel = () => {
+        markBtn.textContent = isMarkedDirect(subjectKey, q.id) ? '印をはずす' : '印をつけて、あとで解き直す';
+      };
+      syncMarkLabel();
+      markBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        toggleMarkedDirect(subjectKey, q);
+        syncMarkLabel();
+      });
+      actions.appendChild(markBtn);
+
+      const practiceBtn = document.createElement('button');
+      practiceBtn.type = 'button';
+      practiceBtn.className = 'search-practice';
+      practiceBtn.textContent = 'この1問を解く';
+      practiceBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        practiceSingleQuestion(subjectKey, q.id);
+      });
+      actions.appendChild(practiceBtn);
+
+      body.appendChild(actions);
+      head.addEventListener('click', () => body.classList.toggle('hidden'));
+
+      item.append(head, body);
+      container.appendChild(item);
+    });
+    container.classList.remove('hidden');
+  }
+
+  async function runGlobalSearch() {
+    const query = document.getElementById('global-search-input').value;
+    const box = document.getElementById('global-search-results');
+    if (!query.trim()) { box.classList.add('hidden'); box.textContent = ''; return; }
+
+    box.textContent = '';
+    const loading = document.createElement('p');
+    loading.className = 'search-count';
+    loading.textContent = '探しています…';
+    box.appendChild(loading);
+    box.classList.remove('hidden');
+
+    const corpus = await loadSearchCorpus();
+    renderSearchResults(box, runSearch(corpus, query), true);
+  }
+
+  document.getElementById('global-search-btn').addEventListener('click', runGlobalSearch);
+  document.getElementById('global-search-input').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') { e.preventDefault(); runGlobalSearch(); }
+  });
+
+  function runSubjectSearch() {
+    const query = document.getElementById('subject-search-input').value;
+    const box = document.getElementById('subject-search-results');
+    if (!query.trim()) { box.classList.add('hidden'); box.textContent = ''; return; }
+    const corpus = { [currentSubjectKey]: qaQuestions.concat(orderQuestions) };
+    renderSearchResults(box, runSearch(corpus, query), false);
+  }
+
+  document.getElementById('subject-search-input').addEventListener('input', runSubjectSearch);
 
   function goSetup() {
     hideBattleLayers();
