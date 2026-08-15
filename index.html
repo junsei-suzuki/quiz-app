@@ -735,7 +735,7 @@
       font-size: 0.9rem;
     }
 
-    /* 違＝間違えた問題、復＝自分で印をつけた問題 */
+    /* 違＝間違えた問題、印＝自分で印をつけた問題 */
     .badge-wrong { background: rgba(220, 53, 69, 0.35); border: 1px solid var(--danger); color: #ff9ba3; }
     .badge-marked { background: rgba(243, 168, 82, 0.25); border: 1px solid #f3a852; color: #ffcf90; }
 
@@ -1235,6 +1235,13 @@
       opacity: 1;
     }
 
+    /* スマホは解説がいちばん背が高い。行間をわずかに詰めるだけで、
+       いちばん長い解説でも「次の問題へ」まで画面に収まる */
+    @media (max-width: 899px) {
+      .explanation { line-height: 1.76; }
+      .mark-row { padding: 8px 10px; }
+    }
+
     /* 画面の高さが足りない端末では、解説を読み切れるよう各所をさらに詰める */
     @media (max-height: 745px) and (max-width: 899px) {
       body { padding: 8px; }
@@ -1392,6 +1399,23 @@
     .order-tools { display: grid; grid-template-columns: 1fr 2fr; gap: 8px; margin-top: 8px; }
     .order-tools button { margin-bottom: 0; }
     .order-reset { background: var(--btn-sub); }
+
+    /* 記録画面の設定まわり */
+    .record-block {
+      margin-top: 18px;
+      padding: 14px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      text-align: left;
+    }
+    .record-block label { display: block; margin-bottom: 4px; }
+    .record-hint { font-size: 0.8rem; color: #a89684; line-height: 1.7; margin: 4px 0 10px; }
+    .exam-row { display: flex; gap: 8px; align-items: center; }
+    .exam-row input[type="date"] { flex: 1 1 auto; margin-bottom: 0; }
+    .exam-row button { flex: 0 0 auto; width: auto; padding: 10px 14px; margin-bottom: 0; }
+    #transfer-note.done, #exam-note.done { color: #8fd9a0; }
+    #transfer-note.error { color: #ff97a0; }
 
     /* 画像の保存は控えめに。学習に戻る道のほうを目立たせる */
     .result-save { font-size: 0.88rem; padding: 9px; }
@@ -1716,7 +1740,7 @@
     <!-- 解答後に、この問題を自分の判断で復習対象にできる -->
     <label id="mark-row" class="mark-row hidden">
       <input type="checkbox" id="mark-check">
-      <span>この問題を要復習にする</span>
+      <span>印をつけて、あとで解き直す</span>
     </label>
 
     <div id="explanation" class="explanation hidden"></div>
@@ -1736,6 +1760,30 @@
       <span>多</span>
     </div>
     <div id="record-subjects" class="record-subjects"></div>
+
+    <!-- テストの日を決めておくと、それまでに一度は必ず出す -->
+    <div class="record-block">
+      <label for="exam-date"><b>決戦の日（テストや入試の日）</b></label>
+      <p class="record-hint">登録すると、復習の予定がどれだけ先でも、この日の前日までに必ず一度は出します。間隔のきまり（3日→7日→14日→30日）は変えません。</p>
+      <div class="exam-row">
+        <input type="date" id="exam-date">
+        <button type="button" id="exam-clear-btn" class="btn-sub">消す</button>
+      </div>
+      <p id="exam-note" class="record-hint"></p>
+    </div>
+
+    <!-- 端末を替えても持ち運べるようにする -->
+    <div class="record-block">
+      <label><b>記録の持ち運び</b></label>
+      <p class="record-hint">この記録は、この端末の中だけに保存されています。どこへも送られません。そのぶん端末を替えると消えるので、書き出して持ち運んでください。<br>一度でも開いた教科は、通信の届かない地下鉄や電車の中でも出陣できます。</p>
+      <div class="exam-row">
+        <button type="button" id="export-btn" class="btn-sub">書き出す</button>
+        <button type="button" id="import-btn" class="btn-sub">読み戻す</button>
+      </div>
+      <input type="file" id="import-file" accept="application/json,.json" class="hidden">
+      <p id="transfer-note" class="record-hint"></p>
+    </div>
+
     <button id="record-back-btn" class="btn-sub">本陣へ戻る</button>
   </div>
 
@@ -1758,7 +1806,7 @@
       <button type="button" id="review-filter-due">今日の分</button>
       <button type="button" id="review-filter-all">すべて</button>
       <button type="button" id="review-filter-wrong">違 のみ</button>
-      <button type="button" id="review-filter-marked">復 のみ</button>
+      <button type="button" id="review-filter-marked">印 のみ</button>
     </div>
 
     <div id="review-list" class="review-list"></div>
@@ -2086,12 +2134,15 @@
     document.getElementById('home-screen').classList.add('hidden');
     document.getElementById('record-screen').classList.remove('hidden');
     renderRecordScreen();
+    updateExamUI();
+    document.getElementById('transfer-note').textContent = '';
   });
 
   document.getElementById('record-back-btn').addEventListener('click', () => {
     document.getElementById('record-screen').classList.add('hidden');
     document.getElementById('home-screen').classList.remove('hidden');
     updateStudyPanel();
+    updateQuickStart();
   });
 
   updateStudyPanel();
@@ -2213,6 +2264,14 @@
   // 「画面を暗くする」は取りやめた。前に暗くしたまま消すと戻せなくなるので、
   // 保存されていた設定も消しておく
   localStorage.removeItem('nightMode');
+
+  // 通学の電車や地下鉄でも開けるようにする。一度でも開けば端末に控えが残る。
+  // ファイルを直接開いたときは登録できないので、その場合は黙って何もしない
+  if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('sw.js').catch(() => {});
+    });
+  }
 
   let currentSubjectKey = '';
   let currentSubjectName = '';
@@ -2538,9 +2597,37 @@
   const SRS_DAYS = [3, 7, 14, 30];
   const MASTER_LEVEL = 4;   // これだけ連続で正解したら「違」から外す
 
-  const isWrong = id => wrongQuestions.some(q => q.id === id);
-  const isMarked = id => markedQuestions.some(q => q.id === id);
-  const isDue = entry => !entry.due || entry.due <= dateKey(new Date());
+  const isWrong = id => wrongQuestions.some(q => q.id === id && !q.mastered);
+  const isMarked = id => markedQuestions.some(q => q.id === id && !q.mastered);
+
+  // 「決戦の日」。テストの前日までに必ず一度は出す。
+  // SRS_DAYS そのものは変えず、実際に出す日だけを前倒しする
+  const examDate = () => localStorage.getItem('examDate') || '';
+
+  // 同じ日に全部が積み上がらないよう、問題ごとに残り日数の中へ散らす
+  function beforeExam(entry) {
+    const exam = examDate();
+    if (!exam) return null;
+    const today = dateKey(new Date());
+    if (exam <= today) return null;
+    const left = Math.round((new Date(exam) - new Date(today)) / 86400000);
+    const hash = [...String(entry.id)].reduce((a, c) => (a * 31 + c.charCodeAt(0)) % 997, 7);
+    const d = new Date();
+    d.setDate(d.getDate() + (left <= 1 ? 0 : hash % (left - 1)));
+    return dateKey(d);
+  }
+
+  function effectiveDue(entry) {
+    const limit = beforeExam(entry);
+    if (!entry.due) return limit || '';
+    return limit && limit < entry.due ? limit : entry.due;
+  }
+
+  const isDue = entry => {
+    if (entry.mastered && !beforeExam(entry)) return false;
+    const due = effectiveDue(entry);
+    return !due || due <= dateKey(new Date());
+  };
 
   function promote(entry) {
     entry.srsLevel = (entry.srsLevel || 0) + 1;
@@ -2563,10 +2650,11 @@
     if (correct) {
       if (wrong) {
         promote(wrong);
-        if (wrong.srsLevel >= MASTER_LEVEL) {
-          wrongQuestions = wrongQuestions.filter(x => x.id !== q.id);
-        }
+        // 消さずに印だけ付けて残す。消してしまうと、テスト直前に
+        // 「もう一度ぜんぶ見たい」と思っても取り出せなくなる
+        if (wrong.srsLevel >= MASTER_LEVEL) wrong.mastered = true;
       }
+      if (marked && marked.srsLevel + 1 >= MASTER_LEVEL) marked.mastered = true;
       if (marked) promote(marked);
     } else {
       if (marked) demote(marked);
@@ -2593,6 +2681,9 @@
     const cats = getSelectedCategories();
     const merged = new Map();
     wrongQuestions.concat(markedQuestions).forEach(q => {
+      // 習得済みはふだん隠す。ただし決戦の日を決めているときは、
+      // 本番前にもう一度だけ出したいので一覧に戻す
+      if (q.mastered && !beforeExam(q)) return;
       if (cats.includes(q.category)) merged.set(q.id, q);
     });
     return [...merged.values()];
@@ -2627,7 +2718,7 @@
     const markedCount = all.filter(q => isMarked(q.id)).length;
 
     document.getElementById('review-summary').textContent =
-      `今日やる ${dueCount()}問　／　全${all.length}件（違 ${wrongCount}件・復 ${markedCount}件）`;
+      `今日やる ${dueCount()}問　／　全${all.length}件（違 ${wrongCount}件・印 ${markedCount}件）`;
 
     const box = document.getElementById('review-list');
     box.textContent = '';
@@ -2636,7 +2727,7 @@
       const empty = document.createElement('div');
       empty.className = 'review-empty';
       empty.textContent = all.length === 0
-        ? '復習する問題はまだありません。\n間違えた問題は自動で、気になった問題はチェックを入れると、ここに集まります。'
+        ? '復習する問題はまだありません。\n間違えた問題は自動で、正解しても気になった問題は印をつけると、ここに集まります。'
         : 'この絞りこみに当てはまる問題はありません。';
       box.appendChild(empty);
     }
@@ -2657,8 +2748,8 @@
       if (isMarked(q.id)) {
         const b = document.createElement('span');
         b.className = 'review-badge badge-marked';
-        b.textContent = '復';
-        b.title = '自分で要復習にした問題';
+        b.textContent = '印';
+        b.title = '自分で印をつけた問題';
         badges.appendChild(b);
       }
 
@@ -4181,6 +4272,98 @@
 
   // 定義がそろってから最初の1回。上のほうで呼ぶと SUBJECTS がまだ作られていない
   updateQuickStart();
+
+  // ----- 🗓 決戦の日と、記録の持ち運び -----
+
+  function updateExamUI() {
+    const input = document.getElementById('exam-date');
+    const note = document.getElementById('exam-note');
+    const exam = examDate();
+    input.value = exam;
+    if (!exam) { note.textContent = ''; note.className = 'record-hint'; return; }
+    const left = Math.round((new Date(exam) - new Date(dateKey(new Date()))) / 86400000);
+    note.className = 'record-hint done';
+    note.textContent = left > 0 ? `決戦まであと${left}日。それまでに全部の復習を回します。`
+      : (left === 0 ? '本日が決戦の日。武運を。' : '決戦の日は過ぎました。消すと元の間隔に戻ります。');
+  }
+
+  document.getElementById('exam-date').addEventListener('change', (e) => {
+    if (e.target.value) localStorage.setItem('examDate', e.target.value);
+    else localStorage.removeItem('examDate');
+    updateExamUI();
+  });
+
+  document.getElementById('exam-clear-btn').addEventListener('click', () => {
+    localStorage.removeItem('examDate');
+    updateExamUI();
+  });
+
+  // 端末の中だけにある記録を、まとめて持ち出せるようにする。
+  // 通信もアカウントも使わず、ファイル1つにまとめるだけ
+  const TRANSFER_PREFIXES = ['wrongQuestions_', 'markedQuestions_', 'correctTotal_',
+                             'solvedIds_', 'session_', 'excludedCats_'];
+  const TRANSFER_KEYS = ['studyLog', 'feedbackMode', 'quizFormat', 'answerMode',
+                         'questionLimit', 'examDate'];
+
+  function collectData() {
+    const data = {};
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (TRANSFER_KEYS.includes(key) || TRANSFER_PREFIXES.some(p => key.startsWith(p))) {
+        data[key] = localStorage.getItem(key);
+      }
+    }
+    return { app: '一問一答 学習合戦', version: 1, savedAt: new Date().toISOString(), data };
+  }
+
+  document.getElementById('export-btn').addEventListener('click', () => {
+    const note = document.getElementById('transfer-note');
+    try {
+      const blob = new Blob([JSON.stringify(collectData(), null, 2)], { type: 'application/json' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `学習合戦の記録_${dateKey(new Date())}.json`;
+      a.click();
+      setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+      note.className = 'record-hint done';
+      note.textContent = 'ファイルに書き出しました。新しい端末で「読み戻す」から選んでください。';
+    } catch (err) {
+      note.className = 'record-hint error';
+      note.textContent = '書き出せませんでした。端末の空き容量を確かめてください。';
+    }
+  });
+
+  document.getElementById('import-btn').addEventListener('click', () => {
+    document.getElementById('import-file').click();
+  });
+
+  document.getElementById('import-file').addEventListener('change', (e) => {
+    const file = e.target.files && e.target.files[0];
+    const note = document.getElementById('transfer-note');
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      try {
+        const parsed = JSON.parse(reader.result);
+        if (!parsed || typeof parsed.data !== 'object') throw new Error('形式ちがい');
+        const keys = Object.keys(parsed.data);
+        if (!keys.length) throw new Error('中身なし');
+        if (!confirm(`このファイルの記録で、いまの記録を置きかえます。よろしいですか。\n（${keys.length}件・${(parsed.savedAt || '').slice(0, 10)} に書き出したもの）`)) return;
+        keys.forEach(k => localStorage.setItem(k, parsed.data[k]));
+        note.className = 'record-hint done';
+        note.textContent = '読み戻しました。画面を作り直します。';
+        // 読み戻したら必ず作り直す。これを省くと、いま画面が持っている
+        // 古い値が次の保存で復元したデータを上書きしてしまう
+        setTimeout(() => location.reload(), 400);
+      } catch (err) {
+        note.className = 'record-hint error';
+        note.textContent = 'このファイルは読めませんでした。書き出したファイルをそのまま選んでください。';
+      } finally {
+        e.target.value = '';
+      }
+    };
+    reader.readAsText(file);
+  });
 
   function goSetup() {
     hideBattleLayers();
