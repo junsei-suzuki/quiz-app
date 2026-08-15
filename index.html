@@ -1227,8 +1227,80 @@
     }
 
     @media (max-height: 620px) and (max-width: 899px) {
-      .explanation { max-height: 24vh; }
+      .explanation { max-height: 18vh; }
     }
+
+    /* 🧩 語順整序。上の巻物に語を並べ、下の語群から取ってくる */
+    .order-area { margin-bottom: 10px; }
+
+    .order-slots {
+      min-height: 58px;
+      display: flex; flex-wrap: wrap; align-content: flex-start; align-items: center;
+      gap: 6px;
+      padding: 8px 10px;
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid var(--card-border);
+      border-left: 3px solid var(--accent);
+      border-radius: 8px;
+      margin-bottom: 8px;
+    }
+
+    .order-slots.empty::before {
+      content: "ここに語を並べる";
+      color: #7d7267;
+      font-size: 0.85rem;
+    }
+
+    .order-end { color: var(--accent); font-size: 1.05rem; font-weight: 700; }
+
+    .order-bank {
+      display: flex; flex-wrap: wrap; gap: 6px;
+      min-height: 44px;
+      padding: 8px 10px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px dashed #5c4a3c;
+      border-radius: 8px;
+    }
+
+    .order-chip {
+      font-family: inherit;
+      font-size: 0.98rem;
+      padding: 7px 11px;
+      margin: 0;
+      min-height: 0;
+      border-radius: 6px;
+      border: 1px solid #7a5f3c;
+      background: linear-gradient(180deg, #4a382c 0%, #2e221a 100%);
+      color: #f2e7d5;
+      white-space: nowrap;
+      line-height: 1.2;
+      width: auto;
+      /* 指でつまんで動かせるよう、ブラウザ側のスクロール処理に取られないようにする */
+      touch-action: none;
+      user-select: none;
+    }
+
+    .order-slots .order-chip { border-color: var(--accent); }
+    .order-chip.dragging { opacity: 0.25; }
+
+    .order-chip.ghost {
+      position: fixed; z-index: 40; pointer-events: none;
+      transform: translate(-50%, -50%) scale(1.06);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.7);
+    }
+
+    .order-result { font-size: 0.95rem; line-height: 1.55; color: #f2e7d5; }
+    body.reading .order-slots { min-height: 0; padding: 6px 9px; }
+
+    .order-tools { display: grid; grid-template-columns: 1fr 2fr; gap: 8px; margin-top: 8px; }
+    .order-tools button { margin-bottom: 0; }
+    .order-reset { background: #4a3b35; }
+    .order-hint { font-size: 0.74rem; color: #9d9187; margin-top: 6px; text-align: center; }
+
+    /* 解説を読むときは、語群と操作ボタンを引っこめて場所をあける */
+    body.reading .order-bank,
+    body.reading .order-tools,
+    body.reading .order-hint { display: none; }
 
     .hidden { display: none !important; }
 
@@ -1446,10 +1518,22 @@
         <!-- JavaScriptで動的生成 -->
       </div>
 
-      <label><b>答え方:</b></label>
-      <div class="count-tools" id="mode-tools" style="grid-template-columns: 1fr 1fr;">
-        <button type="button" data-mode="write">書いて答える<small>力がつく</small></button>
-        <button type="button" data-mode="choice">選んで答える<small>片手でできる</small></button>
+      <!-- 語順整序のある教科（英語）でだけ出す -->
+      <div id="format-row" class="hidden">
+        <label><b>出題形式:</b></label>
+        <div class="count-tools" id="format-tools" style="grid-template-columns: 1fr 1fr 1fr;">
+          <button type="button" data-format="qa">一問一答<small>語い中心</small></button>
+          <button type="button" data-format="order">語順整序<small>並べかえ</small></button>
+          <button type="button" data-format="mix">ミックス<small>両方出る</small></button>
+        </div>
+      </div>
+
+      <div id="mode-row">
+        <label><b>答え方:</b></label>
+        <div class="count-tools" id="mode-tools" style="grid-template-columns: 1fr 1fr;">
+          <button type="button" data-mode="write">書いて答える<small>力がつく</small></button>
+          <button type="button" data-mode="choice">選んで答える<small>片手でできる</small></button>
+        </div>
       </div>
 
       <label><b>1回の合戦の問題数:</b></label>
@@ -1509,6 +1593,17 @@
 
     <!-- 選んで答えるモード。ボタンの高さを固定して指を動かさずに済むようにする -->
     <div id="choice-box" class="choice-box hidden"></div>
+
+    <!-- 🧩 語順整序。語群をタップ、またはドラッグして上の欄へ並べる -->
+    <div id="order-area" class="order-area hidden">
+      <div id="order-slots" class="order-slots empty"></div>
+      <div id="order-bank" class="order-bank"></div>
+      <div class="order-tools">
+        <button type="button" id="order-reset-btn" class="order-reset">やり直す</button>
+        <button type="button" id="order-submit-btn" class="order-submit">この文で斬る！</button>
+      </div>
+      <div class="order-hint">語群をタップ、またはドラッグして並べかえる（文頭の語も小文字にしてあります）</div>
+    </div>
 
     <div id="feedback" class="feedback"></div>
 
@@ -2009,6 +2104,12 @@
   let currentSubjectKey = '';
   let currentSubjectName = '';
   let allQuestions = [];
+
+  // 語順整序の問題を別に持っている教科
+  const ORDER_FILE = { english: 'english_order.json' };
+  let qaQuestions = [];        // 一問一答
+  let orderQuestions = [];     // 語順整序
+  let quizFormat = localStorage.getItem('quizFormat') || 'qa';   // 'qa' / 'order' / 'mix'
   let currentSessionQuestions = [];
   let currentQuestionIndex = 0;
   let correctCount = 0;
@@ -2043,20 +2144,56 @@
     loadRewardImage(key);
     loadSlashSound();  // 出題前に読みこんでおき、正解した瞬間に遅れなく鳴らす
 
-    fetch(`${key}.json`)
-      .then(response => {
-        if (!response.ok) throw new Error();
-        return response.json();
-      })
-      .then(data => {
-        allQuestions = data;
-        initSetupScreen();
+    // 英語だけ、語順整序の問題も一緒に読みこむ
+    const files = ORDER_FILE[key] ? [`${key}.json`, ORDER_FILE[key]] : [`${key}.json`];
+    Promise.all(files.map(file => fetch(file).then(res => {
+      if (!res.ok) throw new Error(file);
+      return res.json();
+    })))
+      .then(([qa, order]) => {
+        qaQuestions = qa;
+        orderQuestions = order || [];
+        document.getElementById('format-row').classList.toggle('hidden', orderQuestions.length === 0);
+        applyFormat();
         document.body.classList.remove('home-layout');
         document.getElementById('home-screen').classList.add('hidden');
         document.getElementById('setup-screen').classList.remove('hidden');
       })
-      .catch(err => alert(`${name}のデータ (${key}.json) の読み込みに失敗しました。`));
+      .catch(err => alert(`${name}のデータ (${err.message || key + '.json'}) の読み込みに失敗しました。`));
   }
+
+  // 出題形式に合わせて、出題する問題のまとまりを入れかえる
+  function applyFormat() {
+    if (orderQuestions.length === 0) {
+      allQuestions = qaQuestions;
+    } else if (quizFormat === 'order') {
+      allQuestions = orderQuestions;
+    } else if (quizFormat === 'mix') {
+      allQuestions = qaQuestions.concat(orderQuestions);
+    } else {
+      allQuestions = qaQuestions;
+    }
+
+    const formatName = orderQuestions.length === 0 ? '一問一答'
+      : { qa: '一問一答', order: '語順整序', mix: '一問一答＋語順整序' }[quizFormat];
+    document.getElementById('subject-title').textContent = `${currentSubjectName} ${formatName}`;
+    // 語順整序に「書く／選ぶ」は関係ないので、選ばせない
+    document.getElementById('mode-row').classList.toggle('hidden',
+      orderQuestions.length > 0 && quizFormat === 'order');
+
+    document.querySelectorAll('#format-tools button').forEach(b => {
+      b.classList.toggle('selected', b.dataset.format === quizFormat);
+    });
+    initSetupScreen();
+  }
+
+  document.querySelectorAll('#format-tools button').forEach(b => {
+    b.addEventListener('click', () => {
+      quizFormat = b.dataset.format;
+      localStorage.setItem('quizFormat', quizFormat);
+      applyFormat();
+    });
+  });
 
   function initSetupScreen() {
     const categories = [...new Set(allQuestions.map(q => q.category))];
@@ -2878,11 +3015,22 @@
     input.value = '';
     input.disabled = false;
     const choiceBox = document.getElementById('choice-box');
+    const orderArea = document.getElementById('order-area');
+    const isOrder = Array.isArray(q.tokens);
 
-    if (answerMode === 'choice') {
+    if (isOrder) {
+      document.getElementById('answer-form').classList.add('hidden');
+      choiceBox.classList.add('hidden');
+      orderArea.classList.remove('hidden');
+      document.getElementById('order-submit-btn').classList.remove('hidden');
+      document.getElementById('order-reset-btn').classList.remove('hidden');
+      setupOrder(q);
+    } else if (answerMode === 'choice') {
+      orderArea.classList.add('hidden');
       document.getElementById('answer-form').classList.add('hidden');
       showChoices(q);
     } else {
+      orderArea.classList.add('hidden');
       document.getElementById('answer-form').classList.remove('hidden');
       choiceBox.classList.add('hidden');
       input.focus();  // 続けてキーボードだけで解答できるようにする
@@ -3059,7 +3207,7 @@
     submitAnswer(document.getElementById('answer-input').value.trim());
   });
 
-  function submitAnswer(input) {
+  function submitAnswer(input, presetVerdict) {
     const q = currentSessionQuestions[currentQuestionIndex];
     const feedback = document.getElementById('feedback');
 
@@ -3072,7 +3220,25 @@
     applyKeyboardMode(false);
     document.getElementById('answer-form').classList.add('hidden');   // 解説の場所をあける
 
-    const verdict = judgeAnswer(input, q);
+    // 語順整序は並びで判定するので、文字合わせの判定は使わない
+    if (Array.isArray(q.tokens)) {
+      orderLocked = true;
+      document.getElementById('order-submit-btn').classList.add('hidden');
+      document.getElementById('order-reset-btn').classList.add('hidden');
+
+      // 答え合わせのあとは、札を並べたままより一つの文として見せる。
+      // 読みやすいうえ、札4段ぶんの高さが空いて解説がそのまま画面に収まる
+      const slots = document.getElementById('order-slots');
+      const built = orderSentence();
+      slots.textContent = '';
+      slots.classList.remove('empty');
+      const line = document.createElement('span');
+      line.className = 'order-result';
+      line.textContent = built ? built[0].toUpperCase() + built.slice(1) + (q.end || '.') : '';
+      slots.appendChild(line);
+    }
+
+    const verdict = presetVerdict || judgeAnswer(input, q);
 
     if (verdict === 'correct') {
       triggerAttackEffect(answerTimeSec, 'correct');
@@ -3185,6 +3351,168 @@
     if (viewport) {
       viewport.addEventListener('resize', () => applyKeyboardMode(keyboardShown()));
     }
+  })();
+
+  // ----- 🧩 語順整序 -----
+  // 「as ... as」のように同じ語が2回出る文があるため、語は番号で持つ。
+  // 文字で消すと、もう片方まで消えてしまう
+  let orderSlots = [];        // 上の欄に並べた語
+  let orderBankItems = [];    // 語群に残っている語
+  let orderLocked = false;    // 答え合わせ後は動かせなくする
+
+  function setupOrder(q) {
+    const items = q.tokens.map((text, key) => ({ key, text }));
+    orderSlots = [];
+    orderBankItems = shuffled(items);
+    // まぐれで最初から正解の並びにならないようにする
+    if (orderBankItems.length > 2 &&
+        orderBankItems.map(t => t.text).join(' ') === q.tokens.join(' ')) {
+      orderBankItems.push(orderBankItems.shift());
+    }
+    orderLocked = false;
+    renderOrder();
+  }
+
+  function makeChip(item, where, index) {
+    const chip = document.createElement('button');
+    chip.type = 'button';
+    chip.className = 'order-chip';
+    chip.textContent = item.text;
+    chip.dataset.where = where;
+    chip.dataset.index = index;
+    return chip;
+  }
+
+  function renderOrder() {
+    const q = currentSessionQuestions[currentQuestionIndex];
+    const slots = document.getElementById('order-slots');
+    const bank = document.getElementById('order-bank');
+    slots.textContent = '';
+    bank.textContent = '';
+    slots.classList.toggle('empty', orderSlots.length === 0);
+
+    orderSlots.forEach((item, i) => slots.appendChild(makeChip(item, 'slot', i)));
+    if (orderSlots.length > 0) {
+      const end = document.createElement('span');
+      end.className = 'order-end';
+      end.textContent = (q && q.end) || '.';
+      slots.appendChild(end);
+    }
+    orderBankItems.forEach((item, i) => bank.appendChild(makeChip(item, 'bank', i)));
+
+    // 語群を使い切るまでは判定させない
+    document.getElementById('order-submit-btn').disabled = orderBankItems.length > 0;
+  }
+
+  function orderSentence() {
+    return orderSlots.map(t => t.text).join(' ');
+  }
+
+  function judgeOrder(q) {
+    const given = orderSlots.map(t => t.text.toLowerCase());
+    const right = q.tokens.map(t => t.toLowerCase());
+    if (given.join(' ') === right.join(' ')) return 'correct';
+    // 2か所だけ入れちがっている＝ひとつ入れかえれば正解。惜しいとして半分通す
+    if (given.length === right.length) {
+      const wrongSpots = given.reduce((n, w, i) => n + (w === right[i] ? 0 : 1), 0);
+      if (wrongSpots <= 2) return 'close';
+    }
+    return 'wrong';
+  }
+
+  (function enableOrderDrag() {
+    const area = document.getElementById('order-area');
+    const slots = document.getElementById('order-slots');
+    const bank = document.getElementById('order-bank');
+    let drag = null;
+
+    function moveItem(from, fromIndex, to, toIndex) {
+      const source = from === 'slot' ? orderSlots : orderBankItems;
+      const [item] = source.splice(fromIndex, 1);
+      if (!item) return renderOrder();
+      const target = to === 'slot' ? orderSlots : orderBankItems;
+      target.splice(Math.max(0, Math.min(toIndex, target.length)), 0, item);
+      renderOrder();
+    }
+
+    // 折り返しも考えて、指の位置がどの語と語のあいだかを求める
+    function insertIndexAt(container, x, y) {
+      const chips = [...container.querySelectorAll('.order-chip')]
+        .filter(c => !c.classList.contains('dragging'));
+      for (let i = 0; i < chips.length; i++) {
+        const r = chips[i].getBoundingClientRect();
+        if (y < r.bottom && x < r.left + r.width / 2) return i;
+      }
+      return chips.length;
+    }
+
+    function isOver(el, x, y) {
+      const r = el.getBoundingClientRect();
+      return x >= r.left && x <= r.right && y >= r.top && y <= r.bottom;
+    }
+
+    area.addEventListener('pointerdown', e => {
+      const chip = e.target.closest('.order-chip');
+      if (!chip || orderLocked) return;
+      drag = {
+        chip, moved: false, ghost: null,
+        startX: e.clientX, startY: e.clientY,
+        where: chip.dataset.where, index: Number(chip.dataset.index),
+      };
+      chip.setPointerCapture(e.pointerId);
+    });
+
+    area.addEventListener('pointermove', e => {
+      if (!drag) return;
+      const dx = e.clientX - drag.startX, dy = e.clientY - drag.startY;
+      // 指の軽い揺れはタップとして扱う
+      if (!drag.moved && Math.hypot(dx, dy) < 7) return;
+      if (!drag.moved) {
+        drag.moved = true;
+        drag.ghost = drag.chip.cloneNode(true);
+        drag.ghost.classList.add('ghost');
+        document.body.appendChild(drag.ghost);
+        drag.chip.classList.add('dragging');
+      }
+      drag.ghost.style.left = `${e.clientX}px`;
+      drag.ghost.style.top = `${e.clientY}px`;
+    });
+
+    function finishDrag(e) {
+      if (!drag) return;
+      const d = drag;
+      drag = null;
+      if (d.ghost) d.ghost.remove();
+      d.chip.classList.remove('dragging');
+
+      // 動かさずに離した＝タップ。反対側へ移す
+      if (!d.moved) {
+        if (d.where === 'bank') moveItem('bank', d.index, 'slot', orderSlots.length);
+        else moveItem('slot', d.index, 'bank', orderBankItems.length);
+        return;
+      }
+      const to = isOver(slots, e.clientX, e.clientY) ? 'slot'
+               : (isOver(bank, e.clientX, e.clientY) ? 'bank' : null);
+      if (!to) return renderOrder();   // 枠の外で離したら元に戻す
+      const container = to === 'slot' ? slots : bank;
+      moveItem(d.where, d.index, to, insertIndexAt(container, e.clientX, e.clientY));
+    }
+
+    area.addEventListener('pointerup', finishDrag);
+    area.addEventListener('pointercancel', finishDrag);
+
+    document.getElementById('order-reset-btn').addEventListener('click', () => {
+      if (orderLocked) return;
+      orderBankItems = shuffled(orderBankItems.concat(orderSlots));
+      orderSlots = [];
+      renderOrder();
+    });
+
+    document.getElementById('order-submit-btn').addEventListener('click', () => {
+      if (orderLocked || orderBankItems.length > 0) return;
+      const q = currentSessionQuestions[currentQuestionIndex];
+      submitAnswer(orderSentence(), judgeOrder(q));
+    });
   })();
 
   function showExplanation(q) {
@@ -3460,7 +3788,17 @@
   document.addEventListener('keydown', (e) => {
     if (e.key !== 'Enter' || e.repeat || e.isComposing) return;
     if (document.getElementById('quiz-screen').classList.contains('hidden')) return;
-    if (document.getElementById('next-btn').classList.contains('hidden')) return;
+
+    // 語順整序は入力欄がないぶん、並べ終えたらエンターで判定できるようにする
+    const orderSubmit = document.getElementById('order-submit-btn');
+    if (document.getElementById('next-btn').classList.contains('hidden')) {
+      if (!orderLocked && !orderSubmit.classList.contains('hidden') && !orderSubmit.disabled
+          && !document.getElementById('order-area').classList.contains('hidden')) {
+        e.preventDefault();
+        orderSubmit.click();
+      }
+      return;
+    }
 
     e.preventDefault();
     proceed();
