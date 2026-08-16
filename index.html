@@ -661,6 +661,88 @@
       text-align: center;
     }
 
+    /* ⚡ 位が上がった瞬間だけの演出 */
+    .levelup-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(3, 2, 1, 0.97);
+      z-index: 60;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      padding: 20px;
+      box-sizing: border-box;
+      cursor: pointer;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+    .levelup-overlay.show { opacity: 1; pointer-events: auto; }
+
+    .levelup-lightning {
+      position: absolute;
+      inset: -20%;
+      background: radial-gradient(circle at 50% 40%,
+        rgba(255, 251, 235, 0.98) 0%,
+        rgba(255, 224, 150, 0.55) 30%,
+        rgba(255, 224, 150, 0.12) 55%,
+        transparent 72%);
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .levelup-overlay.flash .levelup-lightning { opacity: 1; transition: opacity 0.07s ease; }
+
+    .levelup-stage {
+      position: relative;
+      z-index: 1;
+      width: min(80vw, 360px);
+      aspect-ratio: 2 / 3;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 0 55px rgba(0, 0, 0, 0.9);
+      background: #0c0806;
+    }
+
+    #levelup-figure-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .levelup-bands { position: absolute; inset: 0; }
+
+    .levelup-band {
+      position: absolute;
+      left: 0;
+      width: 100%;
+      background-size: 100% 100%;
+      opacity: 1;
+      filter: blur(0px);
+      transition: opacity 0.3s ease, filter 0.45s ease, transform 0.6s cubic-bezier(0.5, 0, 0.25, 1);
+    }
+
+    .levelup-caption {
+      margin: 0;
+      color: #f3e6c8;
+      font-size: 1rem;
+      font-weight: bold;
+      text-align: center;
+      letter-spacing: 0.04em;
+    }
+
+    .levelup-hint {
+      margin: 0;
+      color: #a89684;
+      font-size: 0.78rem;
+      text-align: center;
+    }
+
     /* ✅ 解答後に出す「要復習」のチェック */
     .mark-row {
       display: flex;
@@ -2005,6 +2087,18 @@
   <p id="reward-overlay-caption"></p>
 </div>
 
+<!-- ⚡ 位が上がった瞬間の演出。絵巻の後ろで雷が光り、金雲ごしに一瞬全身が見え、
+     ボヤっと戻ったあと、新しく晴れた帯だけがスライドして消える -->
+<div id="levelup-overlay" class="levelup-overlay">
+  <div class="levelup-stage">
+    <canvas id="levelup-figure-canvas" width="380" height="570"></canvas>
+    <div id="levelup-bands" class="levelup-bands"></div>
+    <div class="levelup-lightning"></div>
+  </div>
+  <p id="levelup-caption" class="levelup-caption"></p>
+  <p class="levelup-hint">画面をタップで閉じる</p>
+</div>
+
 <!-- 🎯 メインカード（画面中央から下部に配置） -->
 <div class="app-container">
   <!-- 1. ホーム画面（教科選択） -->
@@ -3259,47 +3353,148 @@
 
   // 洛中洛外図などで場面を隠す「金雲」を描く。
   // 正解を重ねるほど雲が減り、下の絵があらわれていく
-  function drawGoldClouds(ctx, w, h, remain) {
-    if (remain <= 0) return;
+  const CLOUD_BANDS = 12;
 
-    const BANDS = 12;
-    const bandH = h / BANDS;
+  // 足もとから順に晴らし、顔がいちばん最後に出るようにする
+  function cloudBandOrder() {
+    return Array.from({ length: CLOUD_BANDS }, (_, i) => CLOUD_BANDS - 1 - i);
+  }
 
-    // 足もとから順に晴らし、顔がいちばん最後に出るようにする
-    const order = Array.from({ length: BANDS }, (_, i) => BANDS - 1 - i);
-    const cleared = new Set(order.slice(0, Math.round(BANDS * (1 - remain))));
+  // その位で、上から数えて何番目の帯が晴れているか（インデックスの集合）
+  function clearedBands(level) {
+    const order = cloudBandOrder();
+    const remain = REWARD_STEPS[level].cloud;
+    return new Set(order.slice(0, Math.round(CLOUD_BANDS * (1 - remain))));
+  }
 
-    const gold = ctx.createLinearGradient(0, 0, w, h);
+  // 帯1つぶんの金雲を描く。絵巻の縮小表示と、位が上がる演出の両方で使う
+  function drawCloudBand(ctx, y, w, bandH) {
+    const gold = ctx.createLinearGradient(0, y, w, y + bandH);
     gold.addColorStop(0, '#f0d089');
     gold.addColorStop(0.45, '#d9ab4e');
     gold.addColorStop(1, '#b8862f');
 
-    for (let i = 0; i < BANDS; i++) {
+    const pad = bandH * 0.26;
+    const r = pad * 1.5;
+    const lobes = 6;
+
+    ctx.fillStyle = gold;
+    ctx.beginPath();
+    ctx.rect(0, y + pad, w, bandH - pad * 2);
+    // 上下のふちに半円を並べて、雲らしいふくらみをつくる
+    for (let k = 0; k < lobes; k++) {
+      const cx = (k + 0.5) * (w / lobes);
+      ctx.moveTo(cx + r, y + pad);
+      ctx.arc(cx, y + pad, r, 0, Math.PI * 2);
+      ctx.moveTo(cx + (w / lobes) / 2 + r, y + bandH - pad);
+      ctx.arc(cx + (w / lobes) / 2, y + bandH - pad, r, 0, Math.PI * 2);
+    }
+    ctx.fill();
+
+    // 金の輪郭を薄く重ねて、絵巻らしい質感にする
+    ctx.strokeStyle = 'rgba(255, 236, 180, 0.35)';
+    ctx.lineWidth = Math.max(1, w / 220);
+    ctx.stroke();
+  }
+
+  function drawGoldClouds(ctx, w, h, remain) {
+    if (remain <= 0) return;
+    const bandH = h / CLOUD_BANDS;
+    const cleared = new Set(cloudBandOrder().slice(0, Math.round(CLOUD_BANDS * (1 - remain))));
+    for (let i = 0; i < CLOUD_BANDS; i++) {
       if (cleared.has(i)) continue;
-      const y = i * bandH;
-      const pad = bandH * 0.26;
-      const r = pad * 1.5;
-      const lobes = 6;
-
-      ctx.fillStyle = gold;
-      ctx.beginPath();
-      ctx.rect(0, y + pad, w, bandH - pad * 2);
-      // 上下のふちに半円を並べて、雲らしいふくらみをつくる
-      for (let k = 0; k < lobes; k++) {
-        const cx = (k + 0.5) * (w / lobes);
-        ctx.moveTo(cx + r, y + pad);
-        ctx.arc(cx, y + pad, r, 0, Math.PI * 2);
-        ctx.moveTo(cx + (w / lobes) / 2 + r, y + bandH - pad);
-        ctx.arc(cx + (w / lobes) / 2, y + bandH - pad, r, 0, Math.PI * 2);
-      }
-      ctx.fill();
-
-      // 金の輪郭を薄く重ねて、絵巻らしい質感にする
-      ctx.strokeStyle = 'rgba(255, 236, 180, 0.35)';
-      ctx.lineWidth = Math.max(1, w / 220);
-      ctx.stroke();
+      drawCloudBand(ctx, i * bandH, w, bandH);
     }
   }
+
+  // 帯1つぶんの金雲だけを、透明背景の小さなキャンバスに描いてURL化する。
+  // 形は絵によらず共通なので、一度作ったら使い回す
+  const cloudBandUrlCache = new Map();
+  function cloudBandDataUrl(bandIndex, w, h) {
+    const key = `${bandIndex}_${w}_${h}`;
+    if (cloudBandUrlCache.has(key)) return cloudBandUrlCache.get(key);
+    const bandH = h / CLOUD_BANDS;
+    const cv = document.createElement('canvas');
+    cv.width = w;
+    cv.height = Math.ceil(bandH);
+    const ctx = cv.getContext('2d');
+    drawCloudBand(ctx, 0, w, bandH);
+    const url = cv.toDataURL('image/png');
+    cloudBandUrlCache.set(key, url);
+    return url;
+  }
+
+  // ⚡ 位が上がった瞬間の演出。絵巻を大きく表示し、
+  // 雷が光って金雲ごしに一瞬全身が見え、ボヤっと戻ったあと、
+  // 新しく晴れた帯だけをスライドさせて消す
+  function playLevelUpCutscene(subjectKey, oldLevel, newLevel) {
+    if (!rewardImage) return;   // 絵がまだ読み込めていない端末では出さない
+
+    const W = 380, H = 570;
+    const overlay = document.getElementById('levelup-overlay');
+    const figureCanvas = document.getElementById('levelup-figure-canvas');
+    const bandsWrap = document.getElementById('levelup-bands');
+
+    // 下の層：金雲なしの絵そのもの。雷の一瞬だけこれがそのまま見える
+    const fctx = figureCanvas.getContext('2d');
+    fctx.clearRect(0, 0, W, H);
+    fctx.drawImage(rewardImage, 0, 0, W, H);
+
+    // 上の層：帯ごとのDOM要素。もともと晴れていた帯は最初から置かない
+    bandsWrap.innerHTML = '';
+    const oldCleared = clearedBands(oldLevel);
+    const newCleared = clearedBands(newLevel);
+    const bandEls = [];
+    for (let i = 0; i < CLOUD_BANDS; i++) {
+      if (oldCleared.has(i)) continue;
+      const div = document.createElement('div');
+      div.className = 'levelup-band';
+      div.style.top = `${(i / CLOUD_BANDS) * 100}%`;
+      div.style.height = `${100 / CLOUD_BANDS}%`;
+      div.style.backgroundImage = `url(${cloudBandDataUrl(i, W, H)})`;
+      if (newCleared.has(i)) div.dataset.reveal = '1';  // 今回新しく晴れる帯
+      bandsWrap.appendChild(div);
+      bandEls.push(div);
+    }
+
+    document.getElementById('levelup-caption').textContent =
+      `${REWARD_TITLES[subjectKey] || '絵巻'}　「${RANK_TITLES[oldLevel]}」→「${RANK_TITLES[newLevel]}」`;
+
+    overlay.classList.remove('show');
+    void overlay.offsetWidth;   // アニメを最初からやり直すための書きこみ
+    overlay.classList.add('show');
+
+    // ほんの一瞬、雷が光って金雲ごしに全身が見える
+    setTimeout(() => {
+      overlay.classList.add('flash');
+      bandEls.forEach(el => { el.style.opacity = '0.05'; });
+    }, 400);
+
+    // 光がおさまり、金雲がボヤっと戻る（ぼかした状態でまず不透明に）
+    setTimeout(() => {
+      overlay.classList.remove('flash');
+      bandEls.forEach(el => { el.style.opacity = '1'; el.style.filter = 'blur(12px)'; });
+    }, 700);
+
+    // ぼかしを晴らす
+    setTimeout(() => {
+      bandEls.forEach(el => { el.style.filter = 'blur(0px)'; });
+    }, 900);
+
+    // 新しく晴れた帯だけを、少しずつスライドさせて消す
+    setTimeout(() => {
+      bandEls.filter(el => el.dataset.reveal === '1').forEach((el, idx) => {
+        setTimeout(() => {
+          el.style.transform = 'translateY(-120%)';
+          el.style.opacity = '0';
+        }, idx * 120);
+      });
+    }, 1700);
+  }
+
+  document.getElementById('levelup-overlay').addEventListener('click', () => {
+    document.getElementById('levelup-overlay').classList.remove('show');
+  });
 
   // その位で使えるセリフが何通りあるか
   function countAllyLines(level) {
@@ -4935,6 +5130,11 @@
     document.getElementById('result-screen').classList.remove('hidden');
     updateReviewBtn();
     updateRewardPanel();
+
+    // 位が上がった回だけ、戦果カードの上に絵巻の演出を重ねて出す
+    if (newLevel > sessionStartLevel) {
+      playLevelUpCutscene(currentSubjectKey, sessionStartLevel, newLevel);
+    }
   }
 
   document.getElementById('result-save-btn').addEventListener('click', () => {
