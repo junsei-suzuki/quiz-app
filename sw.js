@@ -3,7 +3,7 @@
 
    問題を直したときは、必ず下の版を1つ上げること。
    上げ忘れると、古い問題が端末に貼りついたまま新しいものに入れ替わらない。 */
-const VERSION = 'v1';
+const VERSION = 'v2';
 const CACHE = `gassen-${VERSION}`;
 
 // 起動に要るものは先に取っておく。これが揃っていれば圏外でも出陣できる
@@ -11,6 +11,7 @@ const CORE = [
   './',
   './index.html',
   './boss.png',
+  './gold_leaf.jpg',
   './sounds/slash.mp3',
   './history.json',
   './math.json',

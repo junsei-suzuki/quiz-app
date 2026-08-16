@@ -681,20 +681,63 @@
     }
     .levelup-overlay.show { opacity: 1; pointer-events: auto; }
 
-    .levelup-lightning {
+    /* 絵巻の外、画面いっぱいに広がる雷光。.levelup-stage より手前ではなく
+       背後に置くので、枠の外にもはみ出して見える（絵巻の後ろで光る） */
+    .levelup-backdrop-fx {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .levelup-glow {
       position: absolute;
       inset: -20%;
       background: radial-gradient(circle at 50% 40%,
         rgba(255, 251, 235, 0.98) 0%,
-        rgba(255, 224, 150, 0.55) 30%,
-        rgba(255, 224, 150, 0.12) 55%,
-        transparent 72%);
+        rgba(255, 224, 150, 0.55) 28%,
+        rgba(255, 224, 150, 0.14) 50%,
+        transparent 70%);
+      opacity: 0;
+      transition: opacity 0.6s ease;
+    }
+    .levelup-overlay.flash .levelup-glow { opacity: 1; transition: opacity 0.18s ease; }
+
+    /* 光の筋が中心から放射状に広がる、神々しさを添えるための後光 */
+    .levelup-godrays {
+      position: absolute;
+      inset: -35%;
+      background: repeating-conic-gradient(from 0deg,
+        rgba(255, 250, 230, 0.4) 0deg 3deg,
+        transparent 3deg 16deg);
+      mix-blend-mode: screen;
+      opacity: 0;
+      transform: scale(0.85) rotate(0deg);
+      transition: opacity 0.6s ease, transform 1.6s ease;
+    }
+    .levelup-overlay.flash .levelup-godrays {
+      opacity: 0.9;
+      transform: scale(1.15) rotate(10deg);
+      transition: opacity 0.25s ease, transform 1.3s ease;
+    }
+
+    /* 雷そのもの。絵巻の左右、枠のさらに外側で一瞬走る */
+    .levelup-bolt {
+      position: absolute;
+      top: -8%;
+      width: 90px;
+      height: 116%;
+      /* 金色の後光の中でも埋もれないよう、雷らしい青白い色にして対比を出す */
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(196, 222, 255, 0.85) 45%, rgba(150, 195, 255, 0.4) 75%, transparent);
+      clip-path: polygon(65% 0%, 30% 42%, 50% 42%, 18% 100%, 70% 48%, 46% 48%, 82% 0%);
+      filter: drop-shadow(0 0 16px rgba(210, 230, 255, 0.95)) drop-shadow(0 0 32px rgba(150, 200, 255, 0.6));
       opacity: 0;
       transition: opacity 0.5s ease;
-      pointer-events: none;
-      z-index: 0;
     }
-    .levelup-overlay.flash .levelup-lightning { opacity: 1; transition: opacity 0.07s ease; }
+    .levelup-bolt-a { left: 4%; transform: rotate(-7deg); }
+    .levelup-bolt-b { right: 4%; transform: rotate(9deg) scaleX(-1); }
+    .levelup-overlay.flash .levelup-bolt { opacity: 0.95; transition: opacity 0.09s ease; }
 
     .levelup-stage {
       position: relative;
@@ -2090,10 +2133,15 @@
 <!-- ⚡ 位が上がった瞬間の演出。絵巻の後ろで雷が光り、金雲ごしに一瞬全身が見え、
      ボヤっと戻ったあと、新しく晴れた帯だけがスライドして消える -->
 <div id="levelup-overlay" class="levelup-overlay">
+  <div class="levelup-backdrop-fx">
+    <div class="levelup-glow"></div>
+    <div class="levelup-godrays"></div>
+    <div class="levelup-bolt levelup-bolt-a"></div>
+    <div class="levelup-bolt levelup-bolt-b"></div>
+  </div>
   <div class="levelup-stage">
     <canvas id="levelup-figure-canvas" width="380" height="570"></canvas>
     <div id="levelup-bands" class="levelup-bands"></div>
-    <div class="levelup-lightning"></div>
   </div>
   <p id="levelup-caption" class="levelup-caption"></p>
   <p class="levelup-hint">画面をタップで閉じる</p>
@@ -3088,13 +3136,16 @@
     source.start();
   }
 
-  // 位が上がった瞬間だけの特別な音。音声ファイルを増やさず、その場で鳴らす
-  // 短い上昇アルペジオを合成する（版権にもファイル容量にも影響しない）
+  // 位が上がった瞬間だけの特別な音。音声ファイルを増やさず、その場で鳴らす。
+  // 軽い上昇アルペジオだけだとゲームのレベルアップ音のようで軽かったため、
+  // 低い一打（法螺貝や梵鐘を思わせる低音）＋鐘の余韻＋ゆっくりした低めの
+  // アルペジオの3層に組みなおし、絵巻の演出（雷が光る瞬間）と重なるよう
+  // 0.45秒の間をあけてから鳴らす
   function playLevelUpChime() {
     if (feedbackMode === 'none') return;
 
     if (feedbackMode === 'vibe') {
-      if (navigator.vibrate) navigator.vibrate([40, 40, 40, 40, 40, 40, 120]);
+      if (navigator.vibrate) navigator.vibrate([30, 300, 50, 60, 60, 60, 160]);
       return;
     }
 
@@ -3102,20 +3153,49 @@
     if (!ctx) return;
     if (ctx.state === 'suspended') ctx.resume();
 
-    const notes = [523.25, 659.25, 783.99, 1046.50];  // ド・ミ・ソ・高いド
-    const startAt = ctx.currentTime;
+    const t0 = ctx.currentTime + 0.45;   // 演出の「雷が光る」瞬間に合わせる
+
+    // 低い一打。落雷や太鼓の一打のような重みを出す
+    const boom = ctx.createOscillator();
+    const boomGain = ctx.createGain();
+    boom.type = 'sine';
+    boom.frequency.setValueAtTime(100, t0);
+    boom.frequency.exponentialRampToValueAtTime(55, t0 + 1.1);
+    boomGain.gain.setValueAtTime(0, t0);
+    boomGain.gain.linearRampToValueAtTime(0.6, t0 + 0.03);
+    boomGain.gain.exponentialRampToValueAtTime(0.001, t0 + 1.3);
+    boom.connect(boomGain).connect(ctx.destination);
+    boom.start(t0);
+    boom.stop(t0 + 1.35);
+
+    // 鐘のような余韻。基音とわずかにずれた倍音を重ねて金属的な響きにする
+    [1, 2.01, 3.03].forEach((mult, i) => {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'sine';
+      osc.frequency.value = 210 * mult;
+      gain.gain.setValueAtTime(0, t0 + 0.02);
+      gain.gain.linearRampToValueAtTime(i === 0 ? 0.22 : 0.08, t0 + 0.06);
+      gain.gain.exponentialRampToValueAtTime(0.0008, t0 + 2.0);
+      osc.connect(gain).connect(ctx.destination);
+      osc.start(t0 + 0.02);
+      osc.stop(t0 + 2.05);
+    });
+
+    // ゆっくりとした低めのアルペジオ。荘厳さを出すため、間隔を広げ1オクターブ下げてある
+    const notes = [261.63, 329.63, 392.00, 523.25];  // ド・ミ・ソ・高いド
     notes.forEach((freq, i) => {
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
       osc.type = 'triangle';
       osc.frequency.value = freq;
-      const t0 = startAt + i * 0.11;
-      gain.gain.setValueAtTime(0, t0);
-      gain.gain.linearRampToValueAtTime(0.28, t0 + 0.02);
-      gain.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.5);
+      const t1 = t0 + 0.55 + i * 0.2;
+      gain.gain.setValueAtTime(0, t1);
+      gain.gain.linearRampToValueAtTime(0.22, t1 + 0.03);
+      gain.gain.exponentialRampToValueAtTime(0.0001, t1 + 0.9);
       osc.connect(gain).connect(ctx.destination);
-      osc.start(t0);
-      osc.stop(t0 + 0.55);
+      osc.start(t1);
+      osc.stop(t1 + 0.95);
     });
   }
 
@@ -3367,18 +3447,27 @@
     return new Set(order.slice(0, Math.round(CLOUD_BANDS * (1 - remain))));
   }
 
-  // 帯1つぶんの金雲を描く。絵巻の縮小表示と、位が上がる演出の両方で使う
-  function drawCloudBand(ctx, y, w, bandH) {
-    const gold = ctx.createLinearGradient(0, y, w, y + bandH);
-    gold.addColorStop(0, '#f0d089');
-    gold.addColorStop(0.45, '#d9ab4e');
-    gold.addColorStop(1, '#b8862f');
+  // 本物の金箔の質感（宗達「風神雷神図」のパブリックドメイン画像、
+  // Wikimedia Commonsより。著作権保護期間満了・CC-PD-Mark）。
+  // 位が上がる演出でだけ使う（小さな絵巻表示は従来のグラデーションのまま）
+  let goldLeafTexture = null;
+  (function loadGoldLeafTexture() {
+    const img = new Image();
+    img.onload = () => { goldLeafTexture = img; };
+    img.src = 'gold_leaf.jpg';
+  })();
 
+  // 帯1つぶんの金雲を描く。絵巻の縮小表示と、位が上がる演出の両方で使う。
+  // useTexture のときだけ、本物の金箔画像を下地に敷く。textureSeed は
+  // 金箔画像の中でどこを使うかを決める値で、描画位置の y とは別に渡せる
+  // （位が上がる演出は帯ごとに小さな別キャンバスへ描くため、y は常に0に近い）
+  function drawCloudBand(ctx, y, w, bandH, useTexture, textureSeed) {
     const pad = bandH * 0.26;
     const r = pad * 1.5;
     const lobes = 6;
+    const seed = textureSeed === undefined ? y : textureSeed;
 
-    ctx.fillStyle = gold;
+    ctx.save();
     ctx.beginPath();
     ctx.rect(0, y + pad, w, bandH - pad * 2);
     // 上下のふちに半円を並べて、雲らしいふくらみをつくる
@@ -3389,9 +3478,43 @@
       ctx.moveTo(cx + (w / lobes) / 2 + r, y + bandH - pad);
       ctx.arc(cx + (w / lobes) / 2, y + bandH - pad, r, 0, Math.PI * 2);
     }
-    ctx.fill();
+
+    if (useTexture && goldLeafTexture) {
+      ctx.clip();
+      // 帯ごとに画像の中の縦位置をずらし、同じ模様の繰り返しに見えないようにする
+      const srcH = Math.min(goldLeafTexture.height, bandH * 1.6);
+      const srcY = (seed * 0.37) % Math.max(1, goldLeafTexture.height - srcH);
+      ctx.drawImage(goldLeafTexture, 0, srcY, goldLeafTexture.width, srcH,
+        0, y - pad, w, bandH + pad * 2);
+
+      // 元のグラデーションは陰影づけとして薄く重ね、絵巻としての統一感を保つ
+      const shade = ctx.createLinearGradient(0, y, 0, y + bandH);
+      shade.addColorStop(0, 'rgba(255, 235, 190, 0.22)');
+      shade.addColorStop(1, 'rgba(90, 60, 15, 0.32)');
+      ctx.fillStyle = shade;
+      ctx.globalCompositeOperation = 'multiply';
+      ctx.fillRect(0, y, w, bandH);
+      ctx.globalCompositeOperation = 'source-over';
+    } else {
+      const gold = ctx.createLinearGradient(0, y, w, y + bandH);
+      gold.addColorStop(0, '#f0d089');
+      gold.addColorStop(0.45, '#d9ab4e');
+      gold.addColorStop(1, '#b8862f');
+      ctx.fillStyle = gold;
+      ctx.fill();
+    }
+    ctx.restore();
 
     // 金の輪郭を薄く重ねて、絵巻らしい質感にする
+    ctx.beginPath();
+    for (let k = 0; k < lobes; k++) {
+      const cx = (k + 0.5) * (w / lobes);
+      ctx.moveTo(cx + r, y + pad);
+      ctx.arc(cx, y + pad, r, 0, Math.PI * 2);
+      ctx.moveTo(cx + (w / lobes) / 2 + r, y + bandH - pad);
+      ctx.arc(cx + (w / lobes) / 2, y + bandH - pad, r, 0, Math.PI * 2);
+    }
+    ctx.rect(0, y + pad, w, bandH - pad * 2);
     ctx.strokeStyle = 'rgba(255, 236, 180, 0.35)';
     ctx.lineWidth = Math.max(1, w / 220);
     ctx.stroke();
@@ -3407,8 +3530,10 @@
     }
   }
 
-  // 帯1つぶんの金雲だけを、透明背景の小さなキャンバスに描いてURL化する。
-  // 形は絵によらず共通なので、一度作ったら使い回す
+  // 帯1つぶんの金雲だけを、透明背景の小さなキャンバスに描いてURL化する
+  // （位が上がる演出専用。本物の金箔の質感を使う）。
+  // 形は絵によらず共通なので、一度作ったら使い回す。ただし金箔画像の
+  // 読みこみがまだのときはキャッシュせず、次回また作り直せるようにする
   const cloudBandUrlCache = new Map();
   function cloudBandDataUrl(bandIndex, w, h) {
     const key = `${bandIndex}_${w}_${h}`;
@@ -3418,9 +3543,12 @@
     cv.width = w;
     cv.height = Math.ceil(bandH);
     const ctx = cv.getContext('2d');
-    drawCloudBand(ctx, 0, w, bandH);
+    // 描画位置は小さなキャンバスの中で完結させ（y=0）、
+    // 金箔の中でどこを使うかだけを帯ごとにずらす（textureSeed）。
+    // ctx.clip() が帯の輪郭で切り取るので、キャンバスの余白は要らない
+    drawCloudBand(ctx, 0, w, bandH, true, bandIndex * bandH);
     const url = cv.toDataURL('image/png');
-    cloudBandUrlCache.set(key, url);
+    if (goldLeafTexture) cloudBandUrlCache.set(key, url);
     return url;
   }
 
@@ -3464,22 +3592,22 @@
     void overlay.offsetWidth;   // アニメを最初からやり直すための書きこみ
     overlay.classList.add('show');
 
-    // ほんの一瞬、雷が光って金雲ごしに全身が見える
+    // 雷が光り、金雲ごしに全身が見える。神々しさを出すため、ここでしっかり間を持たせる
     setTimeout(() => {
       overlay.classList.add('flash');
       bandEls.forEach(el => { el.style.opacity = '0.05'; });
-    }, 400);
+    }, 450);
 
     // 光がおさまり、金雲がボヤっと戻る（ぼかした状態でまず不透明に）
     setTimeout(() => {
       overlay.classList.remove('flash');
       bandEls.forEach(el => { el.style.opacity = '1'; el.style.filter = 'blur(12px)'; });
-    }, 700);
+    }, 1450);
 
     // ぼかしを晴らす
     setTimeout(() => {
       bandEls.forEach(el => { el.style.filter = 'blur(0px)'; });
-    }, 900);
+    }, 1750);
 
     // 新しく晴れた帯だけを、少しずつスライドさせて消す
     setTimeout(() => {
@@ -3489,7 +3617,7 @@
           el.style.opacity = '0';
         }, idx * 120);
       });
-    }, 1700);
+    }, 2350);
   }
 
   document.getElementById('levelup-overlay').addEventListener('click', () => {
