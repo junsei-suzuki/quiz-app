@@ -883,6 +883,46 @@
 
 
     /* 🏅 戦果カード */
+
+    /* 合戦が終わった直後、味方（ご褒美キャラ）がその日の戦いぶりをまとめて
+       しっかり褒めてくれる。戦果カード（画像として保存できるほう）とは別の、
+       アプリの中だけで見える演出 */
+    .result-ally {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 0 auto 16px;
+      max-width: 300px;
+    }
+    .result-ally-canvas {
+      width: 64px;
+      height: 96px;
+      flex-shrink: 0;
+      border-radius: 8px;
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid #5a4530;
+    }
+    .result-ally-bubble {
+      flex: 1;
+      min-width: 0;
+      min-height: 40px;
+      background: linear-gradient(180deg, rgba(90, 66, 36, 0.92), rgba(50, 36, 22, 0.92));
+      border: 1px solid #d4a04a;
+      border-radius: 10px;
+      padding: 10px 13px;
+      font-size: 0.92rem;
+      font-weight: bold;
+      color: #fff3da;
+      line-height: 1.5;
+      text-align: left;
+      box-shadow: 0 0 14px rgba(212, 160, 74, 0.35);
+      animation: bubble-pop 0.4s ease-out;
+    }
+
+    @media (min-width: 900px) {
+      .result-ally { max-width: 360px; }
+    }
+
     .result-canvas {
       display: block;
       width: 100%;
@@ -1144,6 +1184,41 @@
       0%   { transform: scale(0.94); opacity: 0.4; }
       60%  { transform: scale(1.02); opacity: 1; }
       100% { transform: scale(1); }
+    }
+
+    /* 正解したときに、味方（ご褒美キャラ）がしっかり喜ぶ演出。
+       ふきだしを金色に光らせ、まわりに小さな輝きを散らす。
+       レイアウトには影響しない絶対配置なので、コメント帯の重なり事故（過去に踏んだ）は起きない */
+    .ally-bubble.big { animation: bubble-pop 0.35s ease-out, bubble-flash 1.1s ease-out; font-weight: bold; }
+
+    @keyframes bubble-flash {
+      0%   { background: rgba(243, 168, 82, 0.6); box-shadow: 0 0 16px rgba(243, 168, 82, 0.55); }
+      100% { background: linear-gradient(180deg, rgba(70, 52, 34, 0.85), rgba(44, 32, 22, 0.85)); box-shadow: none; }
+    }
+
+    .stage-row { position: relative; }
+
+    .ally-canvas.celebrate { animation: ally-glow 0.9s ease-out; }
+
+    @keyframes ally-glow {
+      0%   { box-shadow: 0 0 0 rgba(243, 168, 82, 0); }
+      35%  { box-shadow: 0 0 20px 6px rgba(243, 168, 82, 0.65); }
+      100% { box-shadow: 0 0 0 rgba(243, 168, 82, 0); }
+    }
+
+    .sparkle {
+      position: absolute;
+      pointer-events: none;
+      font-size: 1rem;
+      line-height: 1;
+      z-index: 5;
+      animation: sparkle-float 0.9s ease-out forwards;
+    }
+
+    @keyframes sparkle-float {
+      0%   { transform: translateY(0) scale(0.4) rotate(0deg); opacity: 0; }
+      25%  { opacity: 1; }
+      100% { transform: translateY(-40px) scale(1) rotate(25deg); opacity: 0; }
     }
 
     /* 軍勢の声。巻物のふちに見立てた細い帯 */
@@ -2182,6 +2257,11 @@
 
   <!-- 4. 戦果カード（画像として保存・共有できる） -->
   <div id="result-screen" class="hidden">
+    <!-- 味方が、その日の戦いぶりをまとめて褒めてくれる -->
+    <div id="result-ally" class="result-ally hidden">
+      <canvas id="result-ally-canvas" class="result-ally-canvas" width="220" height="330"></canvas>
+      <div id="result-ally-bubble" class="result-ally-bubble"></div>
+    </div>
     <canvas id="result-canvas" class="result-canvas" width="1080" height="1920"></canvas>
     <!-- 学習に戻る道を先に置く。人に見せるボタンが最初にあると身構えさせてしまう -->
     <button id="result-retry-btn" class="hidden" style="background: #28a745;">まちがえた問題だけ解き直す</button>
@@ -2264,8 +2344,11 @@
       { t: 'その調子', lv: 0 },
       { t: '今の、届いた', lv: 0 },
       { t: '効いてる', lv: 0 },
+      { t: 'それでこそだ！', lv: 0 },
+      { t: '大したものだ！', lv: 0 },
       { t: 'いいね、続けよう', lv: 1 },
       { t: 'しっかり通った', lv: 1 },
+      { t: '惚れ惚れするな', lv: 1 },
       { t: '手ごたえあり', lv: 2 },
       { t: '前より速くなった', lv: 3 },
       { t: '君の一手は、もう迷いがない', lv: 5 },
@@ -2273,8 +2356,10 @@
     critical: [
       { t: '速い、見えてた？', lv: 0 },
       { t: '今の一撃、鋭い', lv: 0 },
+      { t: '天晴れ！', lv: 0 },
       { t: '迷いがないね', lv: 2 },
       { t: '見事な太刀筋', lv: 3 },
+      { t: 'まさに達人だ！', lv: 3 },
       { t: 'その速さ、もう並ぶ者がいない', lv: 5 },
     ],
     combo: [
@@ -2282,7 +2367,9 @@
       { t: '止まらないで', lv: 0 },
       { t: 'このまま押し切ろう', lv: 1 },
       { t: '流れはこっちだ', lv: 2 },
+      { t: '鬼神のごとしだ！', lv: 2 },
       { t: '背中は任せて', lv: 4 },
+      { t: '誰にも止められん！', lv: 4 },
       { t: '軍勢がついてきている', lv: 6 },
     ],
     close: [
@@ -2349,6 +2436,26 @@
     return chosen;
   }
 
+  const SPARKLE_CHARS = ['✨', '⭐', '🌟'];
+
+  // 正解したときに、ふきだしの近くへ小さな輝きを散らす。
+  // .stage-row の絶対配置なので、まわりのレイアウトには一切影響しない
+  function spawnSparkles(canvas, count) {
+    const row = canvas.closest('.stage-row');
+    if (!row) return;
+    const w = canvas.offsetWidth, h = canvas.offsetHeight;
+    for (let i = 0; i < count; i++) {
+      const s = document.createElement('span');
+      s.className = 'sparkle';
+      s.textContent = SPARKLE_CHARS[Math.floor(Math.random() * SPARKLE_CHARS.length)];
+      s.style.left = `${Math.random() * w}px`;
+      s.style.top = `${Math.random() * h * 0.6 + h * 0.1}px`;
+      s.style.animationDelay = `${Math.random() * 0.15}s`;
+      row.appendChild(s);
+      s.addEventListener('animationend', () => s.remove());
+    }
+  }
+
   function sayAlly(kind) {
     const level = rewardLevel(correctTotal);
     const pool = (ALLY_LINES[kind] || ALLY_LINES.correct)
@@ -2357,9 +2464,20 @@
 
     const bubble = document.getElementById('ally-bubble');
     bubble.textContent = pickLine(pool, recentAllyLines);
-    bubble.classList.remove('pop');
+    bubble.classList.remove('pop', 'big');
     void bubble.offsetWidth;   // アニメを再生し直すための書きこみ
     bubble.classList.add('pop');
+
+    // 正解のときは、ふきだしを金色に光らせて味方もしっかり喜ぶ。
+    // 会心・連撃はさらに輝きの数を増やして、盛り上がりが伝わるようにする
+    if (kind === 'correct' || kind === 'critical' || kind === 'combo') {
+      bubble.classList.add('big');
+      const cv = document.getElementById('ally-canvas');
+      cv.classList.remove('celebrate');
+      void cv.offsetWidth;
+      cv.classList.add('celebrate');
+      spawnSparkles(cv, kind === 'combo' ? 8 : (kind === 'critical' ? 6 : 4));
+    }
   }
 
   // 呼び名から色を決める。同じ人はいつも同じ色になる
@@ -2393,6 +2511,61 @@
   function drawAlly() {
     const cv = document.getElementById('ally-canvas');
     if (cv) drawReward(cv, rewardLevel(correctTotal));
+  }
+
+  // 合戦が終わったときに、その日の戦いぶりをまとめて味方が褒めてくれる。
+  // 位が上がった回はそれを最優先で伝え、そうでなければ正答率で言葉を選ぶ
+  const RESULT_PRAISE = {
+    levelup: [
+      '位が上がったぞ！ここからは「%RANK%」だ。胸を張っていい',
+      'よくやった、正真正銘の「%RANK%」だ！',
+      '金雲が晴れた。お前はもう「%RANK%」だぞ',
+      'これで「%RANK%」だ。積み重ねがちゃんと形になっている',
+    ],
+    perfect: [
+      '一問も落とさなかったな。今日はお前の日だ',
+      '完璧だ。付け入る隙が一つもなかった',
+      '見事、としか言いようがない',
+      '文句のつけようがない出来だ。誇っていい',
+    ],
+    great: [
+      'たいした腕前だ。今日のお前は強かった',
+      'よく戦った。見ていて気持ちがよかったぞ',
+      'この調子なら、次はもっと上まで行ける',
+      '立派な戦いぶりだった',
+    ],
+    good: [
+      'よく持ちこたえた。悪くない一戦だった',
+      '崩れずに最後まで戦ったな、それでいい',
+      '今日はここまで。次はもっと伸びるはずだ',
+      '一歩ずつでも、確かに前に進んでいる',
+    ],
+    effort: [
+      '今日はきつい相手だったな。それでも最後まで付き合ってくれた',
+      '負けが多くても、通ったぶんはちゃんと身になっている',
+      'つまずいた場所が分かっただけでも収穫だ',
+      'また挑めばいい。今日はよく粘った',
+    ],
+  };
+
+  function sayResultAlly({ total, accuracy, leveledUp, rank }) {
+    const wrap = document.getElementById('result-ally');
+    if (!total) { wrap.classList.add('hidden'); return; }
+
+    const canvas = document.getElementById('result-ally-canvas');
+    drawReward(canvas, rewardLevel(correctTotal));
+
+    let pool;
+    if (leveledUp) pool = RESULT_PRAISE.levelup;
+    else if (accuracy === 100) pool = RESULT_PRAISE.perfect;
+    else if (accuracy >= 80) pool = RESULT_PRAISE.great;
+    else if (accuracy >= 50) pool = RESULT_PRAISE.good;
+    else pool = RESULT_PRAISE.effort;
+
+    const line = pool[Math.floor(Math.random() * pool.length)].replace('%RANK%', rank);
+    const bubble = document.getElementById('result-ally-bubble');
+    bubble.textContent = line;
+    wrap.classList.remove('hidden');
   }
 
   // ----- 📅 学習の記録（日付・連続日数） -----
@@ -4657,6 +4830,12 @@
       rank: RANK_TITLES[newLevel],
       rewardMsg,
       date: `${now.getFullYear()}年${now.getMonth() + 1}月${now.getDate()}日`,
+    });
+
+    sayResultAlly({
+      total, accuracy,
+      leveledUp: newLevel > sessionStartLevel,
+      rank: RANK_TITLES[newLevel],
     });
 
     // その合戦で落とした問題だけを、その場で解き直せるようにする

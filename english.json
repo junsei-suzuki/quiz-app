@@ -1,5 +1,747 @@
 [
   {
+    "id": "e241",
+    "category": "be動詞",
+    "question": "主語が I のときに使う be動詞を英語1語で書きなさい。",
+    "answer": "am",
+    "explanation": "am は I 専用の be動詞で、ほかの主語には使えません。短くして I'm と書くこともできます。be動詞は「＝（イコール）」の働きで、主語とうしろの語を結びつけていると考えると役割がつかめます。"
+  },
+  {
+    "id": "e242",
+    "category": "be動詞",
+    "question": "主語が he や she のときに使う be動詞を英語1語で書きなさい。",
+    "answer": "is",
+    "explanation": "3人称単数の現在形が is。一般動詞にsがつくのと同じ理由で、主語がひとりの他人のときは形が変わります。it も同じ仲間で、This is 〜 の is もこの形です。"
+  },
+  {
+    "id": "e243",
+    "category": "be動詞",
+    "question": "主語が they のときに使う be動詞を英語1語で書きなさい。",
+    "answer": "are",
+    "explanation": "we / you / they のときは are。you は「あなた」でも「あなたたち」でも are を使います。日本語の単数・複数の感覚とずれるので、you are はセットで覚えてしまいましょう。"
+  },
+  {
+    "id": "e244",
+    "category": "be動詞",
+    "question": "is の過去形を英語1語で書きなさい。",
+    "answer": "was",
+    "explanation": "am と is の過去形はどちらも was、are の過去形は were。主語が単数か複数かで選び分けます。× you was とは言わず、you はいつでも were です。"
+  },
+  {
+    "id": "e245",
+    "category": "be動詞",
+    "question": "「〜の出身だ」を表す be動詞のあとの2語を書きなさい。",
+    "answer": "be from",
+    "explanation": "I am from Japan. のように使います。come from も同じ意味で使えますが、こちらは一般動詞なので疑問文には do が必要です。be動詞の文と一般動詞の文の区別を確かめる問題としてよく出ます。"
+  },
+  {
+    "id": "e246",
+    "category": "be動詞",
+    "question": "be動詞の文を打ち消すとき、be動詞のうしろに置く語を英語1語で書きなさい。",
+    "answer": "not",
+    "explanation": "be動詞の文では、うしろに not を置くだけで打ち消せます。do not は使いません。is not は isn't、are not は aren't と短くできますが、am not だけは短縮形がありません。"
+  },
+  {
+    "id": "e247",
+    "category": "be動詞",
+    "question": "「〜がある・いる」を表す、there で始まる文の be動詞を、うしろの名詞が複数のとき何にするか英語1語で書きなさい。",
+    "answer": "are",
+    "explanation": "There are many books 〜 のように、be動詞はうしろの名詞に合わせます。there は「そこ」ではなく、文を始めるための置き場所。主語はうしろの名詞だと考えると迷いません。"
+  },
+  {
+    "id": "e248",
+    "category": "be動詞",
+    "question": "be動詞の疑問文をつくるとき、be動詞をどこに動かすか。漢字4字で答えなさい。",
+    "answer": "主語の前",
+    "explanation": "Are you 〜? のように be動詞を主語の前に出すだけです。一般動詞のように do や does は使いません。答えるときも同じ be動詞で Yes, I am. と返します。"
+  },
+  {
+    "id": "e249",
+    "category": "一般動詞",
+    "question": "play を、主語が he のときの現在形にしなさい。",
+    "answer": "plays",
+    "explanation": "主語が he / she / it のとき、現在形の一般動詞には s がつきます。go や do のように o で終わる語は es をつけて goes、does に。study のように〈子音字 + y〉で終わる語は y を i に変えて studies となります。"
+  },
+  {
+    "id": "e250",
+    "category": "一般動詞",
+    "question": "一般動詞の文を打ち消すとき、動詞の前に置く2語を書きなさい。",
+    "answer": "do not",
+    "explanation": "I do not like 〜 のように使い、be動詞は使いません。主語が3人称単数なら does not になり、does がsの働きを引き受けるので動詞は原形に戻ります。"
+  },
+  {
+    "id": "e251",
+    "category": "一般動詞",
+    "question": "主語が she の一般動詞の疑問文を始める語を英語1語で書きなさい。",
+    "answer": "does",
+    "explanation": "Does she play 〜? のように使います。does が疑問と3人称単数のsの両方を引き受けるので、うしろの動詞は原形に戻ります（× Does she plays）。ここは最頻出のまちがいです。"
+  },
+  {
+    "id": "e252",
+    "category": "一般動詞",
+    "question": "「〜を見る」のうち、動いているものをじっと見るときに使う語を英語1語で書きなさい。",
+    "answer": "watch",
+    "explanation": "テレビやスポーツの試合には watch。自然と目に入るときは see、視線を向けるときは look at。3つの使い分けは定期テストでも入試でも問われます。watch は「腕時計」という名詞でもあります。"
+  },
+  {
+    "id": "e253",
+    "category": "一般動詞",
+    "question": "「持っている」を表す動詞 have を、主語が he のときの形にしなさい。",
+    "answer": "has",
+    "explanation": "have は特別で、3人称単数では haves ではなく has になります。I have / he has と、セットで声に出して覚えるのが早道。現在完了の has been 〜 の has も同じ形です。"
+  },
+  {
+    "id": "e254",
+    "category": "一般動詞",
+    "question": "study を、主語が he のときの現在形にしなさい。",
+    "answer": "studies",
+    "explanation": "〈子音字 + y〉で終わる語は、y を i に変えて es をつけます。study → studies、try → tries。いっぽう play は〈母音字 + y〉なので、そのまま s をつけて plays になります。"
+  },
+  {
+    "id": "e255",
+    "category": "一般動詞",
+    "question": "go を、主語が she のときの現在形にしなさい。",
+    "answer": "goes",
+    "explanation": "o で終わる動詞には es をつけます。go → goes、do → does。発音も「ゴウズ」「ダズ」と変わるので、口に出して確かめておきましょう。"
+  },
+  {
+    "id": "e256",
+    "category": "一般動詞",
+    "question": "一般動詞の疑問文で、主語が I や you のときに文の先頭に置く語を英語1語で書きなさい。",
+    "answer": "do",
+    "explanation": "Do you like 〜? のように使います。答えるときも Yes, I do. と do で返すのが決まり。be動詞の文とは打ち消し方も疑問文のつくり方もちがうので、はっきり分けて覚えましょう。"
+  },
+  {
+    "id": "e257",
+    "category": "疑問詞",
+    "question": "「いつ」とたずねる疑問詞を英語1語で書きなさい。",
+    "answer": "when",
+    "explanation": "時をたずねる疑問詞。When is your birthday? のように使います。接続詞として「〜のとき」の意味でも使え、その場合はうしろに〈主語 + 動詞〉が続きます。"
+  },
+  {
+    "id": "e258",
+    "category": "疑問詞",
+    "question": "「どこ」とたずねる疑問詞を英語1語で書きなさい。",
+    "answer": "where",
+    "explanation": "場所をたずねます。Where do you live? のように使い、live のうしろに in を重ねないのがきまり。were（are の過去形）とつづりが似ているので、書きまちがいに注意しましょう。"
+  },
+  {
+    "id": "e259",
+    "category": "疑問詞",
+    "question": "「なぜ」とたずねる疑問詞を英語1語で書きなさい。",
+    "answer": "why",
+    "explanation": "理由をたずねます。答えるときは Because 〜 や To 〜 を使います。Why don't you 〜? という形になると「〜しませんか」という誘いに変わるのがおもしろいところです。"
+  },
+  {
+    "id": "e260",
+    "category": "疑問詞",
+    "question": "「だれの」と持ち主をたずねる疑問詞を英語1語で書きなさい。",
+    "answer": "whose",
+    "explanation": "Whose bag is this? のように、うしろに名詞をつけてひとかたまりで文の先頭に置きます。who's（who is の短縮形）と発音が同じなので、書くときに取りちがえないよう注意しましょう。"
+  },
+  {
+    "id": "e261",
+    "category": "疑問詞",
+    "question": "数をたずねるときの「どのくらい多くの」を英語2語で書きなさい。",
+    "answer": "how many",
+    "explanation": "How many books 〜? のように、うしろの名詞は必ず複数形にします。量をたずねるときは How much を使い、こちらは数えられない名詞といっしょに使います。"
+  },
+  {
+    "id": "e262",
+    "category": "疑問詞",
+    "question": "値段をたずねる「いくらですか」を英語2語で書きなさい。",
+    "answer": "how much",
+    "explanation": "How much is it? で値段をたずねられます。もともとは量をたずねる言い方で、お金は数えられない名詞あつかいだから much を使う、と考えると納得できます。"
+  },
+  {
+    "id": "e263",
+    "category": "疑問詞",
+    "question": "年齢をたずねる「何歳ですか」の how に続く語を英語1語で書きなさい。",
+    "answer": "old",
+    "explanation": "How old are you? で年齢をたずねます。How は形容詞と組み合わせて、How tall（背の高さ）、How long（長さ）、How far（距離）と、いろいろな程度をたずねられます。"
+  },
+  {
+    "id": "e264",
+    "category": "疑問詞",
+    "question": "「どちら・どれ」と、限られた中から選ばせるときに使う疑問詞を英語1語で書きなさい。",
+    "answer": "which",
+    "explanation": "Which do you like, tea or coffee? のように、選択肢があるときに使います。範囲が決まっていないときは what。関係代名詞としても使う語なので、役割の見分けも大事です。"
+  },
+  {
+    "id": "e265",
+    "category": "命令文",
+    "question": "命令文は動詞をどの形で始めるか。漢字2字で答えなさい。",
+    "answer": "原形",
+    "explanation": "主語を置かず、動詞の原形で始めます。Open the door. のように。be動詞の文でも Be quiet. と原形の be を使うのがポイントで、× Are quiet. とはしません。"
+  },
+  {
+    "id": "e266",
+    "category": "命令文",
+    "question": "「〜してはいけません」という打ち消しの命令文の先頭に置く2語を書きなさい。",
+    "answer": "do not",
+    "explanation": "Do not run. のように、動詞の原形の前に置きます。短くして Don't とも書けます。主語がないのに do が出てくるのが命令文の特徴です。"
+  },
+  {
+    "id": "e267",
+    "category": "命令文",
+    "question": "「〜しましょう」と誘うときの表現を、短縮しない形で英語2語で書きなさい。",
+    "answer": "let us",
+    "explanation": "Let us は短くして Let's となります。うしろは必ず動詞の原形。答えるときは Yes, let's. や Sorry, I can not. と返します。Shall we 〜? とほぼ同じ意味です。"
+  },
+  {
+    "id": "e268",
+    "category": "命令文",
+    "question": "命令文をていねいにするために添える語を英語1語で書きなさい。",
+    "answer": "please",
+    "explanation": "文の先頭でも終わりでもかまいません。終わりに置くときは、Open the door, please. とコンマを入れます。ただし please をつけても命令文であることは変わらないので、目上の人には Could you 〜? のほうが安心です。"
+  },
+  {
+    "id": "e269",
+    "category": "命令文",
+    "question": "「気をつけなさい」を英語2語で書きなさい。",
+    "answer": "be careful",
+    "explanation": "careful は形容詞なので前に be動詞が必要ですが、命令文では原形の be を使います。Be quiet.（静かに）、Be kind.（親切にね）も同じつくりです。"
+  },
+  {
+    "id": "e270",
+    "category": "命令文",
+    "question": "「〜しないと…だよ」の形で、命令文のあとに置いて「そうしないと」を表す語を英語1語で書きなさい。",
+    "answer": "or",
+    "explanation": "Hurry up, or you will be late.（急がないと遅れるよ）のように使います。and なら「そうすれば」で、Hurry up, and you will catch the bus. と、正反対の意味になります。"
+  },
+  {
+    "id": "e271",
+    "category": "命令文",
+    "question": "命令文のあとに置いて「そうすれば」を表す語を英語1語で書きなさい。",
+    "answer": "and",
+    "explanation": "〈命令文 + and 〜〉で「〜しなさい、そうすれば…」。or の「そうしないと」と対になっています。どちらもコンマのうしろに置くのが決まりで、書きかえ問題の定番です。"
+  },
+  {
+    "id": "e272",
+    "category": "命令文",
+    "question": "「立ちなさい」を英語2語で書きなさい。",
+    "answer": "stand up",
+    "explanation": "反対は sit down（すわりなさい）。up と down が上下の向きをそのまま表しているので、イメージで覚えられます。get up は寝床から起き上がることで、少しちがいます。"
+  },
+  {
+    "id": "e273",
+    "category": "進行形",
+    "question": "現在進行形は〈be動詞 + 動詞の何形〉で表すか。動詞につける3文字をアルファベットで書きなさい。",
+    "answer": "ing",
+    "explanation": "〈be動詞 + 動詞のing形〉で、今まさにしている最中のことを表します。be動詞は主語に合わせて am / is / are と変えますが、ing形のほうは主語で変わりません。ing をつけるときのつづりの変化にも注意しましょう。"
+  },
+  {
+    "id": "e274",
+    "category": "進行形",
+    "question": "run を進行形にするとき、ing形を書きなさい。",
+    "answer": "running",
+    "explanation": "〈短い母音 + 子音字〉で終わる語は、最後の文字を重ねてから ing をつけます。swim → swimming、sit → sitting、stop → stopping も同じ仲間です。"
+  },
+  {
+    "id": "e275",
+    "category": "進行形",
+    "question": "make の ing形を書きなさい。",
+    "answer": "making",
+    "explanation": "e で終わる動詞は、e を取って ing をつけます。come → coming、write → writing、take → taking も同じ。ただし see は例外で、seeing と e を残します。"
+  },
+  {
+    "id": "e276",
+    "category": "進行形",
+    "question": "過去進行形で、主語が they のときに使う be動詞を英語1語で書きなさい。",
+    "answer": "were",
+    "explanation": "過去進行形は〈was[were] + ing形〉。they は複数なので were です。then（そのとき）や at that time が、過去のある時点をさす目印になります。"
+  },
+  {
+    "id": "e277",
+    "category": "進行形",
+    "question": "「彼女は走っていません」は She ( ) not running. である。( ) に入る語を英語1語で書きなさい。",
+    "answer": "is",
+    "explanation": "進行形の打ち消しは、be動詞のうしろに not を置くだけです。do not は使いません（× She does not running）。be動詞がある文では、打ち消しも疑問文も be動詞が受け持つ、というきまりを思い出しましょう。"
+  },
+  {
+    "id": "e278",
+    "category": "進行形",
+    "question": "進行形にしない、状態を表す動詞の例を英語1語で書きなさい。（「知っている」の意味）",
+    "answer": "know",
+    "explanation": "know、like、have（持っている）、want のような状態を表す動詞は、ふつう進行形にしません。動作ではなく、ずっと続いている状態だからです。ただし have が「食べる」の意味なら進行形にできます。"
+  },
+  {
+    "id": "e279",
+    "category": "進行形",
+    "question": "「雨が降っています」の主語に使う語を英語1語で書きなさい。",
+    "answer": "it",
+    "explanation": "天気を表すときの主語は it。「それ」という意味はなく、置き場所を埋めるための特別な it です。時刻や曜日、明るさを言うときにも同じ it を使います。"
+  },
+  {
+    "id": "e280",
+    "category": "進行形",
+    "question": "「あなたは何をしているのですか」は What ( ) you doing? である。( ) に入る語を英語1語で書きなさい。",
+    "answer": "are",
+    "explanation": "進行形の疑問文は be動詞を主語の前に出します。疑問詞があるときは、その前に置いて What are you doing? となります。主語が you なので be動詞は are。答えるときも進行形で返すのが自然です。"
+  },
+  {
+    "id": "e281",
+    "category": "名詞・代名詞",
+    "question": "child の複数形を英語1語で書きなさい。",
+    "answer": "children",
+    "explanation": "s をつけない不規則な複数形です。man → men、woman → women、foot → feet、tooth → teeth も同じ仲間。数が少ないので、まとめて覚えてしまうのが早道です。"
+  },
+  {
+    "id": "e282",
+    "category": "名詞・代名詞",
+    "question": "「私のもの」を表す代名詞を英語1語で書きなさい。",
+    "answer": "mine",
+    "explanation": "my は名詞の前につき、mine は単独で使います。my pen = mine と言いかえられる関係。yours、his、hers、ours、theirs も同じ仲間で、うしろに名詞をつけないのが特徴です。"
+  },
+  {
+    "id": "e283",
+    "category": "名詞・代名詞",
+    "question": "they を、動詞のうしろに置く形（目的格）にしなさい。",
+    "answer": "them",
+    "explanation": "動詞や前置詞のうしろにくる代名詞は目的格になります。I → me、he → him、she → her、we → us、they → them。「〜を・〜に」と訳すときの形だと考えると選びやすくなります。"
+  },
+  {
+    "id": "e284",
+    "category": "名詞・代名詞",
+    "question": "「水を一杯」を表すとき、a と water のあいだに入れる2語を書きなさい。",
+    "answer": "glass of",
+    "explanation": "water は数えられない名詞なので、入れ物で数えます。a glass of water、a cup of tea、a piece of paper、a sheet of paper など、組み合わせが決まっているものが多いので確認しておきましょう。"
+  },
+  {
+    "id": "e285",
+    "category": "名詞・代名詞",
+    "question": "this の複数形を英語1語で書きなさい。",
+    "answer": "these",
+    "explanation": "this → these、that → those。うしろの名詞も複数形にし、be動詞も are にそろえる必要があります。3か所そろえるのを忘れやすいので、書いたあとに確認するくせをつけましょう。"
+  },
+  {
+    "id": "e286",
+    "category": "名詞・代名詞",
+    "question": "「たくさんの」を表し、数えられる名詞にも数えられない名詞にも使える表現を英語3語で書きなさい。",
+    "answer": "a lot of",
+    "explanation": "many は数えられる名詞、much は数えられない名詞と使い分けが必要ですが、a lot of はどちらにも使えます。迷ったときの安全な言い方として覚えておくと役に立ちます。"
+  },
+  {
+    "id": "e287",
+    "category": "名詞・代名詞",
+    "question": "「〜があります」を表す、there で始まる文の be動詞を、うしろの名詞が単数のとき何にするか英語1語で書きなさい。",
+    "answer": "is",
+    "explanation": "There is a book 〜 のように、be動詞はうしろの名詞に合わせます。複数なら are。there 自体は主語ではなく、文を始めるための置き場所だと考えると仕組みが分かります。"
+  },
+  {
+    "id": "e288",
+    "category": "名詞・代名詞",
+    "question": "「情報」のように数えられない名詞を、数として表すときに使えない語を英語1語で書きなさい。（数えられる名詞用の「たくさんの」）",
+    "answer": "many",
+    "explanation": "many は数えられる名詞にしか使えません。information、water、money、homework などは数えられない名詞なので much や a lot of を使います。× many informations とはしません。"
+  },
+  {
+    "id": "e289",
+    "category": "前置詞・接続詞",
+    "question": "時刻の前に置く前置詞を英語1語で書きなさい。",
+    "answer": "at",
+    "explanation": "at seven のように、時刻には at を使います。at は一点をさす前置詞。朝や午後などの幅のある時間帯には in、曜日や日付には on と、時間の幅で使い分けると迷いません。"
+  },
+  {
+    "id": "e290",
+    "category": "前置詞・接続詞",
+    "question": "曜日の前に置く前置詞を英語1語で書きなさい。",
+    "answer": "on",
+    "explanation": "on Sunday のように使います。日付にも on を使い、on May 5th となります。on はもともと「くっついている」という意味で、カレンダーの一日に貼りついているイメージです。"
+  },
+  {
+    "id": "e291",
+    "category": "前置詞・接続詞",
+    "question": "月や季節の前に置く前置詞を英語1語で書きなさい。",
+    "answer": "in",
+    "explanation": "in April、in summer のように使います。in は広がりのある空間や時間を表す前置詞。年にも in 2026 と使い、時間の幅が広いほど in になると覚えられます。"
+  },
+  {
+    "id": "e292",
+    "category": "前置詞・接続詞",
+    "question": "理由をつなぐ「〜だから」を表す接続詞を英語1語で書きなさい。",
+    "answer": "because",
+    "explanation": "うしろには〈主語 + 動詞〉が続きます。Why 〜? に答えるときにも使えます。似た働きの so は「だから」と結果をつなぐので、前後が入れかわる点に注意しましょう。"
+  },
+  {
+    "id": "e293",
+    "category": "前置詞・接続詞",
+    "question": "「もし〜ならば」を表す接続詞を英語1語で書きなさい。",
+    "answer": "if",
+    "explanation": "if のあとの文では、未来のことでも現在形を使うのがきまりです（× if it will rain）。時や条件を表すまとまりの中では未来形を使わない、という中学英語の重要なルールです。"
+  },
+  {
+    "id": "e294",
+    "category": "前置詞・接続詞",
+    "question": "「〜を待つ」を表す2語を書きなさい。",
+    "answer": "wait for",
+    "explanation": "for を落とすまちがいがとても多い表現です。wait for you のように、待つ相手の前に for を置きます。look for（〜をさがす）、ask for（〜を求める）も同じ形の仲間です。"
+  },
+  {
+    "id": "e295",
+    "category": "前置詞・接続詞",
+    "question": "交通手段を表すときに使う前置詞を英語1語で書きなさい。",
+    "answer": "by",
+    "explanation": "by bus、by train のように使い、乗り物には a や the をつけません。ただし「歩いて」だけは例外で on foot と言います。この例外はテストでよく問われます。"
+  },
+  {
+    "id": "e296",
+    "category": "前置詞・接続詞",
+    "question": "「〜の前で」を表す3語を書きなさい。",
+    "answer": "in front of",
+    "explanation": "in front of the school のように使います。反対は behind で、こちらは1語。3語でひとかたまりの前置詞になるものは、まとめて覚えると使えるようになります。"
+  },
+  {
+    "id": "e031",
+    "category": "助動詞",
+    "question": "must とほぼ同じ意味を表す2語の表現を書きなさい。",
+    "answer": "have to",
+    "explanation": "must とほぼ同じ意味ですが、must は話し手が「そうすべきだ」と感じている主観的な意味合い、have to は規則や事情による客観的な意味合いという違いがあります。また must には過去形がないので、過去は had to を使います。"
+  },
+  {
+    "id": "e032",
+    "category": "助動詞",
+    "question": "Can you 〜? よりもていねいに依頼するときに使う助動詞を1語で書きなさい。",
+    "answer": "could",
+    "explanation": "Could you ～? は Can you ～? より丁寧な依頼になります。過去形を使うと丁寧になるのは、少し距離を置いた遠回しな言い方になるから。日本語で「できますか」より「できますでしょうか」が丁寧なのと同じ感覚です。"
+  },
+  {
+    "id": "e033",
+    "category": "助動詞",
+    "question": "「〜すべきだ」を表す助動詞を1語で書きなさい。",
+    "answer": "should",
+    "explanation": "「～したほうがよい」という助言に使います。似た表現の had better はもっと強く、「そうしないとまずいことになる」という警告のニュアンス。目上の人には使わないほうが無難です。"
+  },
+  {
+    "id": "e034",
+    "category": "助動詞",
+    "question": "「〜かもしれない」を表す助動詞を1語で書きなさい。",
+    "answer": "may",
+    "explanation": "may には「～してもよい（許可）」と「～かもしれない（推量）」の2つの意味があります。May I use your pen? なら許可を求める文。推量の強さは、might < may < can < should < must の順で強くなります。"
+  },
+  {
+    "id": "e035",
+    "category": "助動詞",
+    "question": "You ( ) not be late. の( )に入る「〜してはいけない」を表す助動詞を書きなさい。",
+    "answer": "must",
+    "explanation": "must not は「～してはいけない」という強い禁止です。ここで絶対に押さえたいのが、don't have to は「～しなくてよい」という意味で、まったく違うこと。not がつくと意味が正反対になるので、テストでも頻出です。"
+  },
+  {
+    "id": "e021",
+    "category": "動詞の変化",
+    "question": "go の過去形を書きなさい。",
+    "answer": "went",
+    "explanation": "go - went - gone と変化します。まったく形が変わるので、声に出してリズムで覚えるのが近道。なお現在完了で has gone to ～ は「行ってしまって今ここにいない」、has been to ～ は「行ったことがある」と、意味がはっきり違います。"
+  },
+  {
+    "id": "e022",
+    "category": "動詞の変化",
+    "question": "see の過去分詞を書きなさい。",
+    "answer": "seen",
+    "explanation": "see - saw - seen。「スィー・ソー・スィーン」とリズムよく唱えると自然に身につきます。ちなみに過去形の saw は、名詞ではのこぎりという意味にもなります。"
+  },
+  {
+    "id": "e023",
+    "category": "動詞の変化",
+    "question": "take の過去形を書きなさい。",
+    "answer": "took",
+    "explanation": "take - took - taken と変化します。take は「取る」だけでなく、take a bath（風呂に入る）、take a picture（写真を撮る）、take care of（世話をする）など、非常に多くの熟語で使われる超重要動詞です。"
+  },
+  {
+    "id": "e024",
+    "category": "動詞の変化",
+    "question": "write の過去分詞を書きなさい。",
+    "answer": "written",
+    "explanation": "write - wrote - written。過去分詞では t が2つ重なる点に注意しましょう。同じパターンに bite - bit - bitten があります。書くときについ t を1つにしてしまいがちなので、意識して練習を。"
+  },
+  {
+    "id": "e025",
+    "category": "動詞の変化",
+    "question": "buy の過去形を書きなさい。",
+    "answer": "bought",
+    "explanation": "buy - bought - bought。過去形と過去分詞が同じ形です。よく似た変化に bring - brought - brought（持ってくる）があり、この2つは混同しやすいので、意味とセットで整理しておきましょう。"
+  },
+  {
+    "id": "e026",
+    "category": "動詞の変化",
+    "question": "study の3人称単数現在形を書きなさい。",
+    "answer": "studies",
+    "explanation": "y の直前が子音のときは、y を i に変えて -es をつけます。だから study は studies。一方 play は y の前が母音（a）なので、そのまま plays。この見分け方は、複数形をつくるときもまったく同じルールです。"
+  },
+  {
+    "id": "e027",
+    "category": "動詞の変化",
+    "question": "run のing形を書きなさい。",
+    "answer": "running",
+    "explanation": "短い母音1つ+子音1つで終わる語は、最後の子音を重ねてから -ing をつけます。だから running。同じパターンに swim → swimming、sit → sitting、cut → cutting などがあります。"
+  },
+  {
+    "id": "e028",
+    "category": "動詞の変化",
+    "question": "speak の過去分詞を書きなさい。",
+    "answer": "spoken",
+    "explanation": "speak - spoke - spoken と変化します。過去分詞は受け身でよく使われ、English is spoken in many countries.（英語は多くの国で話されている）は定番の文です。"
+  },
+  {
+    "id": "e029",
+    "category": "動詞の変化",
+    "question": "eat の過去形を書きなさい。",
+    "answer": "ate",
+    "explanation": "eat - ate - eaten。過去形 ate の発音は「エイト」で、数字の eight とまったく同じ音になります。会話では前後の文脈で聞き分けます。"
+  },
+  {
+    "id": "e030",
+    "category": "動詞の変化",
+    "question": "know の過去分詞を書きなさい。",
+    "answer": "known",
+    "explanation": "know - knew - known。先頭の k は発音せず「ノウ」と読みます。この読まない k は、knife（ナイフ）、knee（ひざ）、knock（ノックする）などにも共通するパターンです。"
+  },
+  {
+    "id": "e036",
+    "category": "不定詞・動名詞",
+    "question": "I want ( ) study English. の( )に入る1語を書きなさい。",
+    "answer": "to",
+    "explanation": "want のあとに動詞を続けるときは、必ず to + 動詞の原形（to不定詞）にします。want to ～ で「～したい」。会話では wanna と短縮されることもありますが、書くときはきちんと want to と書きましょう。"
+  },
+  {
+    "id": "e037",
+    "category": "不定詞・動名詞",
+    "question": "I enjoy ( ) soccer. の( )に play を適する形にして入れなさい。",
+    "answer": "playing",
+    "explanation": "enjoy のあとに動詞を続けるときは、必ず ing形（動名詞）にします。同じ仲間は enjoy, finish, stop, mind, practice など。それぞれの頭文字をとってメガフェプスという語呂で覚える方法が有名です。"
+  },
+  {
+    "id": "e038",
+    "category": "不定詞・動名詞",
+    "question": "It is easy ( ) me to swim. の( )に入る1語を書きなさい。",
+    "answer": "for",
+    "explanation": "It is ... for 人 to ～ で「（人）にとって～するのは…だ」という定番の形です。ただし kind や nice のように人の性質を表す形容詞のときだけは for ではなく of を使い、It is kind of you to help me. となります。"
+  },
+  {
+    "id": "e039",
+    "category": "不定詞・動名詞",
+    "question": "I have a lot of homework ( ) do today. の( )に入る1語を書きなさい。",
+    "answer": "to",
+    "explanation": "名詞のうしろに置いて「～すべき、～するための」と説明する使い方で、形容詞的用法といいます。homework to do で「やるべき宿題」。日本語と語順が逆になるので、後ろから前に訳すのがコツです。"
+  },
+  {
+    "id": "e040",
+    "category": "不定詞・動名詞",
+    "question": "He finished ( ) the book. の( )に read を適する形にして入れなさい。",
+    "answer": "reading",
+    "explanation": "finish のあとの動詞は必ず ing形になります。to read としないよう注意。ちなみに stop は両方使えますが、stop reading は「読むのをやめる」、stop to read は「読むために立ち止まる」と意味がまったく変わる有名な例です。"
+  },
+  {
+    "id": "e041",
+    "category": "不定詞・動名詞",
+    "question": "「彼女に何と言えばよいかわからない」I don't know what ( ) say. の( )に入る1語を書きなさい。",
+    "answer": "to",
+    "explanation": "疑問詞 + to不定詞 の形で、what to say は「何を言えばよいか」。ほかにも how to use（使い方）、where to go（どこへ行けばよいか）、when to start（いつ始めればよいか）と応用が利く便利な形です。"
+  },
+  {
+    "id": "e042",
+    "category": "比較",
+    "question": "big の比較級を書きなさい。",
+    "answer": "bigger",
+    "explanation": "短い母音1つ+子音1つで終わる語は、最後の子音を重ねて -er をつけます。だから bigger。同じパターンに hot → hotter、sad → sadder があります。ing形をつくるときのルールとまったく同じですね。"
+  },
+  {
+    "id": "e043",
+    "category": "比較",
+    "question": "good の最上級を書きなさい。",
+    "answer": "best",
+    "explanation": "good と well は、どちらも better - best と変化します。まったく形が変わってしまう不規則変化なので、good/well - better - best とセットで唱えて覚えましょう。日本語でもベスト、ベターとして使われていますね。"
+  },
+  {
+    "id": "e044",
+    "category": "比較",
+    "question": "many の比較級を書きなさい。",
+    "answer": "more",
+    "explanation": "many（数）と much（量）は、どちらも more - most と変化します。数と量で使い分けるのに、比較級から先は同じ形になるのがおもしろいところ。more は「もっと」という意味で単独でもよく使われます。"
+  },
+  {
+    "id": "e045",
+    "category": "比較",
+    "question": "easy の比較級を書きなさい。",
+    "answer": "easier",
+    "explanation": "y の直前が子音のときは、y を i に変えて -er をつけます。だから easier。同じパターンに busy → busier、happy → happier。3人称単数のときのルールと同じ発想です。"
+  },
+  {
+    "id": "e046",
+    "category": "比較",
+    "question": "This book is more interesting ( ) that one. の( )に入る1語を書きなさい。",
+    "answer": "than",
+    "explanation": "比較級とセットで使い、「～よりも」という意味を表します。than のあとに来るのは比べる相手。ちなみに than と then（そのとき）はつづりも見た目もそっくりなので、書き間違いに注意しましょう。"
+  },
+  {
+    "id": "e047",
+    "category": "比較",
+    "question": "Tom is the tallest ( ) the five boys. の( )に入る1語を書きなさい。",
+    "answer": "of",
+    "explanation": "最上級のあとの「～の中で」には2種類あります。of は of the five boys のように仲間や数を表す語の前、in は in my class のように場所や集団を表す語の前。数がきたら of、場所がきたら in と覚えましょう。"
+  },
+  {
+    "id": "e048",
+    "category": "受け身",
+    "question": "受け身の文は「be動詞＋動詞の( )」で表す。( )に入る語を漢字4字で答えなさい。",
+    "answer": "過去分詞",
+    "explanation": "受け身（受動態）は be動詞 + 過去分詞 でつくります。「～される」という意味になり、だれがやったかを言いたいときは by ～ を加えます。動作をする人よりも、されるものに注目したいときに使う表現です。"
+  },
+  {
+    "id": "e049",
+    "category": "受け身",
+    "question": "This room is ( ) by Tom every day. の( )に clean を適する形にして入れなさい。",
+    "answer": "cleaned",
+    "explanation": "clean は規則動詞なので、過去分詞は -ed をつけるだけで cleaned。be動詞の is と合わせて is cleaned となり、「掃除される」という受け身の形が完成します。"
+  },
+  {
+    "id": "e050",
+    "category": "受け身",
+    "question": "English is ( ) in many countries. の( )に speak を適する形にして入れなさい。",
+    "answer": "spoken",
+    "explanation": "speak の過去分詞は spoken。English is spoken in many countries. は受け身の代表例としてよく出てきます。だれが話すかより「英語が話されている」という事実に注目したい文なので、受け身がぴったりなのです。"
+  },
+  {
+    "id": "e051",
+    "category": "受け身",
+    "question": "受け身の文で「〜によって」を表すときに使う前置詞を1語で書きなさい。",
+    "answer": "by",
+    "explanation": "受け身で動作をする人やものを示すときは by を使います。This book was written by Soseki. のように。ただし by 以外を使う決まり文句もあり、be covered with（～におおわれている）、be known to（～に知られている）などが有名です。"
+  },
+  {
+    "id": "e052",
+    "category": "現在完了",
+    "question": "現在完了は「have[has]＋動詞の( )」で表す。( )に入る語を漢字4字で答えなさい。",
+    "answer": "過去分詞",
+    "explanation": "現在完了は have[has] + 過去分詞 でつくります。表す意味は継続・経験・完了の3つ。過去形が「過去の一点」を表すのに対し、現在完了は過去と現在をつなげて今の状況を語る表現だ、という点が最大の違いです。"
+  },
+  {
+    "id": "e053",
+    "category": "現在完了",
+    "question": "I ( ) lived in Tokyo for three years. の( )に入る1語を書きなさい。",
+    "answer": "have",
+    "explanation": "主語が I なので have を使います（he や she なら has）。for three years と期間が示されているので、これは「ずっと住んでいる」という継続用法。過去形の lived だと、今も住んでいるかどうかがわかりません。"
+  },
+  {
+    "id": "e054",
+    "category": "現在完了",
+    "question": "「〜へ行ったことがある」は have been ( ) 〜 で表す。( )に入る1語を書きなさい。",
+    "answer": "to",
+    "explanation": "have been to ～ は「～へ行ったことがある」という経験を表します。似ている have gone to ～ は「行ってしまって今ここにいない」という意味なので大違い。been なら戻ってきている、gone なら行きっぱなし、と覚えましょう。"
+  },
+  {
+    "id": "e055",
+    "category": "現在完了",
+    "question": "I have ( ) finished my homework. の( )に「もう・すでに」を表す1語を入れなさい。",
+    "answer": "already",
+    "explanation": "already は「もう、すでに」という意味で、完了用法の肯定文で使います。疑問文では yet（もう～しましたか）、否定文でも yet（まだ～していない）と、位置と意味が変わるのでセットで整理しておきましょう。"
+  },
+  {
+    "id": "e056",
+    "category": "現在完了",
+    "question": "Have you ( ) seen this movie? の( )に「今までに」を表す1語を入れなさい。",
+    "answer": "ever",
+    "explanation": "ever は「今までに」という意味で、経験をたずねる疑問文で使います。答えるときは Yes, I have. / No, I have never seen it. のように。never は「一度もない」という強い否定を表します。"
+  },
+  {
+    "id": "e057",
+    "category": "現在完了",
+    "question": "現在完了で「〜以来ずっと」を表すとき、後ろに時の一点がくる前置詞を1語で書きなさい。",
+    "answer": "since",
+    "explanation": "since のあとには 2020 や last year のように「いつから」という時の一点がきます。一方 for のあとには three years のように「どれくらいの間」という期間がきます。この使い分けは、継続用法で必ず問われるポイントです。"
+  },
+  {
+    "id": "e058",
+    "category": "関係代名詞・分詞",
+    "question": "先行詞が「人」で主格のときに使う関係代名詞を1語で書きなさい。",
+    "answer": "who",
+    "explanation": "先行詞が人で、そのあとに動詞が続くときは who を使います。The boy who is running is Tom. のように、2つの文を1つにまとめる接着剤の役割。関係代名詞のあとに動詞がくれば主格、主語がくれば目的格と見分けられます。"
+  },
+  {
+    "id": "e059",
+    "category": "関係代名詞・分詞",
+    "question": "先行詞が「もの」のときに使う関係代名詞を1語で書きなさい。（that 以外）",
+    "answer": "which",
+    "explanation": "先行詞がものや動物のときは which を使い、主格でも目的格でも使えます。なお、人でもものでも使える万能の that もあり、会話では that が好まれる傾向があります。"
+  },
+  {
+    "id": "e060",
+    "category": "関係代名詞・分詞",
+    "question": "the boy ( ) under the tree「木の下で走っている少年」の( )に run を適する形にして入れなさい。",
+    "answer": "running",
+    "explanation": "動詞の ing形 を名詞のうしろに置いて「～している」と説明する使い方です（現在分詞の後置修飾）。ポイントは、1語だけなら名詞の前（a running boy）、2語以上なら名詞のうしろ（the boy running under the tree）に置くこと。"
+  },
+  {
+    "id": "e061",
+    "category": "関係代名詞・分詞",
+    "question": "a book ( ) by Soseki「漱石によって書かれた本」の( )に write を適する形にして入れなさい。",
+    "answer": "written",
+    "explanation": "過去分詞を名詞のうしろに置くと「～された」という受け身の意味で説明できます。a book written by Soseki で「漱石によって書かれた本」。現在分詞なら「している」、過去分詞なら「されている」と、意味が正反対になる点に注目しましょう。"
+  },
+  {
+    "id": "e062",
+    "category": "熟語・会話表現",
+    "question": "「〜を探す」look ( ) の( )に入る1語を書きなさい。",
+    "answer": "for",
+    "explanation": "look は前置詞ひとつで意味ががらりと変わります。look at（～を見る）、look for（～を探す）、look after（～の世話をする）、look forward to（～を楽しみに待つ）。動詞そのものより前置詞が意味を決めている、おもしろい例です。"
+  },
+  {
+    "id": "e063",
+    "category": "熟語・会話表現",
+    "question": "「〜の世話をする」take care ( ) の( )に入る1語を書きなさい。",
+    "answer": "of",
+    "explanation": "take care of は look after とほぼ同じ意味です。別れぎわの Take care! は「気をつけてね」というあいさつになり、日常会話でとてもよく使われます。"
+  },
+  {
+    "id": "e064",
+    "category": "熟語・会話表現",
+    "question": "「〜を誇りに思う」be proud ( ) の( )に入る1語を書きなさい。",
+    "answer": "of",
+    "explanation": "be proud of ～ で「～を誇りに思う」。I'm proud of you. は、相手をほめるときの最高の言葉のひとつです。名詞形は pride（誇り）です。"
+  },
+  {
+    "id": "e065",
+    "category": "熟語・会話表現",
+    "question": "「〜が得意だ」be good ( ) の( )に入る1語を書きなさい。",
+    "answer": "at",
+    "explanation": "be good at ～ で「～が得意だ」。at のあとには名詞か動名詞（ing形）がきます。反対は be poor at や be bad at（～が苦手だ）。I'm good at playing soccer. のように使います。"
+  },
+  {
+    "id": "e066",
+    "category": "熟語・会話表現",
+    "question": "「〜に興味がある」be interested ( ) の( )に入る1語を書きなさい。",
+    "answer": "in",
+    "explanation": "be interested in ～ で「～に興味がある」。ここで注意したいのは、興味をもっているのは人なので必ず interested（される側の形）を使うこと。interesting は「（それ自体が）おもしろい」という意味で、混同しやすい代表例です。"
+  },
+  {
+    "id": "e067",
+    "category": "熟語・会話表現",
+    "question": "「AをBに変える」turn A ( ) B の( )に入る1語を書きなさい。",
+    "answer": "into",
+    "explanation": "turn A into B で「AをBに変える」。into には「中へ入りこむ」というイメージがあり、まったく別のものに変身するニュアンスが出ます。水が氷になるように、姿が変わるときに使われる前置詞です。"
+  },
+  {
+    "id": "e068",
+    "category": "熟語・会話表現",
+    "question": "「もちろんです」と快諾するときの Of ( ). の( )に入る1語を書きなさい。",
+    "answer": "course",
+    "explanation": "Of course. は「もちろんです」と快く応じるときの決まり文句。Sure. や No problem. も同じように使えます。course には「進路」という意味があり、当然そうなる道筋、というところから生まれた表現です。"
+  },
+  {
+    "id": "e069",
+    "category": "熟語・会話表現",
+    "question": "電話で「どちら様ですか」とたずねる Who's ( ), please? の( )に入る1語を書きなさい。",
+    "answer": "calling",
+    "explanation": "電話では、相手のことを you ではなく this や that で表すという独特のルールがあります。Who's calling, please? で「どちら様ですか」。自分を名乗るときも I am ではなく This is Tom (speaking). と言います。"
+  },
+  {
+    "id": "e070",
+    "category": "熟語・会話表現",
+    "question": "「お手伝いしましょうか」May I ( ) you? の( )に入る1語を書きなさい。",
+    "answer": "help",
+    "explanation": "May I help you? は、店員が客に声をかけるときの決まり文句で、日本語の「いらっしゃいませ」にあたります。客として何かを探しているときは、I'm looking for ～ と答えれば会話がスムーズに進みます。"
+  },
+  {
     "id": "e001",
     "category": "英単語（名詞）",
     "question": "「図書館」を英語1語で書きなさい。",
@@ -426,6 +1168,111 @@
     "explanation": "動詞は graduate（卒業する）で、graduate from ～ と from が必要な点が要注意です。graduate our school とは言えません。a graduation ceremony なら卒業式です。"
   },
   {
+    "id": "e297",
+    "category": "英単語（名詞）",
+    "question": "「能力」を英語1語で書きなさい。",
+    "answer": "ability",
+    "explanation": "be able to（〜できる）の名詞形です。特定のことをうまく行う力を指し、The ability to〜（〜する能力）の形でもよく使われます。"
+  },
+  {
+    "id": "e298",
+    "category": "英単語（名詞）",
+    "question": "「農業」を英語1語で書きなさい。",
+    "answer": "agriculture",
+    "explanation": "土地を耕して作物を育てたり、家畜を育てたりする産業のことです。agricultural（農業の）という形容詞の形もあわせて覚えておきましょう。"
+  },
+  {
+    "id": "e299",
+    "category": "英単語（名詞）",
+    "question": "「注意」を英語1語で書きなさい。",
+    "answer": "attention",
+    "explanation": "pay attention to〜で「〜に注意を払う」という意味になる、会話でもよく使う表現です。授業中に先生が言う Pay attention! はおなじみのフレーズです。"
+  },
+  {
+    "id": "e300",
+    "category": "英単語（名詞）",
+    "question": "「行動」を英語1語で書きなさい。",
+    "answer": "behavior",
+    "explanation": "人や動物のふるまい・行動のしかたを指す語です。イギリス式のつづりではbehaviourと書き、uが入る点がアメリカ式とのちがいです。"
+  },
+  {
+    "id": "e301",
+    "category": "英単語（名詞）",
+    "question": "「勇気」を英語1語で書きなさい。",
+    "answer": "courage",
+    "explanation": "困難や危険に立ち向かう強い心を表します。形容詞形はcourageous（勇気のある）で、動詞haveと組み合わせてhave the courage to〜（〜する勇気がある）の形でよく使われます。"
+  },
+  {
+    "id": "e302",
+    "category": "英単語（名詞）",
+    "question": "「教育」を英語1語で書きなさい。",
+    "answer": "education",
+    "explanation": "educate（教育する）の名詞形です。receive an education（教育を受ける）のように使い、educational（教育の）という形容詞形もあわせて覚えておきましょう。"
+  },
+  {
+    "id": "e303",
+    "category": "英単語（名詞）",
+    "question": "「用具」を英語1語で書きなさい。",
+    "answer": "equipment",
+    "explanation": "道具や設備をまとめて表す語で、数えられない名詞として扱われるためan equipmentやequipmentsとは言いません。sports equipment（スポーツ用具）のように使います。"
+  },
+  {
+    "id": "e304",
+    "category": "英単語（名詞）",
+    "question": "「世代」を英語1語で書きなさい。",
+    "answer": "generation",
+    "explanation": "同じ時代に生まれ育った人々のまとまりを指します。the older generation（年上の世代）、the younger generation（若い世代）のように使われます。"
+  },
+  {
+    "id": "e305",
+    "category": "英単語（名詞）",
+    "question": "「目標」を英語1語で書きなさい。",
+    "answer": "goal",
+    "explanation": "スポーツの「ゴール」だけでなく、achieve a goal（目標を達成する）のように「めざすもの・目標」という意味でもよく使われます。"
+  },
+  {
+    "id": "e306",
+    "category": "英単語（名詞）",
+    "question": "「習慣」を英語1語で書きなさい。",
+    "answer": "habit",
+    "explanation": "個人がくり返し行う行動のクセを指します。a good habit（よい習慣）、a bad habit（悪い習慣）のように使い、custom（社会や集団の習慣・風習）とは区別されます。"
+  },
+  {
+    "id": "e307",
+    "category": "英単語（名詞）",
+    "question": "「旅」を英語1語で書きなさい。",
+    "answer": "journey",
+    "explanation": "特に長い距離や時間のかかる旅を表す語です。A journey of a thousand milesbegins with a single step.（千里の道も一歩から）という有名なことわざにも使われています。"
+  },
+  {
+    "id": "e308",
+    "category": "英単語（名詞）",
+    "question": "「人口」を英語1語で書きなさい。",
+    "answer": "population",
+    "explanation": "ある地域に住む人の数を表します。What is the population of Japan?（日本の人口はどのくらいですか）のように使い、答えるときは数字で示します。"
+  },
+  {
+    "id": "e309",
+    "category": "英単語（名詞）",
+    "question": "「目的」を英語1語で書きなさい。",
+    "answer": "purpose",
+    "explanation": "行動の理由となる目標を表す語です。on purpose（わざと、故意に）という熟語もあわせてよく出題されます。"
+  },
+  {
+    "id": "e310",
+    "category": "英単語（名詞）",
+    "question": "「宗教」を英語1語で書きなさい。",
+    "answer": "religion",
+    "explanation": "世界には仏教・キリスト教・イスラム教などさまざまな宗教があります。religious（宗教の、信心深い）という形容詞形もよく使われます。"
+  },
+  {
+    "id": "e311",
+    "category": "英単語（名詞）",
+    "question": "「技術」を英語1語で書きなさい。",
+    "answer": "skill",
+    "explanation": "訓練や経験によって身につけた腕前を表します。skilled（熟練した）という形容詞形もあり、a skilled worker（熟練した労働者）のように使います。"
+  },
+  {
     "id": "e016",
     "category": "英単語（動詞）",
     "question": "「決める」を英語1語で書きなさい。",
@@ -739,6 +1586,111 @@
     "question": "「表現する」を英語1語で書きなさい。exで始まる語です。",
     "answer": "express",
     "explanation": "ex（外へ）+ press（押し出す）で、心の中のものを外へ押し出すことが表現するということ。名詞形は expression（表現、表情）。急行列車の express も「押し出すように速い」から来ています。"
+  },
+  {
+    "id": "e312",
+    "category": "英単語（動詞）",
+    "question": "「達成する」を英語1語で書きなさい。",
+    "answer": "achieve",
+    "explanation": "目標や成果を努力の末に手に入れることを表します。achieve a goal（目標を達成する）のように使い、名詞形はachievement（達成、業績）です。"
+  },
+  {
+    "id": "e313",
+    "category": "英単語（動詞）",
+    "question": "「影響を与える」を英語1語で書きなさい。",
+    "answer": "affect",
+    "explanation": "名詞のeffect（影響、結果）と発音・つづりが似ていて混同しやすい動詞です。affectは動詞、effectは名詞、と品詞のちがいで覚えておくと区別しやすくなります。"
+  },
+  {
+    "id": "e314",
+    "category": "英単語（動詞）",
+    "question": "「避ける」を英語1語で書きなさい。",
+    "answer": "avoid",
+    "explanation": "危険やいやなことを避けるという意味の動詞です。うしろに動詞を続けるときはavoid ing（〜することを避ける）と動名詞の形になります。"
+  },
+  {
+    "id": "e315",
+    "category": "英単語（動詞）",
+    "question": "「祝う」を英語1語で書きなさい。",
+    "answer": "celebrate",
+    "explanation": "誕生日や記念日などをお祝いするときに使う動詞です。名詞形はcelebration（祝賀、お祝い）で、celebrate one's birthday（誕生日を祝う）のように使います。"
+  },
+  {
+    "id": "e316",
+    "category": "英単語（動詞）",
+    "question": "「完成させる」を英語1語で書きなさい。",
+    "answer": "complete",
+    "explanation": "ものごとを完全な状態に仕上げることを表します。形容詞として「完全な」という意味でも使われ、a complete success（完全な成功）のように使います。"
+  },
+  {
+    "id": "e317",
+    "category": "英単語（動詞）",
+    "question": "「含む」を英語1語で書きなさい。",
+    "answer": "contain",
+    "explanation": "中に何かを含んでいることを表す動詞です。This drink contains a lot ofsugar.（この飲み物には砂糖がたくさん含まれている）のように使います。"
+  },
+  {
+    "id": "e318",
+    "category": "英単語（動詞）",
+    "question": "「創造する」を英語1語で書きなさい。",
+    "answer": "create",
+    "explanation": "何もないところから新しいものを生み出すことを表します。名詞形はcreation（創造）、形容詞形はcreative（創造的な）です。"
+  },
+  {
+    "id": "e319",
+    "category": "英単語（動詞）",
+    "question": "「配達する」を英語1語で書きなさい。",
+    "answer": "deliver",
+    "explanation": "手紙や荷物などを届けることを表す動詞です。名詞形はdelivery（配達）で、free delivery（送料無料）のように商品の説明でもよく見かけます。"
+  },
+  {
+    "id": "e320",
+    "category": "英単語（動詞）",
+    "question": "「発展させる」を英語1語で書きなさい。",
+    "answer": "develop",
+    "explanation": "国や技術、能力などを発展させる・開発するという意味で使われます。名詞形はdevelopment（発展、開発）で、developing countries（発展途上国）はニュースにもよく登場する表現です。"
+  },
+  {
+    "id": "e321",
+    "category": "英単語（動詞）",
+    "question": "「励ます」を英語1語で書きなさい。",
+    "answer": "encourage",
+    "explanation": "人を勇気づけて、何かをするよう後押しすることを表します。反対の意味の語はdiscourage（やる気をなくさせる）です。"
+  },
+  {
+    "id": "e322",
+    "category": "英単語（動詞）",
+    "question": "「存在する」を英語1語で書きなさい。",
+    "answer": "exist",
+    "explanation": "実際にあること・存在することを表す動詞です。名詞形はexistence（存在）で、Life may exist on other planets.（生命は他の惑星にも存在するかもしれない）のように使われます。"
+  },
+  {
+    "id": "e323",
+    "category": "英単語（動詞）",
+    "question": "「卒業する」を英語1語で書きなさい。",
+    "answer": "graduate",
+    "explanation": "学校を卒業するという意味の動詞です。名詞形のgraduation（卒業）とセットで覚えておくと、動詞と名詞の使い分けがしやすくなります。"
+  },
+  {
+    "id": "e324",
+    "category": "英単語（動詞）",
+    "question": "「急ぐ」を英語1語で書きなさい。",
+    "answer": "hurry",
+    "explanation": "時間がなくて急ぐことを表す動詞です。Hurry up!（急いで！）は日常会話でよく使われるフレーズで、in a hurry（急いで）という熟語もあわせて覚えておきましょう。"
+  },
+  {
+    "id": "e325",
+    "category": "英単語（動詞）",
+    "question": "「生産する」を英語1語で書きなさい。",
+    "answer": "produce",
+    "explanation": "工場などでものを作り出すことを表す動詞です。名詞のproduct（製品）と語の形が似ているので、動詞か名詞かを文の形から見分けましょう。"
+  },
+  {
+    "id": "e326",
+    "category": "英単語（動詞）",
+    "question": "「減らす」を英語1語で書きなさい。",
+    "answer": "reduce",
+    "explanation": "量や数を減らすことを表す動詞です。reduce, reuse, recycle（減らす・くり返し使う・再利用する）は環境問題でよく使われる3つの動詞のセットです。"
   },
   {
     "id": "e011",
@@ -1056,6 +2008,111 @@
     "explanation": "wonder（驚き、不思議）+ ful で「驚きに満ちた」という成り立ちです。動詞の wonder は「～かしらと思う」で、I wonder if you could help me.（手伝っていただけないでしょうか）は丁寧な依頼表現になります。"
   },
   {
+    "id": "e327",
+    "category": "英単語（形容詞・副詞）",
+    "question": "「活発な」を英語1語で書きなさい。",
+    "answer": "active",
+    "explanation": "元気よく積極的に活動するようすを表します。反対の意味の語はpassive（受動的な）で、an active volcano（活火山）のように「活動している」という意味でも使います。"
+  },
+  {
+    "id": "e328",
+    "category": "英単語（形容詞・副詞）",
+    "question": "「注意深い」を英語1語で書きなさい。",
+    "answer": "careful",
+    "explanation": "副詞形careful ly（注意深く）はすでに登場済みですが、もとになる形容詞の形もあわせて覚えておきましょう。Be careful!（気をつけて！）は定番の一言です。"
+  },
+  {
+    "id": "e329",
+    "category": "英単語（形容詞・副詞）",
+    "question": "「好奇心の強い」を英語1語で書きなさい。",
+    "answer": "curious",
+    "explanation": "新しいことを知りたがる気持ちを表す形容詞です。名詞形はcuriosity（好奇心）で、Curiosity killed the cat.（好奇心はねこをも殺す）ということわざにも使われています。"
+  },
+  {
+    "id": "e330",
+    "category": "英単語（形容詞・副詞）",
+    "question": "「おいしい」を英語1語で書きなさい。",
+    "answer": "delicious",
+    "explanation": "とてもおいしいことを表す、goodよりも強い言い方です。This cakeis delicious.（このケーキはとてもおいしい）のように、料理の感想でよく使われます。"
+  },
+  {
+    "id": "e331",
+    "category": "英単語（形容詞・副詞）",
+    "question": "「年配の」を英語1語で書きなさい。",
+    "answer": "elderly",
+    "explanation": "oldよりもていねいで、高齢の人に対して敬意をこめて使われる言い方です。an elderly man（年配の男性）のように、人を表す語の前に置いて使います。"
+  },
+  {
+    "id": "e332",
+    "category": "英単語（形容詞・副詞）",
+    "question": "「正確な」を英語1語で書きなさい。",
+    "answer": "exact",
+    "explanation": "細かい点まで正しいことを表す形容詞です。副詞形exactly（正確に、ちょうど）は、会話で「そのとおり」と相づちを打つときにもよく使われます。"
+  },
+  {
+    "id": "e333",
+    "category": "英単語（形容詞・副詞）",
+    "question": "「親しみやすい」を英語1語で書きなさい。",
+    "answer": "friendly",
+    "explanation": "friend（友達）にlyがついた形ですが、friendlyは形容詞である点に注意しましょう（friendlilyという副詞形はありません）。"
+  },
+  {
+    "id": "e334",
+    "category": "英単語（形容詞・副詞）",
+    "question": "「気前の良い」を英語1語で書きなさい。",
+    "answer": "generous",
+    "explanation": "他人に対してお金やものを惜しみなく与えるようすを表します。It's generous of you.（あなたは気前がいいですね）のように、人柄をほめるときに使われます。"
+  },
+  {
+    "id": "e335",
+    "category": "英単語（形容詞・副詞）",
+    "question": "「優しい」を英語1語で書きなさい。",
+    "answer": "gentle",
+    "explanation": "性格や態度がおだやかで優しいことを表す形容詞です。a gentle wind（そよ風）のように、人以外の穏やかさを表すのにも使われます。"
+  },
+  {
+    "id": "e336",
+    "category": "英単語（形容詞・副詞）",
+    "question": "「正直な」を英語1語で書きなさい。",
+    "answer": "honest",
+    "explanation": "先頭のhを発音しない（アワネストゥのように読む）ことで知られるつづりの単語です。名詞形honesty（正直さ）とあわせて覚えておきましょう。"
+  },
+  {
+    "id": "e337",
+    "category": "英単語（形容詞・副詞）",
+    "question": "「緊張した」を英語1語で書きなさい。",
+    "answer": "nervous",
+    "explanation": "不安や心配で落ち着かない気持ちを表します。I feel nervous beforethe test.（テストの前は緊張する）のように、日常会話でとてもよく使われる語です。"
+  },
+  {
+    "id": "e338",
+    "category": "英単語（形容詞・副詞）",
+    "question": "「忍耐強い」を英語1語で書きなさい。",
+    "answer": "patient",
+    "explanation": "つづりと発音が同じで「患者」という意味の名詞にもなる語です。名詞形patience（忍耐、我慢）とあわせて覚えておきましょう。"
+  },
+  {
+    "id": "e339",
+    "category": "英単語（形容詞・副詞）",
+    "question": "「礼儀正しい」を英語1語で書きなさい。",
+    "answer": "polite",
+    "explanation": "行儀がよく、人に対して失礼のないようすを表します。反対の意味の語はimpolite、または似た意味でrude（無礼な）が使われます。"
+  },
+  {
+    "id": "e340",
+    "category": "英単語（形容詞・副詞）",
+    "question": "「似ている」を英語1語で書きなさい。",
+    "answer": "similar",
+    "explanation": "完全に同じではないが、よく似ているようすを表す形容詞です。be similar to〜で「〜に似ている」という意味になります。"
+  },
+  {
+    "id": "e341",
+    "category": "英単語（形容詞・副詞）",
+    "question": "「さまざまな」を英語1語で書きなさい。",
+    "answer": "various",
+    "explanation": "vary（さまざまである）に由来する形容詞で、種類が多いことを表します。various kinds of〜（さまざまな種類の〜）の形でよく使われます。"
+  },
+  {
     "id": "e201",
     "category": "反対語",
     "question": "large の反対の意味を表す語を英語1語で書きなさい。",
@@ -1334,1062 +2391,5 @@
     "question": "easy の副詞形（簡単に）を英語1語で書きなさい。",
     "answer": "easily",
     "explanation": "y を i に変えて -ly をつけます。happy → happily、busy → busily も同じ。ふつうは -ly をつけるだけですが（careful → carefully）、y で終わる語だけこの変化をします。"
-  },
-  {
-    "id": "e021",
-    "category": "動詞の変化",
-    "question": "go の過去形を書きなさい。",
-    "answer": "went",
-    "explanation": "go - went - gone と変化します。まったく形が変わるので、声に出してリズムで覚えるのが近道。なお現在完了で has gone to ～ は「行ってしまって今ここにいない」、has been to ～ は「行ったことがある」と、意味がはっきり違います。"
-  },
-  {
-    "id": "e022",
-    "category": "動詞の変化",
-    "question": "see の過去分詞を書きなさい。",
-    "answer": "seen",
-    "explanation": "see - saw - seen。「スィー・ソー・スィーン」とリズムよく唱えると自然に身につきます。ちなみに過去形の saw は、名詞ではのこぎりという意味にもなります。"
-  },
-  {
-    "id": "e023",
-    "category": "動詞の変化",
-    "question": "take の過去形を書きなさい。",
-    "answer": "took",
-    "explanation": "take - took - taken と変化します。take は「取る」だけでなく、take a bath（風呂に入る）、take a picture（写真を撮る）、take care of（世話をする）など、非常に多くの熟語で使われる超重要動詞です。"
-  },
-  {
-    "id": "e024",
-    "category": "動詞の変化",
-    "question": "write の過去分詞を書きなさい。",
-    "answer": "written",
-    "explanation": "write - wrote - written。過去分詞では t が2つ重なる点に注意しましょう。同じパターンに bite - bit - bitten があります。書くときについ t を1つにしてしまいがちなので、意識して練習を。"
-  },
-  {
-    "id": "e025",
-    "category": "動詞の変化",
-    "question": "buy の過去形を書きなさい。",
-    "answer": "bought",
-    "explanation": "buy - bought - bought。過去形と過去分詞が同じ形です。よく似た変化に bring - brought - brought（持ってくる）があり、この2つは混同しやすいので、意味とセットで整理しておきましょう。"
-  },
-  {
-    "id": "e026",
-    "category": "動詞の変化",
-    "question": "study の3人称単数現在形を書きなさい。",
-    "answer": "studies",
-    "explanation": "y の直前が子音のときは、y を i に変えて -es をつけます。だから study は studies。一方 play は y の前が母音（a）なので、そのまま plays。この見分け方は、複数形をつくるときもまったく同じルールです。"
-  },
-  {
-    "id": "e027",
-    "category": "動詞の変化",
-    "question": "run のing形を書きなさい。",
-    "answer": "running",
-    "explanation": "短い母音1つ+子音1つで終わる語は、最後の子音を重ねてから -ing をつけます。だから running。同じパターンに swim → swimming、sit → sitting、cut → cutting などがあります。"
-  },
-  {
-    "id": "e028",
-    "category": "動詞の変化",
-    "question": "speak の過去分詞を書きなさい。",
-    "answer": "spoken",
-    "explanation": "speak - spoke - spoken と変化します。過去分詞は受け身でよく使われ、English is spoken in many countries.（英語は多くの国で話されている）は定番の文です。"
-  },
-  {
-    "id": "e029",
-    "category": "動詞の変化",
-    "question": "eat の過去形を書きなさい。",
-    "answer": "ate",
-    "explanation": "eat - ate - eaten。過去形 ate の発音は「エイト」で、数字の eight とまったく同じ音になります。会話では前後の文脈で聞き分けます。"
-  },
-  {
-    "id": "e030",
-    "category": "動詞の変化",
-    "question": "know の過去分詞を書きなさい。",
-    "answer": "known",
-    "explanation": "know - knew - known。先頭の k は発音せず「ノウ」と読みます。この読まない k は、knife（ナイフ）、knee（ひざ）、knock（ノックする）などにも共通するパターンです。"
-  },
-  {
-    "id": "e031",
-    "category": "助動詞",
-    "question": "must とほぼ同じ意味を表す2語の表現を書きなさい。",
-    "answer": "have to",
-    "explanation": "must とほぼ同じ意味ですが、must は話し手が「そうすべきだ」と感じている主観的な意味合い、have to は規則や事情による客観的な意味合いという違いがあります。また must には過去形がないので、過去は had to を使います。"
-  },
-  {
-    "id": "e032",
-    "category": "助動詞",
-    "question": "Can you 〜? よりもていねいに依頼するときに使う助動詞を1語で書きなさい。",
-    "answer": "could",
-    "explanation": "Could you ～? は Can you ～? より丁寧な依頼になります。過去形を使うと丁寧になるのは、少し距離を置いた遠回しな言い方になるから。日本語で「できますか」より「できますでしょうか」が丁寧なのと同じ感覚です。"
-  },
-  {
-    "id": "e033",
-    "category": "助動詞",
-    "question": "「〜すべきだ」を表す助動詞を1語で書きなさい。",
-    "answer": "should",
-    "explanation": "「～したほうがよい」という助言に使います。似た表現の had better はもっと強く、「そうしないとまずいことになる」という警告のニュアンス。目上の人には使わないほうが無難です。"
-  },
-  {
-    "id": "e034",
-    "category": "助動詞",
-    "question": "「〜かもしれない」を表す助動詞を1語で書きなさい。",
-    "answer": "may",
-    "explanation": "may には「～してもよい（許可）」と「～かもしれない（推量）」の2つの意味があります。May I use your pen? なら許可を求める文。推量の強さは、might < may < can < should < must の順で強くなります。"
-  },
-  {
-    "id": "e035",
-    "category": "助動詞",
-    "question": "You ( ) not be late. の( )に入る「〜してはいけない」を表す助動詞を書きなさい。",
-    "answer": "must",
-    "explanation": "must not は「～してはいけない」という強い禁止です。ここで絶対に押さえたいのが、don't have to は「～しなくてよい」という意味で、まったく違うこと。not がつくと意味が正反対になるので、テストでも頻出です。"
-  },
-  {
-    "id": "e036",
-    "category": "不定詞・動名詞",
-    "question": "I want ( ) study English. の( )に入る1語を書きなさい。",
-    "answer": "to",
-    "explanation": "want のあとに動詞を続けるときは、必ず to + 動詞の原形（to不定詞）にします。want to ～ で「～したい」。会話では wanna と短縮されることもありますが、書くときはきちんと want to と書きましょう。"
-  },
-  {
-    "id": "e037",
-    "category": "不定詞・動名詞",
-    "question": "I enjoy ( ) soccer. の( )に play を適する形にして入れなさい。",
-    "answer": "playing",
-    "explanation": "enjoy のあとに動詞を続けるときは、必ず ing形（動名詞）にします。同じ仲間は enjoy, finish, stop, mind, practice など。それぞれの頭文字をとってメガフェプスという語呂で覚える方法が有名です。"
-  },
-  {
-    "id": "e038",
-    "category": "不定詞・動名詞",
-    "question": "It is easy ( ) me to swim. の( )に入る1語を書きなさい。",
-    "answer": "for",
-    "explanation": "It is ... for 人 to ～ で「（人）にとって～するのは…だ」という定番の形です。ただし kind や nice のように人の性質を表す形容詞のときだけは for ではなく of を使い、It is kind of you to help me. となります。"
-  },
-  {
-    "id": "e039",
-    "category": "不定詞・動名詞",
-    "question": "I have a lot of homework ( ) do today. の( )に入る1語を書きなさい。",
-    "answer": "to",
-    "explanation": "名詞のうしろに置いて「～すべき、～するための」と説明する使い方で、形容詞的用法といいます。homework to do で「やるべき宿題」。日本語と語順が逆になるので、後ろから前に訳すのがコツです。"
-  },
-  {
-    "id": "e040",
-    "category": "不定詞・動名詞",
-    "question": "He finished ( ) the book. の( )に read を適する形にして入れなさい。",
-    "answer": "reading",
-    "explanation": "finish のあとの動詞は必ず ing形になります。to read としないよう注意。ちなみに stop は両方使えますが、stop reading は「読むのをやめる」、stop to read は「読むために立ち止まる」と意味がまったく変わる有名な例です。"
-  },
-  {
-    "id": "e041",
-    "category": "不定詞・動名詞",
-    "question": "「彼女に何と言えばよいかわからない」I don't know what ( ) say. の( )に入る1語を書きなさい。",
-    "answer": "to",
-    "explanation": "疑問詞 + to不定詞 の形で、what to say は「何を言えばよいか」。ほかにも how to use（使い方）、where to go（どこへ行けばよいか）、when to start（いつ始めればよいか）と応用が利く便利な形です。"
-  },
-  {
-    "id": "e042",
-    "category": "比較",
-    "question": "big の比較級を書きなさい。",
-    "answer": "bigger",
-    "explanation": "短い母音1つ+子音1つで終わる語は、最後の子音を重ねて -er をつけます。だから bigger。同じパターンに hot → hotter、sad → sadder があります。ing形をつくるときのルールとまったく同じですね。"
-  },
-  {
-    "id": "e043",
-    "category": "比較",
-    "question": "good の最上級を書きなさい。",
-    "answer": "best",
-    "explanation": "good と well は、どちらも better - best と変化します。まったく形が変わってしまう不規則変化なので、good/well - better - best とセットで唱えて覚えましょう。日本語でもベスト、ベターとして使われていますね。"
-  },
-  {
-    "id": "e044",
-    "category": "比較",
-    "question": "many の比較級を書きなさい。",
-    "answer": "more",
-    "explanation": "many（数）と much（量）は、どちらも more - most と変化します。数と量で使い分けるのに、比較級から先は同じ形になるのがおもしろいところ。more は「もっと」という意味で単独でもよく使われます。"
-  },
-  {
-    "id": "e045",
-    "category": "比較",
-    "question": "easy の比較級を書きなさい。",
-    "answer": "easier",
-    "explanation": "y の直前が子音のときは、y を i に変えて -er をつけます。だから easier。同じパターンに busy → busier、happy → happier。3人称単数のときのルールと同じ発想です。"
-  },
-  {
-    "id": "e046",
-    "category": "比較",
-    "question": "This book is more interesting ( ) that one. の( )に入る1語を書きなさい。",
-    "answer": "than",
-    "explanation": "比較級とセットで使い、「～よりも」という意味を表します。than のあとに来るのは比べる相手。ちなみに than と then（そのとき）はつづりも見た目もそっくりなので、書き間違いに注意しましょう。"
-  },
-  {
-    "id": "e047",
-    "category": "比較",
-    "question": "Tom is the tallest ( ) the five boys. の( )に入る1語を書きなさい。",
-    "answer": "of",
-    "explanation": "最上級のあとの「～の中で」には2種類あります。of は of the five boys のように仲間や数を表す語の前、in は in my class のように場所や集団を表す語の前。数がきたら of、場所がきたら in と覚えましょう。"
-  },
-  {
-    "id": "e048",
-    "category": "受け身",
-    "question": "受け身の文は「be動詞＋動詞の( )」で表す。( )に入る語を漢字4字で答えなさい。",
-    "answer": "過去分詞",
-    "explanation": "受け身（受動態）は be動詞 + 過去分詞 でつくります。「～される」という意味になり、だれがやったかを言いたいときは by ～ を加えます。動作をする人よりも、されるものに注目したいときに使う表現です。"
-  },
-  {
-    "id": "e049",
-    "category": "受け身",
-    "question": "This room is ( ) by Tom every day. の( )に clean を適する形にして入れなさい。",
-    "answer": "cleaned",
-    "explanation": "clean は規則動詞なので、過去分詞は -ed をつけるだけで cleaned。be動詞の is と合わせて is cleaned となり、「掃除される」という受け身の形が完成します。"
-  },
-  {
-    "id": "e050",
-    "category": "受け身",
-    "question": "English is ( ) in many countries. の( )に speak を適する形にして入れなさい。",
-    "answer": "spoken",
-    "explanation": "speak の過去分詞は spoken。English is spoken in many countries. は受け身の代表例としてよく出てきます。だれが話すかより「英語が話されている」という事実に注目したい文なので、受け身がぴったりなのです。"
-  },
-  {
-    "id": "e051",
-    "category": "受け身",
-    "question": "受け身の文で「〜によって」を表すときに使う前置詞を1語で書きなさい。",
-    "answer": "by",
-    "explanation": "受け身で動作をする人やものを示すときは by を使います。This book was written by Soseki. のように。ただし by 以外を使う決まり文句もあり、be covered with（～におおわれている）、be known to（～に知られている）などが有名です。"
-  },
-  {
-    "id": "e052",
-    "category": "現在完了",
-    "question": "現在完了は「have[has]＋動詞の( )」で表す。( )に入る語を漢字4字で答えなさい。",
-    "answer": "過去分詞",
-    "explanation": "現在完了は have[has] + 過去分詞 でつくります。表す意味は継続・経験・完了の3つ。過去形が「過去の一点」を表すのに対し、現在完了は過去と現在をつなげて今の状況を語る表現だ、という点が最大の違いです。"
-  },
-  {
-    "id": "e053",
-    "category": "現在完了",
-    "question": "I ( ) lived in Tokyo for three years. の( )に入る1語を書きなさい。",
-    "answer": "have",
-    "explanation": "主語が I なので have を使います（he や she なら has）。for three years と期間が示されているので、これは「ずっと住んでいる」という継続用法。過去形の lived だと、今も住んでいるかどうかがわかりません。"
-  },
-  {
-    "id": "e054",
-    "category": "現在完了",
-    "question": "「〜へ行ったことがある」は have been ( ) 〜 で表す。( )に入る1語を書きなさい。",
-    "answer": "to",
-    "explanation": "have been to ～ は「～へ行ったことがある」という経験を表します。似ている have gone to ～ は「行ってしまって今ここにいない」という意味なので大違い。been なら戻ってきている、gone なら行きっぱなし、と覚えましょう。"
-  },
-  {
-    "id": "e055",
-    "category": "現在完了",
-    "question": "I have ( ) finished my homework. の( )に「もう・すでに」を表す1語を入れなさい。",
-    "answer": "already",
-    "explanation": "already は「もう、すでに」という意味で、完了用法の肯定文で使います。疑問文では yet（もう～しましたか）、否定文でも yet（まだ～していない）と、位置と意味が変わるのでセットで整理しておきましょう。"
-  },
-  {
-    "id": "e056",
-    "category": "現在完了",
-    "question": "Have you ( ) seen this movie? の( )に「今までに」を表す1語を入れなさい。",
-    "answer": "ever",
-    "explanation": "ever は「今までに」という意味で、経験をたずねる疑問文で使います。答えるときは Yes, I have. / No, I have never seen it. のように。never は「一度もない」という強い否定を表します。"
-  },
-  {
-    "id": "e057",
-    "category": "現在完了",
-    "question": "現在完了で「〜以来ずっと」を表すとき、後ろに時の一点がくる前置詞を1語で書きなさい。",
-    "answer": "since",
-    "explanation": "since のあとには 2020 や last year のように「いつから」という時の一点がきます。一方 for のあとには three years のように「どれくらいの間」という期間がきます。この使い分けは、継続用法で必ず問われるポイントです。"
-  },
-  {
-    "id": "e058",
-    "category": "関係代名詞・分詞",
-    "question": "先行詞が「人」で主格のときに使う関係代名詞を1語で書きなさい。",
-    "answer": "who",
-    "explanation": "先行詞が人で、そのあとに動詞が続くときは who を使います。The boy who is running is Tom. のように、2つの文を1つにまとめる接着剤の役割。関係代名詞のあとに動詞がくれば主格、主語がくれば目的格と見分けられます。"
-  },
-  {
-    "id": "e059",
-    "category": "関係代名詞・分詞",
-    "question": "先行詞が「もの」のときに使う関係代名詞を1語で書きなさい。（that 以外）",
-    "answer": "which",
-    "explanation": "先行詞がものや動物のときは which を使い、主格でも目的格でも使えます。なお、人でもものでも使える万能の that もあり、会話では that が好まれる傾向があります。"
-  },
-  {
-    "id": "e060",
-    "category": "関係代名詞・分詞",
-    "question": "the boy ( ) under the tree「木の下で走っている少年」の( )に run を適する形にして入れなさい。",
-    "answer": "running",
-    "explanation": "動詞の ing形 を名詞のうしろに置いて「～している」と説明する使い方です（現在分詞の後置修飾）。ポイントは、1語だけなら名詞の前（a running boy）、2語以上なら名詞のうしろ（the boy running under the tree）に置くこと。"
-  },
-  {
-    "id": "e061",
-    "category": "関係代名詞・分詞",
-    "question": "a book ( ) by Soseki「漱石によって書かれた本」の( )に write を適する形にして入れなさい。",
-    "answer": "written",
-    "explanation": "過去分詞を名詞のうしろに置くと「～された」という受け身の意味で説明できます。a book written by Soseki で「漱石によって書かれた本」。現在分詞なら「している」、過去分詞なら「されている」と、意味が正反対になる点に注目しましょう。"
-  },
-  {
-    "id": "e062",
-    "category": "熟語・会話表現",
-    "question": "「〜を探す」look ( ) の( )に入る1語を書きなさい。",
-    "answer": "for",
-    "explanation": "look は前置詞ひとつで意味ががらりと変わります。look at（～を見る）、look for（～を探す）、look after（～の世話をする）、look forward to（～を楽しみに待つ）。動詞そのものより前置詞が意味を決めている、おもしろい例です。"
-  },
-  {
-    "id": "e063",
-    "category": "熟語・会話表現",
-    "question": "「〜の世話をする」take care ( ) の( )に入る1語を書きなさい。",
-    "answer": "of",
-    "explanation": "take care of は look after とほぼ同じ意味です。別れぎわの Take care! は「気をつけてね」というあいさつになり、日常会話でとてもよく使われます。"
-  },
-  {
-    "id": "e064",
-    "category": "熟語・会話表現",
-    "question": "「〜を誇りに思う」be proud ( ) の( )に入る1語を書きなさい。",
-    "answer": "of",
-    "explanation": "be proud of ～ で「～を誇りに思う」。I'm proud of you. は、相手をほめるときの最高の言葉のひとつです。名詞形は pride（誇り）です。"
-  },
-  {
-    "id": "e065",
-    "category": "熟語・会話表現",
-    "question": "「〜が得意だ」be good ( ) の( )に入る1語を書きなさい。",
-    "answer": "at",
-    "explanation": "be good at ～ で「～が得意だ」。at のあとには名詞か動名詞（ing形）がきます。反対は be poor at や be bad at（～が苦手だ）。I'm good at playing soccer. のように使います。"
-  },
-  {
-    "id": "e066",
-    "category": "熟語・会話表現",
-    "question": "「〜に興味がある」be interested ( ) の( )に入る1語を書きなさい。",
-    "answer": "in",
-    "explanation": "be interested in ～ で「～に興味がある」。ここで注意したいのは、興味をもっているのは人なので必ず interested（される側の形）を使うこと。interesting は「（それ自体が）おもしろい」という意味で、混同しやすい代表例です。"
-  },
-  {
-    "id": "e067",
-    "category": "熟語・会話表現",
-    "question": "「AをBに変える」turn A ( ) B の( )に入る1語を書きなさい。",
-    "answer": "into",
-    "explanation": "turn A into B で「AをBに変える」。into には「中へ入りこむ」というイメージがあり、まったく別のものに変身するニュアンスが出ます。水が氷になるように、姿が変わるときに使われる前置詞です。"
-  },
-  {
-    "id": "e068",
-    "category": "熟語・会話表現",
-    "question": "「もちろんです」と快諾するときの Of ( ). の( )に入る1語を書きなさい。",
-    "answer": "course",
-    "explanation": "Of course. は「もちろんです」と快く応じるときの決まり文句。Sure. や No problem. も同じように使えます。course には「進路」という意味があり、当然そうなる道筋、というところから生まれた表現です。"
-  },
-  {
-    "id": "e069",
-    "category": "熟語・会話表現",
-    "question": "電話で「どちら様ですか」とたずねる Who's ( ), please? の( )に入る1語を書きなさい。",
-    "answer": "calling",
-    "explanation": "電話では、相手のことを you ではなく this や that で表すという独特のルールがあります。Who's calling, please? で「どちら様ですか」。自分を名乗るときも I am ではなく This is Tom (speaking). と言います。"
-  },
-  {
-    "id": "e070",
-    "category": "熟語・会話表現",
-    "question": "「お手伝いしましょうか」May I ( ) you? の( )に入る1語を書きなさい。",
-    "answer": "help",
-    "explanation": "May I help you? は、店員が客に声をかけるときの決まり文句で、日本語の「いらっしゃいませ」にあたります。客として何かを探しているときは、I'm looking for ～ と答えれば会話がスムーズに進みます。"
-  },
-  {
-    "id": "e241",
-    "category": "be動詞",
-    "question": "主語が I のときに使う be動詞を英語1語で書きなさい。",
-    "answer": "am",
-    "explanation": "am は I 専用の be動詞で、ほかの主語には使えません。短くして I'm と書くこともできます。be動詞は「＝（イコール）」の働きで、主語とうしろの語を結びつけていると考えると役割がつかめます。"
-  },
-  {
-    "id": "e242",
-    "category": "be動詞",
-    "question": "主語が he や she のときに使う be動詞を英語1語で書きなさい。",
-    "answer": "is",
-    "explanation": "3人称単数の現在形が is。一般動詞にsがつくのと同じ理由で、主語がひとりの他人のときは形が変わります。it も同じ仲間で、This is 〜 の is もこの形です。"
-  },
-  {
-    "id": "e243",
-    "category": "be動詞",
-    "question": "主語が they のときに使う be動詞を英語1語で書きなさい。",
-    "answer": "are",
-    "explanation": "we / you / they のときは are。you は「あなた」でも「あなたたち」でも are を使います。日本語の単数・複数の感覚とずれるので、you are はセットで覚えてしまいましょう。"
-  },
-  {
-    "id": "e244",
-    "category": "be動詞",
-    "question": "is の過去形を英語1語で書きなさい。",
-    "answer": "was",
-    "explanation": "am と is の過去形はどちらも was、are の過去形は were。主語が単数か複数かで選び分けます。× you was とは言わず、you はいつでも were です。"
-  },
-  {
-    "id": "e245",
-    "category": "be動詞",
-    "question": "「〜の出身だ」を表す be動詞のあとの2語を書きなさい。",
-    "answer": "be from",
-    "explanation": "I am from Japan. のように使います。come from も同じ意味で使えますが、こちらは一般動詞なので疑問文には do が必要です。be動詞の文と一般動詞の文の区別を確かめる問題としてよく出ます。"
-  },
-  {
-    "id": "e246",
-    "category": "be動詞",
-    "question": "be動詞の文を打ち消すとき、be動詞のうしろに置く語を英語1語で書きなさい。",
-    "answer": "not",
-    "explanation": "be動詞の文では、うしろに not を置くだけで打ち消せます。do not は使いません。is not は isn't、are not は aren't と短くできますが、am not だけは短縮形がありません。"
-  },
-  {
-    "id": "e247",
-    "category": "be動詞",
-    "question": "「〜がある・いる」を表す、there で始まる文の be動詞を、うしろの名詞が複数のとき何にするか英語1語で書きなさい。",
-    "answer": "are",
-    "explanation": "There are many books 〜 のように、be動詞はうしろの名詞に合わせます。there は「そこ」ではなく、文を始めるための置き場所。主語はうしろの名詞だと考えると迷いません。"
-  },
-  {
-    "id": "e248",
-    "category": "be動詞",
-    "question": "be動詞の疑問文をつくるとき、be動詞をどこに動かすか。漢字4字で答えなさい。",
-    "answer": "主語の前",
-    "explanation": "Are you 〜? のように be動詞を主語の前に出すだけです。一般動詞のように do や does は使いません。答えるときも同じ be動詞で Yes, I am. と返します。"
-  },
-  {
-    "id": "e249",
-    "category": "一般動詞",
-    "question": "play を、主語が he のときの現在形にしなさい。",
-    "answer": "plays",
-    "explanation": "主語が he / she / it のとき、現在形の一般動詞には s がつきます。go や do のように o で終わる語は es をつけて goes、does に。study のように〈子音字 + y〉で終わる語は y を i に変えて studies となります。"
-  },
-  {
-    "id": "e250",
-    "category": "一般動詞",
-    "question": "一般動詞の文を打ち消すとき、動詞の前に置く2語を書きなさい。",
-    "answer": "do not",
-    "explanation": "I do not like 〜 のように使い、be動詞は使いません。主語が3人称単数なら does not になり、does がsの働きを引き受けるので動詞は原形に戻ります。"
-  },
-  {
-    "id": "e251",
-    "category": "一般動詞",
-    "question": "主語が she の一般動詞の疑問文を始める語を英語1語で書きなさい。",
-    "answer": "does",
-    "explanation": "Does she play 〜? のように使います。does が疑問と3人称単数のsの両方を引き受けるので、うしろの動詞は原形に戻ります（× Does she plays）。ここは最頻出のまちがいです。"
-  },
-  {
-    "id": "e252",
-    "category": "一般動詞",
-    "question": "「〜を見る」のうち、動いているものをじっと見るときに使う語を英語1語で書きなさい。",
-    "answer": "watch",
-    "explanation": "テレビやスポーツの試合には watch。自然と目に入るときは see、視線を向けるときは look at。3つの使い分けは定期テストでも入試でも問われます。watch は「腕時計」という名詞でもあります。"
-  },
-  {
-    "id": "e253",
-    "category": "一般動詞",
-    "question": "「持っている」を表す動詞 have を、主語が he のときの形にしなさい。",
-    "answer": "has",
-    "explanation": "have は特別で、3人称単数では haves ではなく has になります。I have / he has と、セットで声に出して覚えるのが早道。現在完了の has been 〜 の has も同じ形です。"
-  },
-  {
-    "id": "e254",
-    "category": "一般動詞",
-    "question": "study を、主語が he のときの現在形にしなさい。",
-    "answer": "studies",
-    "explanation": "〈子音字 + y〉で終わる語は、y を i に変えて es をつけます。study → studies、try → tries。いっぽう play は〈母音字 + y〉なので、そのまま s をつけて plays になります。"
-  },
-  {
-    "id": "e255",
-    "category": "一般動詞",
-    "question": "go を、主語が she のときの現在形にしなさい。",
-    "answer": "goes",
-    "explanation": "o で終わる動詞には es をつけます。go → goes、do → does。発音も「ゴウズ」「ダズ」と変わるので、口に出して確かめておきましょう。"
-  },
-  {
-    "id": "e256",
-    "category": "一般動詞",
-    "question": "一般動詞の疑問文で、主語が I や you のときに文の先頭に置く語を英語1語で書きなさい。",
-    "answer": "do",
-    "explanation": "Do you like 〜? のように使います。答えるときも Yes, I do. と do で返すのが決まり。be動詞の文とは打ち消し方も疑問文のつくり方もちがうので、はっきり分けて覚えましょう。"
-  },
-  {
-    "id": "e257",
-    "category": "疑問詞",
-    "question": "「いつ」とたずねる疑問詞を英語1語で書きなさい。",
-    "answer": "when",
-    "explanation": "時をたずねる疑問詞。When is your birthday? のように使います。接続詞として「〜のとき」の意味でも使え、その場合はうしろに〈主語 + 動詞〉が続きます。"
-  },
-  {
-    "id": "e258",
-    "category": "疑問詞",
-    "question": "「どこ」とたずねる疑問詞を英語1語で書きなさい。",
-    "answer": "where",
-    "explanation": "場所をたずねます。Where do you live? のように使い、live のうしろに in を重ねないのがきまり。were（are の過去形）とつづりが似ているので、書きまちがいに注意しましょう。"
-  },
-  {
-    "id": "e259",
-    "category": "疑問詞",
-    "question": "「なぜ」とたずねる疑問詞を英語1語で書きなさい。",
-    "answer": "why",
-    "explanation": "理由をたずねます。答えるときは Because 〜 や To 〜 を使います。Why don't you 〜? という形になると「〜しませんか」という誘いに変わるのがおもしろいところです。"
-  },
-  {
-    "id": "e260",
-    "category": "疑問詞",
-    "question": "「だれの」と持ち主をたずねる疑問詞を英語1語で書きなさい。",
-    "answer": "whose",
-    "explanation": "Whose bag is this? のように、うしろに名詞をつけてひとかたまりで文の先頭に置きます。who's（who is の短縮形）と発音が同じなので、書くときに取りちがえないよう注意しましょう。"
-  },
-  {
-    "id": "e261",
-    "category": "疑問詞",
-    "question": "数をたずねるときの「どのくらい多くの」を英語2語で書きなさい。",
-    "answer": "how many",
-    "explanation": "How many books 〜? のように、うしろの名詞は必ず複数形にします。量をたずねるときは How much を使い、こちらは数えられない名詞といっしょに使います。"
-  },
-  {
-    "id": "e262",
-    "category": "疑問詞",
-    "question": "値段をたずねる「いくらですか」を英語2語で書きなさい。",
-    "answer": "how much",
-    "explanation": "How much is it? で値段をたずねられます。もともとは量をたずねる言い方で、お金は数えられない名詞あつかいだから much を使う、と考えると納得できます。"
-  },
-  {
-    "id": "e263",
-    "category": "疑問詞",
-    "question": "年齢をたずねる「何歳ですか」の how に続く語を英語1語で書きなさい。",
-    "answer": "old",
-    "explanation": "How old are you? で年齢をたずねます。How は形容詞と組み合わせて、How tall（背の高さ）、How long（長さ）、How far（距離）と、いろいろな程度をたずねられます。"
-  },
-  {
-    "id": "e264",
-    "category": "疑問詞",
-    "question": "「どちら・どれ」と、限られた中から選ばせるときに使う疑問詞を英語1語で書きなさい。",
-    "answer": "which",
-    "explanation": "Which do you like, tea or coffee? のように、選択肢があるときに使います。範囲が決まっていないときは what。関係代名詞としても使う語なので、役割の見分けも大事です。"
-  },
-  {
-    "id": "e265",
-    "category": "命令文",
-    "question": "命令文は動詞をどの形で始めるか。漢字2字で答えなさい。",
-    "answer": "原形",
-    "explanation": "主語を置かず、動詞の原形で始めます。Open the door. のように。be動詞の文でも Be quiet. と原形の be を使うのがポイントで、× Are quiet. とはしません。"
-  },
-  {
-    "id": "e266",
-    "category": "命令文",
-    "question": "「〜してはいけません」という打ち消しの命令文の先頭に置く2語を書きなさい。",
-    "answer": "do not",
-    "explanation": "Do not run. のように、動詞の原形の前に置きます。短くして Don't とも書けます。主語がないのに do が出てくるのが命令文の特徴です。"
-  },
-  {
-    "id": "e267",
-    "category": "命令文",
-    "question": "「〜しましょう」と誘うときの表現を、短縮しない形で英語2語で書きなさい。",
-    "answer": "let us",
-    "explanation": "Let us は短くして Let's となります。うしろは必ず動詞の原形。答えるときは Yes, let's. や Sorry, I can not. と返します。Shall we 〜? とほぼ同じ意味です。"
-  },
-  {
-    "id": "e268",
-    "category": "命令文",
-    "question": "命令文をていねいにするために添える語を英語1語で書きなさい。",
-    "answer": "please",
-    "explanation": "文の先頭でも終わりでもかまいません。終わりに置くときは、Open the door, please. とコンマを入れます。ただし please をつけても命令文であることは変わらないので、目上の人には Could you 〜? のほうが安心です。"
-  },
-  {
-    "id": "e269",
-    "category": "命令文",
-    "question": "「気をつけなさい」を英語2語で書きなさい。",
-    "answer": "be careful",
-    "explanation": "careful は形容詞なので前に be動詞が必要ですが、命令文では原形の be を使います。Be quiet.（静かに）、Be kind.（親切にね）も同じつくりです。"
-  },
-  {
-    "id": "e270",
-    "category": "命令文",
-    "question": "「〜しないと…だよ」の形で、命令文のあとに置いて「そうしないと」を表す語を英語1語で書きなさい。",
-    "answer": "or",
-    "explanation": "Hurry up, or you will be late.（急がないと遅れるよ）のように使います。and なら「そうすれば」で、Hurry up, and you will catch the bus. と、正反対の意味になります。"
-  },
-  {
-    "id": "e271",
-    "category": "命令文",
-    "question": "命令文のあとに置いて「そうすれば」を表す語を英語1語で書きなさい。",
-    "answer": "and",
-    "explanation": "〈命令文 + and 〜〉で「〜しなさい、そうすれば…」。or の「そうしないと」と対になっています。どちらもコンマのうしろに置くのが決まりで、書きかえ問題の定番です。"
-  },
-  {
-    "id": "e272",
-    "category": "命令文",
-    "question": "「立ちなさい」を英語2語で書きなさい。",
-    "answer": "stand up",
-    "explanation": "反対は sit down（すわりなさい）。up と down が上下の向きをそのまま表しているので、イメージで覚えられます。get up は寝床から起き上がることで、少しちがいます。"
-  },
-  {
-    "id": "e273",
-    "category": "進行形",
-    "question": "現在進行形は〈be動詞 + 動詞の何形〉で表すか。動詞につける3文字をアルファベットで書きなさい。",
-    "answer": "ing",
-    "explanation": "〈be動詞 + 動詞のing形〉で、今まさにしている最中のことを表します。be動詞は主語に合わせて am / is / are と変えますが、ing形のほうは主語で変わりません。ing をつけるときのつづりの変化にも注意しましょう。"
-  },
-  {
-    "id": "e274",
-    "category": "進行形",
-    "question": "run を進行形にするとき、ing形を書きなさい。",
-    "answer": "running",
-    "explanation": "〈短い母音 + 子音字〉で終わる語は、最後の文字を重ねてから ing をつけます。swim → swimming、sit → sitting、stop → stopping も同じ仲間です。"
-  },
-  {
-    "id": "e275",
-    "category": "進行形",
-    "question": "make の ing形を書きなさい。",
-    "answer": "making",
-    "explanation": "e で終わる動詞は、e を取って ing をつけます。come → coming、write → writing、take → taking も同じ。ただし see は例外で、seeing と e を残します。"
-  },
-  {
-    "id": "e276",
-    "category": "進行形",
-    "question": "過去進行形で、主語が they のときに使う be動詞を英語1語で書きなさい。",
-    "answer": "were",
-    "explanation": "過去進行形は〈was[were] + ing形〉。they は複数なので were です。then（そのとき）や at that time が、過去のある時点をさす目印になります。"
-  },
-  {
-    "id": "e277",
-    "category": "進行形",
-    "question": "「彼女は走っていません」は She ( ) not running. である。( ) に入る語を英語1語で書きなさい。",
-    "answer": "is",
-    "explanation": "進行形の打ち消しは、be動詞のうしろに not を置くだけです。do not は使いません（× She does not running）。be動詞がある文では、打ち消しも疑問文も be動詞が受け持つ、というきまりを思い出しましょう。"
-  },
-  {
-    "id": "e278",
-    "category": "進行形",
-    "question": "進行形にしない、状態を表す動詞の例を英語1語で書きなさい。（「知っている」の意味）",
-    "answer": "know",
-    "explanation": "know、like、have（持っている）、want のような状態を表す動詞は、ふつう進行形にしません。動作ではなく、ずっと続いている状態だからです。ただし have が「食べる」の意味なら進行形にできます。"
-  },
-  {
-    "id": "e279",
-    "category": "進行形",
-    "question": "「雨が降っています」の主語に使う語を英語1語で書きなさい。",
-    "answer": "it",
-    "explanation": "天気を表すときの主語は it。「それ」という意味はなく、置き場所を埋めるための特別な it です。時刻や曜日、明るさを言うときにも同じ it を使います。"
-  },
-  {
-    "id": "e280",
-    "category": "進行形",
-    "question": "「あなたは何をしているのですか」は What ( ) you doing? である。( ) に入る語を英語1語で書きなさい。",
-    "answer": "are",
-    "explanation": "進行形の疑問文は be動詞を主語の前に出します。疑問詞があるときは、その前に置いて What are you doing? となります。主語が you なので be動詞は are。答えるときも進行形で返すのが自然です。"
-  },
-  {
-    "id": "e281",
-    "category": "名詞・代名詞",
-    "question": "child の複数形を英語1語で書きなさい。",
-    "answer": "children",
-    "explanation": "s をつけない不規則な複数形です。man → men、woman → women、foot → feet、tooth → teeth も同じ仲間。数が少ないので、まとめて覚えてしまうのが早道です。"
-  },
-  {
-    "id": "e282",
-    "category": "名詞・代名詞",
-    "question": "「私のもの」を表す代名詞を英語1語で書きなさい。",
-    "answer": "mine",
-    "explanation": "my は名詞の前につき、mine は単独で使います。my pen = mine と言いかえられる関係。yours、his、hers、ours、theirs も同じ仲間で、うしろに名詞をつけないのが特徴です。"
-  },
-  {
-    "id": "e283",
-    "category": "名詞・代名詞",
-    "question": "they を、動詞のうしろに置く形（目的格）にしなさい。",
-    "answer": "them",
-    "explanation": "動詞や前置詞のうしろにくる代名詞は目的格になります。I → me、he → him、she → her、we → us、they → them。「〜を・〜に」と訳すときの形だと考えると選びやすくなります。"
-  },
-  {
-    "id": "e284",
-    "category": "名詞・代名詞",
-    "question": "「水を一杯」を表すとき、a と water のあいだに入れる2語を書きなさい。",
-    "answer": "glass of",
-    "explanation": "water は数えられない名詞なので、入れ物で数えます。a glass of water、a cup of tea、a piece of paper、a sheet of paper など、組み合わせが決まっているものが多いので確認しておきましょう。"
-  },
-  {
-    "id": "e285",
-    "category": "名詞・代名詞",
-    "question": "this の複数形を英語1語で書きなさい。",
-    "answer": "these",
-    "explanation": "this → these、that → those。うしろの名詞も複数形にし、be動詞も are にそろえる必要があります。3か所そろえるのを忘れやすいので、書いたあとに確認するくせをつけましょう。"
-  },
-  {
-    "id": "e286",
-    "category": "名詞・代名詞",
-    "question": "「たくさんの」を表し、数えられる名詞にも数えられない名詞にも使える表現を英語3語で書きなさい。",
-    "answer": "a lot of",
-    "explanation": "many は数えられる名詞、much は数えられない名詞と使い分けが必要ですが、a lot of はどちらにも使えます。迷ったときの安全な言い方として覚えておくと役に立ちます。"
-  },
-  {
-    "id": "e287",
-    "category": "名詞・代名詞",
-    "question": "「〜があります」を表す、there で始まる文の be動詞を、うしろの名詞が単数のとき何にするか英語1語で書きなさい。",
-    "answer": "is",
-    "explanation": "There is a book 〜 のように、be動詞はうしろの名詞に合わせます。複数なら are。there 自体は主語ではなく、文を始めるための置き場所だと考えると仕組みが分かります。"
-  },
-  {
-    "id": "e288",
-    "category": "名詞・代名詞",
-    "question": "「情報」のように数えられない名詞を、数として表すときに使えない語を英語1語で書きなさい。（数えられる名詞用の「たくさんの」）",
-    "answer": "many",
-    "explanation": "many は数えられる名詞にしか使えません。information、water、money、homework などは数えられない名詞なので much や a lot of を使います。× many informations とはしません。"
-  },
-  {
-    "id": "e289",
-    "category": "前置詞・接続詞",
-    "question": "時刻の前に置く前置詞を英語1語で書きなさい。",
-    "answer": "at",
-    "explanation": "at seven のように、時刻には at を使います。at は一点をさす前置詞。朝や午後などの幅のある時間帯には in、曜日や日付には on と、時間の幅で使い分けると迷いません。"
-  },
-  {
-    "id": "e290",
-    "category": "前置詞・接続詞",
-    "question": "曜日の前に置く前置詞を英語1語で書きなさい。",
-    "answer": "on",
-    "explanation": "on Sunday のように使います。日付にも on を使い、on May 5th となります。on はもともと「くっついている」という意味で、カレンダーの一日に貼りついているイメージです。"
-  },
-  {
-    "id": "e291",
-    "category": "前置詞・接続詞",
-    "question": "月や季節の前に置く前置詞を英語1語で書きなさい。",
-    "answer": "in",
-    "explanation": "in April、in summer のように使います。in は広がりのある空間や時間を表す前置詞。年にも in 2026 と使い、時間の幅が広いほど in になると覚えられます。"
-  },
-  {
-    "id": "e292",
-    "category": "前置詞・接続詞",
-    "question": "理由をつなぐ「〜だから」を表す接続詞を英語1語で書きなさい。",
-    "answer": "because",
-    "explanation": "うしろには〈主語 + 動詞〉が続きます。Why 〜? に答えるときにも使えます。似た働きの so は「だから」と結果をつなぐので、前後が入れかわる点に注意しましょう。"
-  },
-  {
-    "id": "e293",
-    "category": "前置詞・接続詞",
-    "question": "「もし〜ならば」を表す接続詞を英語1語で書きなさい。",
-    "answer": "if",
-    "explanation": "if のあとの文では、未来のことでも現在形を使うのがきまりです（× if it will rain）。時や条件を表すまとまりの中では未来形を使わない、という中学英語の重要なルールです。"
-  },
-  {
-    "id": "e294",
-    "category": "前置詞・接続詞",
-    "question": "「〜を待つ」を表す2語を書きなさい。",
-    "answer": "wait for",
-    "explanation": "for を落とすまちがいがとても多い表現です。wait for you のように、待つ相手の前に for を置きます。look for（〜をさがす）、ask for（〜を求める）も同じ形の仲間です。"
-  },
-  {
-    "id": "e295",
-    "category": "前置詞・接続詞",
-    "question": "交通手段を表すときに使う前置詞を英語1語で書きなさい。",
-    "answer": "by",
-    "explanation": "by bus、by train のように使い、乗り物には a や the をつけません。ただし「歩いて」だけは例外で on foot と言います。この例外はテストでよく問われます。"
-  },
-  {
-    "id": "e296",
-    "category": "前置詞・接続詞",
-    "question": "「〜の前で」を表す3語を書きなさい。",
-    "answer": "in front of",
-    "explanation": "in front of the school のように使います。反対は behind で、こちらは1語。3語でひとかたまりの前置詞になるものは、まとめて覚えると使えるようになります。"
-  },
-  {
-    "id": "e297",
-    "category": "英単語（名詞）",
-    "question": "「能力」を英語1語で書きなさい。",
-    "answer": "ability",
-    "explanation": "be able to（〜できる）の名詞形です。特定のことをうまく行う力を指し、The ability to〜（〜する能力）の形でもよく使われます。"
-  },
-  {
-    "id": "e298",
-    "category": "英単語（名詞）",
-    "question": "「農業」を英語1語で書きなさい。",
-    "answer": "agriculture",
-    "explanation": "土地を耕して作物を育てたり、家畜を育てたりする産業のことです。agricultural（農業の）という形容詞の形もあわせて覚えておきましょう。"
-  },
-  {
-    "id": "e299",
-    "category": "英単語（名詞）",
-    "question": "「注意」を英語1語で書きなさい。",
-    "answer": "attention",
-    "explanation": "pay attention to〜で「〜に注意を払う」という意味になる、会話でもよく使う表現です。授業中に先生が言う Pay attention! はおなじみのフレーズです。"
-  },
-  {
-    "id": "e300",
-    "category": "英単語（名詞）",
-    "question": "「行動」を英語1語で書きなさい。",
-    "answer": "behavior",
-    "explanation": "人や動物のふるまい・行動のしかたを指す語です。イギリス式のつづりではbehaviourと書き、uが入る点がアメリカ式とのちがいです。"
-  },
-  {
-    "id": "e301",
-    "category": "英単語（名詞）",
-    "question": "「勇気」を英語1語で書きなさい。",
-    "answer": "courage",
-    "explanation": "困難や危険に立ち向かう強い心を表します。形容詞形はcourageous（勇気のある）で、動詞haveと組み合わせてhave the courage to〜（〜する勇気がある）の形でよく使われます。"
-  },
-  {
-    "id": "e302",
-    "category": "英単語（名詞）",
-    "question": "「教育」を英語1語で書きなさい。",
-    "answer": "education",
-    "explanation": "educate（教育する）の名詞形です。receive an education（教育を受ける）のように使い、educational（教育の）という形容詞形もあわせて覚えておきましょう。"
-  },
-  {
-    "id": "e303",
-    "category": "英単語（名詞）",
-    "question": "「用具」を英語1語で書きなさい。",
-    "answer": "equipment",
-    "explanation": "道具や設備をまとめて表す語で、数えられない名詞として扱われるためan equipmentやequipmentsとは言いません。sports equipment（スポーツ用具）のように使います。"
-  },
-  {
-    "id": "e304",
-    "category": "英単語（名詞）",
-    "question": "「世代」を英語1語で書きなさい。",
-    "answer": "generation",
-    "explanation": "同じ時代に生まれ育った人々のまとまりを指します。the older generation（年上の世代）、the younger generation（若い世代）のように使われます。"
-  },
-  {
-    "id": "e305",
-    "category": "英単語（名詞）",
-    "question": "「目標」を英語1語で書きなさい。",
-    "answer": "goal",
-    "explanation": "スポーツの「ゴール」だけでなく、achieve a goal（目標を達成する）のように「めざすもの・目標」という意味でもよく使われます。"
-  },
-  {
-    "id": "e306",
-    "category": "英単語（名詞）",
-    "question": "「習慣」を英語1語で書きなさい。",
-    "answer": "habit",
-    "explanation": "個人がくり返し行う行動のクセを指します。a good habit（よい習慣）、a bad habit（悪い習慣）のように使い、custom（社会や集団の習慣・風習）とは区別されます。"
-  },
-  {
-    "id": "e307",
-    "category": "英単語（名詞）",
-    "question": "「旅」を英語1語で書きなさい。",
-    "answer": "journey",
-    "explanation": "特に長い距離や時間のかかる旅を表す語です。A journey of a thousand milesbegins with a single step.（千里の道も一歩から）という有名なことわざにも使われています。"
-  },
-  {
-    "id": "e308",
-    "category": "英単語（名詞）",
-    "question": "「人口」を英語1語で書きなさい。",
-    "answer": "population",
-    "explanation": "ある地域に住む人の数を表します。What is the population of Japan?（日本の人口はどのくらいですか）のように使い、答えるときは数字で示します。"
-  },
-  {
-    "id": "e309",
-    "category": "英単語（名詞）",
-    "question": "「目的」を英語1語で書きなさい。",
-    "answer": "purpose",
-    "explanation": "行動の理由となる目標を表す語です。on purpose（わざと、故意に）という熟語もあわせてよく出題されます。"
-  },
-  {
-    "id": "e310",
-    "category": "英単語（名詞）",
-    "question": "「宗教」を英語1語で書きなさい。",
-    "answer": "religion",
-    "explanation": "世界には仏教・キリスト教・イスラム教などさまざまな宗教があります。religious（宗教の、信心深い）という形容詞形もよく使われます。"
-  },
-  {
-    "id": "e311",
-    "category": "英単語（名詞）",
-    "question": "「技術」を英語1語で書きなさい。",
-    "answer": "skill",
-    "explanation": "訓練や経験によって身につけた腕前を表します。skilled（熟練した）という形容詞形もあり、a skilled worker（熟練した労働者）のように使います。"
-  },
-  {
-    "id": "e312",
-    "category": "英単語（動詞）",
-    "question": "「達成する」を英語1語で書きなさい。",
-    "answer": "achieve",
-    "explanation": "目標や成果を努力の末に手に入れることを表します。achieve a goal（目標を達成する）のように使い、名詞形はachievement（達成、業績）です。"
-  },
-  {
-    "id": "e313",
-    "category": "英単語（動詞）",
-    "question": "「影響を与える」を英語1語で書きなさい。",
-    "answer": "affect",
-    "explanation": "名詞のeffect（影響、結果）と発音・つづりが似ていて混同しやすい動詞です。affectは動詞、effectは名詞、と品詞のちがいで覚えておくと区別しやすくなります。"
-  },
-  {
-    "id": "e314",
-    "category": "英単語（動詞）",
-    "question": "「避ける」を英語1語で書きなさい。",
-    "answer": "avoid",
-    "explanation": "危険やいやなことを避けるという意味の動詞です。うしろに動詞を続けるときはavoid ing（〜することを避ける）と動名詞の形になります。"
-  },
-  {
-    "id": "e315",
-    "category": "英単語（動詞）",
-    "question": "「祝う」を英語1語で書きなさい。",
-    "answer": "celebrate",
-    "explanation": "誕生日や記念日などをお祝いするときに使う動詞です。名詞形はcelebration（祝賀、お祝い）で、celebrate one's birthday（誕生日を祝う）のように使います。"
-  },
-  {
-    "id": "e316",
-    "category": "英単語（動詞）",
-    "question": "「完成させる」を英語1語で書きなさい。",
-    "answer": "complete",
-    "explanation": "ものごとを完全な状態に仕上げることを表します。形容詞として「完全な」という意味でも使われ、a complete success（完全な成功）のように使います。"
-  },
-  {
-    "id": "e317",
-    "category": "英単語（動詞）",
-    "question": "「含む」を英語1語で書きなさい。",
-    "answer": "contain",
-    "explanation": "中に何かを含んでいることを表す動詞です。This drink contains a lot ofsugar.（この飲み物には砂糖がたくさん含まれている）のように使います。"
-  },
-  {
-    "id": "e318",
-    "category": "英単語（動詞）",
-    "question": "「創造する」を英語1語で書きなさい。",
-    "answer": "create",
-    "explanation": "何もないところから新しいものを生み出すことを表します。名詞形はcreation（創造）、形容詞形はcreative（創造的な）です。"
-  },
-  {
-    "id": "e319",
-    "category": "英単語（動詞）",
-    "question": "「配達する」を英語1語で書きなさい。",
-    "answer": "deliver",
-    "explanation": "手紙や荷物などを届けることを表す動詞です。名詞形はdelivery（配達）で、free delivery（送料無料）のように商品の説明でもよく見かけます。"
-  },
-  {
-    "id": "e320",
-    "category": "英単語（動詞）",
-    "question": "「発展させる」を英語1語で書きなさい。",
-    "answer": "develop",
-    "explanation": "国や技術、能力などを発展させる・開発するという意味で使われます。名詞形はdevelopment（発展、開発）で、developing countries（発展途上国）はニュースにもよく登場する表現です。"
-  },
-  {
-    "id": "e321",
-    "category": "英単語（動詞）",
-    "question": "「励ます」を英語1語で書きなさい。",
-    "answer": "encourage",
-    "explanation": "人を勇気づけて、何かをするよう後押しすることを表します。反対の意味の語はdiscourage（やる気をなくさせる）です。"
-  },
-  {
-    "id": "e322",
-    "category": "英単語（動詞）",
-    "question": "「存在する」を英語1語で書きなさい。",
-    "answer": "exist",
-    "explanation": "実際にあること・存在することを表す動詞です。名詞形はexistence（存在）で、Life may exist on other planets.（生命は他の惑星にも存在するかもしれない）のように使われます。"
-  },
-  {
-    "id": "e323",
-    "category": "英単語（動詞）",
-    "question": "「卒業する」を英語1語で書きなさい。",
-    "answer": "graduate",
-    "explanation": "学校を卒業するという意味の動詞です。名詞形のgraduation（卒業）とセットで覚えておくと、動詞と名詞の使い分けがしやすくなります。"
-  },
-  {
-    "id": "e324",
-    "category": "英単語（動詞）",
-    "question": "「急ぐ」を英語1語で書きなさい。",
-    "answer": "hurry",
-    "explanation": "時間がなくて急ぐことを表す動詞です。Hurry up!（急いで！）は日常会話でよく使われるフレーズで、in a hurry（急いで）という熟語もあわせて覚えておきましょう。"
-  },
-  {
-    "id": "e325",
-    "category": "英単語（動詞）",
-    "question": "「生産する」を英語1語で書きなさい。",
-    "answer": "produce",
-    "explanation": "工場などでものを作り出すことを表す動詞です。名詞のproduct（製品）と語の形が似ているので、動詞か名詞かを文の形から見分けましょう。"
-  },
-  {
-    "id": "e326",
-    "category": "英単語（動詞）",
-    "question": "「減らす」を英語1語で書きなさい。",
-    "answer": "reduce",
-    "explanation": "量や数を減らすことを表す動詞です。reduce, reuse, recycle（減らす・くり返し使う・再利用する）は環境問題でよく使われる3つの動詞のセットです。"
-  },
-  {
-    "id": "e327",
-    "category": "英単語（形容詞・副詞）",
-    "question": "「活発な」を英語1語で書きなさい。",
-    "answer": "active",
-    "explanation": "元気よく積極的に活動するようすを表します。反対の意味の語はpassive（受動的な）で、an active volcano（活火山）のように「活動している」という意味でも使います。"
-  },
-  {
-    "id": "e328",
-    "category": "英単語（形容詞・副詞）",
-    "question": "「注意深い」を英語1語で書きなさい。",
-    "answer": "careful",
-    "explanation": "副詞形careful ly（注意深く）はすでに登場済みですが、もとになる形容詞の形もあわせて覚えておきましょう。Be careful!（気をつけて！）は定番の一言です。"
-  },
-  {
-    "id": "e329",
-    "category": "英単語（形容詞・副詞）",
-    "question": "「好奇心の強い」を英語1語で書きなさい。",
-    "answer": "curious",
-    "explanation": "新しいことを知りたがる気持ちを表す形容詞です。名詞形はcuriosity（好奇心）で、Curiosity killed the cat.（好奇心はねこをも殺す）ということわざにも使われています。"
-  },
-  {
-    "id": "e330",
-    "category": "英単語（形容詞・副詞）",
-    "question": "「おいしい」を英語1語で書きなさい。",
-    "answer": "delicious",
-    "explanation": "とてもおいしいことを表す、goodよりも強い言い方です。This cakeis delicious.（このケーキはとてもおいしい）のように、料理の感想でよく使われます。"
-  },
-  {
-    "id": "e331",
-    "category": "英単語（形容詞・副詞）",
-    "question": "「年配の」を英語1語で書きなさい。",
-    "answer": "elderly",
-    "explanation": "oldよりもていねいで、高齢の人に対して敬意をこめて使われる言い方です。an elderly man（年配の男性）のように、人を表す語の前に置いて使います。"
-  },
-  {
-    "id": "e332",
-    "category": "英単語（形容詞・副詞）",
-    "question": "「正確な」を英語1語で書きなさい。",
-    "answer": "exact",
-    "explanation": "細かい点まで正しいことを表す形容詞です。副詞形exactly（正確に、ちょうど）は、会話で「そのとおり」と相づちを打つときにもよく使われます。"
-  },
-  {
-    "id": "e333",
-    "category": "英単語（形容詞・副詞）",
-    "question": "「親しみやすい」を英語1語で書きなさい。",
-    "answer": "friendly",
-    "explanation": "friend（友達）にlyがついた形ですが、friendlyは形容詞である点に注意しましょう（friendlilyという副詞形はありません）。"
-  },
-  {
-    "id": "e334",
-    "category": "英単語（形容詞・副詞）",
-    "question": "「気前の良い」を英語1語で書きなさい。",
-    "answer": "generous",
-    "explanation": "他人に対してお金やものを惜しみなく与えるようすを表します。It's generous of you.（あなたは気前がいいですね）のように、人柄をほめるときに使われます。"
-  },
-  {
-    "id": "e335",
-    "category": "英単語（形容詞・副詞）",
-    "question": "「優しい」を英語1語で書きなさい。",
-    "answer": "gentle",
-    "explanation": "性格や態度がおだやかで優しいことを表す形容詞です。a gentle wind（そよ風）のように、人以外の穏やかさを表すのにも使われます。"
-  },
-  {
-    "id": "e336",
-    "category": "英単語（形容詞・副詞）",
-    "question": "「正直な」を英語1語で書きなさい。",
-    "answer": "honest",
-    "explanation": "先頭のhを発音しない（アワネストゥのように読む）ことで知られるつづりの単語です。名詞形honesty（正直さ）とあわせて覚えておきましょう。"
-  },
-  {
-    "id": "e337",
-    "category": "英単語（形容詞・副詞）",
-    "question": "「緊張した」を英語1語で書きなさい。",
-    "answer": "nervous",
-    "explanation": "不安や心配で落ち着かない気持ちを表します。I feel nervous beforethe test.（テストの前は緊張する）のように、日常会話でとてもよく使われる語です。"
-  },
-  {
-    "id": "e338",
-    "category": "英単語（形容詞・副詞）",
-    "question": "「忍耐強い」を英語1語で書きなさい。",
-    "answer": "patient",
-    "explanation": "つづりと発音が同じで「患者」という意味の名詞にもなる語です。名詞形patience（忍耐、我慢）とあわせて覚えておきましょう。"
-  },
-  {
-    "id": "e339",
-    "category": "英単語（形容詞・副詞）",
-    "question": "「礼儀正しい」を英語1語で書きなさい。",
-    "answer": "polite",
-    "explanation": "行儀がよく、人に対して失礼のないようすを表します。反対の意味の語はimpolite、または似た意味でrude（無礼な）が使われます。"
-  },
-  {
-    "id": "e340",
-    "category": "英単語（形容詞・副詞）",
-    "question": "「似ている」を英語1語で書きなさい。",
-    "answer": "similar",
-    "explanation": "完全に同じではないが、よく似ているようすを表す形容詞です。be similar to〜で「〜に似ている」という意味になります。"
-  },
-  {
-    "id": "e341",
-    "category": "英単語（形容詞・副詞）",
-    "question": "「さまざまな」を英語1語で書きなさい。",
-    "answer": "various",
-    "explanation": "vary（さまざまである）に由来する形容詞で、種類が多いことを表します。various kinds of〜（さまざまな種類の〜）の形でよく使われます。"
   }
 ]
