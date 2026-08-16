@@ -2514,41 +2514,78 @@
   }
 
   // 合戦が終わったときに、その日の戦いぶりをまとめて味方が褒めてくれる。
-  // 位が上がった回はそれを最優先で伝え、そうでなければ正答率で言葉を選ぶ
+  // 位が上がった回はそれを最優先で伝え、そうでなければ正答率で言葉を選ぶ。
+  // 各段階で複数の言い方を用意し、直前に出た言葉は避けて選ぶことで、
+  // 周回しても同じ一言にすぐ当たらないようにしてある
   const RESULT_PRAISE = {
     levelup: [
       '位が上がったぞ！ここからは「%RANK%」だ。胸を張っていい',
       'よくやった、正真正銘の「%RANK%」だ！',
       '金雲が晴れた。お前はもう「%RANK%」だぞ',
       'これで「%RANK%」だ。積み重ねがちゃんと形になっている',
+      '見ろ、雲が晴れていく。お前が「%RANK%」に届いた証だ',
+      '一段、また一段と上ってきたな。今日から「%RANK%」を名乗っていい',
+      '大儀であった。「%RANK%」の名に恥じぬ働きだったぞ',
+      'ここまで来たか。「%RANK%」、悪くない響きだろう',
     ],
     perfect: [
       '一問も落とさなかったな。今日はお前の日だ',
       '完璧だ。付け入る隙が一つもなかった',
       '見事、としか言いようがない',
       '文句のつけようがない出来だ。誇っていい',
+      '全問正解か。今日の采配、非の打ちどころがない',
+      '一太刀も外さなかったな。惚れ惚れする戦いぶりだ',
+      'これぞ完勝だ。胸を張って帰るといい',
+      '今日のお前には、誰も付け入る隙を見出せなかっただろう',
     ],
     great: [
       'たいした腕前だ。今日のお前は強かった',
       'よく戦った。見ていて気持ちがよかったぞ',
       'この調子なら、次はもっと上まで行ける',
       '立派な戦いぶりだった',
+      '押しの強い一戦だったな。次も期待している',
+      '今日の集中力、なかなかのものだったぞ',
+      'これだけ通せれば十分だ。よくやった',
+      '腕が上がっているのが、はたで見ていてもよく分かる',
     ],
     good: [
       'よく持ちこたえた。悪くない一戦だった',
       '崩れずに最後まで戦ったな、それでいい',
       '今日はここまで。次はもっと伸びるはずだ',
       '一歩ずつでも、確かに前に進んでいる',
+      '簡単な相手ではなかったはずだ。よく粘った',
+      '今日のぶんはしっかり積み上がっている。それでいい',
+      '波はあったが、最後まで投げ出さなかったな',
+      '悪くない、むしろよくやったほうだ',
     ],
     effort: [
       '今日はきつい相手だったな。それでも最後まで付き合ってくれた',
       '負けが多くても、通ったぶんはちゃんと身になっている',
       'つまずいた場所が分かっただけでも収穫だ',
       'また挑めばいい。今日はよく粘った',
+      '今日は分が悪かったな。それでも逃げずに最後まで向き合った',
+      '苦しい一戦だったろう。それでも刀を置かなかったのは立派だ',
+      'うまくいかない日もある。それでも机に向かったことが大事だ',
+      '今日の悔しさは、次の一手を鋭くする糧になる',
     ],
   };
 
-  function sayResultAlly({ total, accuracy, leveledUp, rank }) {
+  // 会心の連撃（大連撃）や、敵を討ち取った回だけに添える一言。
+  // 必ず出すわけではなく、時おり本文の後ろに続けることで文の形に変化をつける
+  const RESULT_COMBO_LINES = [
+    '最大連撃%COMBO%……あの勢いはまだ耳に残っているぞ',
+    '%COMBO%連撃か。あの流れは誰にも止められなかったな',
+    '止まらなかったな、%COMBO%連撃。見ていて気持ちがよかった',
+  ];
+  const RESULT_DEFEAT_LINES = [
+    '敵将もお前の前では長くもたなかったな',
+    'しかと討ち取ったぞ。見事な采配だった',
+    '敵将、討ち取ったり。今日の勝ち名乗りはお前のものだ',
+  ];
+
+  let recentResultLines = [];
+
+  function sayResultAlly({ total, accuracy, leveledUp, rank, maxCombo, defeated }) {
     const wrap = document.getElementById('result-ally');
     if (!total) { wrap.classList.add('hidden'); return; }
 
@@ -2562,7 +2599,18 @@
     else if (accuracy >= 50) pool = RESULT_PRAISE.good;
     else pool = RESULT_PRAISE.effort;
 
-    const line = pool[Math.floor(Math.random() * pool.length)].replace('%RANK%', rank);
+    let line = pickLine(pool, recentResultLines).replace('%RANK%', rank);
+
+    // 大連撃・討伐は、本文の続きとして半分の確率で添える
+    // （毎回だと文の形が単調になるため）
+    if (maxCombo >= 6 && Math.random() < 0.5) {
+      const extra = RESULT_COMBO_LINES[Math.floor(Math.random() * RESULT_COMBO_LINES.length)];
+      line += '。' + extra.replace('%COMBO%', maxCombo);
+    } else if (defeated && Math.random() < 0.5) {
+      const extra = RESULT_DEFEAT_LINES[Math.floor(Math.random() * RESULT_DEFEAT_LINES.length)];
+      line += '。' + extra;
+    }
+
     const bubble = document.getElementById('result-ally-bubble');
     bubble.textContent = line;
     wrap.classList.remove('hidden');
@@ -2944,6 +2992,37 @@
     // 毎回新しく作るので、連続で正解しても音が途切れず重なって鳴る
     source.connect(gain).connect(ctx.destination);
     source.start();
+  }
+
+  // 位が上がった瞬間だけの特別な音。音声ファイルを増やさず、その場で鳴らす
+  // 短い上昇アルペジオを合成する（版権にもファイル容量にも影響しない）
+  function playLevelUpChime() {
+    if (feedbackMode === 'none') return;
+
+    if (feedbackMode === 'vibe') {
+      if (navigator.vibrate) navigator.vibrate([40, 40, 40, 40, 40, 40, 120]);
+      return;
+    }
+
+    const ctx = getAudioContext();
+    if (!ctx) return;
+    if (ctx.state === 'suspended') ctx.resume();
+
+    const notes = [523.25, 659.25, 783.99, 1046.50];  // ド・ミ・ソ・高いド
+    const startAt = ctx.currentTime;
+    notes.forEach((freq, i) => {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = 'triangle';
+      osc.frequency.value = freq;
+      const t0 = startAt + i * 0.11;
+      gain.gain.setValueAtTime(0, t0);
+      gain.gain.linearRampToValueAtTime(0.28, t0 + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.5);
+      osc.connect(gain).connect(ctx.destination);
+      osc.start(t0);
+      osc.stop(t0 + 0.55);
+    });
   }
 
   function updateSoundBtn() {
@@ -4816,6 +4895,7 @@
       rewardMsg = newLevel >= REWARD_MAX_LEVEL
         ? `金雲が晴れ、「${RANK_TITLES[REWARD_MAX_LEVEL]}」に到達`
         : `金雲が晴れた  「${RANK_TITLES[sessionStartLevel]}」→「${RANK_TITLES[newLevel]}」`;
+      playLevelUpChime();
     }
 
     const now = new Date();
@@ -4836,6 +4916,8 @@
       total, accuracy,
       leveledUp: newLevel > sessionStartLevel,
       rank: RANK_TITLES[newLevel],
+      maxCombo: maxComboCount,
+      defeated: enemyHp <= 0,
     });
 
     // その合戦で落とした問題だけを、その場で解き直せるようにする
