@@ -853,6 +853,9 @@
 
     .count-tools button.selected small { color: #ffd9a0; }
 
+    .setup-back-btn { margin-top: 5px; }
+    .setup-sound-btn { font-size: 0.9rem; padding: 8px; }
+
     /* 中断からの再開 */
     .resume-box {
       background: rgba(80, 60, 30, 0.4);
@@ -1754,13 +1757,34 @@
       .setup-main { grid-column: 1; }
       #setup-screen .reward-panel { grid-column: 2; margin-top: 0; }
 
-      /* 縦に余裕があるので、分野は多めに見せてスクロールを減らす */
-      .category-group { max-height: 340px; }
+      /* 画面の高さに合わせて伸び縮みさせ、スクロールなしで下のボタンまで収まるようにする */
+      .category-group { max-height: 30vh; margin-bottom: 10px; }
       .reward-canvas { width: 216px; height: 324px; }
+
+      /* 復習リスト・戻る・手ごたえの3つは横に並べて高さを詰める */
+      .setup-tools-row { display: flex; gap: 8px; margin-bottom: 10px; }
+      .setup-tools-row button {
+        flex: 1 1 0; min-width: 0; margin-bottom: 0; margin-top: 0;
+        font-size: 0.8rem; padding: 9px 4px;
+      }
+      #start-btn { margin-bottom: 8px; }
 
       /* 復習リストも広く使う */
       .review-list { max-height: 54vh; }
       .review-q { font-size: 1rem; }
+    }
+
+    /* ノートPCなど画面の低いパソコンでは、分野の一覧とボタンをさらに詰める */
+    @media (min-width: 900px) and (max-height: 950px) {
+      .category-group { max-height: 14vh; margin-bottom: 8px; padding: 10px; }
+      #category-label, .select-tools { margin-bottom: 6px; }
+      #mode-row, #format-row { margin-bottom: 6px; }
+      #mode-row label, #format-row label { margin-bottom: 4px; }
+      .count-tools { margin-bottom: 8px; gap: 6px; }
+      .count-tools button { padding: 7px 4px; font-size: 0.84rem; }
+      .count-tools button small { font-size: 0.62rem; margin-top: 1px; }
+      #start-btn { padding: 10px; margin-bottom: 6px; }
+      .setup-tools-row button { font-size: 0.72rem; padding: 7px 3px; }
     }
 
     /* さらに広い画面では、復習リストを2列に並べて一覧性を上げる */
@@ -1973,9 +1997,11 @@
       </div>
 
       <button id="start-btn">いざ出陣（学習開始）</button>
-      <button id="review-btn" class="btn-sub">復習リスト (0件)</button>
-      <button onclick="goHome()" class="btn-sub2" style="margin-top: 5px;">本陣へ戻る</button>
-      <button id="sound-btn" class="btn-sub2" style="font-size: 0.9rem; padding: 8px;">📳 手ごたえ: バイブ</button>
+      <div class="setup-tools-row">
+        <button id="review-btn" class="btn-sub">復習リスト (0件)</button>
+        <button onclick="goHome()" class="btn-sub2 setup-back-btn">本陣へ戻る</button>
+        <button id="sound-btn" class="btn-sub2 setup-sound-btn">📳 手ごたえ: バイブ</button>
+      </div>
     </div>
 
     <!-- 🏆 正解数に応じて解像度が上がる絵巻 -->
