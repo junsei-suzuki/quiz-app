@@ -1547,6 +1547,72 @@
     .search-actions button { flex: 1 1 auto; width: auto; margin-bottom: 0; padding: 9px; font-size: 0.84rem; }
     .search-practice { background: var(--btn1); }
 
+    /* アカウント（この端末の中だけの、使う人の切りかえ） */
+    .profile-hint {
+      font-size: 0.82rem;
+      color: #a89684;
+      line-height: 1.8;
+      text-align: left;
+      margin: 4px 0 18px;
+    }
+
+    .profile-list { display: grid; gap: 10px; margin-bottom: 18px; }
+
+    .profile-card {
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.03);
+    }
+    .profile-card.current { border-color: var(--accent); }
+
+    .profile-select {
+      width: 100%;
+      text-align: left;
+      padding: 12px 14px;
+      margin-bottom: 0;
+      background: transparent;
+      border: none;
+      color: #f0e0d0;
+      display: block;
+    }
+    .profile-select b { display: block; font-size: 1rem; }
+    .profile-select small { display: block; font-size: 0.78rem; color: #a89684; margin-top: 3px; }
+    .profile-card.current .profile-select small { color: var(--accent); }
+
+    .profile-tools {
+      display: flex;
+      gap: 1px;
+      background: var(--card-border);
+      border-top: 1px solid var(--card-border);
+    }
+    .profile-tools button {
+      flex: 1 1 auto;
+      margin-bottom: 0;
+      border: none;
+      border-radius: 0;
+      padding: 8px;
+      font-size: 0.76rem;
+      background: rgba(0, 0, 0, 0.35);
+    }
+
+    .profile-new { display: flex; gap: 8px; margin-bottom: 18px; }
+    .profile-new input[type="text"] { flex: 1 1 auto; margin-bottom: 0; }
+    .profile-new button { flex: 0 0 auto; width: auto; padding: 12px 16px; margin-bottom: 0; }
+
+    /* 本陣の見出しの下に出す、今つかっている人の札 */
+    .profile-chip {
+      display: block;
+      width: auto;
+      margin: 0 auto 14px;
+      padding: 5px 16px;
+      font-size: 0.78rem;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--card-border);
+      border-radius: 999px;
+      color: #c9b193;
+    }
+
     /* 記録画面の設定まわり */
     .record-block {
       margin-top: 18px;
@@ -1708,7 +1774,8 @@
         grid-template-columns: 1fr 1fr;
         column-gap: 16px;
       }
-      body.home-layout #home-screen h1 { grid-column: 1 / -1; }
+      body.home-layout #home-screen h1,
+      body.home-layout #home-screen #profile-chip { grid-column: 1 / -1; }
       body.home-layout #home-screen .study-panel { grid-column: 1; margin-bottom: 0; padding: 12px 14px; }
       body.home-layout #home-screen #quick-start { grid-column: 2; margin-bottom: 0; align-content: start; }
       body.home-layout #home-screen .search-block { grid-column: 1 / -1; margin: 10px 0; }
@@ -1776,8 +1843,28 @@
 <!-- 🎯 メインカード（画面中央から下部に配置） -->
 <div class="app-container">
   <!-- 1. ホーム画面（教科選択） -->
+  <!-- 0. アカウント選択（この端末の中だけの、使う人の切りかえ） -->
+  <div id="profile-screen" class="hidden">
+    <h2>だれが使いますか？</h2>
+    <p class="profile-hint">
+      選んだ人の記録だけが表示され、他の人の記録とは混ざりません。<br>
+      この一覧は<b>この端末（このブラウザ）の中だけ</b>にあります。ちがう端末では見えません。
+      別の端末に移すときは、記録画面の「書き出す／読み戻す」を使ってください。
+    </p>
+
+    <div id="profile-list" class="profile-list"></div>
+
+    <div class="profile-new">
+      <input type="text" id="profile-new-name" placeholder="新しい名前を入力（12字まで）" maxlength="12">
+      <button type="button" id="profile-new-btn">追加する</button>
+    </div>
+
+    <button type="button" id="profile-back-btn" class="btn-sub hidden">本陣へ戻る</button>
+  </div>
+
   <div id="home-screen">
     <h1>一問一答 学習合戦</h1>
+    <button type="button" id="profile-chip" class="profile-chip"></button>
 
     <!-- 続けた記録。ここが再訪の動機になる -->
     <div class="study-panel">
@@ -4927,6 +5014,237 @@
     box.textContent = '';
   });
   wireSearchClear('subject-search-input', 'subject-search-clear', runSubjectSearch);
+
+  // ----- アカウント：この端末の中だけで、使う人を切りかえる -----
+  //
+  // サーバーもログインも使わない。今のlocalStorageの中身を「今の人のもの」として
+  // 丸ごとJSONに退避し（collectData を再利用）、表の記録を空にしてから、
+  // 切りかえ先の退避データを表に書き戻す、という「入れかえ」で実現している。
+  // だから兄弟姉妹などで1台の端末を共有していても、記録が混ざらない。
+  // 別の端末には自動では届かない。それは記録画面の書き出し・読み戻しの役目。
+
+  function loadProfiles() {
+    try { return JSON.parse(localStorage.getItem('profiles') || '[]'); } catch (err) { return []; }
+  }
+  function saveProfiles(list) { localStorage.setItem('profiles', JSON.stringify(list)); }
+
+  function ensureProfiles() {
+    let profiles = loadProfiles();
+    if (!profiles.length && !localStorage.getItem('currentProfileId')) {
+      // 既存ユーザーの引っこし。今すでにある記録を、そのまま1人目にする。
+      // 何も無い真っさらな端末では、ここでは何もつくらない
+      // （「追加する」から自分で名前をつけて最初の1人をつくってもらう）
+      const hasData = !!localStorage.getItem('studyLog')
+        || SUBJECTS.some(sub => !!localStorage.getItem(`solvedIds_${sub.key}`));
+      if (hasData) {
+        const id = 'p' + Date.now();
+        profiles = [{ id, name: 'これまでの記録', createdAt: Date.now() }];
+        saveProfiles(profiles);
+        localStorage.setItem('currentProfileId', id);
+      }
+    }
+    return loadProfiles();
+  }
+
+  function clearProfileData() {
+    const toRemove = [];
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (TRANSFER_KEYS.includes(key) || TRANSFER_PREFIXES.some(pre => key.startsWith(pre))) {
+        toRemove.push(key);
+      }
+    }
+    toRemove.forEach(k => localStorage.removeItem(k));
+  }
+
+  function saveCurrentProfileSnapshot() {
+    const id = localStorage.getItem('currentProfileId');
+    if (!id) return;
+    localStorage.setItem(`profileData_${id}`, JSON.stringify(collectData().data));
+  }
+
+  function loadProfileSnapshot(id) {
+    const raw = localStorage.getItem(`profileData_${id}`);
+    if (!raw) return;
+    try {
+      const data = JSON.parse(raw);
+      Object.entries(data).forEach(([k, v]) => localStorage.setItem(k, v));
+    } catch (err) { /* 壊れていたら何も戻さず、真っさらのまま始める */ }
+  }
+
+  // 累計の問題数だけ、一覧に軽く表示する。今の人は表の studyLog を、
+  // それ以外の人は退避してあるスナップショットを見る
+  function profileTotalCount(p) {
+    const isCurrent = p.id === localStorage.getItem('currentProfileId');
+    let raw = isCurrent ? localStorage.getItem('studyLog') : null;
+    if (!isCurrent) {
+      const snap = localStorage.getItem(`profileData_${p.id}`);
+      if (snap) { try { raw = JSON.parse(snap).studyLog; } catch (err) { /* noop */ } }
+    }
+    if (!raw) return 0;
+    try {
+      const log = JSON.parse(raw);
+      return Object.values(log).reduce((a, d) => a + (d.answered || 0), 0);
+    } catch (err) { return 0; }
+  }
+
+  function switchToProfile(id) {
+    saveCurrentProfileSnapshot();
+    clearProfileData();
+    loadProfileSnapshot(id);
+    localStorage.setItem('currentProfileId', id);
+    // 切りかえた直後は選択画面を出さず、そのままその人の本陣へ行く。
+    // 何もしないと bootProfile が「2人以上いる」ルールで選択画面に戻してしまう
+    sessionStorage.setItem('justSwitchedProfile', '1');
+    location.reload();
+  }
+
+  function deleteProfile(id) {
+    const profiles = loadProfiles().filter(p => p.id !== id);
+    localStorage.removeItem(`profileData_${id}`);
+    saveProfiles(profiles);
+    if (localStorage.getItem('currentProfileId') === id) {
+      // 今まさに使っていた本人を消したときは、表の記録も消して次の人へ切りかえる
+      clearProfileData();
+      if (profiles.length) {
+        loadProfileSnapshot(profiles[0].id);
+        localStorage.setItem('currentProfileId', profiles[0].id);
+      } else {
+        localStorage.removeItem('currentProfileId');
+      }
+      location.reload();
+      return;
+    }
+    renderProfileScreen();
+  }
+
+  function renderProfileScreen() {
+    const profiles = loadProfiles();
+    const currentId = localStorage.getItem('currentProfileId');
+    const box = document.getElementById('profile-list');
+    box.textContent = '';
+
+    profiles.forEach(p => {
+      const isCurrent = p.id === currentId;
+      const card = document.createElement('div');
+      card.className = 'profile-card' + (isCurrent ? ' current' : '');
+
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'profile-select';
+      const nameEl = document.createElement('b');
+      nameEl.textContent = p.name || '（名前未設定）';
+      const stat = document.createElement('small');
+      const total = profileTotalCount(p);
+      stat.textContent = isCurrent ? `今つかっている人　累計${total}問` : `累計${total}問`;
+      btn.append(nameEl, stat);
+      btn.addEventListener('click', () => {
+        if (isCurrent) { enterHomeFromProfile(); return; }
+        if (!confirm(`「${p.name || '名前未設定'}」に切りかえます。よろしいですか。`)) return;
+        switchToProfile(p.id);
+      });
+      card.appendChild(btn);
+
+      const tools = document.createElement('div');
+      tools.className = 'profile-tools';
+      const renameBtn = document.createElement('button');
+      renameBtn.type = 'button';
+      renameBtn.className = 'btn-sub';
+      renameBtn.textContent = '名前を変える';
+      renameBtn.addEventListener('click', () => {
+        const next = prompt('新しい名前を入力してください（12字まで）', p.name || '');
+        if (next === null) return;
+        const trimmed = next.trim().slice(0, 12);
+        if (!trimmed) return;
+        p.name = trimmed;
+        saveProfiles(profiles);
+        renderProfileScreen();
+        updateProfileChip();
+      });
+      tools.appendChild(renameBtn);
+
+      if (profiles.length > 1) {
+        const delBtn = document.createElement('button');
+        delBtn.type = 'button';
+        delBtn.className = 'btn-sub';
+        delBtn.textContent = '削除する';
+        delBtn.addEventListener('click', () => {
+          if (!confirm(`「${p.name || '名前未設定'}」の記録を削除します。この操作は取り消せません。よろしいですか。`)) return;
+          deleteProfile(p.id);
+        });
+        tools.appendChild(delBtn);
+      }
+      card.appendChild(tools);
+      box.appendChild(card);
+    });
+
+    document.getElementById('profile-back-btn').classList.toggle('hidden', !profiles.length);
+  }
+
+  document.getElementById('profile-new-btn').addEventListener('click', () => {
+    const input = document.getElementById('profile-new-name');
+    const name = input.value.trim().slice(0, 12);
+    if (!name) { input.focus(); return; }
+    const profiles = loadProfiles();
+    const id = 'p' + Date.now();
+    profiles.push({ id, name, createdAt: Date.now() });
+    saveProfiles(profiles);
+    input.value = '';
+    // まだ誰も選ばれていない（真っさらな端末の1人目）ときは、
+    // 退避も表クリアもせず、そのままその人を今の人にする
+    if (!localStorage.getItem('currentProfileId')) {
+      localStorage.setItem('currentProfileId', id);
+      location.reload();
+    } else {
+      switchToProfile(id);
+    }
+  });
+  document.getElementById('profile-new-name').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') { e.preventDefault(); document.getElementById('profile-new-btn').click(); }
+  });
+
+  function openProfileScreen() {
+    renderProfileScreen();
+    document.getElementById('home-screen').classList.add('hidden');
+    document.body.classList.remove('home-layout');
+    document.getElementById('profile-screen').classList.remove('hidden');
+  }
+
+  function enterHomeFromProfile() {
+    document.getElementById('profile-screen').classList.add('hidden');
+    document.body.classList.add('home-layout');
+    document.getElementById('home-screen').classList.remove('hidden');
+    updateProfileChip();
+    updateStudyPanel();
+    updateQuickStart();
+  }
+
+  document.getElementById('profile-back-btn').addEventListener('click', enterHomeFromProfile);
+
+  function updateProfileChip() {
+    const chip = document.getElementById('profile-chip');
+    const profiles = loadProfiles();
+    const current = profiles.find(p => p.id === localStorage.getItem('currentProfileId'));
+    chip.textContent = `👤 ${current && current.name ? current.name : 'なまえ未設定'}`
+      + (profiles.length > 1 ? '（切りかえる）' : '');
+    chip.onclick = openProfileScreen;
+  }
+
+  // 起動時に決める：2人以上いる／まだ誰も決まっていないときだけ選択画面を出す。
+  // 1人しかいない（いつもの子がいつも通り開く）ときは、そのまま本陣へ進む
+  function bootProfile() {
+    const profiles = ensureProfiles();
+    const currentId = localStorage.getItem('currentProfileId');
+    const current = profiles.find(p => p.id === currentId);
+    const justSwitched = sessionStorage.getItem('justSwitchedProfile');
+    if (justSwitched) sessionStorage.removeItem('justSwitchedProfile');
+    if (!justSwitched && (!current || profiles.length > 1)) {
+      openProfileScreen();
+    } else {
+      updateProfileChip();
+    }
+  }
+  bootProfile();
 
   function goSetup() {
     hideBattleLayers();

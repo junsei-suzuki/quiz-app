@@ -2076,5 +2076,320 @@
     "question": "「〜の前で」を表す3語を書きなさい。",
     "answer": "in front of",
     "explanation": "in front of the school のように使います。反対は behind で、こちらは1語。3語でひとかたまりの前置詞になるものは、まとめて覚えると使えるようになります。"
+  },
+  {
+    "id": "e297",
+    "category": "英単語（名詞）",
+    "question": "「能力」を英語1語で書きなさい。",
+    "answer": "ability",
+    "explanation": "be able to（〜できる）の名詞形です。特定のことをうまく行う力を指し、The ability to〜（〜する能力）の形でもよく使われます。"
+  },
+  {
+    "id": "e298",
+    "category": "英単語（名詞）",
+    "question": "「農業」を英語1語で書きなさい。",
+    "answer": "agriculture",
+    "explanation": "土地を耕して作物を育てたり、家畜を育てたりする産業のことです。agricultural（農業の）という形容詞の形もあわせて覚えておきましょう。"
+  },
+  {
+    "id": "e299",
+    "category": "英単語（名詞）",
+    "question": "「注意」を英語1語で書きなさい。",
+    "answer": "attention",
+    "explanation": "pay attention to〜で「〜に注意を払う」という意味になる、会話でもよく使う表現です。授業中に先生が言う Pay attention! はおなじみのフレーズです。"
+  },
+  {
+    "id": "e300",
+    "category": "英単語（名詞）",
+    "question": "「行動」を英語1語で書きなさい。",
+    "answer": "behavior",
+    "explanation": "人や動物のふるまい・行動のしかたを指す語です。イギリス式のつづりではbehaviourと書き、uが入る点がアメリカ式とのちがいです。"
+  },
+  {
+    "id": "e301",
+    "category": "英単語（名詞）",
+    "question": "「勇気」を英語1語で書きなさい。",
+    "answer": "courage",
+    "explanation": "困難や危険に立ち向かう強い心を表します。形容詞形はcourageous（勇気のある）で、動詞haveと組み合わせてhave the courage to〜（〜する勇気がある）の形でよく使われます。"
+  },
+  {
+    "id": "e302",
+    "category": "英単語（名詞）",
+    "question": "「教育」を英語1語で書きなさい。",
+    "answer": "education",
+    "explanation": "educate（教育する）の名詞形です。receive an education（教育を受ける）のように使い、educational（教育の）という形容詞形もあわせて覚えておきましょう。"
+  },
+  {
+    "id": "e303",
+    "category": "英単語（名詞）",
+    "question": "「用具」を英語1語で書きなさい。",
+    "answer": "equipment",
+    "explanation": "道具や設備をまとめて表す語で、数えられない名詞として扱われるためan equipmentやequipmentsとは言いません。sports equipment（スポーツ用具）のように使います。"
+  },
+  {
+    "id": "e304",
+    "category": "英単語（名詞）",
+    "question": "「世代」を英語1語で書きなさい。",
+    "answer": "generation",
+    "explanation": "同じ時代に生まれ育った人々のまとまりを指します。the older generation（年上の世代）、the younger generation（若い世代）のように使われます。"
+  },
+  {
+    "id": "e305",
+    "category": "英単語（名詞）",
+    "question": "「目標」を英語1語で書きなさい。",
+    "answer": "goal",
+    "explanation": "スポーツの「ゴール」だけでなく、achieve a goal（目標を達成する）のように「めざすもの・目標」という意味でもよく使われます。"
+  },
+  {
+    "id": "e306",
+    "category": "英単語（名詞）",
+    "question": "「習慣」を英語1語で書きなさい。",
+    "answer": "habit",
+    "explanation": "個人がくり返し行う行動のクセを指します。a good habit（よい習慣）、a bad habit（悪い習慣）のように使い、custom（社会や集団の習慣・風習）とは区別されます。"
+  },
+  {
+    "id": "e307",
+    "category": "英単語（名詞）",
+    "question": "「旅」を英語1語で書きなさい。",
+    "answer": "journey",
+    "explanation": "特に長い距離や時間のかかる旅を表す語です。A journey of a thousand milesbegins with a single step.（千里の道も一歩から）という有名なことわざにも使われています。"
+  },
+  {
+    "id": "e308",
+    "category": "英単語（名詞）",
+    "question": "「人口」を英語1語で書きなさい。",
+    "answer": "population",
+    "explanation": "ある地域に住む人の数を表します。What is the population of Japan?（日本の人口はどのくらいですか）のように使い、答えるときは数字で示します。"
+  },
+  {
+    "id": "e309",
+    "category": "英単語（名詞）",
+    "question": "「目的」を英語1語で書きなさい。",
+    "answer": "purpose",
+    "explanation": "行動の理由となる目標を表す語です。on purpose（わざと、故意に）という熟語もあわせてよく出題されます。"
+  },
+  {
+    "id": "e310",
+    "category": "英単語（名詞）",
+    "question": "「宗教」を英語1語で書きなさい。",
+    "answer": "religion",
+    "explanation": "世界には仏教・キリスト教・イスラム教などさまざまな宗教があります。religious（宗教の、信心深い）という形容詞形もよく使われます。"
+  },
+  {
+    "id": "e311",
+    "category": "英単語（名詞）",
+    "question": "「技術」を英語1語で書きなさい。",
+    "answer": "skill",
+    "explanation": "訓練や経験によって身につけた腕前を表します。skilled（熟練した）という形容詞形もあり、a skilled worker（熟練した労働者）のように使います。"
+  },
+  {
+    "id": "e312",
+    "category": "英単語（動詞）",
+    "question": "「達成する」を英語1語で書きなさい。",
+    "answer": "achieve",
+    "explanation": "目標や成果を努力の末に手に入れることを表します。achieve a goal（目標を達成する）のように使い、名詞形はachievement（達成、業績）です。"
+  },
+  {
+    "id": "e313",
+    "category": "英単語（動詞）",
+    "question": "「影響を与える」を英語1語で書きなさい。",
+    "answer": "affect",
+    "explanation": "名詞のeffect（影響、結果）と発音・つづりが似ていて混同しやすい動詞です。affectは動詞、effectは名詞、と品詞のちがいで覚えておくと区別しやすくなります。"
+  },
+  {
+    "id": "e314",
+    "category": "英単語（動詞）",
+    "question": "「避ける」を英語1語で書きなさい。",
+    "answer": "avoid",
+    "explanation": "危険やいやなことを避けるという意味の動詞です。うしろに動詞を続けるときはavoid ing（〜することを避ける）と動名詞の形になります。"
+  },
+  {
+    "id": "e315",
+    "category": "英単語（動詞）",
+    "question": "「祝う」を英語1語で書きなさい。",
+    "answer": "celebrate",
+    "explanation": "誕生日や記念日などをお祝いするときに使う動詞です。名詞形はcelebration（祝賀、お祝い）で、celebrate one's birthday（誕生日を祝う）のように使います。"
+  },
+  {
+    "id": "e316",
+    "category": "英単語（動詞）",
+    "question": "「完成させる」を英語1語で書きなさい。",
+    "answer": "complete",
+    "explanation": "ものごとを完全な状態に仕上げることを表します。形容詞として「完全な」という意味でも使われ、a complete success（完全な成功）のように使います。"
+  },
+  {
+    "id": "e317",
+    "category": "英単語（動詞）",
+    "question": "「含む」を英語1語で書きなさい。",
+    "answer": "contain",
+    "explanation": "中に何かを含んでいることを表す動詞です。This drink contains a lot ofsugar.（この飲み物には砂糖がたくさん含まれている）のように使います。"
+  },
+  {
+    "id": "e318",
+    "category": "英単語（動詞）",
+    "question": "「創造する」を英語1語で書きなさい。",
+    "answer": "create",
+    "explanation": "何もないところから新しいものを生み出すことを表します。名詞形はcreation（創造）、形容詞形はcreative（創造的な）です。"
+  },
+  {
+    "id": "e319",
+    "category": "英単語（動詞）",
+    "question": "「配達する」を英語1語で書きなさい。",
+    "answer": "deliver",
+    "explanation": "手紙や荷物などを届けることを表す動詞です。名詞形はdelivery（配達）で、free delivery（送料無料）のように商品の説明でもよく見かけます。"
+  },
+  {
+    "id": "e320",
+    "category": "英単語（動詞）",
+    "question": "「発展させる」を英語1語で書きなさい。",
+    "answer": "develop",
+    "explanation": "国や技術、能力などを発展させる・開発するという意味で使われます。名詞形はdevelopment（発展、開発）で、developing countries（発展途上国）はニュースにもよく登場する表現です。"
+  },
+  {
+    "id": "e321",
+    "category": "英単語（動詞）",
+    "question": "「励ます」を英語1語で書きなさい。",
+    "answer": "encourage",
+    "explanation": "人を勇気づけて、何かをするよう後押しすることを表します。反対の意味の語はdiscourage（やる気をなくさせる）です。"
+  },
+  {
+    "id": "e322",
+    "category": "英単語（動詞）",
+    "question": "「存在する」を英語1語で書きなさい。",
+    "answer": "exist",
+    "explanation": "実際にあること・存在することを表す動詞です。名詞形はexistence（存在）で、Life may exist on other planets.（生命は他の惑星にも存在するかもしれない）のように使われます。"
+  },
+  {
+    "id": "e323",
+    "category": "英単語（動詞）",
+    "question": "「卒業する」を英語1語で書きなさい。",
+    "answer": "graduate",
+    "explanation": "学校を卒業するという意味の動詞です。名詞形のgraduation（卒業）とセットで覚えておくと、動詞と名詞の使い分けがしやすくなります。"
+  },
+  {
+    "id": "e324",
+    "category": "英単語（動詞）",
+    "question": "「急ぐ」を英語1語で書きなさい。",
+    "answer": "hurry",
+    "explanation": "時間がなくて急ぐことを表す動詞です。Hurry up!（急いで！）は日常会話でよく使われるフレーズで、in a hurry（急いで）という熟語もあわせて覚えておきましょう。"
+  },
+  {
+    "id": "e325",
+    "category": "英単語（動詞）",
+    "question": "「生産する」を英語1語で書きなさい。",
+    "answer": "produce",
+    "explanation": "工場などでものを作り出すことを表す動詞です。名詞のproduct（製品）と語の形が似ているので、動詞か名詞かを文の形から見分けましょう。"
+  },
+  {
+    "id": "e326",
+    "category": "英単語（動詞）",
+    "question": "「減らす」を英語1語で書きなさい。",
+    "answer": "reduce",
+    "explanation": "量や数を減らすことを表す動詞です。reduce, reuse, recycle（減らす・くり返し使う・再利用する）は環境問題でよく使われる3つの動詞のセットです。"
+  },
+  {
+    "id": "e327",
+    "category": "英単語（形容詞・副詞）",
+    "question": "「活発な」を英語1語で書きなさい。",
+    "answer": "active",
+    "explanation": "元気よく積極的に活動するようすを表します。反対の意味の語はpassive（受動的な）で、an active volcano（活火山）のように「活動している」という意味でも使います。"
+  },
+  {
+    "id": "e328",
+    "category": "英単語（形容詞・副詞）",
+    "question": "「注意深い」を英語1語で書きなさい。",
+    "answer": "careful",
+    "explanation": "副詞形careful ly（注意深く）はすでに登場済みですが、もとになる形容詞の形もあわせて覚えておきましょう。Be careful!（気をつけて！）は定番の一言です。"
+  },
+  {
+    "id": "e329",
+    "category": "英単語（形容詞・副詞）",
+    "question": "「好奇心の強い」を英語1語で書きなさい。",
+    "answer": "curious",
+    "explanation": "新しいことを知りたがる気持ちを表す形容詞です。名詞形はcuriosity（好奇心）で、Curiosity killed the cat.（好奇心はねこをも殺す）ということわざにも使われています。"
+  },
+  {
+    "id": "e330",
+    "category": "英単語（形容詞・副詞）",
+    "question": "「おいしい」を英語1語で書きなさい。",
+    "answer": "delicious",
+    "explanation": "とてもおいしいことを表す、goodよりも強い言い方です。This cakeis delicious.（このケーキはとてもおいしい）のように、料理の感想でよく使われます。"
+  },
+  {
+    "id": "e331",
+    "category": "英単語（形容詞・副詞）",
+    "question": "「年配の」を英語1語で書きなさい。",
+    "answer": "elderly",
+    "explanation": "oldよりもていねいで、高齢の人に対して敬意をこめて使われる言い方です。an elderly man（年配の男性）のように、人を表す語の前に置いて使います。"
+  },
+  {
+    "id": "e332",
+    "category": "英単語（形容詞・副詞）",
+    "question": "「正確な」を英語1語で書きなさい。",
+    "answer": "exact",
+    "explanation": "細かい点まで正しいことを表す形容詞です。副詞形exactly（正確に、ちょうど）は、会話で「そのとおり」と相づちを打つときにもよく使われます。"
+  },
+  {
+    "id": "e333",
+    "category": "英単語（形容詞・副詞）",
+    "question": "「親しみやすい」を英語1語で書きなさい。",
+    "answer": "friendly",
+    "explanation": "friend（友達）にlyがついた形ですが、friendlyは形容詞である点に注意しましょう（friendlilyという副詞形はありません）。"
+  },
+  {
+    "id": "e334",
+    "category": "英単語（形容詞・副詞）",
+    "question": "「気前の良い」を英語1語で書きなさい。",
+    "answer": "generous",
+    "explanation": "他人に対してお金やものを惜しみなく与えるようすを表します。It's generous of you.（あなたは気前がいいですね）のように、人柄をほめるときに使われます。"
+  },
+  {
+    "id": "e335",
+    "category": "英単語（形容詞・副詞）",
+    "question": "「優しい」を英語1語で書きなさい。",
+    "answer": "gentle",
+    "explanation": "性格や態度がおだやかで優しいことを表す形容詞です。a gentle wind（そよ風）のように、人以外の穏やかさを表すのにも使われます。"
+  },
+  {
+    "id": "e336",
+    "category": "英単語（形容詞・副詞）",
+    "question": "「正直な」を英語1語で書きなさい。",
+    "answer": "honest",
+    "explanation": "先頭のhを発音しない（アワネストゥのように読む）ことで知られるつづりの単語です。名詞形honesty（正直さ）とあわせて覚えておきましょう。"
+  },
+  {
+    "id": "e337",
+    "category": "英単語（形容詞・副詞）",
+    "question": "「緊張した」を英語1語で書きなさい。",
+    "answer": "nervous",
+    "explanation": "不安や心配で落ち着かない気持ちを表します。I feel nervous beforethe test.（テストの前は緊張する）のように、日常会話でとてもよく使われる語です。"
+  },
+  {
+    "id": "e338",
+    "category": "英単語（形容詞・副詞）",
+    "question": "「忍耐強い」を英語1語で書きなさい。",
+    "answer": "patient",
+    "explanation": "つづりと発音が同じで「患者」という意味の名詞にもなる語です。名詞形patience（忍耐、我慢）とあわせて覚えておきましょう。"
+  },
+  {
+    "id": "e339",
+    "category": "英単語（形容詞・副詞）",
+    "question": "「礼儀正しい」を英語1語で書きなさい。",
+    "answer": "polite",
+    "explanation": "行儀がよく、人に対して失礼のないようすを表します。反対の意味の語はimpolite、または似た意味でrude（無礼な）が使われます。"
+  },
+  {
+    "id": "e340",
+    "category": "英単語（形容詞・副詞）",
+    "question": "「似ている」を英語1語で書きなさい。",
+    "answer": "similar",
+    "explanation": "完全に同じではないが、よく似ているようすを表す形容詞です。be similar to〜で「〜に似ている」という意味になります。"
+  },
+  {
+    "id": "e341",
+    "category": "英単語（形容詞・副詞）",
+    "question": "「さまざまな」を英語1語で書きなさい。",
+    "answer": "various",
+    "explanation": "vary（さまざまである）に由来する形容詞で、種類が多いことを表します。various kinds of〜（さまざまな種類の〜）の形でよく使われます。"
   }
 ]
