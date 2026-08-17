@@ -359,9 +359,9 @@
   {
     "id": "e292",
     "category": "前置詞・接続詞",
-    "question": "理由をつなぐ「〜だから」を表す接続詞を英語1語で書きなさい。",
+    "question": "理由をつなぐ「なぜなら〜」を表す接続詞を英語1語で書きなさい。",
     "answer": "because",
-    "explanation": "うしろには〈主語 + 動詞〉が続きます。Why 〜? に答えるときにも使えます。似た働きの so は「だから」と結果をつなぐので、前後が入れかわる点に注意しましょう。"
+    "explanation": "うしろには〈主語 + 動詞〉が続きます。Why 〜? に答えるときにも使えます。似た働きの so は「そのため」と結果をつなぐので、前後が入れかわる点に注意しましょう。"
   },
   {
     "id": "e293",
@@ -1233,7 +1233,7 @@
   {
     "id": "e306",
     "category": "英単語（名詞）",
-    "question": "「習慣」を英語1語で書きなさい。",
+    "question": "「（個人の）習慣」を英語1語で書きなさい。",
     "answer": "habit",
     "explanation": "個人がくり返し行う行動のクセを指します。a good habit（よい習慣）、a bad habit（悪い習慣）のように使い、custom（社会や集団の習慣・風習）とは区別されます。"
   },
@@ -1268,7 +1268,7 @@
   {
     "id": "e311",
     "category": "英単語（名詞）",
-    "question": "「技術」を英語1語で書きなさい。",
+    "question": "「（人の）技術、腕前」を英語1語で書きなさい。",
     "answer": "skill",
     "explanation": "訓練や経験によって身につけた腕前を表します。skilled（熟練した）という形容詞形もあり、a skilled worker（熟練した労働者）のように使います。"
   },
@@ -1284,7 +1284,10 @@
     "category": "英単語（動詞）",
     "question": "「到着する」を英語1語で書きなさい。",
     "answer": "arrive",
-    "explanation": "使い方に注意が必要で、駅など狭い場所には arrive at、国や都市など広い場所には arrive in を使います。同じ意味の reach は前置詞がいらず reach the station。get to も便利なので、3つセットで整理しておきましょう。"
+    "explanation": "使い方に注意が必要で、駅など狭い場所には arrive at、国や都市など広い場所には arrive in を使います。同じ意味の reach は前置詞がいらず reach the station。get to も便利なので、3つセットで整理しておきましょう。",
+    "alt": [
+      "reach"
+    ]
   },
   {
     "id": "e018",
@@ -1599,7 +1602,10 @@
     "category": "英単語（動詞）",
     "question": "「影響を与える」を英語1語で書きなさい。",
     "answer": "affect",
-    "explanation": "名詞のeffect（影響、結果）と発音・つづりが似ていて混同しやすい動詞です。affectは動詞、effectは名詞、と品詞のちがいで覚えておくと区別しやすくなります。"
+    "explanation": "名詞のeffect（影響、結果）と発音・つづりが似ていて混同しやすい動詞です。affectは動詞、effectは名詞、と品詞のちがいで覚えておくと区別しやすくなります。",
+    "alt": [
+      "influence"
+    ]
   },
   {
     "id": "e314",
@@ -1627,7 +1633,10 @@
     "category": "英単語（動詞）",
     "question": "「含む」を英語1語で書きなさい。",
     "answer": "contain",
-    "explanation": "中に何かを含んでいることを表す動詞です。This drink contains a lot ofsugar.（この飲み物には砂糖がたくさん含まれている）のように使います。"
+    "explanation": "中に何かを含んでいることを表す動詞です。This drink contains a lot ofsugar.（この飲み物には砂糖がたくさん含まれている）のように使います。",
+    "alt": [
+      "include"
+    ]
   },
   {
     "id": "e318",
@@ -2068,7 +2077,10 @@
     "category": "英単語（形容詞・副詞）",
     "question": "「優しい」を英語1語で書きなさい。",
     "answer": "gentle",
-    "explanation": "性格や態度がおだやかで優しいことを表す形容詞です。a gentle wind（そよ風）のように、人以外の穏やかさを表すのにも使われます。"
+    "explanation": "性格や態度がおだやかで優しいことを表す形容詞です。a gentle wind（そよ風）のように、人以外の穏やかさを表すのにも使われます。",
+    "alt": [
+      "kind"
+    ]
   },
   {
     "id": "e336",
@@ -2180,7 +2192,7 @@
     "category": "反対語",
     "question": "possible の反対の意味を表す語を英語1語で書きなさい。",
     "answer": "impossible",
-    "explanation": "im- は「打ち消し」を表します。m や p の前では im-、それ以外では in- になるのがルールで、impossible、important に対して incorrect、invisible となります。発音のしやすさが理由です。"
+    "explanation": "im- は「打ち消し」を表します。m や p の前では im-、それ以外では in- になるのがルールで、impossible、immature に対して incorrect、invisible となります。発音のしやすさが理由です。"
   },
   {
     "id": "e211",

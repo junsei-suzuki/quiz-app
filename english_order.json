@@ -2623,7 +2623,7 @@
   {
     "id": "o165",
     "category": "現在完了",
-    "question": "私は宿題をもう終えましたか。",
+    "question": "あなたは宿題をもう終えましたか。",
     "tokens": [
       "have",
       "you",
