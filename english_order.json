@@ -587,7 +587,7 @@
     ],
     "end": ".",
     "answer": "Let us eat lunch together.",
-    "explanation": "Let us は短くして Let's となり、「〜しましょう」と誘う言い方になります。うしろは必ず動詞の原形。答えるときは Yes, let's.（そうしましょう）や Sorry, I can not.（ごめん、無理）と返します。"
+    "explanation": "Let us は短くして Let's となり、「〜しましょう」と誘う言い方になります。うしろは必ず動詞の原形。答えるときは Yes, let's.（そうしましょう）や No, let's not.（やめておこう）と返します。"
   },
   {
     "id": "o120",
@@ -1136,7 +1136,7 @@
     ],
     "end": ".",
     "answer": "Let us meet on Sunday.",
-    "explanation": "曜日には on。日付にも on を使い、on May 5th のようになります。meet は約束して会うことを表す動詞で、初対面なら Nice to meet you. と使います。"
+    "explanation": "曜日には on。日付にも on を使い、on May 5th のようになります。Let us は会話では Let's と短縮するのがふつうです。meet は約束して会うことを表す動詞で、初対面なら Nice to meet you. と使います。"
   },
   {
     "id": "o156",
@@ -1470,7 +1470,7 @@
     ],
     "end": "?",
     "answer": "Can you speak English?",
-    "explanation": "can の疑問文は can を主語の前に出すだけ。do や does は使いません。答えるときは Yes, I can. / No, I can not. と can で返します。うしろの動詞はいつでも原形です。"
+    "explanation": "can の疑問文は can を主語の前に出すだけ。do や does は使いません。答えるときは Yes, I can. / No, I can't. と can で返します。うしろの動詞はいつでも原形です。"
   },
   {
     "id": "o178",
@@ -1720,7 +1720,7 @@
     ],
     "end": ".",
     "answer": "She bought a new bag last week.",
-    "explanation": "buy - bought - bought。last week が過去の目印です。bought は「ボート」と発音し、つづりの gh は読みません。thought や brought も同じ仲間です。"
+    "explanation": "buy - bought - bought。last week が過去の目印です。bought は「ボート」より口を大きく開けた「ボーt」に近い音で、つづりの gh は読みません。boat（船）と発音が違う点に注意しましょう。thought や brought も同じ仲間です。"
   },
   {
     "id": "o191",

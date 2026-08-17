@@ -30,7 +30,7 @@
   {
     "id": "e245",
     "category": "be動詞",
-    "question": "「〜の出身だ」を表す be動詞のあとの2語を書きなさい。",
+    "question": "「〜の出身だ」を表す表現を、be動詞を含めて英語2語で書きなさい。",
     "answer": "be from",
     "explanation": "I am from Japan. のように使います。come from も同じ意味で使えますが、こちらは一般動詞なので疑問文には do が必要です。be動詞の文と一般動詞の文の区別を確かめる問題としてよく出ます。"
   },
@@ -51,7 +51,7 @@
   {
     "id": "e248",
     "category": "be動詞",
-    "question": "be動詞の疑問文をつくるとき、be動詞をどこに動かすか。漢字4字で答えなさい。",
+    "question": "be動詞の疑問文をつくるとき、be動詞をどこに動かすか。「〜の前」の形で答えなさい。",
     "answer": "主語の前",
     "explanation": "Are you 〜? のように be動詞を主語の前に出すだけです。一般動詞のように do や does は使いません。答えるときも同じ be動詞で Yes, I am. と返します。"
   },
@@ -186,7 +186,7 @@
     "category": "命令文",
     "question": "「〜しましょう」と誘うときの表現を、短縮しない形で英語2語で書きなさい。",
     "answer": "let us",
-    "explanation": "Let us は短くして Let's となります。うしろは必ず動詞の原形。答えるときは Yes, let's. や Sorry, I can not. と返します。Shall we 〜? とほぼ同じ意味です。"
+    "explanation": "Let us は短くして Let's となります。うしろは必ず動詞の原形。答えるときは Yes, let's. や No, let's not. と返します。Shall we 〜? とほぼ同じ意味です。"
   },
   {
     "id": "e268",
@@ -417,7 +417,7 @@
     "category": "助動詞",
     "question": "「〜かもしれない」を表す助動詞を1語で書きなさい。",
     "answer": "may",
-    "explanation": "may には「～してもよい（許可）」と「～かもしれない（推量）」の2つの意味があります。May I use your pen? なら許可を求める文。推量の強さは、might < may < can < should < must の順で強くなります。"
+    "explanation": "may には「～してもよい（許可）」と「～かもしれない（推量）」の2つの意味があります。May I use your pen? なら許可を求める文。推量の強さは、might < may < should < must の順で強くなります。"
   },
   {
     "id": "e035",
@@ -487,7 +487,7 @@
     "category": "動詞の変化",
     "question": "eat の過去形を書きなさい。",
     "answer": "ate",
-    "explanation": "eat - ate - eaten。過去形 ate の発音は「エイト」で、数字の eight とまったく同じ音になります。会話では前後の文脈で聞き分けます。"
+    "explanation": "eat - ate - eaten。過去形 ate はアメリカ英語では「エイト」で、数字の eight とほぼ同じ音になります。会話では前後の文脈で聞き分けます。"
   },
   {
     "id": "e030",
@@ -655,7 +655,10 @@
     "category": "関係代名詞・分詞",
     "question": "先行詞が「人」で主格のときに使う関係代名詞を1語で書きなさい。",
     "answer": "who",
-    "explanation": "先行詞が人で、そのあとに動詞が続くときは who を使います。The boy who is running is Tom. のように、2つの文を1つにまとめる接着剤の役割。関係代名詞のあとに動詞がくれば主格、主語がくれば目的格と見分けられます。"
+    "explanation": "先行詞が人で、そのあとに動詞が続くときは who を使います。The boy who is running is Tom. のように、2つの文を1つにまとめる接着剤の役割。関係代名詞のあとに動詞がくれば主格、主語がくれば目的格と見分けられます。",
+    "alt": [
+      "that"
+    ]
   },
   {
     "id": "e059",
@@ -1141,7 +1144,7 @@
     "category": "英単語（名詞）",
     "question": "「写真」を英語1語で書きなさい。photで始まる語です。",
     "answer": "photograph",
-    "explanation": "photo（光）+ graph（描く）で「光で描いたもの」。省略形の photo でも通じます。写真を撮るは take a picture / take a photo で、shoot は使いません。",
+    "explanation": "photo（光）+ graph（描く）で「光で描いたもの」。省略形の photo でも通じます。写真を撮るは基本的に take a picture / take a photo を使います（shoot は「撮影する」というくだけた言い方で使われることもあります）。",
     "alt": [
       "photo"
     ]
@@ -1193,7 +1196,10 @@
     "category": "英単語（名詞）",
     "question": "「行動」を英語1語で書きなさい。",
     "answer": "behavior",
-    "explanation": "人や動物のふるまい・行動のしかたを指す語です。イギリス式のつづりではbehaviourと書き、uが入る点がアメリカ式とのちがいです。"
+    "explanation": "人や動物のふるまい・行動のしかたを指す語です。イギリス式のつづりではbehaviourと書き、uが入る点がアメリカ式とのちがいです。",
+    "alt": [
+      "action"
+    ]
   },
   {
     "id": "e301",
@@ -1242,7 +1248,10 @@
     "category": "英単語（名詞）",
     "question": "「旅」を英語1語で書きなさい。",
     "answer": "journey",
-    "explanation": "特に長い距離や時間のかかる旅を表す語です。A journey of a thousand milesbegins with a single step.（千里の道も一歩から）という有名なことわざにも使われています。"
+    "explanation": "特に長い距離や時間のかかる旅を表す語です。中学英語でまず習うのは trip や travel ですが、journey は思い出に残るような長い旅を表すときによく使われます。A journey of a thousand miles begins with a single step.（千里の道も一歩から）という有名なことわざにも使われています。",
+    "alt": [
+      "trip"
+    ]
   },
   {
     "id": "e308",
@@ -1427,7 +1436,10 @@
     "category": "英単語（動詞）",
     "question": "「（命を）救う」を英語1語で書きなさい。",
     "answer": "save",
-    "explanation": "「救う」のほかに「節約する、貯金する」という意味もあります。save energy（省エネする）、save money（貯金する）。ひとつの単語が複数の意味を持つ典型例で、文脈から判断する力が問われます。"
+    "explanation": "「救う」のほかに「節約する、貯金する」という意味もあります。save energy（省エネする）、save money（貯金する）。ひとつの単語が複数の意味を持つ典型例で、文脈から判断する力が問われます。",
+    "alt": [
+      "rescue"
+    ]
   },
   {
     "id": "e138",
@@ -1518,7 +1530,7 @@
     "category": "英単語（動詞）",
     "question": "「許す、許可する」を英語1語で書きなさい。alで始まる語です。",
     "answer": "allow",
-    "explanation": "allow 人 to ～（人が～するのを許す）の形が重要です。受け身の be allowed to ～（～することを許されている）もよく出ます。発音は「アラウ」で、w は読みません。"
+    "explanation": "allow 人 to ～（人が～するのを許す）の形が重要です。受け身の be allowed to ～（～することを許されている）もよく出ます。発音は「アラウ」で、ow の部分をひとつの二重母音として読みます。"
   },
   {
     "id": "e151",
@@ -1595,7 +1607,10 @@
     "category": "英単語（動詞）",
     "question": "「達成する」を英語1語で書きなさい。",
     "answer": "achieve",
-    "explanation": "目標や成果を努力の末に手に入れることを表します。achieve a goal（目標を達成する）のように使い、名詞形はachievement（達成、業績）です。"
+    "explanation": "目標や成果を努力の末に手に入れることを表します。achieve a goal（目標を達成する）のように使い、名詞形はachievement（達成、業績）です。",
+    "alt": [
+      "accomplish"
+    ]
   },
   {
     "id": "e313",
@@ -1624,7 +1639,7 @@
   {
     "id": "e316",
     "category": "英単語（動詞）",
-    "question": "「完成させる」を英語1語で書きなさい。",
+    "question": "「（未完成のものを）完成させる」を英語1語で書きなさい。",
     "answer": "complete",
     "explanation": "ものごとを完全な状態に仕上げることを表します。形容詞として「完全な」という意味でも使われ、a complete success（完全な成功）のように使います。"
   },
@@ -1699,7 +1714,10 @@
     "category": "英単語（動詞）",
     "question": "「減らす」を英語1語で書きなさい。",
     "answer": "reduce",
-    "explanation": "量や数を減らすことを表す動詞です。reduce, reuse, recycle（減らす・くり返し使う・再利用する）は環境問題でよく使われる3つの動詞のセットです。"
+    "explanation": "量や数を減らすことを表す動詞です。reduce, reuse, recycle（減らす・くり返し使う・再利用する）は環境問題でよく使われる3つの動詞のセットです。",
+    "alt": [
+      "decrease"
+    ]
   },
   {
     "id": "e011",
@@ -2021,7 +2039,10 @@
     "category": "英単語（形容詞・副詞）",
     "question": "「活発な」を英語1語で書きなさい。",
     "answer": "active",
-    "explanation": "元気よく積極的に活動するようすを表します。反対の意味の語はpassive（受動的な）で、an active volcano（活火山）のように「活動している」という意味でも使います。"
+    "explanation": "元気よく積極的に活動するようすを表します。反対の意味の語はpassive（受動的な）で、an active volcano（活火山）のように「活動している」という意味でも使います。",
+    "alt": [
+      "energetic"
+    ]
   },
   {
     "id": "e328",
@@ -2042,7 +2063,10 @@
     "category": "英単語（形容詞・副詞）",
     "question": "「おいしい」を英語1語で書きなさい。",
     "answer": "delicious",
-    "explanation": "とてもおいしいことを表す、goodよりも強い言い方です。This cakeis delicious.（このケーキはとてもおいしい）のように、料理の感想でよく使われます。"
+    "explanation": "とてもおいしいことを表す、goodよりも強い言い方です。This cakeis delicious.（このケーキはとてもおいしい）のように、料理の感想でよく使われます。",
+    "alt": [
+      "tasty"
+    ]
   },
   {
     "id": "e331",
@@ -2056,7 +2080,10 @@
     "category": "英単語（形容詞・副詞）",
     "question": "「正確な」を英語1語で書きなさい。",
     "answer": "exact",
-    "explanation": "細かい点まで正しいことを表す形容詞です。副詞形exactly（正確に、ちょうど）は、会話で「そのとおり」と相づちを打つときにもよく使われます。"
+    "explanation": "細かい点まで正しいことを表す形容詞です。副詞形exactly（正確に、ちょうど）は、会話で「そのとおり」と相づちを打つときにもよく使われます。",
+    "alt": [
+      "accurate"
+    ]
   },
   {
     "id": "e333",
@@ -2087,14 +2114,14 @@
     "category": "英単語（形容詞・副詞）",
     "question": "「正直な」を英語1語で書きなさい。",
     "answer": "honest",
-    "explanation": "先頭のhを発音しない（アワネストゥのように読む）ことで知られるつづりの単語です。名詞形honesty（正直さ）とあわせて覚えておきましょう。"
+    "explanation": "先頭のhを発音しない（アネストゥのように読む）ことで知られるつづりの単語です。名詞形honesty（正直さ）とあわせて覚えておきましょう。"
   },
   {
     "id": "e337",
     "category": "英単語（形容詞・副詞）",
     "question": "「緊張した」を英語1語で書きなさい。",
     "answer": "nervous",
-    "explanation": "不安や心配で落ち着かない気持ちを表します。I feel nervous beforethe test.（テストの前は緊張する）のように、日常会話でとてもよく使われる語です。"
+    "explanation": "不安や心配で落ち着かない気持ちを表します。I feel nervous before the test.（テストの前は緊張する）のように、日常会話でとてもよく使われる語です。"
   },
   {
     "id": "e338",
@@ -2157,7 +2184,10 @@
     "category": "反対語",
     "question": "expensive の反対の意味を表す語を英語1語で書きなさい。",
     "answer": "cheap",
-    "explanation": "値段が高いものには expensive、安いものには cheap を使います。ただし cheap は「安っぽい」という響きも持つため、店員に向かって使うと失礼になることがあります。"
+    "explanation": "値段が高いものには expensive、安いものには cheap を使います。ただし cheap は「安っぽい」という響きも持つため、店員に向かって使うと失礼になることがあります。",
+    "alt": [
+      "inexpensive"
+    ]
   },
   {
     "id": "e206",
@@ -2185,7 +2215,10 @@
     "category": "反対語",
     "question": "safe の反対の意味を表す語を英語1語で書きなさい。",
     "answer": "dangerous",
-    "explanation": "名詞は danger（危険）で、-ous をつけて形容詞にします。この -ous のパターンには famous（有名な）、nervous（緊張した）、serious（深刻な）などがあります。"
+    "explanation": "名詞は danger（危険）で、-ous をつけて形容詞にします。この -ous のパターンには famous（有名な）、nervous（緊張した）、serious（深刻な）などがあります。",
+    "alt": [
+      "unsafe"
+    ]
   },
   {
     "id": "e210",
@@ -2283,7 +2316,7 @@
     "category": "派生語・語形変化",
     "question": "different の名詞形（違い）を英語1語で書きなさい。",
     "answer": "difference",
-    "explanation": "-ent を -ence に変えるパターンです。同じ作りに important → importance、silent → silence があります。make a difference は「違いを生む、影響を与える」という重要な熟語です。"
+    "explanation": "-ent を -ence に変えるパターンです。同じ作りに confident → confidence、silent → silence があります。make a difference は「違いを生む、影響を与える」という重要な熟語です。"
   },
   {
     "id": "e224",
@@ -2311,7 +2344,7 @@
     "category": "派生語・語形変化",
     "question": "die の名詞形（死）を英語1語で書きなさい。",
     "answer": "death",
-    "explanation": "動詞 die、名詞 death、形容詞 dead（死んでいる）と、3つとも形が違う要注意のグループです。die の ing形は dying となり、e を y に変える例外的な変化をします。"
+    "explanation": "動詞 die、名詞 death、形容詞 dead（死んでいる）と、3つとも形が違う要注意のグループです。die の ing形は dying となり、語尾の ie を y に変える例外的な変化をします。"
   },
   {
     "id": "e228",
@@ -2325,7 +2358,7 @@
     "category": "派生語・語形変化",
     "question": "nature の形容詞形（自然の）を英語1語で書きなさい。",
     "answer": "natural",
-    "explanation": "語尾の e を取って -al をつけます。同じ作りに culture → cultural（文化の）、center → central（中心の）があります。It's natural for him to ～ で「彼が～するのは当然だ」となります。"
+    "explanation": "語尾の e を取って -al をつけます。同じ作りに culture → cultural（文化の）があります。It's natural for him to ～ で「彼が～するのは当然だ」となります。"
   },
   {
     "id": "e230",
