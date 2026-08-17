@@ -1173,8 +1173,8 @@
       "out"
     ],
     "end": ".",
-    "answer": "If it is sunny tomorrow I will go out.",
-    "explanation": "if のあとの文では、未来のことでも現在形を使うのがきまりです（× if it will be sunny）。時や条件を表すまとまりの中では未来形を使わない、という中学英語の重要なルールです。"
+    "answer": "If it is sunny tomorrow, I will go out.",
+    "explanation": "if のあとの文では、未来のことでも現在形を使うのがきまりです（× if it will be sunny）。時や条件を表すまとまりの中では未来形を使わない、という中学英語の重要なルールです。if のまとまりが文の先頭に来ているので、区切りにコンマを置きます。"
   },
   {
     "id": "o158",
@@ -1246,8 +1246,8 @@
       "cooking"
     ],
     "end": ".",
-    "answer": "When I got home my mother was cooking.",
-    "explanation": "when は「〜のとき」。got home の home は「家へ」という意味の副詞なので、to をつけません（× got to home）。there や here も同じで、to が不要な語の仲間です。"
+    "answer": "When I got home, my mother was cooking.",
+    "explanation": "when は「〜のとき」。got home の home は「家へ」という意味の副詞なので、to をつけません（× got to home）。there や here も同じで、to が不要な語の仲間です。文の前半（従属節）が主語より先に来るときは、区切りにコンマを置きます。"
   },
   {
     "id": "o162",

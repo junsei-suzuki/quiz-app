@@ -770,6 +770,13 @@
       transition: opacity 0.3s ease, filter 0.45s ease, transform 0.6s cubic-bezier(0.5, 0, 0.25, 1);
     }
 
+    /* 新しく晴れる帯は左右2枚に割っておき、晴れる瞬間に左右へスライドさせながら
+       フェードアウトする（カーテンが開くように）。2枚を並べたときに継ぎ目が
+       出ないよう、同じ帯の画像を左右それぞれ半分だけ大きく映す */
+    .levelup-band-half { width: 50%; background-size: 200% 100%; }
+    .levelup-band-half-l { left: 0; background-position: left top; }
+    .levelup-band-half-r { left: 50%; background-position: right top; }
+
     .levelup-caption {
       margin: 0;
       color: #f3e6c8;
@@ -784,6 +791,98 @@
       color: #a89684;
       font-size: 0.78rem;
       text-align: center;
+    }
+
+    /* 🔍 類題（腕試し）。本編とは独立した小さなカード形式の出題 */
+    .related-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(5, 3, 2, 0.94);
+      z-index: 55;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      box-sizing: border-box;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
+    }
+    .related-overlay.show { opacity: 1; pointer-events: auto; }
+
+    .related-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 18px;
+      width: 100%;
+      max-width: 420px;
+      max-height: 86vh;
+      overflow-y: auto;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+      text-align: left;
+    }
+
+    .related-card-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+
+    .related-badge {
+      font-size: 0.78rem;
+      font-weight: bold;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      border-radius: 999px;
+      padding: 3px 12px;
+    }
+
+    .related-close-btn {
+      width: auto;
+      margin-bottom: 0;
+      padding: 2px 9px;
+      background: transparent;
+      border: none;
+      color: #a89684;
+      font-size: 1.4rem;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    .related-question {
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      padding: 14px;
+      margin-bottom: 12px;
+      font-size: 1.02rem;
+      line-height: 1.6;
+    }
+
+    #related-done-btn { margin-top: 10px; background: #28a745; }
+
+    /* 解説の中に出す「類題を解く」ボタン。押しても本編の状態は一切変わらない */
+    .related-launch-btn {
+      display: block;
+      width: 100%;
+      margin-top: 10px;
+      padding: 9px;
+      background: var(--btn-sub);
+      border: 1px dashed var(--accent);
+      border-radius: 8px;
+      color: var(--accent);
+      font-size: 0.86rem;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .related-time-note {
+      font-size: 0.8rem;
+      color: var(--text-dim, #a89684);
+      text-align: center;
+      margin: -6px 0 14px;
     }
 
     /* ✅ 解答後に出す「要復習」のチェック */
@@ -2147,6 +2246,26 @@
   <p class="levelup-hint">画面をタップで閉じる</p>
 </div>
 
+<!-- 🔍 類題（腕試し）。本編の合戦の記録（HP・正答数・連撃・復習リスト）には
+     一切ふれない、独立した小さな出題。閉じれば元の学習にそのまま戻る -->
+<div id="related-overlay" class="related-overlay">
+  <div class="related-card">
+    <div class="related-card-head">
+      <span class="related-badge">🔍 類題・腕試し</span>
+      <button type="button" id="related-close-btn" class="related-close-btn" aria-label="閉じる">×</button>
+    </div>
+    <div class="related-question" id="related-question"></div>
+    <form id="related-form">
+      <input type="text" id="related-input" placeholder="答えを入力" autocomplete="off">
+      <button type="submit" id="related-submit-btn">答え合わせ</button>
+    </form>
+    <div id="related-choice-box" class="choice-box hidden"></div>
+    <div id="related-feedback" class="feedback hidden"></div>
+    <div id="related-explanation" class="explanation hidden"></div>
+    <button type="button" id="related-done-btn" class="hidden">元の学習に戻る</button>
+  </div>
+</div>
+
 <!-- 🎯 メインカード（画面中央から下部に配置） -->
 <div class="app-container">
   <!-- 1. ホーム画面（教科選択） -->
@@ -2405,6 +2524,8 @@
       <div id="result-ally-bubble" class="result-ally-bubble"></div>
     </div>
     <canvas id="result-canvas" class="result-canvas" width="1080" height="1920"></canvas>
+    <!-- 類題（腕試し）を解いていれば、ここに別枠で表示する。合戦の記録には含まれない -->
+    <p id="result-related-note" class="related-time-note hidden"></p>
     <!-- 学習に戻る道を先に置く。人に見せるボタンが最初にあると身構えさせてしまう -->
     <button id="result-retry-btn" class="hidden" style="background: #28a745;">まちがえた問題だけ解き直す</button>
     <button id="result-again-btn">同じ条件でもう一度</button>
@@ -3254,6 +3375,14 @@
 
   let questionStartTime = 0;
   let sessionStartTime = 0;
+
+  // 🔍 類題（腕試し）。本編のHP・正答数・連撃・SRSには一切ふれない別枠の記録。
+  // かかった時間は sessionStartTime を押し戻すことで本編の所要時間から除外する
+  let relatedStudySeconds = 0;
+  let relatedSolvedCount = 0;
+  let relatedOpenAt = 0;
+  let currentRelatedQuestion = null;
+
   let enemyHp = 100;
   let baseDamagePerQuestion = 0;
   let comboCount = 0;
@@ -3483,31 +3612,63 @@
   // useTexture のときだけ、本物の金箔画像を下地に敷く。textureSeed は
   // 金箔画像の中でどこを使うかを決める値で、描画位置の y とは別に渡せる
   // （位が上がる演出は帯ごとに小さな別キャンバスへ描くため、y は常に0に近い）
-  function drawCloudBand(ctx, y, w, bandH, useTexture, textureSeed) {
-    const pad = bandH * 0.26;
-    const r = pad * 1.5;
-    const lobes = 6;
+  // 決定的な疑似乱数。同じ値を渡せば常に同じ結果になるので、
+  // 再描画（アニメーションのたび等）してもふちの形がちらつかない
+  function cloudNoise(n) {
+    const x = Math.sin(n * 127.1 + 311.7) * 43758.5453123;
+    return x - Math.floor(x);
+  }
+
+  // 帯1本ぶんの雲の輪郭をパスとして組み立てる。均一な半円の連続だと
+  // 「うろこ」のように機械的に見えるため、山の位置・高さを帯ごとに少しずつ
+  // ずらし、なめらかな曲線でつないで、たなびく雲らしい輪郭にする。
+  // ampScale は山の高さの倍率（既定1）。位が上がる演出は帯1本ぶんだけの
+  // 小さなキャンバスに描くため、山が高すぎるとキャンバスの外に出て
+  // 切れてしまう。そのときだけ小さめの値を渡す
+  function buildCloudBandPath(ctx, y, w, bandH, seed, ampScale) {
+    const pad = bandH * 0.22;
+    const waves = 5;
+    const segW = w / waves;
+    const amp = pad * 1.4 * (ampScale === undefined ? 1 : ampScale);
+
+    ctx.beginPath();
+    ctx.moveTo(0, y + pad);
+    for (let i = 0; i < waves; i++) {
+      const n1 = cloudNoise(seed + i * 3.1);
+      const peakY = y + pad - amp * (0.45 + n1 * 0.75);
+      const cx1 = i * segW + segW * 0.18;
+      const cx2 = i * segW + segW * 0.82;
+      ctx.bezierCurveTo(cx1, peakY, cx2, peakY, (i + 1) * segW, y + pad);
+    }
+    ctx.lineTo(w, y + bandH - pad);
+    for (let i = waves - 1; i >= 0; i--) {
+      const n1 = cloudNoise(seed + i * 3.1 + 100);
+      const peakY = y + bandH - pad + amp * (0.45 + n1 * 0.75);
+      const cx1 = (i + 1) * segW - segW * 0.18;
+      const cx2 = (i + 1) * segW - segW * 0.82;
+      ctx.bezierCurveTo(cx1, peakY, cx2, peakY, i * segW, y + bandH - pad);
+    }
+    ctx.closePath();
+  }
+
+  function drawCloudBand(ctx, y, w, bandH, useTexture, textureSeed, ampScale) {
     const seed = textureSeed === undefined ? y : textureSeed;
 
     ctx.save();
-    ctx.beginPath();
-    ctx.rect(0, y + pad, w, bandH - pad * 2);
-    // 上下のふちに半円を並べて、雲らしいふくらみをつくる
-    for (let k = 0; k < lobes; k++) {
-      const cx = (k + 0.5) * (w / lobes);
-      ctx.moveTo(cx + r, y + pad);
-      ctx.arc(cx, y + pad, r, 0, Math.PI * 2);
-      ctx.moveTo(cx + (w / lobes) / 2 + r, y + bandH - pad);
-      ctx.arc(cx + (w / lobes) / 2, y + bandH - pad, r, 0, Math.PI * 2);
-    }
+    buildCloudBandPath(ctx, y, w, bandH, seed, ampScale);
 
     if (useTexture && goldLeafTexture) {
       ctx.clip();
+      // 波形が pad の外まではみ出すぶん（overflow）も金箔で覆っておかないと、
+      // 山のいちばん高いところだけ塗り残しになってしまう
+      const pad = bandH * 0.22;
+      const amp = pad * 1.4 * (ampScale === undefined ? 1 : ampScale);
+      const overflow = Math.max(0, amp * 1.2 - pad);
       // 帯ごとに画像の中の縦位置をずらし、同じ模様の繰り返しに見えないようにする
-      const srcH = Math.min(goldLeafTexture.height, bandH * 1.6);
+      const srcH = Math.min(goldLeafTexture.height, (bandH + overflow * 2) * 1.15);
       const srcY = (seed * 0.37) % Math.max(1, goldLeafTexture.height - srcH);
       ctx.drawImage(goldLeafTexture, 0, srcY, goldLeafTexture.width, srcH,
-        0, y - pad, w, bandH + pad * 2);
+        0, y - overflow, w, bandH + overflow * 2);
 
       // 元のグラデーションは陰影づけとして薄く重ね、絵巻としての統一感を保つ
       const shade = ctx.createLinearGradient(0, y, 0, y + bandH);
@@ -3528,15 +3689,7 @@
     ctx.restore();
 
     // 金の輪郭を薄く重ねて、絵巻らしい質感にする
-    ctx.beginPath();
-    for (let k = 0; k < lobes; k++) {
-      const cx = (k + 0.5) * (w / lobes);
-      ctx.moveTo(cx + r, y + pad);
-      ctx.arc(cx, y + pad, r, 0, Math.PI * 2);
-      ctx.moveTo(cx + (w / lobes) / 2 + r, y + bandH - pad);
-      ctx.arc(cx + (w / lobes) / 2, y + bandH - pad, r, 0, Math.PI * 2);
-    }
-    ctx.rect(0, y + pad, w, bandH - pad * 2);
+    buildCloudBandPath(ctx, y, w, bandH, seed, ampScale);
     ctx.strokeStyle = 'rgba(255, 236, 180, 0.35)';
     ctx.lineWidth = Math.max(1, w / 220);
     ctx.stroke();
@@ -3567,8 +3720,9 @@
     const ctx = cv.getContext('2d');
     // 描画位置は小さなキャンバスの中で完結させ（y=0）、
     // 金箔の中でどこを使うかだけを帯ごとにずらす（textureSeed）。
-    // ctx.clip() が帯の輪郭で切り取るので、キャンバスの余白は要らない
-    drawCloudBand(ctx, 0, w, bandH, true, bandIndex * bandH);
+    // 波の高さは0.55倍に抑え、キャンバスに余白を持たせなくても
+    // 山がはみ出して切れないようにしてある
+    drawCloudBand(ctx, 0, w, bandH, true, bandIndex * bandH, 0.55);
     const url = cv.toDataURL('image/png');
     if (goldLeafTexture) cloudBandUrlCache.set(key, url);
     return url;
@@ -3590,21 +3744,44 @@
     fctx.clearRect(0, 0, W, H);
     fctx.drawImage(rewardImage, 0, 0, W, H);
 
-    // 上の層：帯ごとのDOM要素。もともと晴れていた帯は最初から置かない
+    // 上の層：帯ごとのDOM要素。もともと晴れていた帯は最初から置かない。
+    // 今回新しく晴れる帯だけは、左右2枚に割った半分の帯として置く
+    // （晴れるときに左右にスライドしてフェードアウトさせるため）
     bandsWrap.innerHTML = '';
     const oldCleared = clearedBands(oldLevel);
     const newCleared = clearedBands(newLevel);
-    const bandEls = [];
+    const bandEls = [];       // ぼかし・不透明度のアニメ対象（帯ぜんぶ）
+    const revealEls = [];     // 左右スライドで消す対象（半分の帯）
     for (let i = 0; i < CLOUD_BANDS; i++) {
       if (oldCleared.has(i)) continue;
-      const div = document.createElement('div');
-      div.className = 'levelup-band';
-      div.style.top = `${(i / CLOUD_BANDS) * 100}%`;
-      div.style.height = `${100 / CLOUD_BANDS}%`;
-      div.style.backgroundImage = `url(${cloudBandDataUrl(i, W, H)})`;
-      if (newCleared.has(i)) div.dataset.reveal = '1';  // 今回新しく晴れる帯
-      bandsWrap.appendChild(div);
-      bandEls.push(div);
+      const top = `${(i / CLOUD_BANDS) * 100}%`;
+      const height = `${100 / CLOUD_BANDS}%`;
+      const url = cloudBandDataUrl(i, W, H);
+
+      if (newCleared.has(i)) {
+        const left = document.createElement('div');
+        left.className = 'levelup-band levelup-band-half levelup-band-half-l';
+        left.style.top = top;
+        left.style.height = height;
+        left.style.backgroundImage = `url(${url})`;
+        const right = document.createElement('div');
+        right.className = 'levelup-band levelup-band-half levelup-band-half-r';
+        right.style.top = top;
+        right.style.height = height;
+        right.style.backgroundImage = `url(${url})`;
+        bandsWrap.appendChild(left);
+        bandsWrap.appendChild(right);
+        bandEls.push(left, right);
+        revealEls.push(left, right);
+      } else {
+        const div = document.createElement('div');
+        div.className = 'levelup-band';
+        div.style.top = top;
+        div.style.height = height;
+        div.style.backgroundImage = `url(${url})`;
+        bandsWrap.appendChild(div);
+        bandEls.push(div);
+      }
     }
 
     document.getElementById('levelup-caption').textContent =
@@ -3631,14 +3808,18 @@
       bandEls.forEach(el => { el.style.filter = 'blur(0px)'; });
     }, 1750);
 
-    // 新しく晴れた帯だけを、少しずつスライドさせて消す
+    // 新しく晴れた帯だけを、左右に割れるようにスライドさせてフェードアウトする
     setTimeout(() => {
-      bandEls.filter(el => el.dataset.reveal === '1').forEach((el, idx) => {
+      // 半分の帯が2枚（左右）で1本ぶんなので、2枚ずつまとめて間隔をあける
+      for (let i = 0; i < revealEls.length; i += 2) {
+        const [left, right] = [revealEls[i], revealEls[i + 1]];
         setTimeout(() => {
-          el.style.transform = 'translateY(-120%)';
-          el.style.opacity = '0';
-        }, idx * 120);
-      });
+          left.style.transform = 'translateX(-100%)';
+          left.style.opacity = '0';
+          right.style.transform = 'translateX(100%)';
+          right.style.opacity = '0';
+        }, (i / 2) * 130);
+      }
     }, 2350);
   }
 
@@ -4338,6 +4519,8 @@
     baseDamagePerQuestion = st.base;
     sessionStartLevel = rewardLevel(correctTotal);
     sessionStartTime = Date.now();
+    relatedStudySeconds = 0;
+    relatedSolvedCount = 0;
     document.getElementById('current-mode').textContent = st.mode;
     enterBattle();
     openingReaction();
@@ -4381,6 +4564,8 @@
 
     sessionStartTime = Date.now();
     lastRecordAt = Date.now();
+    relatedStudySeconds = 0;
+    relatedSolvedCount = 0;
 
     const totalQ = currentSessionQuestions.length;
     baseDamagePerQuestion = totalQ > 0 ? (100 / (totalQ * DEFEAT_ACCURACY)) : 100;
@@ -5032,10 +5217,145 @@
       box.appendChild(document.createTextNode(text));
     }
 
+    // 関連する類題があれば、その場で試せるボタンを添える。
+    // 本編の状態には一切さわらない別枠の出題なので、いつ押しても安全
+    if (q.related && q.related.length) {
+      const relQ = allQuestions.find(x => q.related.includes(x.id));
+      if (relQ) {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'related-launch-btn';
+        btn.textContent = '🔍 類題を解く（この合戦の記録には含まれません）';
+        btn.addEventListener('click', () => openRelatedQuestion(relQ.id));
+        box.appendChild(btn);
+      }
+    }
+
     box.classList.remove('hidden');
     document.body.classList.add('reading');
     box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
+
+  // ----- 🔍 類題（腕試し） -----
+  // 本編のセッション（currentSessionQuestions・enemyHp・correctCount・comboCount・
+  // sessionLog・SRS）には一切さわらない、独立した1問だけのその場出題。
+  // かかった時間は sessionStartTime を同じだけ押し戻すことで、本編の
+  // 「所要時間」から自動的に取り除く（合計は relatedStudySeconds に別集計する）
+
+  function openRelatedQuestion(qId) {
+    const q = allQuestions.find(x => x.id === qId);
+    if (!q) return;
+    currentRelatedQuestion = q;
+    relatedOpenAt = Date.now();
+
+    document.getElementById('related-question').textContent = q.question;
+
+    const form = document.getElementById('related-form');
+    const input = document.getElementById('related-input');
+    const choiceBox = document.getElementById('related-choice-box');
+    const feedback = document.getElementById('related-feedback');
+    const explanation = document.getElementById('related-explanation');
+    const doneBtn = document.getElementById('related-done-btn');
+
+    feedback.className = 'feedback hidden';
+    explanation.classList.add('hidden');
+    doneBtn.classList.add('hidden');
+    input.value = '';
+    input.disabled = false;
+
+    // 語順整序の問題は類題としては扱わない（並べかえUIが別建てのため）。
+    // 書く／選ぶは、いま選んでいる答え方にそろえる
+    const useChoice = answerMode === 'choice';
+    form.classList.toggle('hidden', useChoice);
+    choiceBox.classList.toggle('hidden', !useChoice);
+    if (useChoice) {
+      choiceBox.textContent = '';
+      buildChoices(q).forEach(text => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.textContent = text;
+        btn.addEventListener('click', () => submitRelatedAnswer(text));
+        choiceBox.appendChild(btn);
+      });
+    }
+
+    const overlay = document.getElementById('related-overlay');
+    overlay.classList.add('show');
+    if (!useChoice) setTimeout(() => input.focus(), 50);
+  }
+
+  document.getElementById('related-form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    submitRelatedAnswer(document.getElementById('related-input').value.trim());
+  });
+
+  function submitRelatedAnswer(input) {
+    const q = currentRelatedQuestion;
+    if (!q) return;
+    const verdict = judgeAnswer(input, q);
+
+    document.getElementById('related-input').disabled = true;
+    document.getElementById('related-form').classList.add('hidden');
+    document.querySelectorAll('#related-choice-box button').forEach(b => {
+      b.disabled = true;
+      if (b.textContent === q.answer) b.classList.add('is-answer');
+      else if (b.textContent !== input) b.classList.add('hidden');
+    });
+
+    const kind = verdict === 'correct' ? 'correct' : (verdict === 'close' ? 'close' : 'incorrect');
+    const mark = verdict === 'correct' ? '◯' : (verdict === 'close' ? '△' : '✕');
+    const name = verdict === 'correct' ? '正解' : (verdict === 'close' ? '惜しい' : '不正解');
+
+    const fb = document.getElementById('related-feedback');
+    fb.className = `feedback ${kind}`;
+    fb.textContent = '';
+    const icon = document.createElement('span');
+    icon.className = 'mark';
+    icon.textContent = mark;
+    fb.appendChild(icon);
+    const body = document.createElement('span');
+    body.className = 'verdict';
+    const title = document.createElement('span');
+    title.className = 'verdict-name';
+    title.textContent = name;
+    body.appendChild(title);
+    if (q.answer) {
+      const line = document.createElement('span');
+      line.className = 'answers';
+      if (verdict !== 'correct') {
+        appendAnswer(line, 'あなた', input, q.answer);
+        const sep = document.createElement('span');
+        sep.className = 'sep';
+        sep.textContent = '／';
+        line.appendChild(sep);
+      }
+      appendAnswer(line, verdict === 'correct' ? '答え' : '正答', q.answer, verdict === 'correct' ? '' : input);
+      body.appendChild(line);
+    }
+    fb.appendChild(body);
+    fb.classList.remove('hidden');
+
+    const exp = document.getElementById('related-explanation');
+    exp.textContent = q.explanation || '';
+    exp.classList.remove('hidden');
+
+    document.getElementById('related-done-btn').classList.remove('hidden');
+    relatedSolvedCount++;
+  }
+
+  function closeRelatedOverlay() {
+    if (relatedOpenAt) {
+      const spent = (Date.now() - relatedOpenAt) / 1000;
+      relatedStudySeconds += spent;
+      sessionStartTime += spent * 1000;   // 本編の所要時間からこの時間を取り除く
+      relatedOpenAt = 0;
+    }
+    document.getElementById('related-overlay').classList.remove('show');
+    currentRelatedQuestion = null;
+  }
+
+  document.getElementById('related-close-btn').addEventListener('click', closeRelatedOverlay);
+  document.getElementById('related-done-btn').addEventListener('click', closeRelatedOverlay);
 
   // 敵を討ち取っても、選んだ問題数は最後までやり切る
   // （途中で打ち切ると「10問選んだのに8問で終わる」ことになるため）
@@ -5264,6 +5584,17 @@
       maxCombo: maxComboCount,
       defeated: enemyHp <= 0,
     });
+
+    // 類題（腕試し）を解いていれば、合戦の記録とは別枠で伝える
+    const relatedNote = document.getElementById('result-related-note');
+    if (relatedSolvedCount > 0) {
+      relatedNote.textContent =
+        `🔍 類題も${relatedSolvedCount}問、腕試し（のべ${formatElapsedTime(Math.round(relatedStudySeconds))}・` +
+        `この合戦の記録には含まれません）`;
+      relatedNote.classList.remove('hidden');
+    } else {
+      relatedNote.classList.add('hidden');
+    }
 
     // その合戦で落とした問題だけを、その場で解き直せるようにする
     const missedIds = sessionLog.filter(r => !r.ok).map(r => r.id);
