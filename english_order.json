@@ -3153,5 +3153,87 @@
     "end": ".",
     "answer": "Please help yourself.",
     "explanation": "help oneself で「自由に取って食べる」。直訳すると「自分を助ける」ですが、食卓では「ご自由にどうぞ」というもてなしの言葉になります。相手が複数なら yourselves と形が変わります。"
+  },
+  {
+    "id": "o197",
+    "category": "受け身",
+    "question": "この公園は多くの人に利用されています。",
+    "tokens": [
+      "this",
+      "park",
+      "is",
+      "used",
+      "by",
+      "many",
+      "people"
+    ],
+    "end": ".",
+    "answer": "This park is used by many people.",
+    "explanation": "受け身は〈be動詞＋過去分詞〉の形で表します。「〜によって」を表すbyのあとに、動作をする人を置きます。useは規則動詞で、過去分詞形はusedです。"
+  },
+  {
+    "id": "o198",
+    "category": "受け身",
+    "question": "英語はこの国では話されていません。",
+    "tokens": [
+      "english",
+      "is",
+      "not",
+      "spoken",
+      "in",
+      "this",
+      "country"
+    ],
+    "end": ".",
+    "answer": "English is not spoken in this country.",
+    "explanation": "受け身の否定文は、be動詞のあとにnotを置くだけです。一般動詞の否定文のようにdon'tを使わない点に注意しましょう。ここでは動作をする人が特定されていないため、byの部分は書かれていません。"
+  },
+  {
+    "id": "o199",
+    "category": "受け身",
+    "question": "この歌はだれによって歌われましたか。",
+    "tokens": [
+      "who",
+      "was",
+      "this",
+      "song",
+      "sung",
+      "by"
+    ],
+    "end": "?",
+    "answer": "Who was this song sung by?",
+    "explanation": "「だれによって〜されたか」とたずねる受け身の疑問文です。Whoを文の最初に置き、byは文の最後に残す形が中学英語の標準的な語順です。sungはsingの過去分詞形です。"
+  },
+  {
+    "id": "o200",
+    "category": "疑問詞",
+    "question": "これはだれの自転車ですか。",
+    "tokens": [
+      "whose",
+      "bike",
+      "is",
+      "this"
+    ],
+    "end": "?",
+    "answer": "Whose bike is this?",
+    "explanation": "「だれの〜」とたずねるときはwhoseを名詞の前に置きます。Whose is this bike?のようにwhoseだけを独立させる形もありますが、Whose＋名詞で文を始める形がより基本的です。"
+  },
+  {
+    "id": "o201",
+    "category": "関係代名詞・分詞",
+    "question": "私が昨日買った本はとても面白い。",
+    "tokens": [
+      "the",
+      "book",
+      "i",
+      "bought",
+      "yesterday",
+      "is",
+      "very",
+      "interesting"
+    ],
+    "end": ".",
+    "answer": "The book I bought yesterday is very interesting.",
+    "explanation": "関係代名詞の目的格(which/that)は、会話ではよく省略されます。The book (which) I bought yesterday のように、名詞のうしろに〈主語＋動詞〉を直接続ける形です。省略されても意味は変わりません。"
   }
 ]

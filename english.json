@@ -2436,5 +2436,50 @@
     "question": "easy の副詞形（簡単に）を英語1語で書きなさい。",
     "answer": "easily",
     "explanation": "y を i に変えて -ly をつけます。happy → happily、busy → busily も同じ。ふつうは -ly をつけるだけですが（careful → carefully）、y で終わる語だけこの変化をします。"
+  },
+  {
+    "id": "e342",
+    "category": "動詞の変化",
+    "question": "watch に3人称単数のsをつけると、どのような形になるか書きなさい。",
+    "answer": "watches",
+    "explanation": "語尾がch・sh・s・x・oで終わる語は、sではなくesをつけます。watch→watches、wash→washes、go→goesのように変化します。"
+  },
+  {
+    "id": "e343",
+    "category": "動詞の変化",
+    "question": "wash に3人称単数のsをつけると、どのような形になるか書きなさい。",
+    "answer": "washes",
+    "explanation": "語尾がsh・ch・s・x・oで終わる語には、esをつけるルールがあります。watchesと同じ仲間の変化です。"
+  },
+  {
+    "id": "e344",
+    "category": "助動詞",
+    "question": "can の未来の意味を表すとき、will のあとに続ける3語の表現を書きなさい。",
+    "answer": "be able to",
+    "explanation": "will のあとに can をそのまま置くことはできないため、will be able to ～（～することができるだろう）という形を使います。canのほかの形とあわせて、will can とはしない点に注意しましょう。"
+  },
+  {
+    "id": "e345",
+    "category": "前置詞・接続詞",
+    "question": "結果を表し、「だから、それで」という意味を持つ接続詞を1語で書きなさい。",
+    "answer": "so",
+    "explanation": "〈原因, so 結果〉の形で使います。理由を表すbecauseとは前後の関係が逆になる点に注意しましょう。It was raining, so I stayed home.（雨だったので、家にいた）のように使います。"
+  },
+  {
+    "id": "e346",
+    "category": "前置詞・接続詞",
+    "question": "「〜するまで」という意味の、時を表す接続詞を1語で書きなさい。",
+    "answer": "until",
+    "explanation": "ある状態や動作が続く終わりの時点を表します。Wait until I come back.（私が戻るまで待っていて）のように使います。同じ意味でtillも使われますが、untilのほうがよりかたい場面でも使えます。",
+    "alt": [
+      "till"
+    ]
+  },
+  {
+    "id": "e347",
+    "category": "前置詞・接続詞",
+    "question": "「〜する前に」という意味の、時を表す接続詞を1語で書きなさい。",
+    "answer": "before",
+    "explanation": "うしろに〈主語＋動詞〉を続けて、ある動作より前の時点を表します。Wash your hands before you eat.（食べる前に手を洗いなさい）のように使います。反対の意味を表す接続詞はafterです。"
   }
 ]
