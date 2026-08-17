@@ -5860,6 +5860,14 @@
   document.addEventListener('keydown', (e) => {
     if (e.key !== 'Enter' || e.repeat || e.isComposing) return;
     if (document.getElementById('quiz-screen').classList.contains('hidden')) return;
+    // 類題（腕試し）や問題編集のオーバーレイが本編の上に重なっているときは、
+    // 本編（quiz-screen）はまだ「表示中」のままなので、このエンター送りが
+    // 誤って本編の次の問題へ進めてしまっていた。オーバーレイが開いている間は
+    // 本編側のエンター処理を止め、オーバーレイ自身のフォームに任せる
+    if (document.getElementById('related-overlay').classList.contains('show')) return;
+    if (document.getElementById('edit-overlay').classList.contains('show')) return;
+    if (document.getElementById('levelup-overlay').classList.contains('show')) return;
+    if (!document.getElementById('reward-overlay').classList.contains('hidden')) return;
 
     // 語順整序は入力欄がないぶん、並べ終えたらエンターで判定できるようにする
     const orderSubmit = document.getElementById('order-submit-btn');
