@@ -863,6 +863,13 @@
 
     #related-done-btn { margin-top: 10px; background: #28a745; }
 
+    /* 陣形選択の分野一覧の下に出す、問題を新しく作るボタン */
+    .create-question-btn {
+      font-size: 0.86rem;
+      padding: 9px;
+      border: 1px dashed var(--accent);
+    }
+
     /* 解説の中に出す「類題を解く」ボタン。押しても本編の状態は一切変わらない */
     .related-launch-btn {
       display: block;
@@ -902,7 +909,7 @@
       margin-bottom: 4px;
     }
 
-    #edit-overlay textarea {
+    #edit-overlay textarea, #create-overlay textarea, #create-overlay select {
       width: 100%;
       padding: 10px;
       margin-bottom: 12px;
@@ -916,9 +923,9 @@
       resize: vertical;
     }
 
-    .edit-actions { display: flex; gap: 8px; }
-    .edit-actions button { margin-bottom: 0; }
-    #edit-revert-btn { background: rgba(220, 53, 69, 0.16); border-color: rgba(220, 53, 69, 0.55); color: #ffb3ba; }
+    .edit-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+    .edit-actions button { margin-bottom: 0; flex: 1 1 auto; }
+    #edit-revert-btn, #edit-delete-btn { background: rgba(220, 53, 69, 0.16); border-color: rgba(220, 53, 69, 0.55); color: #ffb3ba; }
 
     .edit-save-note {
       margin: 10px 0 0;
@@ -2348,8 +2355,41 @@
     <div class="edit-actions">
       <button type="button" id="edit-save-btn">保存する</button>
       <button type="button" id="edit-revert-btn" class="hidden">元に戻す</button>
+      <button type="button" id="edit-delete-btn" class="hidden">この問題を削除する</button>
     </div>
     <p id="edit-save-note" class="edit-save-note hidden"></p>
+  </div>
+</div>
+
+<!-- ➕ 問題の新規作成。この端末だけに保存され、選んだ教科の分野一覧にすぐ加わる -->
+<div id="create-overlay" class="related-overlay">
+  <div class="related-card">
+    <div class="related-card-head">
+      <span class="related-badge">➕ 問題を作る</span>
+      <button type="button" id="create-close-btn" class="related-close-btn" aria-label="閉じる">×</button>
+    </div>
+    <p class="edit-hint">この端末だけに保存されます。他の端末やお子さんの端末には反映されません。</p>
+
+    <label class="edit-field-label" for="create-category">分野（カテゴリー）</label>
+    <select id="create-category"></select>
+    <input type="text" id="create-category-new" placeholder="新しい分野の名前" class="hidden">
+
+    <label class="edit-field-label" for="create-question">問題文</label>
+    <textarea id="create-question" rows="3" placeholder="例: 〇〇を何というか。"></textarea>
+
+    <label class="edit-field-label" for="create-answer">答え</label>
+    <input type="text" id="create-answer">
+
+    <label class="edit-field-label" for="create-alt">別解（複数あれば「、」で区切る。なければ空欄でよい）</label>
+    <input type="text" id="create-alt">
+
+    <label class="edit-field-label" for="create-explanation">解説</label>
+    <textarea id="create-explanation" rows="5"></textarea>
+
+    <div class="edit-actions">
+      <button type="button" id="create-save-btn">作成する</button>
+    </div>
+    <p id="create-save-note" class="edit-save-note hidden"></p>
   </div>
 </div>
 
@@ -2447,6 +2487,10 @@
       <div class="category-group" id="category-checkboxes">
         <!-- JavaScriptで動的生成 -->
       </div>
+
+      <button type="button" id="create-question-btn" class="btn-sub2 create-question-btn">
+        ＋ 問題を作る（この端末だけに保存）
+      </button>
 
       <!-- 語順整序のある教科（英語）でだけ出す -->
       <div id="format-row" class="hidden">
@@ -3503,6 +3547,30 @@
     });
   }
 
+  // ----- ➕ 問題の新規作成 -----
+  // こちらも questionOverrides と同じく、この端末の localStorage だけに保存する
+  // （TRANSFER_KEYS/TRANSFER_PREFIXES に含めていないので、プロフィールを
+  // 切りかえても残る＝端末に属する情報として扱う。持ち運びには含まれない）
+  const USER_QUESTIONS_KEY = 'userQuestions';
+
+  function loadUserQuestions() {
+    try { return JSON.parse(localStorage.getItem(USER_QUESTIONS_KEY) || '{}'); }
+    catch { return {}; }
+  }
+
+  function saveUserQuestions(data) {
+    localStorage.setItem(USER_QUESTIONS_KEY, JSON.stringify(data));
+  }
+
+  // 削除してもIDを使い回さない。使い回すと、消した問題の古い編集内容
+  // （questionOverrides）を新しい問題が偶然引き継いでしまう事故につながるため
+  function nextCustomId(subjectKey) {
+    const counterKey = `userQuestionCounter_${subjectKey}`;
+    const n = (parseInt(localStorage.getItem(counterKey), 10) || 0) + 1;
+    localStorage.setItem(counterKey, String(n));
+    return `custom-${subjectKey}-${n}`;
+  }
+
   function selectSubject(key, name, labelText, afterLoad) {
     currentSubjectKey = key;
     currentSubjectName = name;
@@ -3526,7 +3594,7 @@
       return res.json();
     })))
       .then(([qa, order]) => {
-        qaQuestions = qa;
+        qaQuestions = qa.concat(loadUserQuestions()[key] || []);
         orderQuestions = order || [];
         applyQuestionOverrides(qaQuestions);
         applyQuestionOverrides(orderQuestions);
@@ -5502,8 +5570,12 @@
     document.getElementById('edit-alt').value = (q.alt || []).join('、');
     document.getElementById('edit-explanation').value = q.explanation || '';
 
+    // 自分で作った問題（IDが custom- で始まる）には「元に戻す」が意味を持たない
+    // （戻す先の「本来の問題」が無いため）。代わりに削除できるようにする
+    const isCustom = q.id.startsWith('custom-');
     const hasOverride = !!loadQuestionOverrides()[q.id];
-    document.getElementById('edit-revert-btn').classList.toggle('hidden', !hasOverride);
+    document.getElementById('edit-revert-btn').classList.toggle('hidden', isCustom || !hasOverride);
+    document.getElementById('edit-delete-btn').classList.toggle('hidden', !isCustom);
     document.getElementById('edit-save-note').classList.add('hidden');
 
     document.getElementById('edit-overlay').classList.add('show');
@@ -5568,6 +5640,101 @@
     editApplyCallback = null;
   }
   document.getElementById('edit-close-btn').addEventListener('click', closeEditOverlay);
+
+  // 自分で作った問題だけを削除する（ID: custom-<教科>-<番号>）
+  document.getElementById('edit-delete-btn').addEventListener('click', () => {
+    const q = currentEditQuestion;
+    if (!q) return;
+    if (!confirm('この問題を削除しますか？\nこの操作は元に戻せません。')) return;
+
+    const subjectKey = q.id.split('-')[1];
+    const data = loadUserQuestions();
+    if (data[subjectKey]) {
+      data[subjectKey] = data[subjectKey].filter(x => x.id !== q.id);
+      saveUserQuestions(data);
+    }
+    // 編集履歴が残っていれば、番号の使い回しによる事故を避けるためこちらも消す
+    const overrides = loadQuestionOverrides();
+    if (overrides[q.id]) { delete overrides[q.id]; saveQuestionOverrides(overrides); }
+
+    location.reload();
+  });
+
+  // ----- ➕ 問題の新規作成 -----
+
+  function openCreateQuestion() {
+    const cats = [...new Set(qaQuestions.map(q => q.category))];
+    const sel = document.getElementById('create-category');
+    sel.textContent = '';
+    cats.forEach(c => {
+      const opt = document.createElement('option');
+      opt.value = c;
+      opt.textContent = c;
+      sel.appendChild(opt);
+    });
+    const newOpt = document.createElement('option');
+    newOpt.value = '__new__';
+    newOpt.textContent = '＋ 新しい分野を作る';
+    sel.appendChild(newOpt);
+
+    document.getElementById('create-category-new').classList.add('hidden');
+    document.getElementById('create-category-new').value = '';
+    document.getElementById('create-question').value = '';
+    document.getElementById('create-answer').value = '';
+    document.getElementById('create-alt').value = '';
+    document.getElementById('create-explanation').value = '';
+    document.getElementById('create-save-note').classList.add('hidden');
+
+    document.getElementById('create-overlay').classList.add('show');
+  }
+
+  document.getElementById('create-question-btn').addEventListener('click', openCreateQuestion);
+
+  document.getElementById('create-category').addEventListener('change', (e) => {
+    document.getElementById('create-category-new').classList.toggle('hidden', e.target.value !== '__new__');
+  });
+
+  document.getElementById('create-save-btn').addEventListener('click', () => {
+    const sel = document.getElementById('create-category');
+    let category = sel.value === '__new__'
+      ? document.getElementById('create-category-new').value.trim()
+      : sel.value;
+    const question = document.getElementById('create-question').value.trim();
+    const answer = document.getElementById('create-answer').value.trim();
+    const altRaw = document.getElementById('create-alt').value.trim();
+    const alt = altRaw ? altRaw.split(/[、,]/).map(s => s.trim()).filter(Boolean) : [];
+    const explanation = document.getElementById('create-explanation').value.trim();
+
+    if (!category || !question || !answer) {
+      alert('分野・問題文・答えは空にできません。');
+      return;
+    }
+
+    const entry = { id: nextCustomId(currentSubjectKey), category, question, answer, explanation };
+    if (alt.length) entry.alt = alt;
+
+    const data = loadUserQuestions();
+    data[currentSubjectKey] = (data[currentSubjectKey] || []).concat(entry);
+    saveUserQuestions(data);
+
+    // 今読みこんでいる問題データにもその場で加え、分野一覧をすぐ更新する
+    qaQuestions.push(entry);
+    applyFormat();
+    initSetupScreen();
+
+    const note = document.getElementById('create-save-note');
+    note.textContent = '作成しました。分野の一覧にすぐ追加されています。続けてもう1問作れます。';
+    note.classList.remove('hidden');
+
+    document.getElementById('create-question').value = '';
+    document.getElementById('create-answer').value = '';
+    document.getElementById('create-alt').value = '';
+    document.getElementById('create-explanation').value = '';
+  });
+
+  document.getElementById('create-close-btn').addEventListener('click', () => {
+    document.getElementById('create-overlay').classList.remove('show');
+  });
 
   // 敵を討ち取っても、選んだ問題数は最後までやり切る
   // （途中で打ち切ると「10問選んだのに8問で終わる」ことになるため）
@@ -5868,6 +6035,7 @@
     if (document.getElementById('edit-overlay').classList.contains('show')) return;
     if (document.getElementById('levelup-overlay').classList.contains('show')) return;
     if (!document.getElementById('reward-overlay').classList.contains('hidden')) return;
+    if (document.getElementById('create-overlay').classList.contains('show')) return;
 
     // 語順整序は入力欄がないぶん、並べ終えたらエンターで判定できるようにする
     const orderSubmit = document.getElementById('order-submit-btn');
@@ -6105,7 +6273,8 @@
           const orderRes = await fetch(ORDER_FILE[sub.key]);
           order = orderRes.ok ? await orderRes.json() : [];
         }
-        return [sub.key, qa.concat(order)];
+        const custom = loadUserQuestions()[sub.key] || [];
+        return [sub.key, qa.concat(order).concat(custom)];
       } catch (err) {
         return [sub.key, []];
       }
