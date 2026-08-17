@@ -4988,7 +4988,11 @@
   }
 
   function orderSentence() {
-    return orderSlots.map(t => t.text).join(' ');
+    // カンマの前には空白を入れない（"home ," ではなく "home,"）
+    return orderSlots.reduce((s, t, i) => {
+      if (i === 0) return t.text;
+      return s + (t.text === ',' ? '' : ' ') + t.text;
+    }, '');
   }
 
   function judgeOrder(q) {
