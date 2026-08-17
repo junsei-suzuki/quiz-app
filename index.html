@@ -885,6 +885,63 @@
       margin: -6px 0 14px;
     }
 
+    /* ✏️ 問題のローカル編集。この端末の localStorage だけに保存され、
+       他の端末や本体データには反映されない（related-overlay と同じ見た目を流用） */
+    .edit-hint {
+      font-size: 0.8rem;
+      color: #a89684;
+      line-height: 1.6;
+      margin: 0 0 14px;
+    }
+
+    .edit-field-label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: bold;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+
+    #edit-overlay textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 12px;
+      border: 1px solid #664433;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-family: inherit;
+      box-sizing: border-box;
+      background: #2a1f1b;
+      color: #fff;
+      resize: vertical;
+    }
+
+    .edit-actions { display: flex; gap: 8px; }
+    .edit-actions button { margin-bottom: 0; }
+    #edit-revert-btn { background: rgba(220, 53, 69, 0.16); border-color: rgba(220, 53, 69, 0.55); color: #ffb3ba; }
+
+    .edit-save-note {
+      margin: 10px 0 0;
+      font-size: 0.85rem;
+      color: #8fd9a0;
+      text-align: center;
+    }
+
+    /* 解説・検索結果の中に出す「編集」ボタン。目立たせすぎないよう控えめにする */
+    .edit-launch-btn {
+      display: block;
+      width: 100%;
+      margin-top: 8px;
+      padding: 7px;
+      background: transparent;
+      border: 1px solid var(--card-border);
+      border-radius: 8px;
+      color: #a89684;
+      font-size: 0.78rem;
+      font-weight: normal;
+      cursor: pointer;
+    }
+
     /* ✅ 解答後に出す「要復習」のチェック */
     .mark-row {
       display: flex;
@@ -2266,6 +2323,36 @@
   </div>
 </div>
 
+<!-- ✏️ 問題のローカル編集。この端末の localStorage だけに保存され、
+     他の端末や本体データ（GitHub上のJSON）には反映されない -->
+<div id="edit-overlay" class="related-overlay">
+  <div class="related-card">
+    <div class="related-card-head">
+      <span class="related-badge">✏️ 問題を編集</span>
+      <button type="button" id="edit-close-btn" class="related-close-btn" aria-label="閉じる">×</button>
+    </div>
+    <p class="edit-hint">この端末だけに保存されます。他の端末やお子さんの端末には反映されません。</p>
+
+    <label class="edit-field-label" for="edit-question">問題文</label>
+    <textarea id="edit-question" rows="3"></textarea>
+
+    <label class="edit-field-label" for="edit-answer">答え</label>
+    <input type="text" id="edit-answer">
+
+    <label class="edit-field-label" for="edit-alt">別解（複数あれば「、」で区切る。なければ空欄でよい）</label>
+    <input type="text" id="edit-alt">
+
+    <label class="edit-field-label" for="edit-explanation">解説</label>
+    <textarea id="edit-explanation" rows="5"></textarea>
+
+    <div class="edit-actions">
+      <button type="button" id="edit-save-btn">保存する</button>
+      <button type="button" id="edit-revert-btn" class="hidden">元に戻す</button>
+    </div>
+    <p id="edit-save-note" class="edit-save-note hidden"></p>
+  </div>
+</div>
+
 <!-- 🎯 メインカード（画面中央から下部に配置） -->
 <div class="app-container">
   <!-- 1. ホーム画面（教科選択） -->
@@ -3388,6 +3475,34 @@
   let comboCount = 0;
   let maxComboCount = 0;
 
+  // ----- ✏️ 問題のローカル編集 -----
+  // 教科書に合わせて表現を直したいときなどに、問題文・答え・別解・解説を
+  // その場で書きかえられるようにする。保存先はこの端末の localStorage だけで、
+  // GitHub上の本体データ（*.json）は書きかわらない。TRANSFER_KEYS に含めていないので、
+  // アカウント（プロフィール）を切りかえても、この端末の編集はそのまま残る
+  // （教科書の表現に合わせる修正は「今使っている子」ではなく「この端末」に
+  // 属する情報と考えられるため）
+  const QUESTION_OVERRIDES_KEY = 'questionOverrides';
+
+  function loadQuestionOverrides() {
+    try { return JSON.parse(localStorage.getItem(QUESTION_OVERRIDES_KEY) || '{}'); }
+    catch { return {}; }
+  }
+
+  function saveQuestionOverrides(overrides) {
+    localStorage.setItem(QUESTION_OVERRIDES_KEY, JSON.stringify(overrides));
+  }
+
+  // 読みこんだ問題データに、この端末で保存した編集をその場で重ねる
+  function applyQuestionOverrides(questions) {
+    if (!questions || !questions.length) return;
+    const overrides = loadQuestionOverrides();
+    questions.forEach(q => {
+      const o = overrides[q.id];
+      if (o) Object.assign(q, o);
+    });
+  }
+
   function selectSubject(key, name, labelText, afterLoad) {
     currentSubjectKey = key;
     currentSubjectName = name;
@@ -3413,6 +3528,8 @@
       .then(([qa, order]) => {
         qaQuestions = qa;
         orderQuestions = order || [];
+        applyQuestionOverrides(qaQuestions);
+        applyQuestionOverrides(orderQuestions);
         document.getElementById('format-row').classList.toggle('hidden', orderQuestions.length === 0);
         applyFormat();
         document.body.classList.remove('home-layout');
@@ -5235,6 +5352,14 @@
       }
     }
 
+    // 教科書の表現に合わせたいときなどに、その場で問題を直せるようにする
+    const editBtn = document.createElement('button');
+    editBtn.type = 'button';
+    editBtn.className = 'edit-launch-btn';
+    editBtn.textContent = '✏️ この問題を編集（この端末だけに保存）';
+    editBtn.addEventListener('click', () => openEditQuestion(q, () => showExplanation(q)));
+    box.appendChild(editBtn);
+
     box.classList.remove('hidden');
     document.body.classList.add('reading');
     box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -5360,6 +5485,89 @@
 
   document.getElementById('related-close-btn').addEventListener('click', closeRelatedOverlay);
   document.getElementById('related-done-btn').addEventListener('click', closeRelatedOverlay);
+
+  // ----- ✏️ 問題のローカル編集 -----
+
+  let currentEditQuestion = null;
+  // 保存後に画面上の表示をその場で更新するための、呼び出し元ごとのコールバック
+  let editApplyCallback = null;
+
+  function openEditQuestion(q, onApplied) {
+    if (!q) return;
+    currentEditQuestion = q;
+    editApplyCallback = onApplied || null;
+
+    document.getElementById('edit-question').value = q.question || '';
+    document.getElementById('edit-answer').value = q.answer || '';
+    document.getElementById('edit-alt').value = (q.alt || []).join('、');
+    document.getElementById('edit-explanation').value = q.explanation || '';
+
+    const hasOverride = !!loadQuestionOverrides()[q.id];
+    document.getElementById('edit-revert-btn').classList.toggle('hidden', !hasOverride);
+    document.getElementById('edit-save-note').classList.add('hidden');
+
+    document.getElementById('edit-overlay').classList.add('show');
+  }
+
+  // 今メモリ上にある同じ問題（本編・語順整序・検索の控えなど）すべてに、その場で反映する
+  function applyEditToLiveQuestions(qId, patch) {
+    const pools = [qaQuestions, orderQuestions, allQuestions, currentSessionQuestions,
+      lastMissed, markedQuestions, wrongQuestions];
+    if (searchCorpus) pools.push(...Object.values(searchCorpus));
+    pools.forEach(arr => {
+      if (!Array.isArray(arr)) return;
+      const q = arr.find(x => x && x.id === qId);
+      if (q) Object.assign(q, patch);
+    });
+  }
+
+  document.getElementById('edit-save-btn').addEventListener('click', () => {
+    const q = currentEditQuestion;
+    if (!q) return;
+    const newQuestion = document.getElementById('edit-question').value.trim();
+    const newAnswer = document.getElementById('edit-answer').value.trim();
+    const altRaw = document.getElementById('edit-alt').value.trim();
+    const newAlt = altRaw ? altRaw.split(/[、,]/).map(s => s.trim()).filter(Boolean) : [];
+    const newExplanation = document.getElementById('edit-explanation').value.trim();
+
+    if (!newQuestion || !newAnswer) {
+      alert('問題文と答えは空にできません。');
+      return;
+    }
+
+    const patch = { question: newQuestion, answer: newAnswer, explanation: newExplanation };
+    if (newAlt.length) patch.alt = newAlt;
+
+    const overrides = loadQuestionOverrides();
+    overrides[q.id] = patch;
+    saveQuestionOverrides(overrides);
+    applyEditToLiveQuestions(q.id, patch);
+
+    document.getElementById('edit-revert-btn').classList.remove('hidden');
+    const note = document.getElementById('edit-save-note');
+    note.textContent = 'この端末に保存しました。';
+    note.classList.remove('hidden');
+
+    if (editApplyCallback) editApplyCallback(q);
+  });
+
+  document.getElementById('edit-revert-btn').addEventListener('click', () => {
+    const q = currentEditQuestion;
+    if (!q) return;
+    if (!confirm('編集をやめて、元の問題文に戻しますか？\n（画面を読みこみ直します）')) return;
+
+    const overrides = loadQuestionOverrides();
+    delete overrides[q.id];
+    saveQuestionOverrides(overrides);
+    location.reload();
+  });
+
+  function closeEditOverlay() {
+    document.getElementById('edit-overlay').classList.remove('show');
+    currentEditQuestion = null;
+    editApplyCallback = null;
+  }
+  document.getElementById('edit-close-btn').addEventListener('click', closeEditOverlay);
 
   // 敵を討ち取っても、選んだ問題数は最後までやり切る
   // （途中で打ち切ると「10問選んだのに8問で終わる」ことになるため）
@@ -5895,6 +6103,7 @@
       }
     }));
     searchCorpus = Object.fromEntries(entries);
+    Object.values(searchCorpus).forEach(applyQuestionOverrides);
     return searchCorpus;
   }
 
@@ -6016,6 +6225,25 @@
         practiceSingleQuestion(subjectKey, q.id);
       });
       actions.appendChild(practiceBtn);
+
+      const editBtn = document.createElement('button');
+      editBtn.type = 'button';
+      editBtn.className = 'btn-sub';
+      editBtn.textContent = '✏️ 編集';
+      editBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        openEditQuestion(q, (edited) => {
+          qtext.textContent = edited.question;
+          catTag.textContent = edited.category;
+          ans.textContent = '';
+          const label2 = document.createElement('b');
+          label2.textContent = '答え: ';
+          ans.appendChild(label2);
+          ans.appendChild(document.createTextNode(edited.answer));
+          exp.textContent = edited.explanation || '';
+        });
+      });
+      actions.appendChild(editBtn);
 
       body.appendChild(actions);
       head.addEventListener('click', () => body.classList.toggle('hidden'));
