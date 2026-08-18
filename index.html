@@ -4895,7 +4895,8 @@
 
     setTimeout(() => {
       impact.classList.add('active');
-      slash.classList.add('active');
+      // 惜しい判定は、正解を斬ったかのように見える斬撃エフェクトだけは出さない
+      if (mode !== 'close') slash.classList.add('active');
       damage.classList.add('active');
 
       if (enemyHp <= 0) {
